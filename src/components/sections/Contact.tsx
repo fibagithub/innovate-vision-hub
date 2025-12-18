@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Clock } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Clock, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -17,25 +17,25 @@ export function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
-      title: "Message sent!",
-      description: "We'll get back to you within 24 hours.",
+      title: "Мессеж илгээгдлээ!",
+      description: "Бид тантай 24 цагийн дотор холбогдох болно.",
     });
     setFormData({ name: '', email: '', company: '', message: '' });
   };
 
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24 bg-background" id="contact">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="text-primary font-medium text-sm tracking-wider uppercase mb-4 block">
-            Contact Us
+            Холбоо барих
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Let's Build Something Great Together
+            Бидэнтэй холбогдоорой
           </h2>
           <p className="text-muted-foreground text-lg">
-            Ready to transform your business? Get in touch with our team to discuss your project.
+            Танд туслахад бэлэн байна. Асуулт, санал хүсэлтээ бидэнд илгээнэ үү.
           </p>
         </div>
 
@@ -46,11 +46,11 @@ export function Contact() {
               <div className="grid sm:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    Full Name
+                    Бүтэн нэр
                   </label>
                   <Input
                     type="text"
-                    placeholder="John Doe"
+                    placeholder="Таны нэр"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
@@ -59,11 +59,11 @@ export function Contact() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    Email Address
+                    Имэйл хаяг
                   </label>
                   <Input
                     type="email"
-                    placeholder="john@company.com"
+                    placeholder="info@company.mn"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
@@ -73,11 +73,11 @@ export function Contact() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Company
+                  Байгууллага
                 </label>
                 <Input
                   type="text"
-                  placeholder="Your Company"
+                  placeholder="Таны байгууллагын нэр"
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                   className="h-12"
@@ -85,10 +85,10 @@ export function Contact() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Message
+                  Мессеж
                 </label>
                 <Textarea
-                  placeholder="Tell us about your project..."
+                  placeholder="Таны асуулт, санал хүсэлт..."
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   required
@@ -96,7 +96,7 @@ export function Contact() {
                 />
               </div>
               <Button type="submit" variant="gradient" size="lg" className="w-full">
-                Send Message
+                Илгээх
                 <Send className="ml-2" size={18} />
               </Button>
             </form>
@@ -110,41 +110,65 @@ export function Contact() {
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                   <Mail className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="font-display font-semibold text-foreground mb-1">Email</h3>
-                <p className="text-muted-foreground">info@fibatech.com</p>
+                <h3 className="font-display font-semibold text-foreground mb-1">Имэйл</h3>
+                <a href="mailto:contact@fiba.mn" className="text-muted-foreground hover:text-primary transition-colors">
+                  contact@fiba.mn
+                </a>
               </div>
               <div className="p-6 rounded-2xl bg-card border border-border">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                   <Phone className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="font-display font-semibold text-foreground mb-1">Phone</h3>
-                <p className="text-muted-foreground">+1 (555) 123-4567</p>
+                <h3 className="font-display font-semibold text-foreground mb-1">Утас</h3>
+                <a href="tel:+97675092211" className="text-muted-foreground hover:text-primary transition-colors">
+                  +976-7509-2211
+                </a>
               </div>
               <div className="p-6 rounded-2xl bg-card border border-border">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                  <MapPin className="w-6 h-6 text-primary" />
+                  <Globe className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="font-display font-semibold text-foreground mb-1">Address</h3>
-                <p className="text-muted-foreground">123 Tech Avenue, Silicon Valley, CA</p>
+                <h3 className="font-display font-semibold text-foreground mb-1">Вэбсайт</h3>
+                <a href="https://www.fiba.mn" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                  www.fiba.mn
+                </a>
               </div>
               <div className="p-6 rounded-2xl bg-card border border-border">
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                   <Clock className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="font-display font-semibold text-foreground mb-1">Hours</h3>
-                <p className="text-muted-foreground">Mon - Fri: 9AM - 6PM</p>
+                <h3 className="font-display font-semibold text-foreground mb-1">Ажлын цаг</h3>
+                <p className="text-muted-foreground">Даваа - Баасан: 9:00 - 18:00</p>
               </div>
             </div>
 
-            {/* Map Placeholder */}
-            <div className="h-64 rounded-2xl bg-muted border border-border overflow-hidden">
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/5 to-accent/5">
-                <div className="text-center">
-                  <MapPin className="w-12 h-12 text-primary/40 mx-auto mb-2" />
-                  <p className="text-muted-foreground">Interactive Map</p>
-                  <p className="text-sm text-muted-foreground/60">Silicon Valley, CA</p>
+            {/* Address Card */}
+            <div className="p-6 rounded-2xl bg-card border border-border">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                  <MapPin className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-display font-semibold text-foreground mb-1">Хаяг</h3>
+                  <p className="text-muted-foreground">
+                    Монгол улс, Улаанбаатар хот, Хан-Уул дүүрэг, 15-р хороо, Үйлдвэр, Богд жавзан дамба гудамж 12 байр, 1 тоот
+                  </p>
                 </div>
               </div>
+            </div>
+
+            {/* Map */}
+            <div className="h-64 rounded-2xl overflow-hidden border border-border">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2674.5!2d106.9!3d47.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDfCsDU0JzAwLjAiTiAxMDbCsDU0JzAwLjAiRQ!5e0!3m2!1sen!2smn!4v1620000000000!5m2!1sen!2smn"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="FIBA LLC Location"
+              />
             </div>
           </div>
         </div>

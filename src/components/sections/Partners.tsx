@@ -1,85 +1,113 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Building2, Landmark, Users, Briefcase } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const partners = [
-  { id: 1, name: 'Microsoft', logo: 'M' },
-  { id: 2, name: 'Google Cloud', logo: 'G' },
-  { id: 3, name: 'Amazon AWS', logo: 'A' },
-  { id: 4, name: 'IBM', logo: 'I' },
-  { id: 5, name: 'Oracle', logo: 'O' },
-  { id: 6, name: 'Salesforce', logo: 'S' },
-  { id: 7, name: 'SAP', logo: 'S' },
-  { id: 8, name: 'Cisco', logo: 'C' },
+const clientTypes = [
+  { icon: Landmark, label: 'Арилжааны банкууд' },
+  { icon: Building2, label: 'ББСБ' },
+  { icon: Users, label: 'Хадгаламж зээлийн хоршоод' },
+  { icon: Briefcase, label: 'Лизингийн компаниуд' },
 ];
 
-const clients = [
-  'Fortune 500 Companies',
-  'Government Agencies',
-  'Healthcare Organizations',
-  'Financial Institutions',
-  'Educational Institutions',
-  'Retail Enterprises',
+const achievements = [
+  {
+    number: '4+',
+    label: 'Банканд систем нэвтрүүлсэн',
+  },
+  {
+    number: '50+',
+    label: 'ХЗХ, ББСБ-д үйлчилгээ үзүүлсэн',
+  },
+  {
+    number: '15+',
+    label: 'Жилийн туршлага',
+  },
+  {
+    number: '100%',
+    label: 'Харилцагчийн сэтгэл ханамж',
+  },
 ];
 
 export function Partners() {
   return (
-    <section className="py-24 bg-muted/50">
+    <section className="py-24 bg-muted/50" id="clients">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="text-primary font-medium text-sm tracking-wider uppercase mb-4 block">
-            Partners & Clients
+            Харилцагчид
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Trusted by Industry Leaders
+            Харилцагчийн сэтгэл ханамж <span className="gradient-text">бодит үр дүн</span> бидний нэрийн хуудас
           </h2>
           <p className="text-muted-foreground text-lg">
-            We partner with the world's leading technology companies to deliver best-in-class solutions to our clients.
+            Харилцагч нартаа хамгийн чанартай бүтээгдэхүүн үйлчилгээ үзүүлэхийг бид хичээн ажиллаж байна.
           </p>
         </div>
 
-        {/* Partners Logo Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-6 mb-16">
-          {partners.map((partner) => (
+        {/* Client Types Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          {clientTypes.map((client, index) => (
             <div
-              key={partner.id}
-              className="aspect-square rounded-2xl bg-card border border-border flex items-center justify-center hover:border-primary/30 hover:shadow-soft transition-all group"
+              key={index}
+              className="p-8 rounded-2xl bg-card border border-border hover:border-primary/30 hover:shadow-soft transition-all text-center group"
             >
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center group-hover:from-primary/20 group-hover:to-accent/20 transition-colors">
-                <span className="font-display text-2xl font-bold text-foreground">
-                  {partner.logo}
-                </span>
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center mx-auto mb-4 group-hover:from-primary/20 group-hover:to-accent/20 transition-colors">
+                <client.icon className="w-8 h-8 text-primary" />
               </div>
+              <span className="font-display font-semibold text-foreground">
+                {client.label}
+              </span>
             </div>
           ))}
         </div>
 
-        {/* Client Types */}
-        <div className="bg-card rounded-3xl border border-border p-8 lg:p-12">
+        {/* Achievements */}
+        <div className="bg-card rounded-3xl border border-border p-8 lg:p-12 mb-16">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {achievements.map((achievement, index) => (
+              <div key={index} className="text-center">
+                <div className="font-display text-4xl lg:text-5xl font-bold gradient-text mb-2">
+                  {achievement.number}
+                </div>
+                <p className="text-muted-foreground">{achievement.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Why Choose Us */}
+        <div className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-3xl border border-border p-8 lg:p-12">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h3 className="font-display text-2xl font-bold text-foreground mb-4">
-                Serving Diverse Industries
+                Яагаад биднийг сонгох вэ?
               </h3>
               <p className="text-muted-foreground mb-6">
-                Our solutions have helped organizations across various sectors achieve their digital transformation goals.
+                Манай системүүд нь олон улсын стандартад нийцсэн, найдвартай, хэрэглэхэд хялбар, тасралтгүй хөгжүүлэлт хийгддэг давуу талтай.
               </p>
               <Link to="/partners">
                 <Button variant="gradient">
-                  View All Partners
+                  Дэлгэрэнгүй мэдээлэл
                   <ArrowRight className="ml-2" />
                 </Button>
               </Link>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              {clients.map((client, index) => (
+              {[
+                'Олон улсын жишигт нийцсэн',
+                '24/7 Техникийн дэмжлэг',
+                'Тасралтгүй хөгжүүлэлт',
+                'Мэргэжлийн баг',
+                'Найдвартай аюулгүй',
+                'Хялбар интеграци',
+              ].map((feature, index) => (
                 <div
                   key={index}
-                  className="p-4 rounded-xl bg-muted/50 border border-border"
+                  className="p-4 rounded-xl bg-card border border-border"
                 >
-                  <span className="text-foreground font-medium">{client}</span>
+                  <span className="text-foreground font-medium text-sm">{feature}</span>
                 </div>
               ))}
             </div>

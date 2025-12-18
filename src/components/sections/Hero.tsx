@@ -8,6 +8,16 @@ export function Hero() {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-foreground via-foreground/95 to-foreground" />
       
+      {/* Background Image Overlay */}
+      <div 
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+      
       {/* Animated Grid */}
       <div className="absolute inset-0 opacity-20">
         <div 
@@ -32,7 +42,7 @@ export function Hero() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8 animate-fade-in">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-primary text-sm font-medium">Innovating the Future</span>
+            <span className="text-primary text-sm font-medium">FIBA LLC - 2009 оноос</span>
           </div>
 
           {/* Headline */}
@@ -40,17 +50,17 @@ export function Hero() {
             className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-background mb-6 leading-tight animate-fade-in"
             style={{ animationDelay: '0.1s' }}
           >
-            Building Tomorrow's{' '}
-            <span className="gradient-text">Technology</span>{' '}
-            Solutions
+            Бид шалтгааныг ойлгоход анхаардаг учраас{' '}
+            <span className="gradient-text">бодит үр дүн</span>{' '}
+            гаргадаг
           </h1>
 
           {/* Subheadline */}
           <p 
-            className="text-lg sm:text-xl text-background/70 max-w-2xl mx-auto mb-10 animate-fade-in"
+            className="text-lg sm:text-xl text-background/70 max-w-3xl mx-auto mb-10 animate-fade-in"
             style={{ animationDelay: '0.2s' }}
           >
-            We transform businesses through cutting-edge technology, innovative solutions, and expert consulting. Partner with us to accelerate your digital transformation.
+            Банк санхүүгийн програм хангамж, төлбөр тооцооны систем, мэдээллийн сан зохион байгуулах чиглэлээр 15+ жилийн туршлагатай мэргэжлийн баг
           </p>
 
           {/* CTAs */}
@@ -60,14 +70,14 @@ export function Hero() {
           >
             <Link to="/services">
               <Button variant="hero" size="xl" className="group">
-                Explore Services
+                Бүтээгдэхүүн үзэх
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Link to="/about">
               <Button variant="hero-outline" size="xl" className="group">
                 <Play size={18} className="mr-1" />
-                Learn More
+                Бидний тухай
               </Button>
             </Link>
           </div>
@@ -78,10 +88,10 @@ export function Hero() {
             style={{ animationDelay: '0.4s' }}
           >
             {[
-              { value: '10+', label: 'Years Experience' },
-              { value: '200+', label: 'Projects Delivered' },
-              { value: '50+', label: 'Expert Team' },
-              { value: '99%', label: 'Client Satisfaction' },
+              { value: '15+', label: 'Жилийн туршлага' },
+              { value: '4+', label: 'Банканд хамтран ажилласан' },
+              { value: '12+', label: 'Мэргэжлийн баг' },
+              { value: '100%', label: 'Харилцагчийн сэтгэл ханамж' },
             ].map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="font-display text-3xl sm:text-4xl font-bold text-background mb-2">
