@@ -1,63 +1,57 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-foreground via-foreground/95 to-foreground" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+      {/* Soft gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-secondary/50 via-background to-background" />
       
-      {/* Background Image Overlay */}
-      <div 
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-      
-      {/* Animated Grid */}
-      <div className="absolute inset-0 opacity-20">
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 opacity-[0.02]">
         <div 
           className="absolute inset-0"
           style={{
             backgroundImage: `
-              linear-gradient(to right, hsl(var(--primary) / 0.1) 1px, transparent 1px),
-              linear-gradient(to bottom, hsl(var(--primary) / 0.1) 1px, transparent 1px)
+              linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px),
+              linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)
             `,
-            backgroundSize: '60px 60px',
+            backgroundSize: '80px 80px',
           }}
         />
       </div>
 
-      {/* Gradient Orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/30 rounded-full blur-3xl animate-pulse-slow" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }} />
+      {/* Gradient orbs - very subtle */}
+      <div className="absolute top-1/3 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px]" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-primary/3 rounded-full blur-[100px]" />
 
       {/* Content */}
-      <div className="container relative z-10 px-4 pt-20">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="container relative z-10 px-4 pt-32 pb-20">
+        <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8 animate-fade-in">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-primary text-sm font-medium">FIBA LLC - 2009 оноос</span>
+          <div 
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/5 border border-primary/10 mb-10 animate-fade-in"
+          >
+            <Sparkles className="w-4 h-4 text-primary" />
+            <span className="text-primary text-sm font-semibold tracking-wide">FIBA LLC — 2009 оноос</span>
           </div>
 
           {/* Headline */}
           <h1 
-            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-background mb-6 leading-tight animate-fade-in"
+            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight animate-fade-in"
             style={{ animationDelay: '0.1s' }}
           >
-            Бид шалтгааныг ойлгоход анхаардаг учраас{' '}
+            Бид шалтгааныг ойлгоход
+            <br />
+            анхаардаг учраас{' '}
             <span className="gradient-text">бодит үр дүн</span>{' '}
             гаргадаг
           </h1>
 
           {/* Subheadline */}
           <p 
-            className="text-lg sm:text-xl text-background/70 max-w-3xl mx-auto mb-10 animate-fade-in"
+            className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in"
             style={{ animationDelay: '0.2s' }}
           >
             Банк санхүүгийн програм хангамж, төлбөр тооцооны систем, мэдээллийн сан зохион байгуулах чиглэлээр 15+ жилийн туршлагатай мэргэжлийн баг
@@ -69,14 +63,13 @@ export function Hero() {
             style={{ animationDelay: '0.3s' }}
           >
             <Link to="/services">
-              <Button variant="hero" size="xl" className="group">
+              <Button size="xl" className="group shadow-soft hover:shadow-glow transition-all duration-300">
                 Бүтээгдэхүүн үзэх
-                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Link to="/about">
-              <Button variant="hero-outline" size="xl" className="group">
-                <Play size={18} className="mr-1" />
+              <Button variant="outline" size="xl" className="group">
                 Бидний тухай
               </Button>
             </Link>
@@ -84,7 +77,7 @@ export function Hero() {
 
           {/* Stats */}
           <div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-12 border-t border-background/10 animate-fade-in"
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 mt-24 animate-fade-in"
             style={{ animationDelay: '0.4s' }}
           >
             {[
@@ -93,19 +86,16 @@ export function Hero() {
               { value: '12+', label: 'Мэргэжлийн баг' },
               { value: '100%', label: 'Харилцагчийн сэтгэл ханамж' },
             ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="font-display text-3xl sm:text-4xl font-bold text-background mb-2">
+              <div key={index} className="text-center p-6 rounded-2xl bg-card border border-border/50 shadow-soft hover:shadow-md transition-all duration-300">
+                <div className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-2">
                   {stat.value}
                 </div>
-                <div className="text-sm text-background/60">{stat.label}</div>
+                <div className="text-sm text-muted-foreground">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </div>
-
-      {/* Bottom Gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 }
