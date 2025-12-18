@@ -163,7 +163,7 @@ const PartnersPage = () => {
               Join our ecosystem of technology partners and unlock new opportunities for growth.
             </p>
             <Link to="/contact">
-              <Button variant="hero" size="lg">
+              <Button size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90">
                 Partner With Us
                 <ArrowRight className="ml-2" />
               </Button>
