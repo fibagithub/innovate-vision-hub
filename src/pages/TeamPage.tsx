@@ -1,128 +1,199 @@
 import { Layout } from '@/components/layout/Layout';
-import { Linkedin, Twitter, Mail } from 'lucide-react';
+import { Linkedin, Mail, ArrowRight, Sparkles, Users, Award, Target } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 const teamMembers = [
   {
     id: 1,
-    name: 'Sarah Johnson',
-    role: 'CEO & Founder',
-    bio: 'Visionary leader with 20+ years in technology innovation. Sarah founded FIBA Tech with a mission to transform businesses through cutting-edge solutions.',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face',
+    name: 'Б. Батбаяр',
+    role: 'Захирал',
+    bio: 'Банк санхүүгийн салбарт 20+ жилийн туршлагатай. FIBA компанийг 2009 онд үүсгэн байгуулсан.',
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
     linkedin: '#',
-    twitter: '#',
   },
   {
     id: 2,
-    name: 'Michael Chen',
-    role: 'Chief Technology Officer',
-    bio: 'Expert in cloud architecture and AI systems. Michael leads our technical strategy and ensures we stay at the forefront of technology.',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
+    name: 'Д. Дорж',
+    role: 'Технологийн захирал',
+    bio: 'Програм хангамжийн архитектур, системийн интеграцийн чиглэлээр 15+ жилийн туршлагатай.',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
     linkedin: '#',
-    twitter: '#',
   },
   {
     id: 3,
-    name: 'Emily Rodriguez',
-    role: 'VP of Engineering',
-    bio: 'Leads our world-class engineering team. Emily brings 15 years of experience building scalable systems for Fortune 500 companies.',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face',
+    name: 'Г. Ганбаатар',
+    role: 'Бүтээгдэхүүний менежер',
+    bio: 'Core Banking системийн хөгжүүлэлт, нэвтрүүлэлтийн чиглэлээр мэргэшсэн.',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
     linkedin: '#',
-    twitter: '#',
   },
   {
     id: 4,
-    name: 'David Kim',
-    role: 'Head of Product',
-    bio: 'Product strategist focused on user-centric design. David ensures our solutions truly meet client needs and exceed expectations.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
+    name: 'С. Сараа',
+    role: 'Ахлах програмист',
+    bio: 'Full-stack хөгжүүлэгч. React, Node.js, PostgreSQL чиглэлээр мэргэшсэн.',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face',
     linkedin: '#',
-    twitter: '#',
   },
   {
     id: 5,
-    name: 'Lisa Thompson',
-    role: 'Chief Marketing Officer',
-    bio: 'Strategic marketing leader with a passion for technology storytelling. Lisa drives our brand and market positioning.',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
+    name: 'Т. Тэмүүлэн',
+    role: 'Мобайл хөгжүүлэгч',
+    bio: 'iOS болон Android платформд мобайл аппликейшн хөгжүүлдэг.',
+    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face',
     linkedin: '#',
-    twitter: '#',
   },
   {
     id: 6,
-    name: 'James Wilson',
-    role: 'Head of Data Science',
-    bio: 'PhD in Machine Learning with expertise in building AI solutions that deliver real business value.',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
+    name: 'О. Оюунтуяа',
+    role: 'QA инженер',
+    bio: 'Програм хангамжийн чанарын баталгаажуулалт, автомат тестийн чиглэлээр ажилладаг.',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face',
     linkedin: '#',
-    twitter: '#',
   },
   {
     id: 7,
-    name: 'Maria Garcia',
-    role: 'Director of Client Success',
-    bio: 'Dedicated to ensuring client satisfaction and long-term partnerships. Maria leads our customer success initiatives.',
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face',
+    name: 'Н. Нямдорж',
+    role: 'Database инженер',
+    bio: 'Мэдээллийн сангийн зохион байгуулалт, оптимизацийн мэргэжилтэн.',
+    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=face',
     linkedin: '#',
-    twitter: '#',
   },
   {
     id: 8,
-    name: 'Robert Taylor',
-    role: 'Security Architect',
-    bio: 'Cybersecurity expert with 12 years protecting enterprise systems. Robert ensures our solutions meet the highest security standards.',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face',
+    name: 'Э. Энхжаргал',
+    role: 'DevOps инженер',
+    bio: 'Системийн найдвартай байдал, CI/CD, Cloud инфрабүтцийн мэргэжилтэн.',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face',
     linkedin: '#',
-    twitter: '#',
   },
+  {
+    id: 9,
+    name: 'М. Мөнхбат',
+    role: 'Backend хөгжүүлэгч',
+    bio: 'Java, Spring Boot чиглэлээр банкны системүүдийг хөгжүүлдэг.',
+    image: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&h=400&fit=crop&crop=face',
+    linkedin: '#',
+  },
+  {
+    id: 10,
+    name: 'А. Анхбаяр',
+    role: 'UI/UX дизайнер',
+    bio: 'Хэрэглэгчийн туршлагад суурилсан дизайн, интерфэйс зохион бүтээдэг.',
+    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
+    linkedin: '#',
+  },
+  {
+    id: 11,
+    name: 'Ц. Цэнгэл',
+    role: 'Системийн архитект',
+    bio: 'Томоохон системүүдийн архитектур зохион байгуулалтыг хариуцдаг.',
+    image: 'https://images.unsplash.com/photo-1463453091185-61582044d556?w=400&h=400&fit=crop&crop=face',
+    linkedin: '#',
+  },
+  {
+    id: 12,
+    name: 'Б. Болормаа',
+    role: 'Төслийн менежер',
+    bio: 'Төслийн удирдлага, харилцагчийн харилцаа, баг бүрдүүлэлтийг хариуцдаг.',
+    image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=face',
+    linkedin: '#',
+  },
+];
+
+const teamStats = [
+  { icon: Users, value: '12+', label: 'Баг хамт олон' },
+  { icon: Award, value: '15+', label: 'Жилийн туршлага' },
+  { icon: Target, value: '100+', label: 'Амжилттай төсөл' },
 ];
 
 const TeamPage = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-br from-foreground via-foreground/95 to-foreground">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <span className="text-primary font-medium text-sm tracking-wider uppercase mb-4 block">
-              Our Team
-            </span>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-background mb-6">
-              Meet the Experts Behind the Innovation
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-background">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-secondary/50 via-background to-background" />
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+          <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px]" />
+          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-primary/3 rounded-full blur-[100px]" />
+        </div>
+
+        <div className="container relative z-10 mx-auto px-4 pt-32 pb-16">
+          <div className="max-w-5xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/5 border border-primary/10 mb-10 animate-fade-in">
+              <Sparkles className="w-4 h-4 text-primary" />
+              <span className="text-primary text-sm font-semibold tracking-wide">Манай баг</span>
+            </div>
+
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight animate-fade-in" style={{ animationDelay: '0.1s' }}>
+              Инновацийн{' '}
+              <span className="gradient-text">цаадах хүмүүс</span>
             </h1>
-            <p className="text-xl text-background/70 max-w-2xl mx-auto">
-              Our talented team brings together diverse expertise and a shared passion for technology excellence.
+
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              Манай чадварлаг баг нь банк санхүүгийн технологийн чиглэлээр олон жилийн 
+              туршлага, мэдлэгээ нэгтгэн, шилдэг шийдлүүдийг бүтээдэг.
             </p>
+
+            {/* Stats */}
+            <div className="flex flex-wrap justify-center gap-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+              {teamStats.map((stat, index) => (
+                <div key={index} className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-card border border-border/50">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <stat.icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="text-left">
+                    <div className="font-display text-2xl font-bold text-foreground">{stat.value}</div>
+                    <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Team Grid */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {teamMembers.map((member) => (
+      {/* Team Grid - Bento Style */}
+      <section className="py-24 bg-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
+
+        <div className="container mx-auto px-4 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {teamMembers.map((member, index) => (
               <div
                 key={member.id}
-                className="group relative rounded-2xl bg-card border border-border overflow-hidden hover:shadow-elevated transition-all duration-300 hover:-translate-y-1"
+                className="group relative rounded-[2rem] bg-card border border-border/50 overflow-hidden hover:border-primary/20 hover:shadow-xl transition-all duration-500"
               >
+                {/* Gradient Accent */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-[#2563eb] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
                 {/* Image */}
-                <div className="aspect-square overflow-hidden">
+                <div className="aspect-[4/3] overflow-hidden relative">
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                  
+                  {/* Number Badge */}
+                  <div className="absolute top-4 right-4 w-8 h-8 rounded-lg bg-background/80 backdrop-blur-sm flex items-center justify-center">
+                    <span className="font-display text-sm font-bold text-foreground">{String(index + 1).padStart(2, '0')}</span>
+                  </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="font-display text-lg font-semibold text-foreground mb-1">
+                  <h3 className="font-display text-xl font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
                     {member.name}
                   </h3>
-                  <p className="text-primary text-sm font-medium mb-3">
+                  <p className="text-primary text-sm font-semibold mb-3">
                     {member.role}
                   </p>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2">
                     {member.bio}
                   </p>
 
@@ -130,19 +201,13 @@ const TeamPage = () => {
                   <div className="flex gap-2">
                     <a
                       href={member.linkedin}
-                      className="p-2 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
+                      className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300"
                     >
                       <Linkedin size={16} />
                     </a>
                     <a
-                      href={member.twitter}
-                      className="p-2 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
-                    >
-                      <Twitter size={16} />
-                    </a>
-                    <a
-                      href={`mailto:${member.name.toLowerCase().replace(' ', '.')}@fibatech.com`}
-                      className="p-2 rounded-lg bg-muted hover:bg-primary/10 hover:text-primary transition-colors"
+                      href={`mailto:${member.name.toLowerCase().replace(' ', '.')}@fiba.mn`}
+                      className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300"
                     >
                       <Mail size={16} />
                     </a>
@@ -155,21 +220,34 @@ const TeamPage = () => {
       </section>
 
       {/* Join Us CTA */}
-      <section className="py-24 bg-muted/50">
+      <section className="py-24 relative overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-6">
-              Join Our Team
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8">
-              We're always looking for talented individuals who are passionate about technology and innovation.
-            </p>
-            <a
-              href="/careers"
-              className="inline-flex items-center justify-center h-12 px-8 rounded-lg bg-gradient-to-r from-primary to-accent text-primary-foreground font-medium transition-opacity hover:opacity-90"
-            >
-              View Open Positions
-            </a>
+          <div className="relative rounded-[2.5rem] bg-gradient-to-br from-primary via-[#2563eb] to-primary overflow-hidden p-12 lg:p-20">
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:40px_40px]" />
+            </div>
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full blur-3xl" />
+
+            <div className="relative max-w-3xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6">
+                <Users className="w-4 h-4 text-white" />
+                <span className="text-white/90 font-medium text-sm">Нээлттэй ажлын байр</span>
+              </div>
+
+              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+                Бидэнтэй нэгдэх үү?
+              </h2>
+              <p className="text-white/80 text-lg mb-10 max-w-2xl mx-auto">
+                Бид үргэлж технологид хайртай, бүтээлч сэтгэлгээтэй хүмүүстэй хамтран ажиллахыг хүсдэг.
+              </p>
+              <Link to="/contact">
+                <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-xl">
+                  Холбоо барих
+                  <ArrowRight className="ml-2" />
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
