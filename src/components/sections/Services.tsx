@@ -1,31 +1,34 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Database, FileText, Smartphone, CreditCard, BarChart3, Users } from 'lucide-react';
+import { ArrowRight, Database, FileText, Smartphone, CreditCard, BarChart3, Users, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const mainProducts = [
   {
     id: 'mecore',
     icon: Database,
-    title: 'MeCore System',
-    subtitle: 'Суурь бүртгэлийн систем',
-    description: 'БАНК, ББСБ, Лизинг болон ХЗХ зэрэг санхүүгийн үйлчилгээг үзүүлдэг байгууллагуудад зориулагдсан өдөр тутмын үйл ажиллагаа, данс хөтлөлт, гүйлгээ боловсруулалт, бүтээгдэхүүнд суурилсан санхүүгийн бүртгэлийн цөм систем.',
-    color: 'from-blue-500 to-cyan-500',
+    title: 'MeCore',
+    subtitle: 'Core Banking System',
+    description: 'БАНК, ББСБ, Лизинг болон ХЗХ зэрэг санхүүгийн үйлчилгээг үзүүлдэг байгууллагуудад зориулагдсан өдөр тутмын үйл ажиллагаа, данс хөтлөлт, гүйлгээ боловсруулалт.',
+    features: ['Данс хөтлөлт', 'Гүйлгээ боловсруулалт', 'Тайлан'],
+    gradient: 'from-[#193C69] to-[#2563eb]',
   },
   {
     id: 'melp',
     icon: FileText,
-    title: 'MeLP System',
-    subtitle: 'Зээлийн боловсруулалтын систем',
-    description: 'Зээл олгох үйл явцыг автоматжуулах, хянах, удирдах зориулалттай MeCore системтэй бүрэн интеграци хийгдсэн зээлийн үйл ажиллагааны систем.',
-    color: 'from-purple-500 to-pink-500',
+    title: 'MeLP',
+    subtitle: 'Loan Processing System',
+    description: 'Зээл олгох үйл явцыг автоматжуулах, хянах, удирдах зориулалттай MeCore системтэй бүрэн интеграци хийгдсэн.',
+    features: ['Зээлийн хүсэлт', 'Скоринг', 'Батлах урсгал'],
+    gradient: 'from-[#7c3aed] to-[#c026d3]',
   },
   {
     id: 'meapp',
     icon: Smartphone,
-    title: 'MeAPP Application',
-    subtitle: 'Мобайл аппликейшн',
-    description: 'ХЗХ болон ББСБ-н гишүүд харилцагч нарыг онлайнаар үйлчилгээ авах боломжийг олгож уг салбарын өрсөлдөх чадварт дэмжлэг үзүүлэх шийдэл.',
-    color: 'from-green-500 to-emerald-500',
+    title: 'MeAPP',
+    subtitle: 'Mobile Banking App',
+    description: 'ХЗХ болон ББСБ-н гишүүд харилцагч нарыг онлайнаар үйлчилгээ авах боломжийг олгох мобайл шийдэл.',
+    features: ['Шилжүүлэг', 'Зээлийн хүсэлт', 'Мэдэгдэл'],
+    gradient: 'from-[#059669] to-[#10b981]',
     externalLink: 'https://me.fiba.mn/',
   },
 ];
@@ -35,69 +38,100 @@ const supportingProducts = [
     id: 'smartware',
     icon: CreditCard,
     title: 'SmartWare',
-    description: 'Банкны теллерээс төлбөрийн картаараа бэлэн мөнгө авах, тушаах, ПИН код солих зэрэг үйлчилгээнд зориулагдсан EMV стандарт бүхий VISA, MASTER CARD, UnionPay, T CARD хүлээн авах терминал систем.',
+    subtitle: 'Card Terminal System',
+    description: 'EMV стандарт бүхий VISA, MASTER CARD, UnionPay, T CARD хүлээн авах терминал систем.',
   },
   {
     id: 'sainscore',
     icon: BarChart3,
     title: 'SainScore',
-    description: 'ТИТАН Си Ар Эй Зээлийн мэдээллийн сан компанийн захиалгаар хөгжүүлсэн зээлийн мэдээллийн иж бүрэн систем.',
+    subtitle: 'Credit Information System',
+    description: 'ТИТАН Си Ар Эй Зээлийн мэдээллийн сан компанийн захиалгаар хөгжүүлсэн систем.',
     externalLink: 'https://sainscore.mn/',
   },
 ];
 
 const consultingServices = [
-  'Дотоодын 3-н банканд Картын төлбөр тооцооны систем нэвтрүүлэхэд зөвлөх үйлчилгээ',
-  'Wallet үйлчилгээний систем боловсруулах, нэвтрүүлэх ажилд зөвлөх үйлчилгээ',
-  'Банкны үндсэн системийг төлбөр тооцооны бусад системтэй интеграци хийх ажилд зөвлөх үйлчилгээ',
-  'AI Credit Scoring систем боловсруулах ажилд зөвлөх үйлчилгээ',
+  'Картын төлбөр тооцооны систем',
+  'Wallet үйлчилгээний систем',
+  'Системийн интеграци',
+  'AI Credit Scoring',
 ];
 
 export function Services() {
   return (
-    <section className="py-24 bg-background" id="products">
-      <div className="container mx-auto px-4">
+    <section className="py-32 bg-gradient-to-b from-background via-muted/30 to-background relative overflow-hidden" id="products">
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -right-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 -left-32 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-4 relative">
         {/* Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <span className="text-primary font-medium text-sm tracking-wider uppercase mb-4 block">
-            Бүтээгдэхүүн
-          </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Банк Санхүүгийн Технологийн Шийдлүүд
+        <div className="max-w-4xl mx-auto text-center mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+            <Sparkles className="w-4 h-4 text-primary" />
+            <span className="text-primary font-medium text-sm">Technology Solutions</span>
+          </div>
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
+            Дараа үеийн<br />
+            <span className="bg-gradient-to-r from-primary via-[#2563eb] to-primary bg-clip-text text-transparent">
+              Санхүүгийн Технологи
+            </span>
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Олон жилийн туршлагад суурилсан, олон улсын стандартад нийцсэн програм хангамжийн шийдлүүд
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Олон улсын стандартад нийцсэн, найдвартай програм хангамжийн шийдлүүд
           </p>
         </div>
 
-        {/* Main Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {/* Main Products - Innovative Layout */}
+        <div className="grid lg:grid-cols-3 gap-8 mb-20">
           {mainProducts.map((product, index) => {
             const CardContent = (
-              <div
-                className="group relative p-8 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-300 hover:shadow-elevated hover:-translate-y-1 h-full"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                {/* Icon */}
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${product.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <product.icon className="w-7 h-7 text-white" />
-                </div>
+              <div className="group relative h-full">
+                {/* Card */}
+                <div className="relative h-full p-8 rounded-3xl bg-card border border-border/50 backdrop-blur-sm overflow-hidden transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:-translate-y-2">
+                  {/* Gradient Overlay on Hover */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${product.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                  
+                  {/* Number Badge */}
+                  <div className="absolute top-6 right-6 w-10 h-10 rounded-xl bg-muted/80 flex items-center justify-center">
+                    <span className="font-display font-bold text-muted-foreground/60">0{index + 1}</span>
+                  </div>
+                  
+                  {/* Icon */}
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
+                    <product.icon className="w-8 h-8 text-white" />
+                  </div>
 
-                {/* Content */}
-                <h3 className="font-display text-xl font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
-                  {product.title}
-                </h3>
-                <p className="text-primary text-sm font-medium mb-3">
-                  {product.subtitle}
-                </p>
-                <p className="text-muted-foreground text-sm mb-4">
-                  {product.description}
-                </p>
+                  {/* Content */}
+                  <div className="relative">
+                    <p className="text-xs font-semibold tracking-wider text-primary/70 uppercase mb-2">
+                      {product.subtitle}
+                    </p>
+                    <h3 className="font-display text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                      {product.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mb-6 leading-relaxed">
+                      {product.description}
+                    </p>
 
-                {/* Arrow */}
-                <div className="flex items-center text-primary font-medium mt-auto">
-                  <span className="mr-2">Дэлгэрэнгүй</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                    {/* Features */}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {product.features.map((feature, i) => (
+                        <span key={i} className="px-3 py-1 rounded-full bg-muted text-xs font-medium text-muted-foreground">
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Arrow */}
+                    <div className="flex items-center text-primary font-semibold text-sm">
+                      <span className="mr-2">Дэлгэрэнгүй</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                    </div>
+                  </div>
                 </div>
               </div>
             );
@@ -114,23 +148,27 @@ export function Services() {
           })}
         </div>
 
-        {/* Supporting Products */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        {/* Supporting Products - Horizontal Cards */}
+        <div className="grid md:grid-cols-2 gap-6 mb-20">
           {supportingProducts.map((product) => {
             const CardContent = (
-              <div className="group p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-300 hover:shadow-soft">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                    <product.icon className="w-6 h-6 text-primary" />
+              <div className="group relative p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg">
+                <div className="flex items-start gap-5">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center shrink-0 group-hover:from-primary/20 group-hover:to-primary/10 transition-colors">
+                    <product.icon className="w-7 h-7 text-primary" />
                   </div>
-                  <div>
-                    <h3 className="font-display text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                  <div className="flex-1">
+                    <p className="text-xs font-semibold tracking-wider text-primary/60 uppercase mb-1">
+                      {product.subtitle}
+                    </p>
+                    <h3 className="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                       {product.title}
                     </h3>
                     <p className="text-muted-foreground text-sm">
                       {product.description}
                     </p>
                   </div>
+                  <ArrowRight className="w-5 h-5 text-muted-foreground/40 group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
                 </div>
               </div>
             );
@@ -145,44 +183,47 @@ export function Services() {
           })}
         </div>
 
-        {/* Consulting Services */}
-        <div className="bg-card rounded-3xl border border-border p-8 lg:p-12">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+        {/* Consulting Services - Modern Layout */}
+        <div className="relative rounded-[2rem] bg-gradient-to-br from-primary/5 via-card to-accent/5 border border-border/50 p-10 lg:p-16 overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary/10 to-transparent" />
+          </div>
+
+          <div className="relative grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center mb-6">
-                <Users className="w-7 h-7 text-white" />
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 mb-6">
+                <Users className="w-4 h-4 text-primary" />
+                <span className="text-primary font-medium text-xs uppercase tracking-wider">Consulting</span>
               </div>
-              <h3 className="font-display text-2xl font-bold text-foreground mb-4">
+              <h3 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-4">
                 Зөвлөх үйлчилгээ
               </h3>
-              <p className="text-muted-foreground mb-6">
-                Манай байгууллага нь банкны суурь бүртгэлийн систем, төлбөрийн картын систем, мөн банктай интеграци хийхтэй холбоотой зөвлөх үйлчилгээ буюу шийдэл боловсруулдаг.
+              <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+                Банкны суурь бүртгэлийн систем, төлбөрийн картын систем, мөн банктай интеграци хийхтэй холбоотой мэргэжлийн зөвлөгөө.
               </p>
+              <Link to="/services">
+                <Button variant="gradient" size="lg">
+                  Бүх үйлчилгээ үзэх
+                  <ArrowRight className="ml-2" />
+                </Button>
+              </Link>
             </div>
 
-            <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
               {consultingServices.map((service, index) => (
-                <div key={index} className="flex items-start gap-3 p-4 rounded-xl bg-muted/50 border border-border">
-                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
-                    <svg className="w-3 h-3 text-primary" viewBox="0 0 512 512">
-                      <path fill="currentColor" d="m433.1 67.1-231.8 231.9c-6.2 6.2-16.4 6.2-22.6 0l-99.8-99.8-78.9 78.8 150.5 150.5c10.5 10.5 24.6 16.3 39.4 16.3 14.8 0 29-5.9 39.4-16.3l282.7-282.5z" />
-                    </svg>
+                <div 
+                  key={index} 
+                  className="group p-5 rounded-2xl bg-card/80 backdrop-blur-sm border border-border/50 hover:border-primary/30 hover:bg-card transition-all duration-300"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center mb-4 group-hover:from-primary/20 group-hover:to-accent/20 transition-colors">
+                    <span className="font-display font-bold text-primary">{index + 1}</span>
                   </div>
-                  <span className="text-foreground text-sm">{service}</span>
+                  <span className="text-foreground font-medium text-sm">{service}</span>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-
-        {/* CTA */}
-        <div className="text-center mt-12">
-          <Link to="/services">
-            <Button variant="gradient" size="lg">
-              Бүх бүтээгдэхүүн үзэх
-              <ArrowRight className="ml-2" />
-            </Button>
-          </Link>
         </div>
       </div>
     </section>
