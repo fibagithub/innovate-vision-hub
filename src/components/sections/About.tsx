@@ -1,40 +1,42 @@
-import { Link } from 'react-router-dom';
-import { Target, Eye, Lightbulb, ArrowRight, Award, Shield, Users } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Link } from "react-router-dom";
+import { Target, Eye, Lightbulb, ArrowRight, Award, Shield, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const values = [
   {
     icon: Target,
-    title: 'Бидний эрхэм зорилго',
-    description: 'Банк санхүүгийн байгууллагуудад дэлхийн жишигт нийцсэн, найдвартай, хэрэглэхэд хялбар технологийн шийдэл бүтээх.',
+    title: "Бидний эрхэм зорилго",
+    description:
+      "Банк санхүүгийн байгууллагуудад дэлхийн жишигт нийцсэн, найдвартай, хэрэглэхэд хялбар технологийн шийдэл бүтээх.",
   },
   {
     icon: Eye,
-    title: 'Бидний алсын хараа',
-    description: 'Монголын санхүүгийн салбарын технологийн тэргүүлэгч компани болж, олон улсын зах зээлд гарах.',
+    title: "Бидний алсын хараа",
+    description: "Монголын санхүүгийн салбарын технологийн тэргүүлэгч компани болж, олон улсын зах зээлд гарах.",
   },
   {
     icon: Lightbulb,
-    title: 'Бидний үнэт зүйлс',
-    description: 'Мэргэжлийн ёс зүй, найдвартай байдал, тасралтгүй хөгжил, харилцагчийн сэтгэл ханамж бидний үнэт зүйлс.',
+    title: "Бидний үнэт зүйлс",
+    description:
+      "Мэргэжлийн ёс зүй, найдвартай байдал, тасралтгүй хөгжил, харилцагчийн сэтгэл ханамж бидний үнэт зүйлс.",
   },
 ];
 
 const features = [
   {
     icon: Award,
-    title: 'Туршлага',
-    description: 'Тэргүүлэгч банкны олон жилийн туршлагад суурилагдан бүтээгдсэн',
+    title: "Туршлага",
+    description: "Тэргүүлэгч банкны олон жилийн туршлагад суурилагдан бүтээгдсэн",
   },
   {
     icon: Shield,
-    title: '24/7 Найдвартай',
-    description: 'Найдвартай ажиллагаа, мэдээллийн аюулгүй байдлыг хангасан',
+    title: "24/7 Найдвартай",
+    description: "Найдвартай ажиллагаа, мэдээллийн аюулгүй байдлыг хангасан",
   },
   {
     icon: Users,
-    title: 'Мэргэжлийн дэмжлэг',
-    description: 'Мэргэжлийн өндөр түвшний ашиглалт үйлчилгээ үзүүлдэг',
+    title: "Мэргэжлийн дэмжлэг",
+    description: "Мэргэжлийн өндөр түвшний ашиглалт үйлчилгээ үзүүлдэг",
   },
 ];
 
@@ -45,18 +47,18 @@ export function About() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
           <div>
-            <span className="text-primary font-medium text-sm tracking-wider uppercase mb-4 block">
-              Бидний тухай
-            </span>
+            <span className="text-primary font-medium text-sm tracking-wider uppercase mb-4 block">Бидний тухай</span>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              Таны санааг бид{' '}
-              <span className="gradient-text">Бодит болгоно</span>
+              Таны санааг бид <span className="gradient-text">Бодит болгоно</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-6">
-              Манай компани нь 2009 онд байгуулагдсан бөгөөд, банк санхүүгийн Програм хангамж, түүний шийдэл, мэдээллийн сан зохион байгуулах, төлбөр тооцооны шийдэл боловсруулах чиглэлээр үйл ажиллагаа явуулдаг.
+              Манай компани нь 2021 онд байгуулагдсан бөгөөд, банк санхүүгийн Програм хангамж, түүний шийдэл, мэдээллийн
+              сан зохион байгуулах, төлбөр тооцооны шийдэл боловсруулах чиглэлээр үйл ажиллагаа явуулдаг.
             </p>
             <p className="text-muted-foreground mb-8">
-              Мөн банк санхүүгийн мэдээллийн систем, Програм хангамж, мэдээллийн сан болон түүний нууцлал аюулгүй байдлыг хариуцан ажиллаж байсан тухайн салбартаа олон жилийн мэдлэг туршлага хуримтлуулсан чадварлаг, бүтээлч хамт олноос бүрдэж байна.
+              Мөн банк санхүүгийн мэдээллийн систем, Програм хангамж, мэдээллийн сан болон түүний нууцлал аюулгүй
+              байдлыг хариуцан ажиллаж байсан тухайн салбартаа олон жилийн мэдлэг туршлага хуримтлуулсан чадварлаг,
+              бүтээлч хамт олноос бүрдэж байна.
             </p>
 
             {/* Features */}
@@ -87,7 +89,7 @@ export function About() {
                     <span className="text-5xl font-display font-bold text-primary-foreground">F</span>
                   </div>
                   <h3 className="font-display text-2xl font-bold text-foreground mb-2">FIBA LLC</h3>
-                  <p className="text-muted-foreground mb-4">2009 оноос</p>
+                  <p className="text-muted-foreground mb-4">2021 оноос</p>
                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
                     <span className="text-primary text-sm font-medium">fiba.mn</span>
                   </div>
@@ -110,12 +112,8 @@ export function About() {
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
                 <value.icon className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="font-display text-xl font-semibold text-foreground mb-3">
-                {value.title}
-              </h3>
-              <p className="text-muted-foreground">
-                {value.description}
-              </p>
+              <h3 className="font-display text-xl font-semibold text-foreground mb-3">{value.title}</h3>
+              <p className="text-muted-foreground">{value.description}</p>
             </div>
           ))}
         </div>
