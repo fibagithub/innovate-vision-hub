@@ -13,7 +13,6 @@ import {
   Clock,
   MousePointer,
   ArrowUpRight,
-  Calendar,
   Users,
   Building2
 } from 'lucide-react';
@@ -40,13 +39,6 @@ const realtimeStats = [
   { label: 'Одоо идэвхтэй', value: '127', icon: Activity },
   { label: 'Өнөөдөр нийт', value: '2,847', icon: Eye },
   { label: 'Энэ цагт', value: '342', icon: Clock },
-];
-
-const recentActivity = [
-  { action: 'Үйлчилгээ шинэчлэгдсэн', item: 'Cloud Solutions', time: '2 цагийн өмнө', type: 'update' },
-  { action: 'Багийн гишүүн нэмэгдсэн', item: 'Б.Болд', time: '5 цагийн өмнө', type: 'add' },
-  { action: 'Хамтрагч нэмэгдсэн', item: 'Microsoft Azure', time: '1 өдрийн өмнө', type: 'add' },
-  { action: 'Контент шинэчлэгдсэн', item: 'Бидний тухай', time: '2 өдрийн өмнө', type: 'update' },
 ];
 
 const AdminDashboard = () => {
@@ -243,34 +235,6 @@ const AdminDashboard = () => {
             <Globe className="w-5 h-5 text-muted-foreground" />
           </div>
           <GeoDistribution />
-        </div>
-      </div>
-
-      {/* Recent Activity */}
-      <div className="p-6 rounded-2xl bg-card border border-border">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2 className="font-display text-lg font-semibold text-foreground">Сүүлийн үйл ажиллагаа</h2>
-            <p className="text-sm text-muted-foreground">Системийн сүүлийн өөрчлөлтүүд</p>
-          </div>
-          <Calendar className="w-5 h-5 text-muted-foreground" />
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {recentActivity.map((activity, index) => (
-            <div key={index} className="flex items-center gap-4 p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors">
-              <div className={cn(
-                'w-10 h-10 rounded-lg flex items-center justify-center',
-                activity.type === 'add' ? 'bg-green-100 text-green-600' : 'bg-blue-100 text-blue-600'
-              )}>
-                {activity.type === 'add' ? <Plus className="w-5 h-5" /> : <Edit className="w-5 h-5" />}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="text-sm font-medium text-foreground truncate">{activity.action}</div>
-                <div className="text-xs text-muted-foreground truncate">{activity.item}</div>
-                <div className="text-xs text-muted-foreground mt-1">{activity.time}</div>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
 
