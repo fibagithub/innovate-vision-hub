@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -10,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from 'sonner';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Upload, X, User } from 'lucide-react';
 
 const teamMemberSchema = z.object({
   name: z.string().min(1, 'Нэр оруулна уу'),
@@ -37,6 +37,9 @@ interface TeamMemberFormProps {
 
 export const TeamMemberForm = ({ open, onOpenChange, editData, onSuccess }: TeamMemberFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<TeamMemberFormData>({
     resolver: zodResolver(teamMemberSchema),
@@ -45,6 +48,8 @@ export const TeamMemberForm = ({ open, onOpenChange, editData, onSuccess }: Team
       display_order: 0,
     },
   });
+
+  const imageUrl = watch('image_url');
 
   useEffect(() => {
     if (editData) {
@@ -61,6 +66,7 @@ export const TeamMemberForm = ({ open, onOpenChange, editData, onSuccess }: Team
         is_active: editData.is_active ?? true,
         display_order: editData.display_order || 0,
       });
+      setPreviewUrl(editData.image_url || null);
     } else {
       reset({
         name: '',
@@ -75,8 +81,66 @@ export const TeamMemberForm = ({ open, onOpenChange, editData, onSuccess }: Team
         is_active: true,
         display_order: 0,
       });
+      setPreviewUrl(null);
     }
   }, [editData, reset]);
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error('Зөвхөн зураг оруулах боломжтой');
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Зургийн хэмжээ 5MB-ээс бага байх ёстой');
+      return;
+    }
+
+    setIsUploading(true);
+
+    try {
+      // Create unique filename
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+      const filePath = `team-members/${fileName}`;
+
+      // Upload to Supabase Storage
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const { data: urlData } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(filePath);
+
+      const publicUrl = urlData.publicUrl;
+      
+      setValue('image_url', publicUrl);
+      setPreviewUrl(publicUrl);
+      toast.success('Зураг амжилттай оруулагдлаа');
+    } catch (error: any) {
+      console.error('Upload error:', error);
+      toast.error(error.message || 'Зураг оруулахад алдаа гарлаа');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const removeImage = () => {
+    setValue('image_url', '');
+    setPreviewUrl(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
 
   const onSubmit = async (data: TeamMemberFormData) => {
     setIsLoading(true);
@@ -85,6 +149,7 @@ export const TeamMemberForm = ({ open, onOpenChange, editData, onSuccess }: Team
       const payload = {
         ...data,
         email: data.email || null,
+        image_url: data.image_url || null,
       };
 
       if (editData?.id) {
@@ -126,6 +191,79 @@ export const TeamMemberForm = ({ open, onOpenChange, editData, onSuccess }: Team
             {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
           </div>
 
+          {/* Image Upload Section */}
+          <div className="space-y-2">
+            <Label>Профайл зураг</Label>
+            <div className="flex items-start gap-4">
+              {/* Preview */}
+              <div className="relative w-24 h-24 rounded-full overflow-hidden bg-muted flex items-center justify-center border-2 border-dashed border-border">
+                {previewUrl ? (
+                  <>
+                    <img 
+                      src={previewUrl} 
+                      alt="Preview" 
+                      className="w-full h-full object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={removeImage}
+                      className="absolute top-0 right-0 w-6 h-6 bg-destructive text-destructive-foreground rounded-full flex items-center justify-center hover:bg-destructive/90"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </>
+                ) : (
+                  <User className="w-10 h-10 text-muted-foreground" />
+                )}
+              </div>
+
+              {/* Upload Button */}
+              <div className="flex-1 space-y-2">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className="hidden"
+                  id="avatar-upload"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={isUploading}
+                  className="w-full"
+                >
+                  {isUploading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Оруулж байна...
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="w-4 h-4 mr-2" />
+                      Зураг сонгох
+                    </>
+                  )}
+                </Button>
+                <p className="text-xs text-muted-foreground">
+                  PNG, JPG, GIF (max 5MB)
+                </p>
+                
+                {/* Manual URL input */}
+                <Input 
+                  {...register('image_url')} 
+                  placeholder="Эсвэл URL оруулах..."
+                  className="text-sm"
+                  onChange={(e) => {
+                    setValue('image_url', e.target.value);
+                    setPreviewUrl(e.target.value || null);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="position">Албан тушаал (EN)</Label>
@@ -146,11 +284,6 @@ export const TeamMemberForm = ({ open, onOpenChange, editData, onSuccess }: Team
               <Label htmlFor="bio_mn">Танилцуулга (MN)</Label>
               <Textarea id="bio_mn" {...register('bio_mn')} placeholder="Танилцуулга" rows={3} />
             </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="image_url">Зургийн URL</Label>
-            <Input id="image_url" {...register('image_url')} placeholder="https://..." />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
