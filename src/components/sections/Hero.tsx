@@ -81,7 +81,7 @@ export function Hero() {
               { value: "15+", label: "Жилийн туршлага" },
               { value: "4+", label: "Банканд хамтран ажилласан" },
               { value: "12+", label: "Мэргэжлийн баг" },
-              { value: "100%", label: "Харилцагчийн сэтгэл ханамж" },
+              { value: "99.9%", label: "Харилцагчийн сэтгэл ханамж" },
             ].map((stat, index) => (
               <div
                 key={index}
