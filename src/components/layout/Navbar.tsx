@@ -38,7 +38,7 @@ export function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-              <span className="text-primary-foreground font-display font-bold text-xl">Fiba</span>
+              <span className="text-primary-foreground font-display font-bold text-xl">F</span>
             </div>
             <span className="font-display font-bold text-xl text-foreground">FIBA</span>
           </Link>
