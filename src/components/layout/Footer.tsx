@@ -1,24 +1,24 @@
-import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Linkedin, Facebook } from 'lucide-react';
+import { Link } from "react-router-dom";
+import { Mail, Phone, MapPin, Linkedin, Facebook } from "lucide-react";
 
 const footerLinks = {
   company: [
-    { label: 'Бидний тухай', href: '/about' },
-    { label: 'Манай баг', href: '/team' },
-    { label: 'Харилцагчид', href: '/partners' },
-    { label: 'Холбоо барих', href: '/contact' },
+    { label: "Бидний тухай", href: "/about" },
+    { label: "Манай баг", href: "/team" },
+    { label: "Харилцагчид", href: "/partners" },
+    { label: "Холбоо барих", href: "/contact" },
   ],
   products: [
-    { label: 'MeCore System', href: '/services/mecore' },
-    { label: 'MeLP System', href: '/services/melp' },
-    { label: 'MeAPP Application', href: 'https://me.fiba.mn/', external: true },
-    { label: 'SmartWare', href: '/services/smartware' },
-    { label: 'SainScore', href: 'https://sainscore.mn/', external: true },
+    { label: "MeCore System", href: "/services/mecore" },
+    { label: "MeLP System", href: "/services/melp" },
+    { label: "MeAPP Application", href: "https://me.fiba.mn/", external: true },
+    { label: "SmartWare", href: "/services/smartware" },
+    { label: "SainScore", href: "https://sainscore.mn/", external: true },
   ],
   services: [
-    { label: 'Зөвлөх үйлчилгээ', href: '/services/consulting' },
-    { label: 'Системийн интеграци', href: '/services/integration' },
-    { label: 'Техникийн дэмжлэг', href: '/services/support' },
+    { label: "Зөвлөх үйлчилгээ", href: "/services/consulting" },
+    { label: "Системийн интеграци", href: "/services/integration" },
+    { label: "Техникийн дэмжлэг", href: "/services/support" },
   ],
 };
 
@@ -36,21 +36,19 @@ export function Footer() {
               <span className="font-display font-bold text-xl">FIBA LLC</span>
             </div>
             <p className="text-background/70 mb-6 max-w-sm">
-              Банк санхүүгийн програм хангамж, төлбөр тооцооны систем, мэдээллийн сан зохион байгуулах чиглэлээр 2009 оноос үйл ажиллагаа явуулж байна.
+              Банк санхүүгийн програм хангамж, төлбөр тооцооны систем, мэдээллийн сан зохион байгуулах чиглэлээр 2021
+              оноос үйл ажиллагаа явуулж байна.
             </p>
             <div className="flex gap-4">
-              <a 
-                href="https://www.facebook.com/fiba.mn" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://www.facebook.com/fiba.mn"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-2 rounded-lg bg-background/10 hover:bg-background/20 transition-colors"
               >
                 <Facebook size={20} />
               </a>
-              <a 
-                href="#" 
-                className="p-2 rounded-lg bg-background/10 hover:bg-background/20 transition-colors"
-              >
+              <a href="#" className="p-2 rounded-lg bg-background/10 hover:bg-background/20 transition-colors">
                 <Linkedin size={20} />
               </a>
             </div>
@@ -77,10 +75,10 @@ export function Footer() {
               {footerLinks.products.map((link) => (
                 <li key={link.href}>
                   {link.external ? (
-                    <a 
-                      href={link.href} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-background/70 hover:text-background transition-colors"
                     >
                       {link.label}
@@ -100,13 +98,19 @@ export function Footer() {
             <h4 className="font-display font-semibold mb-4">Холбоо барих</h4>
             <ul className="space-y-3">
               <li>
-                <a href="mailto:contact@fiba.mn" className="flex items-center gap-2 text-background/70 hover:text-background transition-colors">
+                <a
+                  href="mailto:contact@fiba.mn"
+                  className="flex items-center gap-2 text-background/70 hover:text-background transition-colors"
+                >
                   <Mail size={16} />
                   <span>contact@fiba.mn</span>
                 </a>
               </li>
               <li>
-                <a href="tel:+97675092211" className="flex items-center gap-2 text-background/70 hover:text-background transition-colors">
+                <a
+                  href="tel:+97675092211"
+                  className="flex items-center gap-2 text-background/70 hover:text-background transition-colors"
+                >
                   <Phone size={16} />
                   <span>+976-7509-2211</span>
                 </a>
@@ -124,7 +128,12 @@ export function Footer() {
             © {new Date().getFullYear()} FIBA LLC. Бүх эрх хуулиар хамгаалагдсан.
           </p>
           <div className="flex gap-6 text-sm">
-            <a href="https://www.fiba.mn" target="_blank" rel="noopener noreferrer" className="text-background/60 hover:text-background transition-colors">
+            <a
+              href="https://www.fiba.mn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-background/60 hover:text-background transition-colors"
+            >
               www.fiba.mn
             </a>
           </div>
