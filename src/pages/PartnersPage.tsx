@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
-import { ArrowRight, Building2, Landmark, Wallet, Users, Globe, Shield, Sparkles, TrendingUp, Award, MapPin } from 'lucide-react';
+import { ArrowRight, Building2, Landmark, Wallet, Users, Globe, Shield, Sparkles, TrendingUp, Award, MapPin, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { usePartners } from '@/hooks/useContentData';
 
 const clientTypes = [
   { 
@@ -72,6 +73,8 @@ const testimonials = [
 ];
 
 const PartnersPage = () => {
+  const { data: dbPartners, isLoading } = usePartners();
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -105,8 +108,49 @@ const PartnersPage = () => {
         </div>
       </section>
 
+      {/* Database Partners Display */}
+      {(dbPartners && dbPartners.length > 0) && (
+        <section className="py-12 bg-background relative -mt-20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-8">
+              <h2 className="font-display text-2xl font-bold text-foreground">Манай түншүүд</h2>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {dbPartners.map((partner) => (
+                <a
+                  key={partner.id}
+                  href={partner.website_url || '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 flex flex-col items-center justify-center gap-3"
+                >
+                  {partner.logo_url ? (
+                    <img 
+                      src={partner.logo_url} 
+                      alt={partner.name}
+                      className="h-12 object-contain grayscale group-hover:grayscale-0 transition-all"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                      <Building2 className="w-6 h-6 text-primary" />
+                    </div>
+                  )}
+                  <span className="text-sm font-medium text-foreground text-center">{partner.name}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {isLoading && (
+        <div className="flex items-center justify-center py-12">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        </div>
+      )}
+
       {/* Achievement Stats */}
-      <section className="py-8 bg-background relative -mt-20">
+      <section className="py-8 bg-background relative">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
             {achievements.map((stat, index) => (

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Building2, Landmark, Users, Briefcase, MapPin, Globe2 } from 'lucide-react';
+import { ArrowRight, Building2, Landmark, Users, Briefcase, MapPin, Globe2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { usePartners } from '@/hooks/useContentData';
 
 const clientTypes = [
   { icon: Landmark, label: 'Арилжааны банкууд', count: '4+' },
@@ -27,6 +28,8 @@ const regions = [
 ];
 
 export function Partners() {
+  const { data: dbPartners, isLoading } = usePartners();
+
   return (
     <section className="py-32 bg-background relative overflow-hidden" id="clients">
       {/* Background Elements */}
@@ -51,6 +54,40 @@ export function Partners() {
             Монгол орон даяар санхүүгийн байгууллагуудтай хамтран ажиллаж байна
           </p>
         </div>
+
+        {/* Database Partners Display */}
+        {dbPartners && dbPartners.length > 0 && (
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-16">
+            {dbPartners.map((partner) => (
+              <a
+                key={partner.id}
+                href={partner.website_url || '#'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 flex flex-col items-center justify-center gap-3"
+              >
+                {partner.logo_url ? (
+                  <img 
+                    src={partner.logo_url} 
+                    alt={partner.name}
+                    className="h-12 object-contain grayscale group-hover:grayscale-0 transition-all"
+                  />
+                ) : (
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <Building2 className="w-6 h-6 text-primary" />
+                  </div>
+                )}
+                <span className="text-sm font-medium text-foreground text-center">{partner.name}</span>
+              </a>
+            ))}
+          </div>
+        )}
+
+        {isLoading && (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        )}
 
         {/* Map Section */}
         <div className="relative mb-20">
