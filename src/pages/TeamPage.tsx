@@ -1,104 +1,46 @@
 import { Layout } from '@/components/layout/Layout';
-import { Linkedin, Mail, ArrowRight, Sparkles, Users, Award, Target } from 'lucide-react';
+import { Linkedin, Mail, ArrowRight, Sparkles, Users, Award, Target, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useTeamMembers } from '@/hooks/useContentData';
 
-const teamMembers = [
+// Fallback static data
+const fallbackTeamMembers = [
   {
-    id: 1,
+    id: '1',
     name: 'Б. Батбаяр',
-    role: 'Захирал',
-    bio: 'Банк санхүүгийн салбарт 20+ жилийн туршлагатай. FIBA компанийг 2009 онд үүсгэн байгуулсан.',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
+    position_mn: 'Захирал',
+    bio_mn: 'Банк санхүүгийн салбарт 20+ жилийн туршлагатай. FIBA компанийг 2009 онд үүсгэн байгуулсан.',
+    image_url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
+    linkedin_url: '#',
+    email: null,
   },
   {
-    id: 2,
+    id: '2',
     name: 'Д. Дорж',
-    role: 'Технологийн захирал',
-    bio: 'Програм хангамжийн архитектур, системийн интеграцийн чиглэлээр 15+ жилийн туршлагатай.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
+    position_mn: 'Технологийн захирал',
+    bio_mn: 'Програм хангамжийн архитектур, системийн интеграцийн чиглэлээр 15+ жилийн туршлагатай.',
+    image_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
+    linkedin_url: '#',
+    email: null,
   },
   {
-    id: 3,
+    id: '3',
     name: 'Г. Ганбаатар',
-    role: 'Бүтээгдэхүүний менежер',
-    bio: 'Core Banking системийн хөгжүүлэлт, нэвтрүүлэлтийн чиглэлээр мэргэшсэн.',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
+    position_mn: 'Бүтээгдэхүүний менежер',
+    bio_mn: 'Core Banking системийн хөгжүүлэлт, нэвтрүүлэлтийн чиглэлээр мэргэшсэн.',
+    image_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
+    linkedin_url: '#',
+    email: null,
   },
   {
-    id: 4,
+    id: '4',
     name: 'С. Сараа',
-    role: 'Ахлах програмист',
-    bio: 'Full-stack хөгжүүлэгч. React, Node.js, PostgreSQL чиглэлээр мэргэшсэн.',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
-  },
-  {
-    id: 5,
-    name: 'Т. Тэмүүлэн',
-    role: 'Мобайл хөгжүүлэгч',
-    bio: 'iOS болон Android платформд мобайл аппликейшн хөгжүүлдэг.',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
-  },
-  {
-    id: 6,
-    name: 'О. Оюунтуяа',
-    role: 'QA инженер',
-    bio: 'Програм хангамжийн чанарын баталгаажуулалт, автомат тестийн чиглэлээр ажилладаг.',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
-  },
-  {
-    id: 7,
-    name: 'Н. Нямдорж',
-    role: 'Database инженер',
-    bio: 'Мэдээллийн сангийн зохион байгуулалт, оптимизацийн мэргэжилтэн.',
-    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
-  },
-  {
-    id: 8,
-    name: 'Э. Энхжаргал',
-    role: 'DevOps инженер',
-    bio: 'Системийн найдвартай байдал, CI/CD, Cloud инфрабүтцийн мэргэжилтэн.',
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
-  },
-  {
-    id: 9,
-    name: 'М. Мөнхбат',
-    role: 'Backend хөгжүүлэгч',
-    bio: 'Java, Spring Boot чиглэлээр банкны системүүдийг хөгжүүлдэг.',
-    image: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
-  },
-  {
-    id: 10,
-    name: 'А. Анхбаяр',
-    role: 'UI/UX дизайнер',
-    bio: 'Хэрэглэгчийн туршлагад суурилсан дизайн, интерфэйс зохион бүтээдэг.',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
-  },
-  {
-    id: 11,
-    name: 'Ц. Цэнгэл',
-    role: 'Системийн архитект',
-    bio: 'Томоохон системүүдийн архитектур зохион байгуулалтыг хариуцдаг.',
-    image: 'https://images.unsplash.com/photo-1463453091185-61582044d556?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
-  },
-  {
-    id: 12,
-    name: 'Б. Болормаа',
-    role: 'Төслийн менежер',
-    bio: 'Төслийн удирдлага, харилцагчийн харилцаа, баг бүрдүүлэлтийг хариуцдаг.',
-    image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=face',
-    linkedin: '#',
+    position_mn: 'Ахлах програмист',
+    bio_mn: 'Full-stack хөгжүүлэгч. React, Node.js, PostgreSQL чиглэлээр мэргэшсэн.',
+    image_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face',
+    linkedin_url: '#',
+    email: null,
   },
 ];
 
@@ -109,6 +51,11 @@ const teamStats = [
 ];
 
 const TeamPage = () => {
+  const { data: dbTeamMembers, isLoading } = useTeamMembers();
+  
+  // Use database data if available, otherwise use fallback
+  const teamMembers = dbTeamMembers && dbTeamMembers.length > 0 ? dbTeamMembers : fallbackTeamMembers;
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -161,61 +108,83 @@ const TeamPage = () => {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
 
         <div className="container mx-auto px-4 relative">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {teamMembers.map((member, index) => (
-              <div
-                key={member.id}
-                className="group relative rounded-[2rem] bg-card border border-border/50 overflow-hidden hover:border-primary/20 hover:shadow-xl transition-all duration-500"
-              >
-                {/* Gradient Accent */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-[#2563eb] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                {/* Image */}
-                <div className="aspect-[4/3] overflow-hidden relative">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+          {isLoading ? (
+            <div className="flex items-center justify-center py-20">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {teamMembers.map((member, index) => (
+                <div
+                  key={member.id}
+                  className="group relative rounded-[2rem] bg-card border border-border/50 overflow-hidden hover:border-primary/20 hover:shadow-xl transition-all duration-500"
+                >
+                  {/* Gradient Accent */}
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-[#2563eb] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
-                  {/* Number Badge */}
-                  <div className="absolute top-4 right-4 w-8 h-8 rounded-lg bg-background/80 backdrop-blur-sm flex items-center justify-center">
-                    <span className="font-display text-sm font-bold text-foreground">{String(index + 1).padStart(2, '0')}</span>
+                  {/* Image */}
+                  <div className="aspect-[4/3] overflow-hidden relative">
+                    <img
+                      src={member.image_url || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'}
+                      alt={member.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                    
+                    {/* Number Badge */}
+                    <div className="absolute top-4 right-4 w-8 h-8 rounded-lg bg-background/80 backdrop-blur-sm flex items-center justify-center">
+                      <span className="font-display text-sm font-bold text-foreground">{String(index + 1).padStart(2, '0')}</span>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6">
+                    <h3 className="font-display text-xl font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
+                      {member.name}
+                    </h3>
+                    <p className="text-primary text-sm font-semibold mb-3">
+                      {member.position_mn || ''}
+                    </p>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2">
+                      {member.bio_mn || ''}
+                    </p>
+
+                    {/* Social Links */}
+                    <div className="flex gap-2">
+                      {member.linkedin_url && (
+                        <a
+                          href={member.linkedin_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300"
+                        >
+                          <Linkedin size={16} />
+                        </a>
+                      )}
+                      {member.email && (
+                        <a
+                          href={`mailto:${member.email}`}
+                          className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300"
+                        >
+                          <Mail size={16} />
+                        </a>
+                      )}
+                      {!member.linkedin_url && !member.email && (
+                        <>
+                          <a href="#" className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300">
+                            <Linkedin size={16} />
+                          </a>
+                          <a href="mailto:contact@fiba.mn" className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300">
+                            <Mail size={16} />
+                          </a>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="font-display text-xl font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
-                    {member.name}
-                  </h3>
-                  <p className="text-primary text-sm font-semibold mb-3">
-                    {member.role}
-                  </p>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2">
-                    {member.bio}
-                  </p>
-
-                  {/* Social Links */}
-                  <div className="flex gap-2">
-                    <a
-                      href={member.linkedin}
-                      className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300"
-                    >
-                      <Linkedin size={16} />
-                    </a>
-                    <a
-                      href={`mailto:${member.name.toLowerCase().replace(' ', '.')}@fiba.mn`}
-                      className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300"
-                    >
-                      <Mail size={16} />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
