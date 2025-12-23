@@ -1,49 +1,95 @@
-import { Layout } from '@/components/layout/Layout';
-import { Target, Eye, Lightbulb, Award, Users, Globe, TrendingUp, Zap, Shield, Clock, Sparkles, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import { Layout } from "@/components/layout/Layout";
+import {
+  Target,
+  Eye,
+  Lightbulb,
+  Award,
+  Users,
+  Globe,
+  TrendingUp,
+  Zap,
+  Shield,
+  Clock,
+  Sparkles,
+  ArrowRight,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const values = [
   {
     icon: Target,
-    title: 'Бидний эрхэм зорилго',
-    description: 'Банк санхүүгийн байгууллагуудад дэлхийн жишигт нийцсэн, найдвартай, хэрэглэхэд хялбар технологийн шийдэл бүтээх.',
-    gradient: 'from-primary to-[#2563eb]',
+    title: "Бидний эрхэм зорилго",
+    description:
+      "Банк санхүүгийн байгууллагуудад дэлхийн жишигт нийцсэн, найдвартай, хэрэглэхэд хялбар технологийн шийдэл бүтээх.",
+    gradient: "from-primary to-[#2563eb]",
   },
   {
     icon: Eye,
-    title: 'Бидний алсын хараа',
-    description: 'Монголын санхүүгийн салбарын технологийн тэргүүлэгч компани болж, олон улсын зах зээлд гарах.',
-    gradient: 'from-[#7c3aed] to-[#a855f7]',
+    title: "Бидний алсын хараа",
+    description: "Монголын санхүүгийн салбарын технологийн тэргүүлэгч компани болж, олон улсын зах зээлд гарах.",
+    gradient: "from-[#7c3aed] to-[#a855f7]",
   },
   {
     icon: Lightbulb,
-    title: 'Бидний үнэт зүйлс',
-    description: 'Мэргэжлийн ёс зүй, найдвартай байдал, тасралтгүй хөгжил, харилцагчийн сэтгэл ханамж бидний үнэт зүйлс.',
-    gradient: 'from-[#059669] to-[#34d399]',
+    title: "Бидний үнэт зүйлс",
+    description:
+      "Мэргэжлийн ёс зүй, найдвартай байдал, тасралтгүй хөгжил, харилцагчийн сэтгэл ханамж бидний үнэт зүйлс.",
+    gradient: "from-[#059669] to-[#34d399]",
   },
   {
     icon: Award,
-    title: 'Чанарын баталгаа',
-    description: 'Бид хийсэн бүх ажилдаа дээд зэргийн стандартыг баримтална, кодын чанараас эхлээд харилцагчтай харилцах хүртэл.',
-    gradient: 'from-[#f59e0b] to-[#fbbf24]',
+    title: "Чанарын баталгаа",
+    description:
+      "Бид хийсэн бүх ажилдаа дээд зэргийн стандартыг баримтална, кодын чанараас эхлээд харилцагчтай харилцах хүртэл.",
+    gradient: "from-[#f59e0b] to-[#fbbf24]",
   },
 ];
 
 const milestones = [
-  { year: '2009', title: 'Байгуулагдсан', description: 'ФИБА ХХК байгуулагдаж, банк санхүүгийн програм хангамжийн чиглэлээр үйл ажиллагаагаа эхэлсэн.', icon: Sparkles },
-  { year: '2012', title: 'Анхны гэрээ', description: 'Анхны томоохон банктай гэрээ байгуулж, Core Banking систем нэвтрүүлсэн.', icon: Shield },
-  { year: '2015', title: 'Бүтээгдэхүүн өргөжилт', description: 'MeLP зээлийн систем болон MeAPP мобайл аппликейшн гаргасан.', icon: Zap },
-  { year: '2018', title: 'SmartWare нэвтрүүлэлт', description: 'POS терминалын шийдэл SmartWare-г зах зээлд нэвтрүүлсэн.', icon: Globe },
-  { year: '2021', title: 'SainScore хөгжүүлэлт', description: 'Зээлийн мэдээллийн систем SainScore-г хөгжүүлж, санхүүгийн салбарт нэвтрүүлсэн.', icon: TrendingUp },
-  { year: '2024', title: 'Салбарын тэргүүлэгч', description: 'Монголын санхүүгийн технологийн салбарт тэргүүлэгч компани болсон.', icon: Award },
+  {
+    year: "2021",
+    title: "Байгуулагдсан",
+    description: "ФИБА ХХК байгуулагдаж, банк санхүүгийн програм хангамжийн чиглэлээр үйл ажиллагаагаа эхэлсэн.",
+    icon: Sparkles,
+  },
+  {
+    year: "2012",
+    title: "Анхны гэрээ",
+    description: "Анхны томоохон банктай гэрээ байгуулж, Core Banking систем нэвтрүүлсэн.",
+    icon: Shield,
+  },
+  {
+    year: "2015",
+    title: "Бүтээгдэхүүн өргөжилт",
+    description: "MeLP зээлийн систем болон MeAPP мобайл аппликейшн гаргасан.",
+    icon: Zap,
+  },
+  {
+    year: "2018",
+    title: "SmartWare нэвтрүүлэлт",
+    description: "POS терминалын шийдэл SmartWare-г зах зээлд нэвтрүүлсэн.",
+    icon: Globe,
+  },
+  {
+    year: "2021",
+    title: "SainScore хөгжүүлэлт",
+    description: "Зээлийн мэдээллийн систем SainScore-г хөгжүүлж, санхүүгийн салбарт нэвтрүүлсэн.",
+    icon: TrendingUp,
+  },
+  {
+    year: "2024",
+    title: "Салбарын тэргүүлэгч",
+    description: "Монголын санхүүгийн технологийн салбарт тэргүүлэгч компани болсон.",
+    icon: Award,
+  },
 ];
 
 const stats = [
-  { icon: Clock, value: '15+', label: 'Жилийн туршлага', description: '2009 оноос хойш' },
-  { icon: Users, value: '12+', label: 'Мэргэжлийн баг', description: 'Туршлагатай инженерүүд' },
-  { icon: Globe, value: '50+', label: 'Харилцагч', description: 'Банк, ББСБ, ХЗХ' },
-  { icon: TrendingUp, value: '100%', label: 'Сэтгэл ханамж', description: 'Харилцагчдын үнэлгээ' },
+  { icon: Clock, value: "15+", label: "Жилийн туршлага", description: "2021 оноос хойш" },
+  { icon: Users, value: "12+", label: "Мэргэжлийн баг", description: "Туршлагатай инженерүүд" },
+  { icon: Globe, value: "50+", label: "Харилцагч", description: "Банк, ББСБ, ХЗХ" },
+  { icon: TrendingUp, value: "99.9%", label: "Сэтгэл ханамж", description: "Харилцагчдын үнэлгээ" },
 ];
 
 const AboutPage = () => {
@@ -66,15 +112,21 @@ const AboutPage = () => {
               <span className="text-primary text-sm font-semibold tracking-wide">Бидний тухай</span>
             </div>
 
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              Технологийн{' '}
-              <span className="gradient-text">шинэ эрин</span>
-              <br />бүтээгчид
+            <h1
+              className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight animate-fade-in"
+              style={{ animationDelay: "0.1s" }}
+            >
+              Технологийн <span className="gradient-text">шинэ эрин</span>
+              <br />
+              бүтээгчид
             </h1>
 
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              2009 оноос хойш банк санхүүгийн салбарт технологийн шилдэг шийдлүүдийг 
-              бүтээж, Монголын санхүүгийн дэд бүтцийг хөгжүүлж байна.
+            <p
+              className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in"
+              style={{ animationDelay: "0.2s" }}
+            >
+              2021 оноос хойш банк санхүүгийн салбарт технологийн шилдэг шийдлүүдийг бүтээж, Монголын санхүүгийн дэд
+              бүтцийг хөгжүүлж байна.
             </p>
           </div>
         </div>
@@ -85,8 +137,8 @@ const AboutPage = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
             {stats.map((stat, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="group relative p-6 lg:p-8 rounded-[2rem] bg-card border border-border/50 hover:border-primary/20 hover:shadow-xl transition-all duration-500 overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -107,31 +159,33 @@ const AboutPage = () => {
       {/* Story Section - Bento Layout */}
       <section className="py-24 bg-background relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.02)_1px,transparent_1px)] bg-[size:80px_80px]" />
-        
+
         <div className="container mx-auto px-4 relative">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Story Card */}
             <div className="relative p-8 lg:p-12 rounded-[2.5rem] bg-gradient-to-br from-primary/5 via-card to-card border border-border/50 overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl" />
-              
+
               <div className="relative">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 mb-6">
                   <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                   <span className="text-primary font-medium text-sm">Бидний түүх</span>
                 </div>
-                
+
                 <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-6">
-                  Технологийн ирээдүйг{' '}
-                  <span className="gradient-text">бид хамтдаа</span>{' '}
-                  бүтээнэ
+                  Технологийн ирээдүйг <span className="gradient-text">бид хамтдаа</span> бүтээнэ
                 </h2>
-                
+
                 <div className="space-y-4 text-muted-foreground">
                   <p>
-                    Манай компани нь 2009 онд байгуулагдсан бөгөөд, банк санхүүгийн Програм хангамж, түүний шийдэл, мэдээллийн сан зохион байгуулах, төлбөр тооцооны шийдэл боловсруулах чиглэлээр үйл ажиллагаа явуулдаг.
+                    Манай компани нь 2021 онд байгуулагдсан бөгөөд, банк санхүүгийн Програм хангамж, түүний шийдэл,
+                    мэдээллийн сан зохион байгуулах, төлбөр тооцооны шийдэл боловсруулах чиглэлээр үйл ажиллагаа
+                    явуулдаг.
                   </p>
                   <p>
-                    Мөн банк санхүүгийн мэдээллийн систем, Програм хангамж, мэдээллийн сан болон түүний нууцлал аюулгүй байдлыг хариуцан ажиллаж байсан тухайн салбартаа олон жилийн мэдлэг туршлага хуримтлуулсан чадварлаг, бүтээлч хамт олноос бүрдэж байна.
+                    Мөн банк санхүүгийн мэдээллийн систем, Програм хангамж, мэдээллийн сан болон түүний нууцлал аюулгүй
+                    байдлыг хариуцан ажиллаж байсан тухайн салбартаа олон жилийн мэдлэг туршлага хуримтлуулсан
+                    чадварлаг, бүтээлч хамт олноос бүрдэж байна.
                   </p>
                 </div>
               </div>
@@ -151,7 +205,7 @@ const AboutPage = () => {
                   <span className="text-6xl font-display font-bold text-white">F</span>
                 </div>
                 <h3 className="font-display text-4xl font-bold text-white mb-4">FIBA LLC</h3>
-                <p className="text-white/80 text-lg mb-6">2009 оноос хойш</p>
+                <p className="text-white/80 text-lg mb-6">2021 оноос хойш</p>
                 <div className="flex items-center gap-3">
                   <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm">
                     <span className="text-white/90 text-sm font-medium">fiba.mn</span>
@@ -179,24 +233,25 @@ const AboutPage = () => {
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-primary font-medium text-sm tracking-wide">Бидний үнэт зүйлс</span>
             </div>
-            
+
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              Бидний{' '}
-              <span className="gradient-text">хөдөлгөгч хүч</span>
+              Бидний <span className="gradient-text">хөдөлгөгч хүч</span>
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {values.map((value, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="group relative p-8 lg:p-10 rounded-[2rem] bg-card border border-border/50 hover:border-primary/20 hover:shadow-xl transition-all duration-500 overflow-hidden"
               >
                 <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${value.gradient}`} />
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
+
                 <div className="relative">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${value.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <div
+                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${value.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                  >
                     <value.icon className="w-7 h-7 text-white" />
                   </div>
                   <h3 className="font-display text-2xl font-bold text-foreground mb-4">{value.title}</h3>
@@ -218,22 +273,21 @@ const AboutPage = () => {
               <Clock className="w-4 h-4 text-primary" />
               <span className="text-primary font-medium text-sm tracking-wide">Бидний түүх</span>
             </div>
-            
+
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              Хөгжлийн{' '}
-              <span className="gradient-text">чухал үе шатууд</span>
+              Хөгжлийн <span className="gradient-text">чухал үе шатууд</span>
             </h2>
           </div>
 
           <div className="max-w-5xl mx-auto">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {milestones.map((milestone, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="group relative p-6 lg:p-8 rounded-[2rem] bg-card border border-border/50 hover:border-primary/20 hover:shadow-xl transition-all duration-500 overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
+
                   <div className="relative">
                     <div className="flex items-center justify-between mb-4">
                       <span className="font-display text-3xl font-bold text-primary">{milestone.year}</span>
