@@ -11,9 +11,13 @@ import ServicesPage from "./pages/ServicesPage";
 import TeamPage from "./pages/TeamPage";
 import PartnersPage from "./pages/PartnersPage";
 import ContactPage from "./pages/ContactPage";
-import AdminPage from "./pages/AdminPage";
 import AuthPage from "./pages/AuthPage";
 import NotFound from "./pages/NotFound";
+import AdminLayout from "./components/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminServicesPage from "./pages/admin/AdminServicesPage";
+import AdminTeamPage from "./pages/admin/AdminTeamPage";
+import AdminPartnersPage from "./pages/admin/AdminPartnersPage";
 
 const queryClient = new QueryClient();
 
@@ -37,10 +41,15 @@ const App = () => (
               path="/admin" 
               element={
                 <ProtectedRoute requireAdmin>
-                  <AdminPage />
+                  <AdminLayout />
                 </ProtectedRoute>
-              } 
-            />
+              }
+            >
+              <Route index element={<AdminDashboard />} />
+              <Route path="services" element={<AdminServicesPage />} />
+              <Route path="team" element={<AdminTeamPage />} />
+              <Route path="partners" element={<AdminPartnersPage />} />
+            </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
