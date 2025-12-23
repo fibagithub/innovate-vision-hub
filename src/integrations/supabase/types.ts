@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       partners: {
         Row: {
+          country: string | null
           created_at: string
           description: string | null
           description_mn: string | null
@@ -25,10 +26,13 @@ export type Database = {
           logo_url: string | null
           name: string
           partner_type: string | null
+          partnership_date: string | null
+          region: string | null
           updated_at: string
           website_url: string | null
         }
         Insert: {
+          country?: string | null
           created_at?: string
           description?: string | null
           description_mn?: string | null
@@ -38,10 +42,13 @@ export type Database = {
           logo_url?: string | null
           name: string
           partner_type?: string | null
+          partnership_date?: string | null
+          region?: string | null
           updated_at?: string
           website_url?: string | null
         }
         Update: {
+          country?: string | null
           created_at?: string
           description?: string | null
           description_mn?: string | null
@@ -51,6 +58,8 @@ export type Database = {
           logo_url?: string | null
           name?: string
           partner_type?: string | null
+          partnership_date?: string | null
+          region?: string | null
           updated_at?: string
           website_url?: string | null
         }
