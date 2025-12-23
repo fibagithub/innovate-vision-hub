@@ -40,7 +40,7 @@ export function Navbar() {
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
               <span className="text-primary-foreground font-display font-bold text-xl">F</span>
             </div>
-            <span className="font-display font-bold text-xl text-foreground">FIBA Tech</span>
+            <span className="font-display font-bold text-xl text-foreground">FIBA LLC</span>
           </Link>
 
           {/* Desktop Navigation */}
