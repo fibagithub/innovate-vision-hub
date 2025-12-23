@@ -36,6 +36,7 @@ import {
   TopPagesTable,
   GeoDistribution
 } from '@/components/admin/AnalyticsCharts';
+import { ContentManager } from '@/components/admin/ContentManager';
 
 const sidebarItems = [
   { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
@@ -72,6 +73,15 @@ const AdminPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+  
+  // Content Manager states
+  const [contentManagerOpen, setContentManagerOpen] = useState(false);
+  const [contentManagerTab, setContentManagerTab] = useState('services');
+
+  const openContentManager = (tab: string) => {
+    setContentManagerTab(tab);
+    setContentManagerOpen(true);
+  };
 
   const handleSignOut = async () => {
     await signOut();
@@ -381,24 +391,31 @@ const AdminPage = () => {
               Түргэн үйлдлүүд
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <Button variant="outline" className="h-auto py-4 flex flex-col items-center gap-2">
+              <Button variant="outline" className="h-auto py-4 flex flex-col items-center gap-2" onClick={() => openContentManager('services')}>
                 <Plus className="w-5 h-5" />
                 <span>Үйлчилгээ нэмэх</span>
               </Button>
-              <Button variant="outline" className="h-auto py-4 flex flex-col items-center gap-2">
+              <Button variant="outline" className="h-auto py-4 flex flex-col items-center gap-2" onClick={() => openContentManager('team')}>
                 <Users className="w-5 h-5" />
                 <span>Гишүүн нэмэх</span>
               </Button>
-              <Button variant="outline" className="h-auto py-4 flex flex-col items-center gap-2">
+              <Button variant="outline" className="h-auto py-4 flex flex-col items-center gap-2" onClick={() => openContentManager('partners')}>
                 <Building2 className="w-5 h-5" />
                 <span>Хамтрагч нэмэх</span>
               </Button>
-              <Button variant="outline" className="h-auto py-4 flex flex-col items-center gap-2">
+              <Button variant="outline" className="h-auto py-4 flex flex-col items-center gap-2" onClick={() => openContentManager('services')}>
                 <Edit className="w-5 h-5" />
                 <span>Контент засах</span>
               </Button>
             </div>
           </div>
+
+          {/* Content Manager Modal */}
+          <ContentManager 
+            open={contentManagerOpen} 
+            onOpenChange={setContentManagerOpen}
+            initialTab={contentManagerTab}
+          />
         </main>
       </div>
     </div>
