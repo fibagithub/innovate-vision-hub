@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const navItems = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Services', href: '/services' },
-  { label: 'Team', href: '/team' },
-  { label: 'Partners', href: '/partners' },
-  { label: 'Contact', href: '/contact' },
+  { label: "Нүүр", href: "/" },
+  { label: "Бидний тухай", href: "/about" },
+  { label: "Бүтээгдэхүүн, үйлчилгээ", href: "/services" },
+  { label: "Манай баг", href: "/team" },
+  { label: "Харилцагчид", href: "/partners" },
+  { label: "Холбоо барих", href: "/contact" },
 ];
 
 export function Navbar() {
@@ -22,17 +22,15 @@ export function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <nav
       className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        scrolled
-          ? 'bg-background/80 backdrop-blur-lg shadow-soft'
-          : 'bg-transparent'
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        scrolled ? "bg-background/80 backdrop-blur-lg shadow-soft" : "bg-transparent",
       )}
     >
       <div className="container mx-auto px-4">
@@ -52,10 +50,10 @@ export function Navbar() {
                 key={item.href}
                 to={item.href}
                 className={cn(
-                  'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
+                  "px-4 py-2 rounded-lg text-sm font-medium transition-colors",
                   location.pathname === item.href
-                    ? 'text-primary bg-primary/10'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                    ? "text-primary bg-primary/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted",
                 )}
               >
                 {item.label}
@@ -90,8 +88,8 @@ export function Navbar() {
       {/* Mobile Menu */}
       <div
         className={cn(
-          'lg:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-lg border-b border-border transition-all duration-300 overflow-hidden',
-          isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+          "lg:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-lg border-b border-border transition-all duration-300 overflow-hidden",
+          isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0",
         )}
       >
         <div className="container mx-auto px-4 py-4 space-y-2">
@@ -101,10 +99,10 @@ export function Navbar() {
               to={item.href}
               onClick={() => setIsOpen(false)}
               className={cn(
-                'block px-4 py-3 rounded-lg text-sm font-medium transition-colors',
+                "block px-4 py-3 rounded-lg text-sm font-medium transition-colors",
                 location.pathname === item.href
-                  ? 'text-primary bg-primary/10'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                  ? "text-primary bg-primary/10"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted",
               )}
             >
               {item.label}
