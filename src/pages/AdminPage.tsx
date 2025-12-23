@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Package, 
@@ -20,10 +20,13 @@ import {
   Clock,
   MousePointer,
   ArrowUpRight,
-  Calendar
+  Calendar,
+  LogOut
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from 'sonner';
 import {
   TrafficOverviewChart,
   RealtimeChart,
@@ -67,6 +70,14 @@ const AdminPage = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [dateRange, setDateRange] = useState('7d');
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast.success('Амжилттай гарлаа');
+    navigate('/');
+  };
 
   return (
     <div className="min-h-screen bg-muted/30">
@@ -102,7 +113,15 @@ const AdminPage = () => {
             </Link>
           ))}
         </nav>
-        <div className="absolute bottom-4 left-4 right-4">
+        <div className="absolute bottom-4 left-4 right-4 space-y-2">
+          <Button 
+            variant="ghost" 
+            className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10"
+            onClick={handleSignOut}
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Гарах
+          </Button>
           <Link to="/">
             <Button variant="outline" className="w-full">
               Вэбсайт руу буцах
