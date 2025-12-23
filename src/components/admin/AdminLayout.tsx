@@ -5,8 +5,6 @@ import {
   Package, 
   Users, 
   Building2, 
-  BarChart3, 
-  Settings, 
   Menu,
   LogOut
 } from 'lucide-react';
@@ -20,8 +18,6 @@ const sidebarItems = [
   { label: 'Үйлчилгээ', href: '/admin/services', icon: Package },
   { label: 'Баг', href: '/admin/team', icon: Users },
   { label: 'Хамтрагчид', href: '/admin/partners', icon: Building2 },
-  { label: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
-  { label: 'Тохиргоо', href: '/admin/settings', icon: Settings },
 ];
 
 const AdminLayout = () => {
