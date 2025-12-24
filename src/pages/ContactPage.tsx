@@ -10,25 +10,27 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Имэйл",
-    details: ["info@fiba.mn", "support@fiba.mn"],
+    details: ["contact@fiba.mn"],
     gradient: "from-primary to-[#2563eb]",
   },
   {
     icon: Phone,
     title: "Утас",
-    details: ["+976 7711-0909", "+976 9911-0909"],
+    details: ["+976 7509-2211"],
     gradient: "from-[#7c3aed] to-[#a855f7]",
   },
   {
     icon: MapPin,
     title: "Хаяг",
-    details: ["Улаанбаатар хот", "Сүхбаатар дүүрэг"],
+    details: [
+      "Монгол улс, Улаанбаатар хот, Хан-Уул дүүрэг, 15-р хороо, Үйлдвэр, Богд жавзан дамба гудамж 12 байр, 1 тоот",
+    ],
     gradient: "from-[#059669] to-[#34d399]",
   },
   {
     icon: Clock,
     title: "Ажлын цаг",
-    details: ["Даваа - Баасан: 9:00 - 18:00", "Бямба: 10:00 - 14:00"],
+    details: ["Даваа - Баасан: 9:00 - 18:00"],
     gradient: "from-[#f59e0b] to-[#fbbf24]",
   },
 ];
@@ -236,8 +238,10 @@ const ContactPage = () => {
                     <MapPin className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="font-display text-2xl font-bold text-white mb-2">Манай байршил</h3>
-                  <p className="text-white/80">Улаанбаатар хот</p>
-                  <p className="text-white/80">Сүхбаатар дүүрэг</p>
+                  <p className="text-white/80">
+                    Монгол улс, Улаанбаатар хот, Хан-Уул дүүрэг, 15-р хороо, Үйлдвэр, Богд жавзан дамба гудамж 12 байр,
+                    1 тоот
+                  </p>
                 </div>
               </div>
 
@@ -258,7 +262,7 @@ const ContactPage = () => {
                     >
                       <div className="flex items-center gap-3">
                         <Mail className="w-5 h-5 text-primary" />
-                        <span className="font-medium text-foreground">info@fiba.mn</span>
+                        <span className="font-medium text-foreground">contact@fiba.mn</span>
                       </div>
                       <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                     </a>
@@ -269,7 +273,7 @@ const ContactPage = () => {
                     >
                       <div className="flex items-center gap-3">
                         <Phone className="w-5 h-5 text-primary" />
-                        <span className="font-medium text-foreground">+976 7711-0909</span>
+                        <span className="font-medium text-foreground">+976 7509-2211</span>
                       </div>
                       <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                     </a>
