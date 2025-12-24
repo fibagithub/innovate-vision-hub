@@ -29,7 +29,11 @@ interface Service {
   name: string;
   name_mn: string | null;
   description: string | null;
+  category: string | null;
   icon: string | null;
+  icon_url: string | null;
+  usage_metric: string | null;
+  features: string[] | null;
   is_active: boolean | null;
   display_order: number | null;
 }
@@ -114,26 +118,49 @@ const AdminServicesPage = () => {
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead>Icon</TableHead>
                 <TableHead>Нэр</TableHead>
-                <TableHead>Тайлбар</TableHead>
+                <TableHead>Category</TableHead>
+                <TableHead>Usage Metric</TableHead>
+                <TableHead>Онцлогууд</TableHead>
                 <TableHead>Төлөв</TableHead>
-                <TableHead>Дараалал</TableHead>
                 <TableHead className="text-right">Үйлдэл</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {services.map((service) => (
                 <TableRow key={service.id}>
+                  <TableCell>
+                    {service.icon_url ? (
+                      <img src={service.icon_url} alt={service.name} className="w-10 h-10 rounded-lg object-cover" />
+                    ) : (
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <Package className="w-5 h-5 text-primary" />
+                      </div>
+                    )}
+                  </TableCell>
                   <TableCell className="font-medium">{service.name}</TableCell>
-                  <TableCell className="max-w-xs truncate">
-                    {service.description || '-'}
+                  <TableCell className="text-muted-foreground">
+                    {service.category || '-'}
+                  </TableCell>
+                  <TableCell className="text-muted-foreground">
+                    {service.usage_metric || '-'}
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex flex-wrap gap-1 max-w-xs">
+                      {service.features?.slice(0, 2).map((f, i) => (
+                        <Badge key={i} variant="outline" className="text-xs">{f}</Badge>
+                      ))}
+                      {(service.features?.length || 0) > 2 && (
+                        <Badge variant="outline" className="text-xs">+{(service.features?.length || 0) - 2}</Badge>
+                      )}
+                    </div>
                   </TableCell>
                   <TableCell>
                     <Badge variant={service.is_active ? 'default' : 'secondary'}>
                       {service.is_active ? 'Идэвхтэй' : 'Идэвхгүй'}
                     </Badge>
                   </TableCell>
-                  <TableCell>{service.display_order}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Button variant="ghost" size="sm" onClick={() => openEdit(service)}>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -10,14 +10,19 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from 'sonner';
-import { Loader2, Plus, X } from 'lucide-react';
+import { Loader2, Plus, X, Upload, Image as ImageIcon } from 'lucide-react';
 
 const serviceSchema = z.object({
   name: z.string().min(1, 'Нэр оруулна уу'),
   name_mn: z.string().optional(),
   description: z.string().optional(),
   description_mn: z.string().optional(),
+  category: z.string().optional(),
+  category_mn: z.string().optional(),
   icon: z.string().optional(),
+  icon_url: z.string().optional(),
+  usage_metric: z.string().optional(),
+  usage_metric_mn: z.string().optional(),
   is_active: z.boolean().default(true),
   display_order: z.number().default(0),
 });
@@ -35,6 +40,9 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
   const [isLoading, setIsLoading] = useState(false);
   const [features, setFeatures] = useState<string[]>([]);
   const [newFeature, setNewFeature] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+  const [iconPreview, setIconPreview] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<ServiceFormData>({
     resolver: zodResolver(serviceSchema),
@@ -44,6 +52,8 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
     },
   });
 
+  const iconUrl = watch('icon_url');
+
   useEffect(() => {
     if (editData) {
       reset({
@@ -51,24 +61,78 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
         name_mn: editData.name_mn || '',
         description: editData.description || '',
         description_mn: editData.description_mn || '',
+        category: editData.category || '',
+        category_mn: editData.category_mn || '',
         icon: editData.icon || '',
+        icon_url: editData.icon_url || '',
+        usage_metric: editData.usage_metric || '',
+        usage_metric_mn: editData.usage_metric_mn || '',
         is_active: editData.is_active ?? true,
         display_order: editData.display_order || 0,
       });
       setFeatures(editData.features || []);
+      setIconPreview(editData.icon_url || null);
     } else {
       reset({
         name: '',
         name_mn: '',
         description: '',
         description_mn: '',
+        category: '',
+        category_mn: '',
         icon: 'Package',
+        icon_url: '',
+        usage_metric: '',
+        usage_metric_mn: '',
         is_active: true,
         display_order: 0,
       });
       setFeatures([]);
+      setIconPreview(null);
     }
   }, [editData, reset]);
+
+  const handleIconUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error('Зөвхөн зураг оруулах боломжтой');
+      return;
+    }
+
+    // Validate file size (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error('Зургийн хэмжээ 2MB-аас бага байх ёстой');
+      return;
+    }
+
+    setIsUploading(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `service-icon-${Date.now()}.${fileExt}`;
+      const filePath = `services/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(filePath);
+
+      setValue('icon_url', publicUrl);
+      setIconPreview(publicUrl);
+      toast.success('Icon амжилттай оруулагдлаа');
+    } catch (error: any) {
+      toast.error(error.message || 'Icon оруулахад алдаа гарлаа');
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const addFeature = () => {
     if (newFeature.trim()) {
@@ -117,39 +181,141 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{editData ? 'Үйлчилгээ засах' : 'Шинэ үйлчилгээ нэмэх'}</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Icon Upload Section */}
+          <div className="space-y-3">
+            <Label>Бүтээгдэхүүний Icon</Label>
+            <div className="flex items-start gap-4">
+              <div 
+                className="w-24 h-24 rounded-xl border-2 border-dashed border-border bg-muted/50 flex items-center justify-center overflow-hidden cursor-pointer hover:border-primary/50 transition-colors"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                {isUploading ? (
+                  <Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
+                ) : iconPreview ? (
+                  <img src={iconPreview} alt="Icon" className="w-full h-full object-cover" />
+                ) : (
+                  <ImageIcon className="w-8 h-8 text-muted-foreground" />
+                )}
+              </div>
+              <div className="flex-1 space-y-2">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleIconUpload}
+                />
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={isUploading}
+                >
+                  <Upload className="w-4 h-4 mr-2" />
+                  Icon оруулах
+                </Button>
+                <p className="text-xs text-muted-foreground">PNG, JPG, SVG (max 2MB)</p>
+                <Input 
+                  {...register('icon_url')} 
+                  placeholder="эсвэл URL оруулах" 
+                  className="text-sm"
+                  onChange={(e) => {
+                    setValue('icon_url', e.target.value);
+                    setIconPreview(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Category Section */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Нэр (EN)</Label>
-              <Input id="name" {...register('name')} placeholder="Service name" />
+              <Label htmlFor="category">Category Label (EN)</Label>
+              <Input id="category" {...register('category')} placeholder="Core Banking System" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="category_mn">Category Label (MN)</Label>
+              <Input id="category_mn" {...register('category_mn')} placeholder="Суурь банкны систем" />
+            </div>
+          </div>
+
+          {/* Product Title Section */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Product Title (EN) *</Label>
+              <Input id="name" {...register('name')} placeholder="MeCore" />
               {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="name_mn">Нэр (MN)</Label>
-              <Input id="name_mn" {...register('name_mn')} placeholder="Үйлчилгээний нэр" />
+              <Label htmlFor="name_mn">Product Title (MN)</Label>
+              <Input id="name_mn" {...register('name_mn')} placeholder="МиКор" />
             </div>
           </div>
 
+          {/* Description Section */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="description">Тайлбар (EN)</Label>
-              <Textarea id="description" {...register('description')} placeholder="Description" rows={3} />
+              <Label htmlFor="description">Description (EN)</Label>
+              <Textarea id="description" {...register('description')} placeholder="Product description..." rows={3} />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description_mn">Тайлбар (MN)</Label>
-              <Textarea id="description_mn" {...register('description_mn')} placeholder="Тайлбар" rows={3} />
+              <Label htmlFor="description_mn">Description (MN)</Label>
+              <Textarea id="description_mn" {...register('description_mn')} placeholder="Бүтээгдэхүүний тайлбар..." rows={3} />
             </div>
           </div>
 
+          {/* Usage Metric Section */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="icon">Icon нэр</Label>
+              <Label htmlFor="usage_metric">Usage Metric (EN)</Label>
+              <Input id="usage_metric" {...register('usage_metric')} placeholder="50+ organizations" />
+              <p className="text-xs text-muted-foreground">жнь: "1000+ хэрэглэгч", "50+ байгууллага"</p>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="usage_metric_mn">Usage Metric (MN)</Label>
+              <Input id="usage_metric_mn" {...register('usage_metric_mn')} placeholder="50+ байгууллага" />
+            </div>
+          </div>
+
+          {/* Feature Badges Section */}
+          <div className="space-y-2">
+            <Label>Feature Badges</Label>
+            <div className="flex gap-2">
+              <Input 
+                value={newFeature} 
+                onChange={(e) => setNewFeature(e.target.value)} 
+                placeholder="Онцлог нэмэх (жнь: Санхүүгийн бүртгэл)"
+                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addFeature())}
+              />
+              <Button type="button" variant="outline" onClick={addFeature}>
+                <Plus className="w-4 h-4" />
+              </Button>
+            </div>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {features.map((feature, index) => (
+                <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary/10 text-sm font-medium">
+                  {feature}
+                  <button type="button" onClick={() => removeFeature(index)} className="hover:text-destructive">
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Display Order and Icon Name */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="icon">Icon нэр (Lucide)</Label>
               <Input id="icon" {...register('icon')} placeholder="Package" />
-              <p className="text-xs text-muted-foreground">Lucide icon нэр (жнь: Package, Users, Globe)</p>
+              <p className="text-xs text-muted-foreground">Lucide icon нэр (жнь: Package, Database, Globe)</p>
             </div>
             <div className="space-y-2">
               <Label htmlFor="display_order">Эрэмбэ</Label>
@@ -161,31 +327,7 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label>Онцлогууд</Label>
-            <div className="flex gap-2">
-              <Input 
-                value={newFeature} 
-                onChange={(e) => setNewFeature(e.target.value)} 
-                placeholder="Онцлог нэмэх"
-                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addFeature())}
-              />
-              <Button type="button" variant="outline" onClick={addFeature}>
-                <Plus className="w-4 h-4" />
-              </Button>
-            </div>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {features.map((feature, index) => (
-                <span key={index} className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary/10 text-sm">
-                  {feature}
-                  <button type="button" onClick={() => removeFeature(index)}>
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              ))}
-            </div>
-          </div>
-
+          {/* Active Toggle */}
           <div className="flex items-center gap-2">
             <Switch
               checked={watch('is_active')}
@@ -194,7 +336,8 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
             <Label>Идэвхтэй</Label>
           </div>
 
-          <div className="flex justify-end gap-2 pt-4">
+          {/* Form Actions */}
+          <div className="flex justify-end gap-2 pt-4 border-t">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
               Цуцлах
             </Button>
