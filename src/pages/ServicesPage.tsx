@@ -485,7 +485,7 @@ const ServicesPage = () => {
                           >
                             <product.icon className="w-8 h-8 text-white" />
                           </div>
-                          <span className="text-6xl font-black text-foreground/5">0{index + 1}</span>
+                          <span className="text-6xl font-black text-foreground/5"></span>
                         </div>
 
                         <span
