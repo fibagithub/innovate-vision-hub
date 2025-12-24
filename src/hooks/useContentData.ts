@@ -7,7 +7,12 @@ export interface Service {
   name_mn: string | null;
   description: string | null;
   description_mn: string | null;
+  category: string | null;
+  category_mn: string | null;
   icon: string | null;
+  icon_url: string | null;
+  usage_metric: string | null;
+  usage_metric_mn: string | null;
   features: string[] | null;
   is_active: boolean;
   display_order: number;

@@ -97,43 +97,58 @@ export type Database = {
       }
       services: {
         Row: {
+          category: string | null
+          category_mn: string | null
           created_at: string
           description: string | null
           description_mn: string | null
           display_order: number | null
           features: string[] | null
           icon: string | null
+          icon_url: string | null
           id: string
           is_active: boolean | null
           name: string
           name_mn: string | null
           updated_at: string
+          usage_metric: string | null
+          usage_metric_mn: string | null
         }
         Insert: {
+          category?: string | null
+          category_mn?: string | null
           created_at?: string
           description?: string | null
           description_mn?: string | null
           display_order?: number | null
           features?: string[] | null
           icon?: string | null
+          icon_url?: string | null
           id?: string
           is_active?: boolean | null
           name: string
           name_mn?: string | null
           updated_at?: string
+          usage_metric?: string | null
+          usage_metric_mn?: string | null
         }
         Update: {
+          category?: string | null
+          category_mn?: string | null
           created_at?: string
           description?: string | null
           description_mn?: string | null
           display_order?: number | null
           features?: string[] | null
           icon?: string | null
+          icon_url?: string | null
           id?: string
           is_active?: boolean | null
           name?: string
           name_mn?: string | null
           updated_at?: string
+          usage_metric?: string | null
+          usage_metric_mn?: string | null
         }
         Relationships: []
       }
