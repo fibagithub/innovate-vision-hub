@@ -20,11 +20,11 @@ const achievements = [
 // Regional partner statistics for the map
 const regions = [
   { name: "Улаанбаатар хот", count: 12, x: "52%", y: "45%" },
-  { name: "Хангайн бүс", count: 3, x: "48%", y: "28%" },
-  { name: "Төвийн бүс", count: 5, x: "42%", y: "32%" },
+  { name: "Хангайн бүс", count: 3, x: "35%", y: "65%" },
+  { name: "Төвийн бүс", count: 5, x: "50%", y: "32%" },
   { name: "Баруун бүс", count: 1, x: "20%", y: "40%" },
   { name: "Зүүн бүс", count: 5, x: "80%", y: "38%" },
-  { name: "Говийн бүс", count: 3, x: "35%", y: "65%" },
+  { name: "Говийн бүс", count: 3, x: "60%", y: "65%" },
 ];
 
 export function Partners() {
