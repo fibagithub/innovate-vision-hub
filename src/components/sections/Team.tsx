@@ -48,7 +48,7 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember | (typeof fallba
           "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
         }
         alt={member.name}
-        className="w-full h-full object-cover group-hover:scale-210 transition-transform duration-700"
+        className="w-full h-full object-cover group-hover:scale-310 transition-transform duration-700"
       />
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
