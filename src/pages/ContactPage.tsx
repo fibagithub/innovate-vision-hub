@@ -257,7 +257,7 @@ const ContactPage = () => {
 
                   <div className="space-y-4">
                     <a
-                      href="mailto:info@fiba.mn"
+                      href="mailto:contact@fiba.mn"
                       className="group flex items-center justify-between p-4 rounded-xl bg-muted/50 hover:bg-primary/10 transition-colors"
                     >
                       <div className="flex items-center gap-3">
@@ -268,7 +268,7 @@ const ContactPage = () => {
                     </a>
 
                     <a
-                      href="tel:+97677110909"
+                      href="tel:+97675092211"
                       className="group flex items-center justify-between p-4 rounded-xl bg-muted/50 hover:bg-primary/10 transition-colors"
                     >
                       <div className="flex items-center gap-3">
