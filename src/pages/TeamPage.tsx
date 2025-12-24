@@ -1,58 +1,58 @@
-import { Layout } from '@/components/layout/Layout';
-import { Linkedin, Mail, ArrowRight, Sparkles, Users, Award, Target, Loader2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { useTeamMembers } from '@/hooks/useContentData';
+import { Layout } from "@/components/layout/Layout";
+import { Linkedin, Mail, ArrowRight, Sparkles, Users, Award, Target, Loader2 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { useTeamMembers } from "@/hooks/useContentData";
 
 // Fallback static data
 const fallbackTeamMembers = [
   {
-    id: '1',
-    name: 'Б. Батбаяр',
-    position_mn: 'Захирал',
-    bio_mn: 'Банк санхүүгийн салбарт 20+ жилийн туршлагатай. FIBA компанийг 2009 онд үүсгэн байгуулсан.',
-    image_url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
-    linkedin_url: '#',
+    id: "1",
+    name: "Б. Батбаяр",
+    position_mn: "Захирал",
+    bio_mn: "Банк санхүүгийн салбарт 20+ жилийн туршлагатай. FIBA компанийг 2009 онд үүсгэн байгуулсан.",
+    image_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+    linkedin_url: "#",
     email: null,
   },
   {
-    id: '2',
-    name: 'Д. Дорж',
-    position_mn: 'Технологийн захирал',
-    bio_mn: 'Програм хангамжийн архитектур, системийн интеграцийн чиглэлээр 15+ жилийн туршлагатай.',
-    image_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
-    linkedin_url: '#',
+    id: "2",
+    name: "Д. Дорж",
+    position_mn: "Технологийн захирал",
+    bio_mn: "Програм хангамжийн архитектур, системийн интеграцийн чиглэлээр 15+ жилийн туршлагатай.",
+    image_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+    linkedin_url: "#",
     email: null,
   },
   {
-    id: '3',
-    name: 'Г. Ганбаатар',
-    position_mn: 'Бүтээгдэхүүний менежер',
-    bio_mn: 'Core Banking системийн хөгжүүлэлт, нэвтрүүлэлтийн чиглэлээр мэргэшсэн.',
-    image_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face',
-    linkedin_url: '#',
+    id: "3",
+    name: "Г. Ганбаатар",
+    position_mn: "Бүтээгдэхүүний менежер",
+    bio_mn: "Core Banking системийн хөгжүүлэлт, нэвтрүүлэлтийн чиглэлээр мэргэшсэн.",
+    image_url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face",
+    linkedin_url: "#",
     email: null,
   },
   {
-    id: '4',
-    name: 'С. Сараа',
-    position_mn: 'Ахлах програмист',
-    bio_mn: 'Full-stack хөгжүүлэгч. React, Node.js, PostgreSQL чиглэлээр мэргэшсэн.',
-    image_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face',
-    linkedin_url: '#',
+    id: "4",
+    name: "С. Сараа",
+    position_mn: "Ахлах програмист",
+    bio_mn: "Full-stack хөгжүүлэгч. React, Node.js, PostgreSQL чиглэлээр мэргэшсэн.",
+    image_url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face",
+    linkedin_url: "#",
     email: null,
   },
 ];
 
 const teamStats = [
-  { icon: Users, value: '12+', label: 'Баг хамт олон' },
-  { icon: Award, value: '15+', label: 'Жилийн туршлага' },
-  { icon: Target, value: '100+', label: 'Амжилттай төсөл' },
+  { icon: Users, value: "12+", label: "Баг хамт олон" },
+  { icon: Award, value: "15+", label: "Жилийн туршлага" },
+  { icon: Target, value: "100+", label: "Амжилттай төсөл" },
 ];
 
 const TeamPage = () => {
   const { data: dbTeamMembers, isLoading } = useTeamMembers();
-  
+
   // Use database data if available, otherwise use fallback
   const teamMembers = dbTeamMembers && dbTeamMembers.length > 0 ? dbTeamMembers : fallbackTeamMembers;
 
@@ -75,20 +75,28 @@ const TeamPage = () => {
               <span className="text-primary text-sm font-semibold tracking-wide">Манай баг</span>
             </div>
 
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              Инновацийн{' '}
-              <span className="gradient-text">цаадах хүмүүс</span>
+            <h1
+              className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight animate-fade-in"
+              style={{ animationDelay: "0.1s" }}
+            >
+              Инновацийн <span className="gradient-text">цаадах хүмүүс</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              Манай чадварлаг баг нь банк санхүүгийн технологийн чиглэлээр олон жилийн 
-              туршлага, мэдлэгээ нэгтгэн, шилдэг шийдлүүдийг бүтээдэг.
+            <p
+              className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in"
+              style={{ animationDelay: "0.2s" }}
+            >
+              Манай чадварлаг баг нь банк санхүүгийн технологийн чиглэлээр олон жилийн туршлага, мэдлэгээ нэгтгэн,
+              шилдэг шийдлүүдийг бүтээдэг.
             </p>
 
             {/* Stats */}
-            <div className="flex flex-wrap justify-center gap-6 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            <div className="flex flex-wrap justify-center gap-6 animate-fade-in" style={{ animationDelay: "0.3s" }}>
               {teamStats.map((stat, index) => (
-                <div key={index} className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-card border border-border/50">
+                <div
+                  key={index}
+                  className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-card border border-border/50"
+                >
                   <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                     <stat.icon className="w-5 h-5 text-primary" />
                   </div>
@@ -121,19 +129,22 @@ const TeamPage = () => {
                 >
                   {/* Gradient Accent */}
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-[#2563eb] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
+
                   {/* Image */}
                   <div className="aspect-[4/3] overflow-hidden relative">
                     <img
-                      src={member.image_url || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'}
+                      src={
+                        member.image_url ||
+                        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+                      }
                       alt={member.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
-                    
+
                     {/* Number Badge */}
                     <div className="absolute top-4 right-4 w-8 h-8 rounded-lg bg-background/80 backdrop-blur-sm flex items-center justify-center">
-                      <span className="font-display text-sm font-bold text-foreground">{String(index + 1).padStart(2, '0')}</span>
+                      <span className="font-display text-sm font-bold text-foreground"></span>
                     </div>
                   </div>
 
@@ -142,11 +153,9 @@ const TeamPage = () => {
                     <h3 className="font-display text-xl font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
                       {member.name}
                     </h3>
-                    <p className="text-primary text-sm font-semibold mb-3">
-                      {member.position_mn || ''}
-                    </p>
+                    <p className="text-primary text-sm font-semibold mb-3">{member.position_mn || ""}</p>
                     <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2">
-                      {member.bio_mn || ''}
+                      {member.bio_mn || ""}
                     </p>
 
                     {/* Social Links */}
@@ -171,10 +180,16 @@ const TeamPage = () => {
                       )}
                       {!member.linkedin_url && !member.email && (
                         <>
-                          <a href="#" className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300">
+                          <a
+                            href="#"
+                            className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300"
+                          >
                             <Linkedin size={16} />
                           </a>
-                          <a href="mailto:contact@fiba.mn" className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300">
+                          <a
+                            href="mailto:contact@fiba.mn"
+                            className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300"
+                          >
                             <Mail size={16} />
                           </a>
                         </>
