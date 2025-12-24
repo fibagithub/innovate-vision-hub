@@ -268,7 +268,7 @@ const ProductCard = ({ service, index, total }: { service: Service; index: numbe
 
                 {/* Features */}
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {service.features?.slice(0, 4).map((feature, i) => (
+                  {service.features?.map((feature, i) => (
                     <span
                       key={i}
                       className="px-3 py-1.5 rounded-full bg-foreground/5 border border-border/50 text-xs font-medium text-foreground/70"
