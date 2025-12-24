@@ -152,44 +152,6 @@ const TeamPage = () => {
                     <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2">
                       {member.bio_mn || ""}
                     </p>
-
-                    {/* Social Links */}
-                    <div className="flex gap-2">
-                      {member.linkedin_url && (
-                        <a
-                          href={member.linkedin_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300"
-                        >
-                          <Linkedin size={16} />
-                        </a>
-                      )}
-                      {member.email && (
-                        <a
-                          href={`mailto:${member.email}`}
-                          className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300"
-                        >
-                          <Mail size={16} />
-                        </a>
-                      )}
-                      {!member.linkedin_url && !member.email && (
-                        <>
-                          <a
-                            href="#"
-                            className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300"
-                          >
-                            <Linkedin size={16} />
-                          </a>
-                          <a
-                            href="mailto:contact@fiba.mn"
-                            className="w-9 h-9 rounded-xl bg-muted hover:bg-primary hover:text-white flex items-center justify-center transition-all duration-300"
-                          >
-                            <Mail size={16} />
-                          </a>
-                        </>
-                      )}
-                    </div>
                   </div>
                 </div>
               ))}
