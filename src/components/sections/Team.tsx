@@ -50,36 +50,7 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember | typeof fallbac
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
-      {/* Social Links - appear on hover */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-        {'linkedin_url' in member && member.linkedin_url && (
-          <a
-            href={member.linkedin_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2.5 rounded-xl bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors"
-          >
-            <Linkedin size={16} className="text-white" />
-          </a>
-        )}
-        {'email' in member && member.email && (
-          <a
-            href={`mailto:${member.email}`}
-            className="p-2.5 rounded-xl bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors"
-          >
-            <Mail size={16} className="text-white" />
-          </a>
-        )}
-        {!('linkedin_url' in member) && (
-          <>
-            <a href="#" className="p-2.5 rounded-xl bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors">
-              <Linkedin size={16} className="text-white" />
-            </a>
-            <a href="mailto:contact@fiba.mn" className="p-2.5 rounded-xl bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-colors">
-              <Mail size={16} className="text-white" />
-            </a>
-          </>
-        )}
+
       </div>
     </div>
 
