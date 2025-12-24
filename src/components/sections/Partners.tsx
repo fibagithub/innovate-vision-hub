@@ -1,30 +1,30 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight, Building2, Landmark, Users, Briefcase, MapPin, Globe2, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { usePartners } from '@/hooks/useContentData';
+import { Link } from "react-router-dom";
+import { ArrowRight, Building2, Landmark, Users, Briefcase, MapPin, Globe2, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { usePartners } from "@/hooks/useContentData";
 
 const clientTypes = [
-  { icon: Landmark, label: 'Арилжааны банкууд', count: '4+' },
-  { icon: Building2, label: 'ББСБ', count: '25+' },
-  { icon: Users, label: 'Хадгаламж зээлийн хоршоод', count: '30+' },
-  { icon: Briefcase, label: 'Лизингийн компаниуд', count: '5+' },
+  { icon: Landmark, label: "Арилжааны банкууд", count: "4+" },
+  { icon: Building2, label: "ББСБ", count: "25+" },
+  { icon: Users, label: "Хадгаламж зээлийн хоршоод", count: "30+" },
+  { icon: Briefcase, label: "Лизингийн компаниуд", count: "5+" },
 ];
 
 const achievements = [
-  { number: '4+', label: 'Банканд систем нэвтрүүлсэн' },
-  { number: '50+', label: 'ХЗХ, ББСБ-д үйлчилгээ үзүүлсэн' },
-  { number: '15+', label: 'Жилийн туршлага' },
-  { number: '100%', label: 'Харилцагчийн сэтгэл ханамж' },
+  { number: "4+", label: "Банканд систем нэвтрүүлсэн" },
+  { number: "50+", label: "ХЗХ, ББСБ-д үйлчилгээ үзүүлсэн" },
+  { number: "15+", label: "Жилийн туршлага" },
+  { number: "100%", label: "Харилцагчийн сэтгэл ханамж" },
 ];
 
 // Regional partner statistics for the map
 const regions = [
-  { name: 'Улаанбаатар', count: 35, x: '52%', y: '45%' },
-  { name: 'Дархан-Уул', count: 8, x: '48%', y: '28%' },
-  { name: 'Орхон', count: 6, x: '42%', y: '32%' },
-  { name: 'Баруун бүс', count: 12, x: '20%', y: '40%' },
-  { name: 'Дорнод бүс', count: 5, x: '80%', y: '38%' },
-  { name: 'Говь бүс', count: 4, x: '55%', y: '65%' },
+  { name: "Улаанбаатар хот", count: 12, x: "52%", y: "45%" },
+  { name: "Хангайн бүс", count: 3, x: "48%", y: "28%" },
+  { name: "Төвийн бүс", count: 5, x: "42%", y: "32%" },
+  { name: "Баруун бүс", count: 1, x: "20%", y: "40%" },
+  { name: "Зүүн бүс", count: 5, x: "80%", y: "38%" },
+  { name: "Говийн бүс", count: 3, x: "35%", y: "65%" },
 ];
 
 export function Partners() {
@@ -45,7 +45,8 @@ export function Partners() {
             <span className="text-primary font-medium text-sm">Strategic Alliances</span>
           </div>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-            Technology<br />
+            Technology
+            <br />
             <span className="bg-gradient-to-r from-primary via-[#2563eb] to-primary bg-clip-text text-transparent">
               Partners
             </span>
@@ -61,14 +62,14 @@ export function Partners() {
             {dbPartners.map((partner) => (
               <a
                 key={partner.id}
-                href={partner.website_url || '#'}
+                href={partner.website_url || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 flex flex-col items-center justify-center gap-3"
               >
                 {partner.logo_url ? (
-                  <img 
-                    src={partner.logo_url} 
+                  <img
+                    src={partner.logo_url}
                     alt={partner.name}
                     className="h-12 object-contain grayscale group-hover:grayscale-0 transition-all"
                   />
@@ -130,14 +131,17 @@ export function Partners() {
                 >
                   {/* Pulse Animation */}
                   <div className="absolute inset-0 w-16 h-16 -translate-x-1/4 -translate-y-1/4">
-                    <div className="absolute inset-0 bg-primary/20 rounded-full animate-ping" style={{ animationDelay: `${index * 200}ms` }} />
+                    <div
+                      className="absolute inset-0 bg-primary/20 rounded-full animate-ping"
+                      style={{ animationDelay: `${index * 200}ms` }}
+                    />
                   </div>
-                  
+
                   {/* Marker */}
                   <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-[#2563eb] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                     <span className="font-display font-bold text-white text-sm">{region.count}</span>
                   </div>
-                  
+
                   {/* Tooltip */}
                   <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
                     <div className="bg-foreground text-background px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap shadow-lg">
@@ -169,8 +173,8 @@ export function Partners() {
         {/* Stats Section */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
           {achievements.map((achievement, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="relative group p-8 rounded-2xl bg-card border border-border/50 text-center hover:border-primary/30 hover:shadow-lg transition-all duration-300"
             >
               <div className="font-display text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-[#2563eb] bg-clip-text text-transparent mb-2">
@@ -184,14 +188,15 @@ export function Partners() {
         {/* Why Choose Us */}
         <div className="relative rounded-[2rem] bg-gradient-to-br from-primary/5 via-card to-accent/5 border border-border/50 p-10 lg:p-16 overflow-hidden">
           <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary/5 to-transparent" />
-          
+
           <div className="relative grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h3 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-6">
                 Яагаад биднийг сонгох вэ?
               </h3>
               <p className="text-muted-foreground text-lg mb-8">
-                Манай системүүд нь олон улсын стандартад нийцсэн, найдвартай, хэрэглэхэд хялбар, тасралтгүй хөгжүүлэлт хийгддэг.
+                Манай системүүд нь олон улсын стандартад нийцсэн, найдвартай, хэрэглэхэд хялбар, тасралтгүй хөгжүүлэлт
+                хийгддэг.
               </p>
               <Link to="/partners">
                 <Button variant="gradient" size="lg">
@@ -203,12 +208,12 @@ export function Partners() {
 
             <div className="grid grid-cols-2 gap-4">
               {[
-                'Олон улсын жишигт нийцсэн',
-                '24/7 Техникийн дэмжлэг',
-                'Тасралтгүй хөгжүүлэлт',
-                'Мэргэжлийн баг',
-                'Найдвартай аюулгүй',
-                'Хялбар интеграци',
+                "Олон улсын жишигт нийцсэн",
+                "24/7 Техникийн дэмжлэг",
+                "Тасралтгүй хөгжүүлэлт",
+                "Мэргэжлийн баг",
+                "Найдвартай аюулгүй",
+                "Хялбар интеграци",
               ].map((feature, index) => (
                 <div
                   key={index}
