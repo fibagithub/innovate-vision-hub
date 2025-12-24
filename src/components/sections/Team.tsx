@@ -49,9 +49,6 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember | typeof fallbac
       />
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      
-
-      </div>
     </div>
 
     {/* Content */}
@@ -96,6 +93,7 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember | typeof fallbac
             </a>
           </>
         )}
+      </div>
   </div>
 );
 
