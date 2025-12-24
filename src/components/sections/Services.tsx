@@ -35,10 +35,26 @@ const iconMap: Record<string, LucideIcon> = {
 // Gradient presets based on index
 const gradientPresets = [
   { gradient: "from-primary to-[#2563eb]", bgGradient: "from-primary/5 via-card to-card", accentColor: "primary" },
-  { gradient: "from-[#7c3aed] to-[#a855f7]", bgGradient: "from-[#7c3aed]/5 via-card to-card", accentColor: "[#7c3aed]" },
-  { gradient: "from-[#059669] to-[#34d399]", bgGradient: "from-[#059669]/5 via-card to-card", accentColor: "[#059669]" },
-  { gradient: "from-[#f59e0b] to-[#fbbf24]", bgGradient: "from-[#f59e0b]/5 via-card to-card", accentColor: "[#f59e0b]" },
-  { gradient: "from-[#ec4899] to-[#f472b6]", bgGradient: "from-[#ec4899]/5 via-card to-card", accentColor: "[#ec4899]" },
+  {
+    gradient: "from-[#7c3aed] to-[#a855f7]",
+    bgGradient: "from-[#7c3aed]/5 via-card to-card",
+    accentColor: "[#7c3aed]",
+  },
+  {
+    gradient: "from-[#059669] to-[#34d399]",
+    bgGradient: "from-[#059669]/5 via-card to-card",
+    accentColor: "[#059669]",
+  },
+  {
+    gradient: "from-[#f59e0b] to-[#fbbf24]",
+    bgGradient: "from-[#f59e0b]/5 via-card to-card",
+    accentColor: "[#f59e0b]",
+  },
+  {
+    gradient: "from-[#ec4899] to-[#f472b6]",
+    bgGradient: "from-[#ec4899]/5 via-card to-card",
+    accentColor: "[#ec4899]",
+  },
 ];
 
 // Size mapping based on index
@@ -57,11 +73,21 @@ const consultingServices = [
 ];
 
 // Product Logo Component
-const ProductLogo = ({ service, gradient, className = "" }: { service: Service; gradient: string; className?: string }) => {
+const ProductLogo = ({
+  service,
+  gradient,
+  className = "",
+}: {
+  service: Service;
+  gradient: string;
+  className?: string;
+}) => {
   const IconComponent = iconMap[service.icon || "Package"] || Package;
-  
+
   return (
-    <div className={`flex items-center justify-center rounded-2xl bg-gradient-to-br ${gradient} shadow-lg ${className}`}>
+    <div
+      className={`flex items-center justify-center rounded-2xl bg-gradient-to-br ${gradient} shadow-lg ${className}`}
+    >
       {service.icon_url ? (
         <img src={service.icon_url} alt={service.name} className="w-1/2 h-1/2 object-contain" />
       ) : (
@@ -113,7 +139,7 @@ const ProductCard = ({ service, index, total }: { service: Service; index: numbe
                       </div>
                     </div>
                   </div>
-                  <span className="text-5xl font-black text-primary/10">0{index + 1}</span>
+                  <span className="text-5xl font-black text-primary/10"></span>
                 </div>
 
                 {/* Content */}
@@ -170,7 +196,7 @@ const ProductCard = ({ service, index, total }: { service: Service; index: numbe
                     gradient={preset.gradient}
                     className="w-14 h-14 group-hover:scale-110 transition-transform duration-500"
                   />
-                  <span className={`text-5xl font-black text-${preset.accentColor}/10`}>0{index + 1}</span>
+                  <span className={`text-5xl font-black text-${preset.accentColor}/10`}></span>
                 </div>
 
                 <span className={`text-xs font-bold tracking-widest text-${preset.accentColor}/70 uppercase mb-2`}>
@@ -197,7 +223,9 @@ const ProductCard = ({ service, index, total }: { service: Service; index: numbe
 
                 <div className={`flex items-center gap-2 pt-6 border-t border-border/50`}>
                   <Sparkles className={`w-4 h-4 text-${preset.accentColor}`} />
-                  <span className={`text-sm font-semibold text-${preset.accentColor}`}>{service.usage_metric || ""}</span>
+                  <span className={`text-sm font-semibold text-${preset.accentColor}`}>
+                    {service.usage_metric || ""}
+                  </span>
                 </div>
               </div>
             </div>
