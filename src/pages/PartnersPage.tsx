@@ -49,19 +49,19 @@ const clientTypes = [
 ];
 
 const regions = [
-  { name: "Улаанбаатар", count: "30+", position: "center" },
-  { name: "Дархан", count: "5+", position: "north" },
-  { name: "Эрдэнэт", count: "4+", position: "northwest" },
-  { name: "Өмнөговь", count: "3+", position: "south" },
-  { name: "Дорноговь", count: "3+", position: "southeast" },
-  { name: "Хөвсгөл", count: "2+", position: "north-central" },
+  { name: "Баруун бүс", count: "1+", position: "north" },
+  { name: "Хангайн бүс", count: "3+", position: "northwest" },
+  { name: "Говийн бүс", count: "3+", position: "southeast" },
+  { name: "Төвийн бүс", count: "5+", position: "center" },
+  { name: "Улаанбаатар хот", count: "12+", position: "center southeast" },
+  { name: "Зүүн бүс", count: "5+", position: "south" },
 ];
 
 const achievements = [
   { value: "50+", label: "Нийт харилцагч", icon: Users },
   { value: "15+", label: "Жилийн туршлага", icon: Award },
-  { value: "21", label: "Аймаг хамрагдсан", icon: MapPin },
-  { value: "99%", label: "Uptime найдвартай", icon: Shield },
+  { value: "12", label: "Аймаг хамрагдсан", icon: MapPin },
+  { value: "99.9%", label: "Uptime найдвартай", icon: Shield },
 ];
 
 const testimonials = [
