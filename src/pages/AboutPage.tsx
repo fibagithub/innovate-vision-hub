@@ -210,9 +210,6 @@ const AboutPage = () => {
                   <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm">
                     <span className="text-white/90 text-sm font-medium">fiba.mn</span>
                   </div>
-                  <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm">
-                    <span className="text-white/90 text-sm font-medium">Улаанбаатар</span>
-                  </div>
                 </div>
               </div>
             </div>
