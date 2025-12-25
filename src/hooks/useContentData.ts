@@ -41,6 +41,8 @@ export interface Partner {
   description: string | null;
   description_mn: string | null;
   partner_type: string;
+  region: string | null;
+  count: number;
   is_active: boolean;
   display_order: number;
 }
@@ -89,6 +91,43 @@ export const usePartners = () => {
       
       if (error) throw error;
       return data as Partner[];
+    },
+  });
+};
+
+// Hook to get aggregated partner statistics by region
+export const usePartnerStats = () => {
+  return useQuery({
+    queryKey: ['partner_stats'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('partners')
+        .select('region, count, name, description, description_mn')
+        .eq('is_active', true)
+        .order('display_order');
+      
+      if (error) throw error;
+      
+      // Aggregate counts by region
+      const regionStats: Record<string, { count: number; name: string; description?: string; description_mn?: string }> = {};
+      let totalCount = 0;
+      
+      (data || []).forEach((partner: any) => {
+        if (partner.region) {
+          if (!regionStats[partner.region]) {
+            regionStats[partner.region] = { 
+              count: 0, 
+              name: partner.name,
+              description: partner.description,
+              description_mn: partner.description_mn 
+            };
+          }
+          regionStats[partner.region].count += partner.count || 0;
+          totalCount += partner.count || 0;
+        }
+      });
+      
+      return { regionStats, totalCount, partners: data };
     },
   });
 };

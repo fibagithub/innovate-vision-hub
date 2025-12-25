@@ -1,22 +1,26 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
-
-const navItems = [
-  { label: "Нүүр", href: "/" },
-  { label: "Бидний тухай", href: "/about" },
-  { label: "Бүтээгдэхүүн, үйлчилгээ", href: "/services" },
-  { label: "Манай баг", href: "/team" },
-  { label: "Харилцагчид", href: "/partners" },
-  { label: "Холбоо барих", href: "/contact" },
-];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { t } = useLanguage();
+
+  const navItems = [
+    { label: t('nav.home'), href: "/" },
+    { label: t('nav.about'), href: "/about" },
+    { label: t('nav.services'), href: "/services" },
+    { label: t('nav.team'), href: "/team" },
+    { label: t('nav.partners'), href: "/partners" },
+    { label: t('nav.contact'), href: "/contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +29,17 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Scroll to top when navigating
+  const handleNavClick = (href: string) => {
+    setIsOpen(false);
+    if (location.pathname !== href) {
+      navigate(href);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   return (
     <nav
@@ -36,7 +51,7 @@ export function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
               <span className="text-primary-foreground font-display font-bold text-xl">F</span>
             </div>
@@ -46,9 +61,9 @@ export function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (
-              <Link
+              <button
                 key={item.href}
-                to={item.href}
+                onClick={() => handleNavClick(item.href)}
                 className={cn(
                   "px-4 py-2 rounded-lg text-sm font-medium transition-colors",
                   location.pathname === item.href
@@ -57,31 +72,33 @@ export function Navbar() {
                 )}
               >
                 {item.label}
-              </Link>
+              </button>
             ))}
           </div>
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-3">
+            <LanguageSwitcher />
             <Link to="/admin">
               <Button variant="ghost" size="sm">
                 Admin
               </Button>
             </Link>
-            <Link to="/contact">
-              <Button variant="gradient" size="sm">
-                Get Started
-              </Button>
-            </Link>
+            <Button variant="gradient" size="sm" onClick={() => handleNavClick('/contact')}>
+              {t('nav.getStarted')}
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="lg:hidden flex items-center gap-2">
+            <LanguageSwitcher />
+            <button
+              className="p-2 rounded-lg hover:bg-muted transition-colors"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -94,19 +111,18 @@ export function Navbar() {
       >
         <div className="container mx-auto px-4 py-4 space-y-2">
           {navItems.map((item) => (
-            <Link
+            <button
               key={item.href}
-              to={item.href}
-              onClick={() => setIsOpen(false)}
+              onClick={() => handleNavClick(item.href)}
               className={cn(
-                "block px-4 py-3 rounded-lg text-sm font-medium transition-colors",
+                "block w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-colors",
                 location.pathname === item.href
                   ? "text-primary bg-primary/10"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted",
               )}
             >
               {item.label}
-            </Link>
+            </button>
           ))}
           <div className="pt-4 flex flex-col gap-2">
             <Link to="/admin" onClick={() => setIsOpen(false)}>
@@ -114,11 +130,9 @@ export function Navbar() {
                 Admin Panel
               </Button>
             </Link>
-            <Link to="/contact" onClick={() => setIsOpen(false)}>
-              <Button variant="gradient" className="w-full">
-                Get Started
-              </Button>
-            </Link>
+            <Button variant="gradient" className="w-full" onClick={() => handleNavClick('/contact')}>
+              {t('nav.getStarted')}
+            </Button>
           </div>
         </div>
       </div>
