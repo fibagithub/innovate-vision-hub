@@ -372,7 +372,8 @@ export function Services() {
                   Захиалгат шийдэл хэрэгтэй юу?
                 </h3>
                 <p className="text-white/70 text-lg mb-8 leading-relaxed">
-                  Манай мэргэжилтнүүд таны бизнесийн онцлогт тохирсон систем боловсруулж өгнө
+                  Манай байгууллага нь банкны суурь бүртгэлийн систем, төлбөрийн картын систем, мөн банктай интеграци
+                  хийхтэй холбоотой зөвлөх үйлчилгээ буюу шийдэл боловсруулдаг.
                 </p>
                 <Link to="/contact">
                   <Button size="xl" className="bg-white text-primary hover:bg-white/90 font-semibold">
