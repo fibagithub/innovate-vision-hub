@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       partners: {
         Row: {
+          count: number | null
           country: string | null
           created_at: string
           description: string | null
@@ -32,6 +33,7 @@ export type Database = {
           website_url: string | null
         }
         Insert: {
+          count?: number | null
           country?: string | null
           created_at?: string
           description?: string | null
@@ -48,6 +50,7 @@ export type Database = {
           website_url?: string | null
         }
         Update: {
+          count?: number | null
           country?: string | null
           created_at?: string
           description?: string | null
