@@ -11,7 +11,7 @@ import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from 'sonner';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Upload, X } from 'lucide-react';
 
 const REGIONS = [
   { value: 'ulaanbaatar', label: 'Улаанбаатар хот', label_en: 'Ulaanbaatar City' },
@@ -28,6 +28,7 @@ const partnerSchema = z.object({
   count: z.number().min(0, 'Тоо 0-ээс их байх ёстой'),
   description: z.string().optional(),
   description_mn: z.string().optional(),
+  logo_url: z.string().optional(),
   is_active: z.boolean().default(true),
   display_order: z.number().default(0),
 });
@@ -43,6 +44,8 @@ interface PartnerFormProps {
 
 export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: PartnerFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
 
   const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<PartnerFormData>({
     resolver: zodResolver(partnerSchema),
@@ -51,6 +54,7 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
       count: 0,
       description: '',
       description_mn: '',
+      logo_url: '',
       is_active: true,
       display_order: 0,
     },
@@ -63,20 +67,59 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
         count: editData.count || 0,
         description: editData.description || '',
         description_mn: editData.description_mn || '',
+        logo_url: editData.logo_url || '',
         is_active: editData.is_active ?? true,
         display_order: editData.display_order || 0,
       });
+      setLogoPreview(editData.logo_url || null);
     } else {
       reset({
         region: '',
         count: 0,
         description: '',
         description_mn: '',
+        logo_url: '',
         is_active: true,
         display_order: 0,
       });
+      setLogoPreview(null);
     }
   }, [editData, reset]);
+
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}.${fileExt}`;
+      const filePath = `partner-logos/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(filePath);
+
+      setValue('logo_url', data.publicUrl);
+      setLogoPreview(data.publicUrl);
+      toast.success('Лого амжилттай оруулагдлаа');
+    } catch (error: any) {
+      toast.error(error.message || 'Лого оруулахад алдаа гарлаа');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const removeLogo = () => {
+    setValue('logo_url', '');
+    setLogoPreview(null);
+  };
 
   const onSubmit = async (data: PartnerFormData) => {
     setIsLoading(true);
@@ -88,6 +131,7 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
         count: data.count,
         description: data.description || null,
         description_mn: data.description_mn || null,
+        logo_url: data.logo_url || null,
         is_active: data.is_active,
         display_order: data.display_order,
         country: 'mongolia',
@@ -122,11 +166,42 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{editData ? 'Хамтрагч засах' : 'Шинэ хамтрагч нэмэх'}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {/* Logo Upload */}
+          <div className="space-y-2">
+            <Label>Лого</Label>
+            <div className="flex items-center gap-4">
+              {logoPreview ? (
+                <div className="relative w-20 h-20 rounded-lg border border-border overflow-hidden bg-muted">
+                  <img src={logoPreview} alt="Logo preview" className="w-full h-full object-contain" />
+                  <button
+                    type="button"
+                    onClick={removeLogo}
+                    className="absolute -top-1 -right-1 w-5 h-5 bg-destructive text-destructive-foreground rounded-full flex items-center justify-center"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </div>
+              ) : (
+                <label className="w-20 h-20 rounded-lg border-2 border-dashed border-border flex flex-col items-center justify-center cursor-pointer hover:border-primary transition-colors">
+                  {isUploading ? (
+                    <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
+                  ) : (
+                    <>
+                      <Upload className="w-6 h-6 text-muted-foreground" />
+                      <span className="text-xs text-muted-foreground mt-1">Оруулах</span>
+                    </>
+                  )}
+                  <input type="file" accept="image/*" onChange={handleLogoUpload} className="hidden" />
+                </label>
+              )}
+            </div>
+          </div>
+
           {/* Region Selection */}
           <div className="space-y-2">
             <Label>Бүс *</Label>

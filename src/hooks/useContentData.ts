@@ -102,7 +102,7 @@ export const usePartnerStats = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('partners')
-        .select('region, count, name, description, description_mn')
+        .select('id, region, count, name, description, description_mn, logo_url')
         .eq('is_active', true)
         .order('display_order');
       
@@ -127,7 +127,11 @@ export const usePartnerStats = () => {
         }
       });
       
-      return { regionStats, totalCount, partners: data };
+      return { 
+        regionStats, 
+        totalCount, 
+        partners: data as { id: string; region: string; count: number; name: string; description: string; description_mn: string; logo_url: string | null }[] 
+      };
     },
   });
 };
