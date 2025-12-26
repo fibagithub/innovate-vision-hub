@@ -173,7 +173,6 @@ const TeamPage = () => {
             <div className="relative max-w-3xl mx-auto text-center">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6">
                 <Users className="w-4 h-4 text-white" />
-                <span className="text-white/90 font-medium text-sm">Нээлттэй ажлын байр</span>
               </div>
 
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
