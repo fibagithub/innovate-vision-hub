@@ -149,7 +149,7 @@ const TeamPage = () => {
                       {member.name}
                     </h3>
                     <p className="text-primary text-sm font-semibold mb-3">{member.position_mn || ""}</p>
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2">
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-4">
                       {member.bio_mn || ""}
                     </p>
                   </div>
