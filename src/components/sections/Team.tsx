@@ -60,7 +60,7 @@ const TeamMemberCard = ({ member, index }: { member: TeamMember | (typeof fallba
       <p className="text-primary text-xs font-medium mb-2">
         {member.position_mn || ("position" in member ? member.position : "")}
       </p>
-      <p className="text-muted-foreground text-xs line-clamp-2">
+      <p className="text-muted-foreground text-xs line-clamp-4">
         {member.bio_mn || ("bio" in member ? member.bio : "")}
       </p>
     </div>
