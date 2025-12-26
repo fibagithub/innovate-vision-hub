@@ -74,7 +74,7 @@ export function Hero() {
 
           {/* Stats */}
           <div
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 mt-24 animate-fade-in"
+            className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-12 mt-24 animate-fade-in"
             style={{ animationDelay: "0.4s" }}
           >
             {[
