@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Building2, Landmark, Users, Briefcase, MapPin, Globe2, Loader2 } from "lucide-react";
+import { ArrowRight, Globe2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { usePartnerStats } from "@/hooks/useContentData";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -25,6 +25,9 @@ export function Partners() {
   })) || [];
 
   const totalCount = partnerData?.totalCount || 0;
+  
+  // Get partners with logos for marquee
+  const partnersWithLogos = partnerData?.partners?.filter(p => p.logo_url) || [];
 
   return (
     <section className="py-32 bg-background relative overflow-hidden" id="clients">
@@ -65,6 +68,29 @@ export function Partners() {
         {isLoading && (
           <div className="flex items-center justify-center py-12">
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        )}
+
+        {/* Logo Marquee */}
+        {partnersWithLogos.length > 0 && (
+          <div className="mb-20">
+            <div className="marquee-container py-8">
+              <div className="flex animate-marquee">
+                {/* Duplicate logos for seamless loop */}
+                {[...partnersWithLogos, ...partnersWithLogos].map((partner, index) => (
+                  <div
+                    key={`${partner.id}-${index}`}
+                    className="flex-shrink-0 mx-8 w-32 h-20 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300"
+                  >
+                    <img
+                      src={partner.logo_url!}
+                      alt={partner.name || 'Partner logo'}
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         )}
 
