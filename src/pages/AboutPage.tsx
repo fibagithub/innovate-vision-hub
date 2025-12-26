@@ -87,7 +87,7 @@ const milestones = [
 
 const stats = [
   { icon: Clock, value: "15+", label: "Жилийн туршлага", description: "2021 оноос хойш" },
-  { icon: Users, value: "12+", label: "Мэргэжлийн баг", description: "Туршлагатай инженерүүд" },
+  { icon: Users, value: "13+", label: "Мэргэжлийн баг", description: "Туршлагатай инженерүүд" },
   { icon: Globe, value: "50+", label: "Харилцагч", description: "Банк, ББСБ, ХЗХ" },
   { icon: TrendingUp, value: "99.9%", label: "Сэтгэл ханамж", description: "Харилцагчдын үнэлгээ" },
 ];
