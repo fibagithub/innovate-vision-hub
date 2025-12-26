@@ -45,9 +45,9 @@ const fallbackTeamMembers = [
 ];
 
 const teamStats = [
-  { icon: Users, value: "12+", label: "Баг хамт олон" },
+  { icon: Users, value: "13+", label: "Баг хамт олон" },
   { icon: Award, value: "15+", label: "Жилийн туршлага" },
-  { icon: Target, value: "100+", label: "Амжилттай төсөл" },
+  { icon: Target, value: "40+", label: "Амжилттай төсөл" },
 ];
 
 const TeamPage = () => {
