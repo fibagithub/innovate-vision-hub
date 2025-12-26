@@ -24,6 +24,8 @@ const REGIONS = [
 ];
 
 const partnerSchema = z.object({
+  name: z.string().min(1, 'Нэр заавал оруулна'),
+  partner_type: z.enum(['partner', 'client']),
   region: z.string().min(1, 'Бүс сонгоно уу'),
   count: z.number().min(0, 'Тоо 0-ээс их байх ёстой'),
   description: z.string().optional(),
@@ -50,6 +52,8 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
   const { register, handleSubmit, reset, setValue, watch, formState: { errors } } = useForm<PartnerFormData>({
     resolver: zodResolver(partnerSchema),
     defaultValues: {
+      name: '',
+      partner_type: 'partner',
       region: '',
       count: 0,
       description: '',
@@ -63,6 +67,8 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
   useEffect(() => {
     if (editData) {
       reset({
+        name: editData.name || '',
+        partner_type: (editData.partner_type as 'partner' | 'client') || 'partner',
         region: editData.region || '',
         count: editData.count || 0,
         description: editData.description || '',
@@ -74,6 +80,8 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
       setLogoPreview(editData.logo_url || null);
     } else {
       reset({
+        name: '',
+        partner_type: 'partner',
         region: '',
         count: 0,
         description: '',
@@ -124,9 +132,9 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
   const onSubmit = async (data: PartnerFormData) => {
     setIsLoading(true);
     try {
-      const selectedRegion = REGIONS.find(r => r.value === data.region);
       const payload = {
-        name: selectedRegion?.label || data.region,
+        name: data.name,
+        partner_type: data.partner_type,
         region: data.region,
         count: data.count,
         description: data.description || null,
@@ -135,7 +143,6 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
         is_active: data.is_active,
         display_order: data.display_order,
         country: 'mongolia',
-        partner_type: 'region',
       };
 
       if (editData?.id) {
@@ -171,6 +178,27 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
           <DialogTitle>{editData ? 'Хамтрагч засах' : 'Шинэ хамтрагч нэмэх'}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {/* Name */}
+          <div className="space-y-2">
+            <Label htmlFor="name">Нэр *</Label>
+            <Input id="name" {...register('name')} placeholder="Хамтрагчийн нэр" />
+            {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
+          </div>
+
+          {/* Partner Type */}
+          <div className="space-y-2">
+            <Label>Төрөл *</Label>
+            <Select value={watch('partner_type') || 'partner'} onValueChange={(value: 'partner' | 'client') => setValue('partner_type', value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Төрөл сонгох" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="partner">Хамтрагч</SelectItem>
+                <SelectItem value="client">Харилцагч</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
           {/* Logo Upload */}
           <div className="space-y-2">
             <Label>Лого</Label>
