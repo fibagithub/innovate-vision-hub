@@ -296,7 +296,7 @@ const PartnersPage = () => {
             </div>
 
             {/* Regional Stats Grid with Large Numbers */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
               {regions
                 .filter((region) => region.count > 0)
                 .map((region, index) => (
