@@ -112,6 +112,9 @@ const PartnersPage = () => {
       })) || [];
 
   const totalCount = partnerData?.totalCount || 0;
+  
+  // Get partners with logos for marquee
+  const partnersWithLogos = partnerData?.partners?.filter(p => p.logo_url) || [];
 
   return (
     <Layout>
