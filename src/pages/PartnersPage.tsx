@@ -15,86 +15,102 @@ import {
   Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { usePartners } from "@/hooks/useContentData";
+import { usePartners, usePartnerStats } from "@/hooks/useContentData";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const clientTypes = [
-  {
-    icon: Landmark,
-    title: "Арилжааны банк",
-    count: "4+",
-    description: "Монголын тэргүүлэгч арилжааны банкууд",
-    gradient: "from-primary to-[#2563eb]",
-  },
-  {
-    icon: Building2,
-    title: "ББСБ",
-    count: "20+",
-    description: "Банк бус санхүүгийн байгууллагууд",
-    gradient: "from-[#7c3aed] to-[#a855f7]",
-  },
-  {
-    icon: Wallet,
-    title: "ХЗХ",
-    count: "25+",
-    description: "Хадгаламж зээлийн хоршоод",
-    gradient: "from-[#059669] to-[#34d399]",
-  },
-  {
-    icon: Users,
-    title: "Бусад",
-    count: "10+",
-    description: "Лизинг, даатгал болон бусад",
-    gradient: "from-[#f59e0b] to-[#fbbf24]",
-  },
-];
-
-const regions = [
-  { name: "Баруун бүс", count: "1+", position: "north" },
-  { name: "Хангайн бүс", count: "3+", position: "northwest" },
-  { name: "Говийн бүс", count: "3+", position: "southeast" },
-  { name: "Төвийн бүс", count: "5+", position: "center" },
-  { name: "Улаанбаатар хот", count: "12+", position: "center southeast" },
-  { name: "Зүүн бүс", count: "5+", position: "south" },
-];
-
-const achievements = [
-  { value: "50+", label: "Нийт харилцагч", icon: Users },
-  { value: "15+", label: "Жилийн туршлага", icon: Award },
-  { value: "12", label: "Аймаг хамрагдсан", icon: MapPin },
-  { value: "99.9%", label: "Uptime найдвартай", icon: Shield },
-];
-
-const testimonials = [
-  {
-    quote:
-      "FIBA-ийн Core Banking систем нь манай байгууллагын үйл ажиллагааг бүрэн автоматжуулж, үйлчилгээний чанарыг эрс сайжруулсан.",
-    author: "Санхүүгийн захирал",
-    company: "Тэргүүлэгч ББСБ",
-    gradient: "from-primary to-[#2563eb]",
-  },
-  {
-    quote:
-      "MeAPP мобайл аппликейшн нь манай гишүүдэд хаанаас ч үйлчилгээ авах боломж олгож, харилцагчийн сэтгэл ханамжийг нэмэгдүүлсэн.",
-    author: "Гүйцэтгэх захирал",
-    company: "ХЗХ",
-    gradient: "from-[#7c3aed] to-[#a855f7]",
-  },
-  {
-    quote: "Мэргэжлийн өндөр түвшний дэмжлэг, 24/7 найдвартай ажиллагаа нь манай сонголтыг зөв болгосон.",
-    author: "IT менежер",
-    company: "ББСБ",
-    gradient: "from-[#059669] to-[#34d399]",
-  },
-];
+const REGION_POSITIONS: Record<string, { x: string; y: string }> = {
+  ulaanbaatar: { x: "52%", y: "45%" },
+  khangai: { x: "35%", y: "65%" },
+  central: { x: "50%", y: "32%" },
+  west: { x: "20%", y: "40%" },
+  east: { x: "80%", y: "38%" },
+  gobi: { x: "60%", y: "65%" },
+  north: { x: "45%", y: "20%" },
+};
 
 const PartnersPage = () => {
   const { data: dbPartners, isLoading } = usePartners();
+  const { data: partnerData } = usePartnerStats();
+  const { t, language } = useLanguage();
+
+  const clientTypes = [
+    {
+      icon: Landmark,
+      title: t('clientType.bank'),
+      count: "4+",
+      description: t('clientType.bankDesc'),
+      gradient: "from-primary to-[#2563eb]",
+    },
+    {
+      icon: Building2,
+      title: t('clientType.nbfi'),
+      count: "20+",
+      description: t('clientType.nbfiDesc'),
+      gradient: "from-[#7c3aed] to-[#a855f7]",
+    },
+    {
+      icon: Wallet,
+      title: t('clientType.creditUnion'),
+      count: "25+",
+      description: t('clientType.creditUnionDesc'),
+      gradient: "from-[#059669] to-[#34d399]",
+    },
+    {
+      icon: Users,
+      title: t('clientType.other'),
+      count: "10+",
+      description: t('clientType.otherDesc'),
+      gradient: "from-[#f59e0b] to-[#fbbf24]",
+    },
+  ];
+
+  const achievements = [
+    { value: "50+", label: t('achievement.totalClients'), icon: Users },
+    { value: "15+", label: t('achievement.experience'), icon: Award },
+    { value: "12", label: t('achievement.provinces'), icon: MapPin },
+    { value: "99.9%", label: t('achievement.uptime'), icon: Shield },
+  ];
+
+  const testimonials = [
+    {
+      quote: language === 'mn' 
+        ? "FIBA-ийн Core Banking систем нь манай байгууллагын үйл ажиллагааг бүрэн автоматжуулж, үйлчилгээний чанарыг эрс сайжруулсан."
+        : "FIBA's Core Banking system has fully automated our organization's operations and significantly improved service quality.",
+      author: language === 'mn' ? "Санхүүгийн захирал" : "Financial Director",
+      company: language === 'mn' ? "Тэргүүлэгч ББСБ" : "Leading NBFI",
+      gradient: "from-primary to-[#2563eb]",
+    },
+    {
+      quote: language === 'mn'
+        ? "MeAPP мобайл аппликейшн нь манай гишүүдэд хаанаас ч үйлчилгээ авах боломж олгож, харилцагчийн сэтгэл ханамжийг нэмэгдүүлсэн."
+        : "The MeAPP mobile application has enabled our members to access services from anywhere, increasing customer satisfaction.",
+      author: language === 'mn' ? "Гүйцэтгэх захирал" : "Executive Director",
+      company: language === 'mn' ? "ХЗХ" : "Credit Union",
+      gradient: "from-[#7c3aed] to-[#a855f7]",
+    },
+    {
+      quote: language === 'mn'
+        ? "Мэргэжлийн өндөр түвшний дэмжлэг, 24/7 найдвартай ажиллагаа нь манай сонголтыг зөв болгосон."
+        : "High-level professional support and 24/7 reliable operation made our choice the right one.",
+      author: language === 'mn' ? "IT менежер" : "IT Manager",
+      company: language === 'mn' ? "ББСБ" : "NBFI",
+      gradient: "from-[#059669] to-[#34d399]",
+    },
+  ];
+
+  // Get regions from partner data
+  const regions = partnerData?.partners?.filter(p => p.region).map(p => ({
+    name: t(`region.${p.region}`),
+    count: p.count || 0,
+    ...REGION_POSITIONS[p.region || 'ulaanbaatar']
+  })) || [];
+
+  const totalCount = partnerData?.totalCount || 0;
 
   return (
     <Layout>
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-background">
-        {/* Animated Background */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-secondary/50 via-background to-background" />
           <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
@@ -106,35 +122,60 @@ const PartnersPage = () => {
           <div className="max-w-5xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/5 border border-primary/10 mb-10 animate-fade-in">
               <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-primary text-sm font-semibold tracking-wide">Түншүүд & Харилцагчид</span>
+              <span className="text-primary text-sm font-semibold tracking-wide">{t('partners.badge')}</span>
             </div>
 
             <h1
               className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight animate-fade-in"
               style={{ animationDelay: "0.1s" }}
             >
-              Салбарын <span className="gradient-text">тэргүүлэгчдийн</span>
-              <br />
-              итгэлийг хүлээсэн
+              {language === 'mn' ? (
+                <>
+                  Салбарын <span className="gradient-text">тэргүүлэгчдийн</span>
+                  <br />
+                  итгэлийг хүлээсэн
+                </>
+              ) : (
+                <>
+                  <span className="gradient-text">Trusted</span> by
+                  <br />
+                  Industry Leaders
+                </>
+              )}
             </h1>
 
             <p
               className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in"
               style={{ animationDelay: "0.2s" }}
             >
-              Монголын банк, санхүүгийн байгууллагуудын 50+ харилцагчдад технологийн шийдэл, үйлчилгээг амжилттай хүргэж
-              байна.
+              {t('partnersPage.heroDesc')}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Database Partners Display */}
-      {dbPartners && dbPartners.length > 0 && (
+      {/* Large Total Stats from Database */}
+      {totalCount > 0 && (
         <section className="py-12 bg-background relative -mt-20">
           <div className="container mx-auto px-4">
+            <div className="text-center">
+              <div className="font-display text-8xl lg:text-[10rem] font-bold bg-gradient-to-r from-primary to-[#2563eb] bg-clip-text text-transparent leading-none">
+                {totalCount}+
+              </div>
+              <p className="text-2xl text-muted-foreground mt-4">
+                {t('partnersPage.totalClients')}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Database Partners Display */}
+      {dbPartners && dbPartners.length > 0 && (
+        <section className="py-12 bg-background relative">
+          <div className="container mx-auto px-4">
             <div className="text-center mb-8">
-              <h2 className="font-display text-2xl font-bold text-foreground">Манай түншүүд</h2>
+              <h2 className="font-display text-2xl font-bold text-foreground">{t('partnersPage.ourPartners')}</h2>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {dbPartners.map((partner) => (
@@ -193,7 +234,55 @@ const PartnersPage = () => {
         </div>
       </section>
 
-      {/* Client Types - Bento Grid */}
+      {/* Regional Coverage with Database Stats */}
+      {regions.length > 0 && (
+        <section className="py-24 bg-muted/30 relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-20 right-[10%] w-[400px] h-[400px] bg-gradient-radial from-primary/5 to-transparent rounded-full blur-3xl" />
+            <div className="absolute bottom-20 left-[5%] w-[300px] h-[300px] bg-gradient-radial from-accent/5 to-transparent rounded-full blur-3xl" />
+          </div>
+
+          <div className="container mx-auto px-4 relative">
+            <div className="max-w-4xl mx-auto text-center mb-16">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-8">
+                <Globe className="w-4 h-4 text-primary" />
+                <span className="text-primary font-medium text-sm tracking-wide">{t('partnersPage.regionalCoverage')}</span>
+              </div>
+
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
+                {language === 'mn' ? (
+                  <>Монгол даяар <span className="gradient-text">12 аймагт</span></>
+                ) : (
+                  <>Across <span className="gradient-text">12 Provinces</span> in Mongolia</>
+                )}
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                {t('partnersPage.regionalDesc')}
+              </p>
+            </div>
+
+            {/* Regional Stats Grid with Large Numbers */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {regions.map((region, index) => (
+                <div
+                  key={index}
+                  className="group relative p-8 rounded-3xl bg-card border border-border/50 hover:border-primary/20 hover:shadow-xl transition-all duration-300 text-center"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl" />
+                  <div className="relative">
+                    <div className="font-display text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-[#2563eb] bg-clip-text text-transparent mb-3">
+                      {region.count}
+                    </div>
+                    <div className="text-foreground font-medium">{region.name}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Client Types */}
       <section className="py-24 bg-background relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
 
@@ -201,14 +290,18 @@ const PartnersPage = () => {
           <div className="max-w-4xl mx-auto text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-8">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-primary font-medium text-sm tracking-wide">Харилцагчид</span>
+              <span className="text-primary font-medium text-sm tracking-wide">{t('partnersPage.clientTypes')}</span>
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              Санхүүгийн <span className="gradient-text">бүх салбарт</span>
+              {language === 'mn' ? (
+                <>Санхүүгийн <span className="gradient-text">бүх салбарт</span></>
+              ) : (
+                <>Across All <span className="gradient-text">Financial Sectors</span></>
+              )}
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Арилжааны банк, ББСБ, ХЗХ, лизингийн компаниуд зэрэг санхүүгийн бүх төрлийн байгууллагуудад үйлчилдэг.
+              {t('partnersPage.clientTypesDesc')}
             </p>
           </div>
 
@@ -237,47 +330,6 @@ const PartnersPage = () => {
         </div>
       </section>
 
-      {/* Regional Coverage - Map Style */}
-      <section className="py-24 bg-muted/30 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-20 right-[10%] w-[400px] h-[400px] bg-gradient-radial from-primary/5 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-20 left-[5%] w-[300px] h-[300px] bg-gradient-radial from-accent/5 to-transparent rounded-full blur-3xl" />
-        </div>
-
-        <div className="container mx-auto px-4 relative">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-8">
-              <Globe className="w-4 h-4 text-primary" />
-              <span className="text-primary font-medium text-sm tracking-wide">Бүс нутгийн хамрах хүрээ</span>
-            </div>
-
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              Монгол даяар <span className="gradient-text">12 аймагт</span>
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Улаанбаатараас эхлээд хөдөө орон нутаг хүртэл санхүүгийн байгууллагуудад үйлчилж байна.
-            </p>
-          </div>
-
-          {/* Regional Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {regions.map((region, index) => (
-              <div
-                key={index}
-                className="group relative p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/20 hover:shadow-lg transition-all duration-300 text-center"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
-                <div className="relative">
-                  <MapPin className="w-6 h-6 text-primary mx-auto mb-3" />
-                  <div className="font-display text-2xl font-bold text-foreground mb-1">{region.count}</div>
-                  <div className="text-sm text-muted-foreground">{region.name}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Testimonials */}
       <section className="py-24 bg-background relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
@@ -286,11 +338,15 @@ const PartnersPage = () => {
           <div className="max-w-4xl mx-auto text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-8">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-primary font-medium text-sm tracking-wide">Харилцагчдын сэтгэгдэл</span>
+              <span className="text-primary font-medium text-sm tracking-wide">{t('partnersPage.testimonials')}</span>
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              Харилцагчид <span className="gradient-text">юу хэлдэг вэ?</span>
+              {language === 'mn' ? (
+                <>Харилцагчид <span className="gradient-text">юу хэлдэг вэ?</span></>
+              ) : (
+                <>What Our <span className="gradient-text">Clients Say?</span></>
+              )}
             </h2>
           </div>
 
@@ -330,18 +386,18 @@ const PartnersPage = () => {
             <div className="relative max-w-3xl mx-auto text-center">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6">
                 <TrendingUp className="w-4 h-4 text-white" />
-                <span className="text-white/90 font-medium text-sm">Түнш болох</span>
+                <span className="text-white/90 font-medium text-sm">{t('partnersPage.becomePartner')}</span>
               </div>
 
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-                Бидэнтэй хамтрах уу?
+                {t('partnersPage.becomePartnerTitle')}
               </h2>
               <p className="text-white/80 text-lg mb-10 max-w-2xl mx-auto">
-                Технологийн түншлэлийн боломжуудын талаар дэлгэрэнгүй мэдээлэл авахыг хүсвэл бидэнтэй холбогдоорой.
+                {t('partnersPage.becomePartnerDesc')}
               </p>
               <Link to="/contact">
                 <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-xl">
-                  Холбогдох
+                  {t('nav.contact')}
                   <ArrowRight className="ml-2" />
                 </Button>
               </Link>

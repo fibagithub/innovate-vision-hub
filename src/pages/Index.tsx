@@ -5,6 +5,7 @@ import { About } from '@/components/sections/About';
 import { Team } from '@/components/sections/Team';
 import { Partners } from '@/components/sections/Partners';
 import { Contact } from '@/components/sections/Contact';
+import { QuickLinks } from '@/components/sections/QuickLinks';
 
 const Index = () => {
   return (
@@ -14,6 +15,7 @@ const Index = () => {
       <About />
       <Team />
       <Partners />
+      <QuickLinks />
       <Contact />
     </Layout>
   );

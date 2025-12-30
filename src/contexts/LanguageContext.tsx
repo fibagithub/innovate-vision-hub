@@ -29,8 +29,19 @@ const translations: Translations = {
   // Services Section
   'services.badge': { mn: 'Бүтээгдэхүүн & Үйлчилгээ', en: 'Products & Services' },
   'services.title': { mn: 'Манай шийдлүүд', en: 'Our Solutions' },
-  'services.description': { mn: 'Санхүүгийн байгууллагуудад зориулсан цогц технологийн шийдлүүд', en: 'Comprehensive technology solutions for financial institutions' },
-  'services.learnMore': { mn: 'Дэлгэрэнгүй', en: 'Learn More' },
+  'services.title2': { mn: 'Санхүүгийн Технологи', en: 'Financial Technology' },
+  'services.subtitle': { mn: 'Дараа үеийн', en: 'Next Generation' },
+  'services.description': { mn: 'Олон улсын стандартад нийцсэн, найдвартай програм хангамжийн шийдлүүд', en: 'Reliable software solutions that meet international standards' },
+  'services.learnMore': { mn: 'Дэлгэрэнгүй үзэх', en: 'Learn More' },
+  'services.viewAll': { mn: 'Бүх бүтээгдэхүүн үзэх', en: 'View All Products' },
+  'services.consulting': { mn: 'Зөвлөх үйлчилгээ', en: 'Consulting Services' },
+  'services.consultingTitle': { mn: 'Захиалгат шийдэл хэрэгтэй юу?', en: 'Need a Custom Solution?' },
+  'services.consultingDesc': { mn: 'Манай байгууллага нь банкны суурь бүртгэлийн систем, төлбөрийн картын систем, мөн банктай интеграци хийхтэй холбоотой зөвлөх үйлчилгээ буюу шийдэл боловсруулдаг.', en: 'Our company develops consulting services and solutions related to core banking systems, payment card systems, and bank integration.' },
+  'services.contactUs': { mn: 'Холбоо барих', en: 'Contact Us' },
+  'services.cardSystem': { mn: 'Картын систем', en: 'Card System' },
+  'services.walletService': { mn: 'Wallet үйлчилгээ', en: 'Wallet Service' },
+  'services.systemIntegration': { mn: 'Системийн интеграци', en: 'System Integration' },
+  'services.aiScoring': { mn: 'AI Credit Scoring', en: 'AI Credit Scoring' },
   
   // Partners Section
   'partners.badge': { mn: 'Түншүүд & Харилцагчид', en: 'Partners & Clients' },
@@ -83,6 +94,42 @@ const translations: Translations = {
   'region.central': { mn: 'Төвийн бүс', en: 'Central Region' },
   'region.gobi': { mn: 'Говийн бүс', en: 'Gobi Region' },
   'region.east': { mn: 'Зүүн бүс', en: 'Eastern Region' },
+  
+  // Partners Page
+  'partnersPage.heroTitle': { mn: 'Салбарын тэргүүлэгчдийн итгэлийг хүлээсэн', en: 'Trusted by Industry Leaders' },
+  'partnersPage.heroDesc': { mn: 'Монголын банк, санхүүгийн байгууллагуудын 50+ харилцагчдад технологийн шийдэл, үйлчилгээг амжилттай хүргэж байна.', en: 'Successfully delivering technology solutions and services to 50+ clients in Mongolian banks and financial institutions.' },
+  'partnersPage.ourPartners': { mn: 'Манай түншүүд', en: 'Our Partners' },
+  'partnersPage.totalClients': { mn: 'Нийт харилцагч байгууллага', en: 'Total Partner Organizations' },
+  'partnersPage.clientTypes': { mn: 'Харилцагчид', en: 'Clients' },
+  'partnersPage.clientTypesTitle': { mn: 'Санхүүгийн бүх салбарт', en: 'Across All Financial Sectors' },
+  'partnersPage.clientTypesDesc': { mn: 'Арилжааны банк, ББСБ, ХЗХ, лизингийн компаниуд зэрэг санхүүгийн бүх төрлийн байгууллагуудад үйлчилдэг.', en: 'Serving all types of financial institutions including commercial banks, NBFIs, credit unions, and leasing companies.' },
+  'partnersPage.regionalCoverage': { mn: 'Бүс нутгийн хамрах хүрээ', en: 'Regional Coverage' },
+  'partnersPage.regionalTitle': { mn: 'Монгол даяар 12 аймагт', en: 'Across 12 Provinces in Mongolia' },
+  'partnersPage.regionalDesc': { mn: 'Улаанбаатараас эхлээд хөдөө орон нутаг хүртэл санхүүгийн байгууллагуудад үйлчилж байна.', en: 'Serving financial institutions from Ulaanbaatar to rural areas.' },
+  'partnersPage.testimonials': { mn: 'Харилцагчдын сэтгэгдэл', en: 'Client Testimonials' },
+  'partnersPage.testimonialsTitle': { mn: 'Харилцагчид юу хэлдэг вэ?', en: 'What Our Clients Say?' },
+  'partnersPage.becomePartner': { mn: 'Түнш болох', en: 'Become a Partner' },
+  'partnersPage.becomePartnerTitle': { mn: 'Бидэнтэй хамтрах уу?', en: 'Want to Partner With Us?' },
+  'partnersPage.becomePartnerDesc': { mn: 'Технологийн түншлэлийн боломжуудын талаар дэлгэрэнгүй мэдээлэл авахыг хүсвэл бидэнтэй холбогдоорой.', en: 'Contact us if you would like more information about technology partnership opportunities.' },
+  
+  // Client Types
+  'clientType.bank': { mn: 'Арилжааны банк', en: 'Commercial Banks' },
+  'clientType.bankDesc': { mn: 'Монголын тэргүүлэгч арилжааны банкууд', en: 'Leading commercial banks in Mongolia' },
+  'clientType.nbfi': { mn: 'ББСБ', en: 'NBFIs' },
+  'clientType.nbfiDesc': { mn: 'Банк бус санхүүгийн байгууллагууд', en: 'Non-bank financial institutions' },
+  'clientType.creditUnion': { mn: 'ХЗХ', en: 'Credit Unions' },
+  'clientType.creditUnionDesc': { mn: 'Хадгаламж зээлийн хоршоод', en: 'Savings and credit cooperatives' },
+  'clientType.other': { mn: 'Бусад', en: 'Others' },
+  'clientType.otherDesc': { mn: 'Лизинг, даатгал болон бусад', en: 'Leasing, insurance and others' },
+  
+  // Achievements
+  'achievement.totalClients': { mn: 'Нийт харилцагч', en: 'Total Clients' },
+  'achievement.experience': { mn: 'Жилийн туршлага', en: 'Years of Experience' },
+  'achievement.provinces': { mn: 'Аймаг хамрагдсан', en: 'Provinces Covered' },
+  'achievement.uptime': { mn: 'Uptime найдвартай', en: 'Uptime Reliability' },
+  
+  // Quick Links
+  'quickLinks.title': { mn: 'Хурдан холбоос', en: 'Quick Links' },
   
   // Common
   'common.viewAll': { mn: 'Бүгдийг харах', en: 'View All' },
