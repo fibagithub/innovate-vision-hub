@@ -297,22 +297,22 @@ const PartnersPage = () => {
 
             {/* Regional Stats Grid with Large Numbers */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {regions.map((region, index) => (
-                <div
-                  key={index}
-                  className="group relative p-8 rounded-3xl bg-card border border-border/50 hover:border-primary/20 hover:shadow-xl transition-all duration-300 text-center"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl" />
-                  <div className="relative">
-                    <div className="font-display text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-[#2563eb] bg-clip-text text-transparent mb-3">
-                      {region.count}
-                    </div>
-                    <div className="text-foreground font-medium">
-                      {region.name}
+              {regions
+                .filter((region) => region.count > 0)
+                .map((region, index) => (
+                  <div
+                    key={index}
+                    className="group relative p-8 rounded-3xl bg-card border border-border/50 hover:border-primary/20 hover:shadow-xl transition-all duration-300 text-center"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl" />
+                    <div className="relative">
+                      <div className="font-display text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-[#2563eb] bg-clip-text text-transparent mb-3">
+                        {region.count}
+                      </div>
+                      <div className="text-foreground font-medium">{region.name}</div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </section>
