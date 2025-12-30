@@ -36,74 +36,80 @@ const PartnersPage = () => {
   const clientTypes = [
     {
       icon: Landmark,
-      title: t('clientType.bank'),
+      title: t("clientType.bank"),
       count: "4+",
-      description: t('clientType.bankDesc'),
+      description: t("clientType.bankDesc"),
       gradient: "from-primary to-[#2563eb]",
     },
     {
       icon: Building2,
-      title: t('clientType.nbfi'),
+      title: t("clientType.nbfi"),
       count: "20+",
-      description: t('clientType.nbfiDesc'),
+      description: t("clientType.nbfiDesc"),
       gradient: "from-[#7c3aed] to-[#a855f7]",
     },
     {
       icon: Wallet,
-      title: t('clientType.creditUnion'),
+      title: t("clientType.creditUnion"),
       count: "25+",
-      description: t('clientType.creditUnionDesc'),
+      description: t("clientType.creditUnionDesc"),
       gradient: "from-[#059669] to-[#34d399]",
     },
     {
       icon: Users,
-      title: t('clientType.other'),
+      title: t("clientType.other"),
       count: "10+",
-      description: t('clientType.otherDesc'),
+      description: t("clientType.otherDesc"),
       gradient: "from-[#f59e0b] to-[#fbbf24]",
     },
   ];
 
   const achievements = [
-    { value: "50+", label: t('achievement.totalClients'), icon: Users },
-    { value: "15+", label: t('achievement.experience'), icon: Award },
-    { value: "12", label: t('achievement.provinces'), icon: MapPin },
-    { value: "99.9%", label: t('achievement.uptime'), icon: Shield },
+    { value: "50+", label: t("achievement.totalClients"), icon: Users },
+    { value: "15+", label: t("achievement.experience"), icon: Award },
+    { value: "12", label: t("achievement.provinces"), icon: MapPin },
+    { value: "99.9%", label: t("achievement.uptime"), icon: Shield },
   ];
 
   const testimonials = [
     {
-      quote: language === 'mn' 
-        ? "FIBA-ийн Core Banking систем нь манай байгууллагын үйл ажиллагааг бүрэн автоматжуулж, үйлчилгээний чанарыг эрс сайжруулсан."
-        : "FIBA's Core Banking system has fully automated our organization's operations and significantly improved service quality.",
-      author: language === 'mn' ? "Санхүүгийн захирал" : "Financial Director",
-      company: language === 'mn' ? "Тэргүүлэгч ББСБ" : "Leading NBFI",
+      quote:
+        language === "mn"
+          ? "FIBA-ийн ажилтнууд мэргэжилтнүүд түргэн шуурхай зөвлөгөө өгч, асуудлыг нэн даруй арга хэмжээ авч мэргэжлийн түвшинд дэмжлэг үзүүлж ажилладагт баярлалаа."
+          : "We sincerely appreciate the FIBA team and professionals for their prompt advice, swift response, and consistently high level of professionalism in addressing issues.",
+      author: language === "mn" ? "Харилцагч" : "Customer",
+      company: language === "mn" ? "Байгууллага" : "Company",
       gradient: "from-primary to-[#2563eb]",
     },
     {
-      quote: language === 'mn'
-        ? "MeAPP мобайл аппликейшн нь манай гишүүдэд хаанаас ч үйлчилгээ авах боломж олгож, харилцагчийн сэтгэл ханамжийг нэмэгдүүлсэн."
-        : "The MeAPP mobile application has enabled our members to access services from anywhere, increasing customer satisfaction.",
-      author: language === 'mn' ? "Гүйцэтгэх захирал" : "Executive Director",
-      company: language === 'mn' ? "ХЗХ" : "Credit Union",
+      quote:
+        language === "mn"
+          ? "Төслийн явцад харилцаа ойлгомжтой, хамтын ажиллагаа үр дүнтэй байсан нь төслийг амжилттай хэрэгжүүлэхэд чухал нөлөө үзүүлсэн. Технологийн мэдлэг, бодит туршлага, тасралтгүй дэмжлэгийг хослуулсан байдлаараа танай багийг бид найдвартай, стратегийн түнш гэж үздэг."
+          : "Clear communication and effective collaboration throughout the project played a key role in its successful delivery. By combining deep technological expertise, practical implementation experience, and continuous support, we consider your team a trusted and strategic technology partner.",
+      author: language === "mn" ? "Харилцагч" : "Customer",
+      company: language === "mn" ? "Байгууллага" : "Company",
       gradient: "from-[#7c3aed] to-[#a855f7]",
     },
     {
-      quote: language === 'mn'
-        ? "Мэргэжлийн өндөр түвшний дэмжлэг, 24/7 найдвартай ажиллагаа нь манай сонголтыг зөв болгосон."
-        : "High-level professional support and 24/7 reliable operation made our choice the right one.",
-      author: language === 'mn' ? "IT менежер" : "IT Manager",
-      company: language === 'mn' ? "ББСБ" : "NBFI",
+      quote:
+        language === "mn"
+          ? "Системийн архитектур нь тогтвортой, найдвартай байхаас гадна бизнесийн өөрчлөлт бүрт хурдан дасан зохицох боломжтой нь урт хугацаанд хамтран ажиллах итгэлцлийг бий болгож байна."
+          : "The system architecture is stable and reliable, while remaining adaptable to evolving business requirements, which gives us strong confidence in long-term collaboration.",
+      author: language === "mn" ? "Харилцагч" : "Customer",
+      company: language === "mn" ? "Байгууллага" : "Company",
       gradient: "from-[#059669] to-[#34d399]",
     },
   ];
 
   // Get regions from partner data
-  const regions = partnerData?.partners?.filter(p => p.region).map(p => ({
-    name: t(`region.${p.region}`),
-    count: p.count || 0,
-    ...REGION_POSITIONS[p.region || 'ulaanbaatar']
-  })) || [];
+  const regions =
+    partnerData?.partners
+      ?.filter((p) => p.region)
+      .map((p) => ({
+        name: t(`region.${p.region}`),
+        count: p.count || 0,
+        ...REGION_POSITIONS[p.region || "ulaanbaatar"],
+      })) || [];
 
   const totalCount = partnerData?.totalCount || 0;
 
@@ -122,14 +128,14 @@ const PartnersPage = () => {
           <div className="max-w-5xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/5 border border-primary/10 mb-10 animate-fade-in">
               <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-primary text-sm font-semibold tracking-wide">{t('partners.badge')}</span>
+              <span className="text-primary text-sm font-semibold tracking-wide">{t("partners.badge")}</span>
             </div>
 
             <h1
               className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight animate-fade-in"
               style={{ animationDelay: "0.1s" }}
             >
-              {language === 'mn' ? (
+              {language === "mn" ? (
                 <>
                   Салбарын <span className="gradient-text">тэргүүлэгчдийн</span>
                   <br />
@@ -148,7 +154,7 @@ const PartnersPage = () => {
               className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in"
               style={{ animationDelay: "0.2s" }}
             >
-              {t('partnersPage.heroDesc')}
+              {t("partnersPage.heroDesc")}
             </p>
           </div>
         </div>
@@ -162,9 +168,7 @@ const PartnersPage = () => {
               <div className="font-display text-8xl lg:text-[10rem] font-bold bg-gradient-to-r from-primary to-[#2563eb] bg-clip-text text-transparent leading-none">
                 {totalCount}+
               </div>
-              <p className="text-2xl text-muted-foreground mt-4">
-                {t('partnersPage.totalClients')}
-              </p>
+              <p className="text-2xl text-muted-foreground mt-4">{t("partnersPage.totalClients")}</p>
             </div>
           </div>
         </section>
@@ -175,7 +179,7 @@ const PartnersPage = () => {
         <section className="py-12 bg-background relative">
           <div className="container mx-auto px-4">
             <div className="text-center mb-8">
-              <h2 className="font-display text-2xl font-bold text-foreground">{t('partnersPage.ourPartners')}</h2>
+              <h2 className="font-display text-2xl font-bold text-foreground">{t("partnersPage.ourPartners")}</h2>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {dbPartners.map((partner) => (
@@ -246,19 +250,23 @@ const PartnersPage = () => {
             <div className="max-w-4xl mx-auto text-center mb-16">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-8">
                 <Globe className="w-4 h-4 text-primary" />
-                <span className="text-primary font-medium text-sm tracking-wide">{t('partnersPage.regionalCoverage')}</span>
+                <span className="text-primary font-medium text-sm tracking-wide">
+                  {t("partnersPage.regionalCoverage")}
+                </span>
               </div>
 
               <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-                {language === 'mn' ? (
-                  <>Монгол даяар <span className="gradient-text">12 аймагт</span></>
+                {language === "mn" ? (
+                  <>
+                    Монгол даяар <span className="gradient-text">12 аймагт</span>
+                  </>
                 ) : (
-                  <>Across <span className="gradient-text">12 Provinces</span> in Mongolia</>
+                  <>
+                    Across <span className="gradient-text">12 Provinces</span> in Mongolia
+                  </>
                 )}
               </h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                {t('partnersPage.regionalDesc')}
-              </p>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("partnersPage.regionalDesc")}</p>
             </div>
 
             {/* Regional Stats Grid with Large Numbers */}
@@ -290,19 +298,21 @@ const PartnersPage = () => {
           <div className="max-w-4xl mx-auto text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-8">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-primary font-medium text-sm tracking-wide">{t('partnersPage.clientTypes')}</span>
+              <span className="text-primary font-medium text-sm tracking-wide">{t("partnersPage.clientTypes")}</span>
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              {language === 'mn' ? (
-                <>Санхүүгийн <span className="gradient-text">бүх салбарт</span></>
+              {language === "mn" ? (
+                <>
+                  Санхүүгийн <span className="gradient-text">бүх салбарт</span>
+                </>
               ) : (
-                <>Across All <span className="gradient-text">Financial Sectors</span></>
+                <>
+                  Across All <span className="gradient-text">Financial Sectors</span>
+                </>
               )}
             </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              {t('partnersPage.clientTypesDesc')}
-            </p>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("partnersPage.clientTypesDesc")}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -338,14 +348,18 @@ const PartnersPage = () => {
           <div className="max-w-4xl mx-auto text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-8">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-primary font-medium text-sm tracking-wide">{t('partnersPage.testimonials')}</span>
+              <span className="text-primary font-medium text-sm tracking-wide">{t("partnersPage.testimonials")}</span>
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              {language === 'mn' ? (
-                <>Харилцагчид <span className="gradient-text">юу хэлдэг вэ?</span></>
+              {language === "mn" ? (
+                <>
+                  Харилцагчид <span className="gradient-text">юу хэлдэг вэ?</span>
+                </>
               ) : (
-                <>What Our <span className="gradient-text">Clients Say?</span></>
+                <>
+                  What Our <span className="gradient-text">Clients Say?</span>
+                </>
               )}
             </h2>
           </div>
@@ -386,18 +400,16 @@ const PartnersPage = () => {
             <div className="relative max-w-3xl mx-auto text-center">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6">
                 <TrendingUp className="w-4 h-4 text-white" />
-                <span className="text-white/90 font-medium text-sm">{t('partnersPage.becomePartner')}</span>
+                <span className="text-white/90 font-medium text-sm">{t("partnersPage.becomePartner")}</span>
               </div>
 
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-                {t('partnersPage.becomePartnerTitle')}
+                {t("partnersPage.becomePartnerTitle")}
               </h2>
-              <p className="text-white/80 text-lg mb-10 max-w-2xl mx-auto">
-                {t('partnersPage.becomePartnerDesc')}
-              </p>
+              <p className="text-white/80 text-lg mb-10 max-w-2xl mx-auto">{t("partnersPage.becomePartnerDesc")}</p>
               <Link to="/contact">
                 <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-xl">
-                  {t('nav.contact')}
+                  {t("nav.contact")}
                   <ArrowRight className="ml-2" />
                 </Button>
               </Link>
