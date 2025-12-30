@@ -298,7 +298,7 @@ const PartnersPage = () => {
             {/* Regional Stats Grid with Large Numbers */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {regions
-                .filter((region) => region.partner_type === "client")
+                .filter((region) => region.partner_type?.toLowerCase() === "client")
                 .map((region, index) => (
                   <div
                     key={index}
