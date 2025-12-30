@@ -308,7 +308,7 @@ const PartnersPage = () => {
                       {region.count}
                     </div>
                     <div className="text-foreground font-medium">
-                      {region.name} - {region.partner}
+                      {region.name} - {partner.partner_type}
                     </div>
                   </div>
                 </div>
