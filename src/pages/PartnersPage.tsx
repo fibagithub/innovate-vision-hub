@@ -174,6 +174,29 @@ const PartnersPage = () => {
         </section>
       )}
 
+      {/* Logo Marquee */}
+      {partnersWithLogos.length > 0 && (
+        <div className="mb-20">
+          <div className="marquee-container py-8">
+            <div className="flex animate-marquee">
+              {/* Duplicate logos for seamless loop */}
+              {[...partnersWithLogos, ...partnersWithLogos].map((partner, index) => (
+                <div
+                  key={`${partner.id}-${index}`}
+                  className="flex-shrink-0 mx-8 w-32 h-20 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300"
+                >
+                  <img
+                    src={partner.logo_url!}
+                    alt={partner.name || "Partner logo"}
+                    className="max-w-full max-h-full object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Database Partners Display */}
       {dbPartners && dbPartners.length > 0 && (
         <section className="py-12 bg-background relative">
