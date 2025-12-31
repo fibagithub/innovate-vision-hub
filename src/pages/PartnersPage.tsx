@@ -299,7 +299,6 @@ const PartnersPage = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
               {regions
                 .filter((region) => region.count > 0)
-                .sort((a, b) => (Number(a.sort) || 0) - (Number(b.sort) || 0))
                 .map((region, index) => (
                   <div
                     key={index}
