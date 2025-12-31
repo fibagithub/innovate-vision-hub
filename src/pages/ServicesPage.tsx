@@ -17,20 +17,56 @@ import {
   Users,
   Building2,
   TrendingUp,
+  Package,
+  Settings,
+  Code,
+  Layers,
+  Monitor,
+  Server,
+  LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useServices } from "@/hooks/useContentData";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const products = [
-  {
-    id: "mecore",
-    icon: Database,
-    title: "MeCore",
-    subtitle: "Core Banking System",
-    shortDesc: "Санхүүгийн байгууллагуудад зориулсан суурь систем",
-    description:
-      "Банк, ББСБ, Лизинг болон ХЗХ зэрэг санхүүгийн үйлчилгээг үзүүлдэг байгууллагуудад зориулагдсан өдөр тутмын үйл ажиллагааг автоматжуулах цогц систем.",
-    gradient: "from-primary to-[#2563eb]",
-    bgGradient: "from-primary/10 via-primary/5 to-transparent",
+// Icon map for dynamic icon rendering
+const iconMap: Record<string, LucideIcon> = {
+  Database,
+  FileText,
+  Smartphone,
+  CreditCard,
+  BarChart3,
+  Package,
+  Settings,
+  Code,
+  Layers,
+  Monitor,
+  Server,
+  Shield,
+  Zap,
+  Globe,
+  Users,
+  Building2,
+  TrendingUp,
+};
+
+// Gradient presets for products
+const gradientPresets = [
+  { gradient: "from-primary to-[#2563eb]", bgGradient: "from-primary/10 via-primary/5 to-transparent" },
+  { gradient: "from-[#7c3aed] to-[#a855f7]", bgGradient: "from-[#7c3aed]/10 via-[#7c3aed]/5 to-transparent" },
+  { gradient: "from-[#059669] to-[#34d399]", bgGradient: "from-[#059669]/10 via-[#059669]/5 to-transparent" },
+  { gradient: "from-[#f59e0b] to-[#fbbf24]", bgGradient: "from-[#f59e0b]/10 via-[#f59e0b]/5 to-transparent" },
+  { gradient: "from-[#ec4899] to-[#f472b6]", bgGradient: "from-[#ec4899]/10 via-[#ec4899]/5 to-transparent" },
+];
+
+// Static product details for detail pages
+const productDetails: Record<string, {
+  features: { title: string; desc: string }[];
+  stats: { value: string; label: string }[];
+  benefits: string[];
+  externalLink?: string;
+}> = {
+  mecore: {
     features: [
       { title: "Данс хөтлөлт", desc: "Бүх төрлийн данс нээх, хаах, удирдах" },
       { title: "Гүйлгээ боловсруулалт", desc: "Real-time гүйлгээ хийх, баталгаажуулах" },
@@ -52,16 +88,7 @@ const products = [
       "Өргөтгөх боломжтой архитектур",
     ],
   },
-  {
-    id: "melp",
-    icon: FileText,
-    title: "MeLP",
-    subtitle: "Loan Processing System",
-    shortDesc: "Зээлийн үйл явцыг автоматжуулах систем",
-    description:
-      "Зээл олгох үйл явцыг автоматжуулах, хянах, удирдах зориулалттай систем. Зээлийн хүсэлт хүлээн авахаас эхлээд олголт хүртэл бүх үе шатыг удирдана.",
-    gradient: "from-[#7c3aed] to-[#a855f7]",
-    bgGradient: "from-[#7c3aed]/10 via-[#7c3aed]/5 to-transparent",
+  melp: {
     features: [
       { title: "Зээлийн хүсэлт", desc: "Онлайн болон оффлайн хүсэлт хүлээн авах" },
       { title: "Автомат скоринг", desc: "AI-д суурилсан зээлийн үнэлгээ" },
@@ -83,16 +110,7 @@ const products = [
       "Харилцагчийн сэтгэл ханамж нэмэгдэнэ",
     ],
   },
-  {
-    id: "meapp",
-    icon: Smartphone,
-    title: "MeAPP",
-    subtitle: "Mobile Banking App",
-    shortDesc: "Хэрэглэгчдэд зориулсан мобайл апп",
-    description:
-      "ХЗХ болон ББСБ-н гишүүд харилцагч нарыг онлайнаар үйлчилгээ авах боломжийг олгох мобайл банкны аппликейшн.",
-    gradient: "from-[#059669] to-[#34d399]",
-    bgGradient: "from-[#059669]/10 via-[#059669]/5 to-transparent",
+  meapp: {
     externalLink: "https://me.fiba.mn/",
     features: [
       { title: "Мөнгө шилжүүлэг", desc: "Дансаас данс руу хурдан шилжүүлэг" },
@@ -110,16 +128,7 @@ const products = [
     ],
     benefits: ["24/7 банкны үйлчилгээ", "Салбарт очих шаардлагагүй", "Хурдан, аюулгүй гүйлгээ", "Хялбар интерфейс"],
   },
-  {
-    id: "smartware",
-    icon: CreditCard,
-    title: "SmartWare",
-    subtitle: "Card Terminal Solution",
-    shortDesc: "EMV стандарт бүхий POS терминал",
-    description:
-      "EMV стандарт бүхий VISA, MASTER CARD, UnionPay терминал. POS терминалын цогц шийдэл, төлбөрийн карт хүлээн авах боломж.",
-    gradient: "from-[#f59e0b] to-[#fbbf24]",
-    bgGradient: "from-[#f59e0b]/10 via-[#f59e0b]/5 to-transparent",
+  smartware: {
     features: [
       { title: "EMV чип", desc: "Чип бүхий картыг уншуулах" },
       { title: "Contactless", desc: "NFC холболтоор төлбөр хийх" },
@@ -141,16 +150,7 @@ const products = [
       "Техникийн дэмжлэг 24/7",
     ],
   },
-  {
-    id: "sainscore",
-    icon: BarChart3,
-    title: "SainScore",
-    subtitle: "Credit Information System",
-    shortDesc: "Зээлийн мэдээллийн систем",
-    description:
-      "ТИТАН Си Ар Эй Зээлийн мэдээллийн систем. Иргэн, байгууллагын зээлийн түүх, скоринг, риск үнэлгээний цогц шийдэл.",
-    gradient: "from-[#ec4899] to-[#f472b6]",
-    bgGradient: "from-[#ec4899]/10 via-[#ec4899]/5 to-transparent",
+  sainscore: {
     externalLink: "https://sainscore.mn/",
     features: [
       { title: "Зээлийн түүх", desc: "Иргэн, байгууллагын зээлийн түүх" },
@@ -168,10 +168,40 @@ const products = [
     ],
     benefits: ["Зээлийн шийдвэр хурдан гаргана", "Риск бууруулна", "Найдвартай мэдээлэл", "Хуулийн дагуу ажиллана"],
   },
-];
+};
 
 const ServicesPage = () => {
   const { serviceId } = useParams();
+  const { language } = useLanguage();
+  const { data: services, isLoading } = useServices();
+
+  // Transform services from admin to product format
+  const products = (services || []).map((service, index) => {
+    const gradientIndex = index % gradientPresets.length;
+    const IconComponent = iconMap[service.icon || "Package"] || Package;
+    const details = productDetails[service.name.toLowerCase().replace(/\s+/g, "")] || {
+      features: (service.features || []).slice(0, 6).map((f) => ({ title: f, desc: "" })),
+      stats: [{ value: service.usage_metric || "-", label: language === "mn" ? "Хэрэглэгч" : "Users" }],
+      benefits: [],
+    };
+
+    return {
+      id: service.id,
+      icon: IconComponent,
+      title: service.name,
+      subtitle: language === "mn" ? (service.category_mn || service.category || "") : (service.category || ""),
+      shortDesc: language === "mn" ? (service.description_mn || service.description || "") : (service.description || ""),
+      description: language === "mn" ? (service.description_mn || service.description || "") : (service.description || ""),
+      gradient: gradientPresets[gradientIndex].gradient,
+      bgGradient: gradientPresets[gradientIndex].bgGradient,
+      features: details.features,
+      stats: details.stats,
+      benefits: details.benefits,
+      externalLink: details.externalLink,
+      icon_url: service.icon_url,
+    };
+  });
+
   const product = serviceId ? products.find((p) => p.id === serviceId) : null;
 
   if (product) {
@@ -206,9 +236,13 @@ const ServicesPage = () => {
               <div>
                 {/* Logo */}
                 <div
-                  className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${product.gradient} flex items-center justify-center mb-8 shadow-2xl`}
+                  className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${product.gradient} flex items-center justify-center mb-8 shadow-2xl overflow-hidden`}
                 >
-                  <product.icon className="w-12 h-12 text-white" />
+                  {product.icon_url ? (
+                    <img src={product.icon_url} alt={product.title} className="w-full h-full object-cover" />
+                  ) : (
+                    <product.icon className="w-12 h-12 text-white" />
+                  )}
                 </div>
 
                 <span
@@ -447,6 +481,15 @@ const ServicesPage = () => {
       {/* Products Grid - Innovative Bento Layout */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
+          {isLoading ? (
+            <div className="grid grid-cols-12 gap-6">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className={i === 0 ? "col-span-12 lg:col-span-8" : i === 1 ? "col-span-12 lg:col-span-4" : "col-span-12 md:col-span-6 lg:col-span-4"}>
+                  <div className="h-[350px] rounded-[2rem] bg-muted animate-pulse" />
+                </div>
+              ))}
+            </div>
+          ) : (
           <div className="grid grid-cols-12 gap-6">
             {products.map((product, index) => {
               const CardWrapper = product.externalLink ? "a" : Link;
@@ -481,9 +524,13 @@ const ServicesPage = () => {
                       <div className="relative h-full flex flex-col">
                         <div className="flex items-start justify-between mb-6">
                           <div
-                            className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}
+                            className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 overflow-hidden`}
                           >
-                            <product.icon className="w-8 h-8 text-white" />
+                            {product.icon_url ? (
+                              <img src={product.icon_url} alt={product.title} className="w-full h-full object-cover" />
+                            ) : (
+                              <product.icon className="w-8 h-8 text-white" />
+                            )}
                           </div>
                           <span className="text-6xl font-black text-foreground/5"></span>
                         </div>
@@ -547,6 +594,7 @@ const ServicesPage = () => {
               );
             })}
           </div>
+          )}
         </div>
       </section>
 
