@@ -534,9 +534,7 @@ const ServicesPage = () => {
                                   ? "hsl(var(--primary))"
                                   : product.gradient.split(" ")[0].replace("from-[", "").replace("]", ""),
                               }}
-                            >
-                              {product.stats[0].value} {product.stats[0].label}
-                            </span>
+                            ></span>
                           </div>
                           <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                         </div>
