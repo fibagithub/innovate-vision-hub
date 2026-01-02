@@ -51,6 +51,12 @@ const gradientPresets = [
   { gradient: "from-[#ec4899] to-[#f472b6]", bgGradient: "from-[#ec4899]/10 via-[#ec4899]/5 to-transparent" },
 ];
 
+// Parse usage metrics string to array (format: "value1|value2|value3")
+const parseUsageMetrics = (value: string | null | undefined): string[] => {
+  if (!value) return [];
+  return value.split('|').map(v => v.trim()).filter(v => v);
+};
+
 // Transform service to product format
 const serviceToProduct = (service: Service, index: number) => {
   const presetIndex = index % gradientPresets.length;
@@ -62,6 +68,9 @@ const serviceToProduct = (service: Service, index: number) => {
     title: f,
     desc: ""
   }));
+
+  // Parse usage metrics to array
+  const usageMetrics = parseUsageMetrics(service.usage_metric);
 
   return {
     id: service.id,
@@ -77,6 +86,7 @@ const serviceToProduct = (service: Service, index: number) => {
     description_mn: service.description_mn || "",
     usage_metric: service.usage_metric,
     usage_metric_mn: service.usage_metric_mn,
+    usageMetrics, // Array of usage metrics
     gradient: preset.gradient,
     bgGradient: preset.bgGradient,
     features,
@@ -201,16 +211,17 @@ const ServicesPage = () => {
                 </div>
               </div>
 
-              {/* Usage Metric or Features Preview */}
+              {/* Usage Metrics and Features Preview */}
               <div className="grid grid-cols-2 gap-4">
-                {product.usage_metric && (
-                  <div className="col-span-2 p-8 rounded-3xl bg-card border border-border/50">
-                    <div className={`text-2xl lg:text-3xl font-bold mb-2 bg-gradient-to-r ${product.gradient} bg-clip-text text-transparent`}>
-                      {getLocalizedContent(product.usage_metric, product.usage_metric_mn)}
+                {/* Display each usage metric separately */}
+                {product.usageMetrics.map((metric, index) => (
+                  <div key={`metric-${index}`} className={`${product.usageMetrics.length === 1 ? 'col-span-2' : ''} p-6 rounded-3xl bg-card border border-border/50`}>
+                    <div className={`text-xl lg:text-2xl font-bold bg-gradient-to-r ${product.gradient} bg-clip-text text-transparent`}>
+                      {metric}
                     </div>
                   </div>
-                )}
-                {product.features.slice(0, 3).map((feature, index) => (
+                ))}
+                {product.features.slice(0, product.usageMetrics.length > 0 ? 2 : 3).map((feature, index) => (
                   <div
                     key={index}
                     className="p-6 rounded-3xl bg-card border border-border/50 hover:border-border transition-colors"
