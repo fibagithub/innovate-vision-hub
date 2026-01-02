@@ -91,16 +91,26 @@ const ProductLogo = ({
 };
 
 // Product Card Component
-const ProductCard = ({ service, index, total, language }: { service: Service; index: number; total: number; language: 'mn' | 'en' }) => {
+const ProductCard = ({
+  service,
+  index,
+  total,
+  language,
+}: {
+  service: Service;
+  index: number;
+  total: number;
+  language: "mn" | "en";
+}) => {
   const size = getSizeByIndex(index, total);
   const preset = gradientPresets[index % gradientPresets.length];
   const isFeatured = size === "featured";
   const isLarge = size === "large";
 
-  const serviceName = language === 'mn' && service.name_mn ? service.name_mn : service.name;
-  const serviceDesc = language === 'mn' && service.description_mn ? service.description_mn : service.description;
-  const serviceCategory = language === 'mn' && service.category_mn ? service.category_mn : service.category;
-  const serviceMetric = language === 'mn' && service.usage_metric_mn ? service.usage_metric_mn : service.usage_metric;
+  const serviceName = language === "mn" && service.name_mn ? service.name_mn : service.name;
+  const serviceDesc = language === "mn" && service.description_mn ? service.description_mn : service.description;
+  const serviceCategory = language === "mn" && service.category_mn ? service.category_mn : service.category;
+  const serviceMetric = language === "mn" && service.usage_metric_mn ? service.usage_metric_mn : service.usage_metric;
 
   const cardContent = (
     <>
@@ -156,7 +166,7 @@ const ProductCard = ({ service, index, total, language }: { service: Service; in
                 </div>
 
                 <div className="flex items-center gap-3 text-primary font-semibold mt-8">
-                  <span>{language === 'mn' ? 'Дэлгэрэнгүй үзэх' : 'Learn More'}</span>
+                  <span>{language === "mn" ? "Дэлгэрэнгүй үзэх" : "Learn More"}</span>
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300">
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
                   </div>
@@ -265,7 +275,7 @@ const ProductCard = ({ service, index, total, language }: { service: Service; in
                   {serviceMetric && (
                     <div className="flex items-center gap-2">
                       <Sparkles className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-semibold text-primary">{serviceMetric}</span>
+                      <span className="text-sm font-semibold text-primary">{serviceMetric}111</span>
                     </div>
                   )}
                   <ArrowRight
@@ -288,10 +298,10 @@ export function Services() {
   const { t, language } = useLanguage();
 
   const consultingServices = [
-    { title: t('services.cardSystem'), icon: CreditCard },
-    { title: t('services.walletService'), icon: Globe },
-    { title: t('services.systemIntegration'), icon: Zap },
-    { title: t('services.aiScoring'), icon: Shield },
+    { title: t("services.cardSystem"), icon: CreditCard },
+    { title: t("services.walletService"), icon: Globe },
+    { title: t("services.systemIntegration"), icon: Zap },
+    { title: t("services.aiScoring"), icon: Shield },
   ];
 
   return (
@@ -309,19 +319,17 @@ export function Services() {
         <div className="max-w-4xl mx-auto text-center mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-8">
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-primary font-medium text-sm tracking-wide">{t('services.badge')}</span>
+            <span className="text-primary font-medium text-sm tracking-wide">{t("services.badge")}</span>
           </div>
 
           <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-8 tracking-tight leading-[1.1]">
-            {t('services.subtitle')}
+            {t("services.subtitle")}
             <span className="block mt-2 bg-gradient-to-r from-primary via-[#2563eb] to-primary bg-clip-text text-transparent">
-              {t('services.title2')}
+              {t("services.title2")}
             </span>
           </h2>
 
-          <p className="text-muted-foreground text-xl max-w-2xl mx-auto leading-relaxed">
-            {t('services.description')}
-          </p>
+          <p className="text-muted-foreground text-xl max-w-2xl mx-auto leading-relaxed">{t("services.description")}</p>
         </div>
 
         {isLoading && (
@@ -333,7 +341,13 @@ export function Services() {
         {!isLoading && services && services.length > 0 && (
           <div className="grid grid-cols-12 gap-4 lg:gap-6 mb-8">
             {services.map((service, index) => (
-              <ProductCard key={service.id} service={service} index={index} total={services.length} language={language} />
+              <ProductCard
+                key={service.id}
+                service={service}
+                index={index}
+                total={services.length}
+                language={language}
+              />
             ))}
           </div>
         )}
@@ -351,17 +365,15 @@ export function Services() {
               <div>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur mb-6">
                   <Zap className="w-4 h-4 text-white" />
-                  <span className="text-white/90 font-medium text-sm">{t('services.consulting')}</span>
+                  <span className="text-white/90 font-medium text-sm">{t("services.consulting")}</span>
                 </div>
                 <h3 className="font-display text-3xl lg:text-4xl font-bold text-white mb-4">
-                  {t('services.consultingTitle')}
+                  {t("services.consultingTitle")}
                 </h3>
-                <p className="text-white/70 text-lg mb-8 leading-relaxed">
-                  {t('services.consultingDesc')}
-                </p>
+                <p className="text-white/70 text-lg mb-8 leading-relaxed">{t("services.consultingDesc")}</p>
                 <Link to="/contact">
                   <Button size="xl" className="bg-white text-primary hover:bg-white/90 font-semibold">
-                    {t('services.contactUs')}
+                    {t("services.contactUs")}
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                 </Link>
@@ -387,7 +399,7 @@ export function Services() {
         <div className="flex justify-center mt-16">
           <Link to="/services">
             <Button variant="outline" size="xl" className="gap-2 group">
-              {t('services.viewAll')}
+              {t("services.viewAll")}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
