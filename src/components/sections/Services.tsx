@@ -220,10 +220,10 @@ const ProductCard = ({
                 <div className="flex items-center gap-2 pt-6 border-t border-border/50">
                   <Sparkles className={`w-4 h-4 text-${preset.accentColor}`} />
                   <span className={`text-sm font-semibold text-${preset.accentColor}`}></span>
+                  <ArrowRight
+                    className={`w-5 h-5 text-muted-foreground group-hover:text-${preset.accentColor} group-hover:translate-x-1 transition-all`}
+                  />
                 </div>
-                <ArrowRight
-                  className={`w-5 h-5 text-muted-foreground group-hover:text-${preset.accentColor} group-hover:translate-x-1 transition-all`}
-                />
               </div>
             </div>
           </Link>
