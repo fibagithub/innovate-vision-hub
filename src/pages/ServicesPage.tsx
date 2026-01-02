@@ -54,19 +54,22 @@ const gradientPresets = [
 // Parse usage metrics string to array (format: "value1|value2|value3")
 const parseUsageMetrics = (value: string | null | undefined): string[] => {
   if (!value) return [];
-  return value.split('|').map(v => v.trim()).filter(v => v);
+  return value
+    .split("|")
+    .map((v) => v.trim())
+    .filter((v) => v);
 };
 
 // Transform service to product format
 const serviceToProduct = (service: Service, index: number) => {
   const presetIndex = index % gradientPresets.length;
   const preset = gradientPresets[presetIndex];
-  const IconComponent = iconMap[service.icon || 'Package'] || Package;
-  
+  const IconComponent = iconMap[service.icon || "Package"] || Package;
+
   // Parse features from array
   const features = (service.features || []).map((f) => ({
     title: f,
-    desc: ""
+    desc: "",
   }));
 
   // Parse usage metrics to array
@@ -99,18 +102,18 @@ const ServicesPage = () => {
   const { serviceId } = useParams();
   const { language } = useLanguage();
   const { data: services, isLoading } = useServices();
-  
+
   // Transform services to products
   const products = (services || []).map((service, index) => serviceToProduct(service, index));
-  
+
   const product = serviceId ? products.find((p) => p.id === serviceId) : null;
 
   // Helper function to get localized content
   const getLocalizedContent = (en: string | null | undefined, mn: string | null | undefined) => {
-    if (language === 'mn') {
-      return mn || en || '';
+    if (language === "mn") {
+      return mn || en || "";
     }
-    return en || '';
+    return en || "";
   };
 
   if (isLoading) {
@@ -124,7 +127,16 @@ const ServicesPage = () => {
             </div>
             <div className="grid grid-cols-12 gap-6">
               {[...Array(5)].map((_, i) => (
-                <div key={i} className={i === 0 ? "col-span-12 lg:col-span-8" : i === 1 ? "col-span-12 lg:col-span-4" : "col-span-12 md:col-span-6 lg:col-span-4"}>
+                <div
+                  key={i}
+                  className={
+                    i === 0
+                      ? "col-span-12 lg:col-span-8"
+                      : i === 1
+                        ? "col-span-12 lg:col-span-4"
+                        : "col-span-12 md:col-span-6 lg:col-span-4"
+                  }
+                >
                   <Skeleton className="h-[350px] rounded-[2rem]" />
                 </div>
               ))}
@@ -215,8 +227,13 @@ const ServicesPage = () => {
               <div className="grid grid-cols-2 gap-4">
                 {/* Display each usage metric separately */}
                 {product.usageMetrics.map((metric, index) => (
-                  <div key={`metric-${index}`} className={`${product.usageMetrics.length === 1 ? 'col-span-2' : ''} p-6 rounded-3xl bg-card border border-border/50`}>
-                    <div className={`text-xl lg:text-2xl font-bold bg-gradient-to-r ${product.gradient} bg-clip-text text-transparent`}>
+                  <div
+                    key={`metric-${index}`}
+                    className={`${product.usageMetrics.length === 1 ? "col-span-2" : ""} p-6 rounded-3xl bg-card border border-border/50`}
+                  >
+                    <div
+                      className={`text-xl lg:text-2xl font-bold bg-gradient-to-r ${product.gradient} bg-clip-text text-transparent`}
+                    >
                       {metric}
                     </div>
                   </div>
@@ -226,10 +243,12 @@ const ServicesPage = () => {
                     key={index}
                     className="p-6 rounded-3xl bg-card border border-border/50 hover:border-border transition-colors"
                   >
-                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${product.gradient} flex items-center justify-center mb-4`}>
+                    <div
+                      className={`w-10 h-10 rounded-xl bg-gradient-to-br ${product.gradient} flex items-center justify-center mb-4`}
+                    >
                       <Check className="w-5 h-5 text-white" />
                     </div>
-                    <div className="text-foreground font-medium">{feature.title}</div>
+                    <div className="text-foreground font-medium">{feature.title}1111</div>
                   </div>
                 ))}
               </div>
