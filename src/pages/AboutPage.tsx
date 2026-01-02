@@ -327,7 +327,7 @@ const AboutPage = () => {
                   </Button>
                 </Link>
                 <Link to="/services">
-                  <Button size="lg" variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                  <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-xl">
                     Бүтээгдэхүүн үзэх
                   </Button>
                 </Link>
