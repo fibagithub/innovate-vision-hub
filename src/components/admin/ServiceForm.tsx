@@ -40,6 +40,8 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
   const [isLoading, setIsLoading] = useState(false);
   const [features, setFeatures] = useState<string[]>([]);
   const [newFeature, setNewFeature] = useState('');
+  const [usageMetrics, setUsageMetrics] = useState<string[]>([]);
+  const [newUsageMetric, setNewUsageMetric] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [iconPreview, setIconPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -53,6 +55,17 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
   });
 
   const iconUrl = watch('icon_url');
+
+  // Parse usage_metric string to array (format: "value1|value2|value3")
+  const parseUsageMetrics = (value: string | null | undefined): string[] => {
+    if (!value) return [];
+    return value.split('|').map(v => v.trim()).filter(v => v);
+  };
+
+  // Join usage metrics array to string
+  const joinUsageMetrics = (metrics: string[]): string => {
+    return metrics.join('|');
+  };
 
   useEffect(() => {
     if (editData) {
@@ -71,6 +84,7 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
         display_order: editData.display_order || 0,
       });
       setFeatures(editData.features || []);
+      setUsageMetrics(parseUsageMetrics(editData.usage_metric));
       setIconPreview(editData.icon_url || null);
     } else {
       reset({
@@ -88,6 +102,7 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
         display_order: 0,
       });
       setFeatures([]);
+      setUsageMetrics([]);
       setIconPreview(null);
     }
   }, [editData, reset]);
@@ -143,6 +158,21 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
 
   const removeFeature = (index: number) => {
     setFeatures(features.filter((_, i) => i !== index));
+  };
+
+  const addUsageMetric = () => {
+    if (newUsageMetric.trim()) {
+      const updated = [...usageMetrics, newUsageMetric.trim()];
+      setUsageMetrics(updated);
+      setValue('usage_metric', joinUsageMetrics(updated));
+      setNewUsageMetric('');
+    }
+  };
+
+  const removeUsageMetric = (index: number) => {
+    const updated = usageMetrics.filter((_, i) => i !== index);
+    setUsageMetrics(updated);
+    setValue('usage_metric', joinUsageMetrics(updated));
   };
 
   const onSubmit = async (data: ServiceFormData) => {
@@ -271,17 +301,32 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
             </div>
           </div>
 
-          {/* Usage Metric Section */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="usage_metric">Usage Metric (EN)</Label>
-              <Input id="usage_metric" {...register('usage_metric')} placeholder="50+ organizations" />
-              <p className="text-xs text-muted-foreground">жнь: "1000+ хэрэглэгч", "50+ байгууллага"</p>
+          {/* Usage Metrics Section - Multiple Values */}
+          <div className="space-y-2">
+            <Label>Usage Metrics (Хэрэглээний үзүүлэлтүүд)</Label>
+            <div className="flex gap-2">
+              <Input 
+                value={newUsageMetric} 
+                onChange={(e) => setNewUsageMetric(e.target.value)} 
+                placeholder="Үзүүлэлт нэмэх (жнь: 50+ байгууллага, 1000+ хэрэглэгч)"
+                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addUsageMetric())}
+              />
+              <Button type="button" variant="outline" onClick={addUsageMetric}>
+                <Plus className="w-4 h-4" />
+              </Button>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="usage_metric_mn">Usage Metric (MN)</Label>
-              <Input id="usage_metric_mn" {...register('usage_metric_mn')} placeholder="50+ байгууллага" />
+            <div className="flex flex-wrap gap-2 mt-2">
+              {usageMetrics.map((metric, index) => (
+                <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-accent/20 text-sm font-medium border border-accent/30">
+                  {metric}
+                  <button type="button" onClick={() => removeUsageMetric(index)} className="hover:text-destructive">
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              ))}
             </div>
+            <p className="text-xs text-muted-foreground">Олон үзүүлэлт нэмэх боломжтой. Дэлгэрэнгүй хуудас дээр тус тусдаа харуулна.</p>
+            <input type="hidden" {...register('usage_metric')} />
           </div>
 
           {/* Feature Badges Section */}
