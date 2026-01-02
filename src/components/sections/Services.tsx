@@ -140,7 +140,7 @@ const ProductCard = ({
                       {serviceMetric && (
                         <div className="flex items-center gap-2 mt-1">
                           <Sparkles className="w-3.5 h-3.5 text-primary" />
-                          <span className="text-xs font-semibold text-primary">{serviceMetric}</span>
+                          <span className="text-xs font-semibold text-primary">{serviceMetric}444</span>
                         </div>
                       )}
                     </div>
@@ -221,7 +221,7 @@ const ProductCard = ({
                 {serviceMetric && (
                   <div className="flex items-center gap-2 pt-6 border-t border-border/50">
                     <Sparkles className={`w-4 h-4 text-${preset.accentColor}`} />
-                    <span className={`text-sm font-semibold text-${preset.accentColor}`}>{serviceMetric}</span>
+                    <span className={`text-sm font-semibold text-${preset.accentColor}`}>{serviceMetric}333</span>
                   </div>
                 )}
               </div>
@@ -256,7 +256,7 @@ const ProductCard = ({
                 <h3
                   className={`font-display text-2xl lg:text-3xl font-bold text-foreground mb-3 group-hover:text-${preset.accentColor} transition-colors`}
                 >
-                  {serviceName}
+                  {serviceName}222
                 </h3>
                 <p className="text-muted-foreground leading-relaxed flex-1 mb-6">{serviceDesc}</p>
 
