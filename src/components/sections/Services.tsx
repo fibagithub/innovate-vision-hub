@@ -271,14 +271,18 @@ const ProductCard = ({
                   ))}
                 </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-border/50">
+                <div className="flex items-center justify-between pt-6 border-t border-border/50">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-primary" />
-                    <span className="text-sm font-semibold text-primary"></span>
+                    <Sparkles
+                      className="w-4 h-4"
+                      style={{
+                        color: product.gradient.includes("primary")
+                          ? "hsl(var(--primary))"
+                          : product.gradient.split(" ")[0].replace("from-[", "").replace("]", ""),
+                      }}
+                    />
                   </div>
-                  <ArrowRight
-                    className={`w-5 h-5 text-muted-foreground group-hover:text-${preset.accentColor} group-hover:translate-x-1 transition-all`}
-                  />
+                  <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                 </div>
               </div>
             </div>
