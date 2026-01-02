@@ -238,19 +238,6 @@ const ServicesPage = () => {
                     </div>
                   </div>
                 ))}
-                {product.features.slice(0, product.usageMetrics.length > 0 ? 2 : 3).map((feature, index) => (
-                  <div
-                    key={index}
-                    className="p-6 rounded-3xl bg-card border border-border/50 hover:border-border transition-colors"
-                  >
-                    <div
-                      className={`w-10 h-10 rounded-xl bg-gradient-to-br ${product.gradient} flex items-center justify-center mb-4`}
-                    >
-                      <Check className="w-5 h-5 text-white" />
-                    </div>
-                    <div className="text-foreground font-medium">{feature.title}1111</div>
-                  </div>
-                ))}
               </div>
             </div>
           </div>
