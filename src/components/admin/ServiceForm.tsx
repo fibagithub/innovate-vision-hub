@@ -36,12 +36,20 @@ interface ServiceFormProps {
   onSuccess: () => void;
 }
 
+interface Benefit {
+  title: string;
+  description: string;
+}
+
 export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: ServiceFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [features, setFeatures] = useState<string[]>([]);
   const [newFeature, setNewFeature] = useState('');
   const [usageMetrics, setUsageMetrics] = useState<string[]>([]);
   const [newUsageMetric, setNewUsageMetric] = useState('');
+  const [benefits, setBenefits] = useState<Benefit[]>([]);
+  const [newBenefitTitle, setNewBenefitTitle] = useState('');
+  const [newBenefitDesc, setNewBenefitDesc] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [iconPreview, setIconPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -85,6 +93,7 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
       });
       setFeatures(editData.features || []);
       setUsageMetrics(parseUsageMetrics(editData.usage_metric));
+      setBenefits(editData.benefits || []);
       setIconPreview(editData.icon_url || null);
     } else {
       reset({
@@ -103,6 +112,7 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
       });
       setFeatures([]);
       setUsageMetrics([]);
+      setBenefits([]);
       setIconPreview(null);
     }
   }, [editData, reset]);
@@ -175,12 +185,25 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
     setValue('usage_metric', joinUsageMetrics(updated));
   };
 
+  const addBenefit = () => {
+    if (newBenefitTitle.trim()) {
+      setBenefits([...benefits, { title: newBenefitTitle.trim(), description: newBenefitDesc.trim() }]);
+      setNewBenefitTitle('');
+      setNewBenefitDesc('');
+    }
+  };
+
+  const removeBenefit = (index: number) => {
+    setBenefits(benefits.filter((_, i) => i !== index));
+  };
+
   const onSubmit = async (data: ServiceFormData) => {
     setIsLoading(true);
     try {
       const payload = {
         ...data,
         features,
+        benefits: JSON.parse(JSON.stringify(benefits)),
       };
 
       if (editData?.id) {
@@ -351,6 +374,42 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
                     <X className="w-3 h-3" />
                   </button>
                 </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Benefits/Advantages Section */}
+          <div className="space-y-3">
+            <Label>Давуу талууд (Benefits)</Label>
+            <p className="text-xs text-muted-foreground">Дэлгэрэнгүй хуудасны "Яагаад..." хэсэгт харуулагдана</p>
+            <div className="space-y-2">
+              <Input 
+                value={newBenefitTitle} 
+                onChange={(e) => setNewBenefitTitle(e.target.value)} 
+                placeholder="Давуу талын нэр (жнь: Хурдан хандалт)"
+              />
+              <Input 
+                value={newBenefitDesc} 
+                onChange={(e) => setNewBenefitDesc(e.target.value)} 
+                placeholder="Тайлбар (заавал биш)"
+                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addBenefit())}
+              />
+              <Button type="button" variant="outline" onClick={addBenefit} className="w-full">
+                <Plus className="w-4 h-4 mr-2" />
+                Давуу тал нэмэх
+              </Button>
+            </div>
+            <div className="space-y-2 mt-3">
+              {benefits.map((benefit, index) => (
+                <div key={index} className="flex items-start gap-2 p-3 rounded-lg bg-muted/50 border border-border/50">
+                  <div className="flex-1">
+                    <p className="font-medium text-sm">{benefit.title}</p>
+                    {benefit.description && <p className="text-xs text-muted-foreground mt-1">{benefit.description}</p>}
+                  </div>
+                  <button type="button" onClick={() => removeBenefit(index)} className="text-muted-foreground hover:text-destructive">
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
               ))}
             </div>
           </div>

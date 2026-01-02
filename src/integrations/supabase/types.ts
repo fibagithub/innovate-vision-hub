@@ -100,6 +100,8 @@ export type Database = {
       }
       services: {
         Row: {
+          benefits: Json | null
+          benefits_mn: Json | null
           category: string | null
           category_mn: string | null
           created_at: string
@@ -118,6 +120,8 @@ export type Database = {
           usage_metric_mn: string | null
         }
         Insert: {
+          benefits?: Json | null
+          benefits_mn?: Json | null
           category?: string | null
           category_mn?: string | null
           created_at?: string
@@ -136,6 +140,8 @@ export type Database = {
           usage_metric_mn?: string | null
         }
         Update: {
+          benefits?: Json | null
+          benefits_mn?: Json | null
           category?: string | null
           category_mn?: string | null
           created_at?: string

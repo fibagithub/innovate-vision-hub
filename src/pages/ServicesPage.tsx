@@ -21,7 +21,7 @@ import {
   LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useServices, Service } from "@/hooks/useContentData";
+import { useServices, Service, ServiceBenefit } from "@/hooks/useContentData";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -93,8 +93,9 @@ const serviceToProduct = (service: Service, index: number) => {
     gradient: preset.gradient,
     bgGradient: preset.bgGradient,
     features,
+    benefits: (service.benefits || []) as ServiceBenefit[],
+    benefits_mn: (service.benefits_mn || []) as ServiceBenefit[],
     stats: [],
-    benefits: [],
   };
 };
 
@@ -280,7 +281,7 @@ const ServicesPage = () => {
           </section>
         )}
 
-        {/* CTA Section */}
+        {/* CTA Section - Benefits/Advantages */}
         <section className="py-24 bg-background">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -296,19 +297,30 @@ const ServicesPage = () => {
                 </p>
 
                 <div className="space-y-4">
-                  {product.features.slice(0, 4).map((feature, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-4 p-4 rounded-2xl bg-muted/50 hover:bg-muted transition-colors"
-                    >
+                  {/* Show benefits from admin if available, otherwise fallback to features */}
+                  {(product.benefits && product.benefits.length > 0 ? product.benefits : product.features.slice(0, 4)).map((item, index) => {
+                    const title = 'title' in item ? item.title : (item as { title: string }).title;
+                    const description = 'description' in item ? (item as { description?: string }).description : undefined;
+                    
+                    return (
                       <div
-                        className={`w-10 h-10 rounded-xl bg-gradient-to-br ${product.gradient} flex items-center justify-center shrink-0`}
+                        key={index}
+                        className="flex items-start gap-4 p-4 rounded-2xl bg-muted/50 hover:bg-muted transition-colors"
                       >
-                        <Check className="w-5 h-5 text-white" />
+                        <div
+                          className={`w-10 h-10 rounded-xl bg-gradient-to-br ${product.gradient} flex items-center justify-center shrink-0 mt-0.5`}
+                        >
+                          <Check className="w-5 h-5 text-white" />
+                        </div>
+                        <div>
+                          <span className="text-foreground font-medium">{title}</span>
+                          {description && (
+                            <p className="text-sm text-muted-foreground mt-1">{description}</p>
+                          )}
+                        </div>
                       </div>
-                      <span className="text-foreground font-medium">{feature.title}</span>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 

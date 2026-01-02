@@ -1,6 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 
+export interface ServiceBenefit {
+  title: string;
+  description?: string;
+}
+
 export interface Service {
   id: string;
   name: string;
@@ -14,6 +19,8 @@ export interface Service {
   usage_metric: string | null;
   usage_metric_mn: string | null;
   features: string[] | null;
+  benefits: ServiceBenefit[] | null;
+  benefits_mn: ServiceBenefit[] | null;
   is_active: boolean;
   display_order: number;
 }
@@ -58,7 +65,7 @@ export const useServices = () => {
         .order('display_order');
       
       if (error) throw error;
-      return data as Service[];
+      return data as unknown as Service[];
     },
   });
 };
