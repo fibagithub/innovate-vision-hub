@@ -329,6 +329,7 @@ const AboutPage = () => {
                 <Link to="/services">
                   <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-xl">
                     Бүтээгдэхүүн үзэх
+                    <ArrowRight className="ml-2" />
                   </Button>
                 </Link>
               </div>
