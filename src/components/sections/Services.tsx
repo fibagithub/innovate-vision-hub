@@ -221,6 +221,9 @@ const ProductCard = ({
                   <Sparkles className={`w-4 h-4 text-${preset.accentColor}`} />
                   <span className={`text-sm font-semibold text-${preset.accentColor}`}></span>
                 </div>
+                <ArrowRight
+                  className={`w-5 h-5 text-muted-foreground group-hover:text-${preset.accentColor} group-hover:translate-x-1 transition-all`}
+                />
               </div>
             </div>
           </Link>
