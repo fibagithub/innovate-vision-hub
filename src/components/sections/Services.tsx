@@ -253,7 +253,7 @@ const ProductCard = ({
                 <h3
                   className={`font-display text-2xl lg:text-3xl font-bold text-foreground mb-3 group-hover:text-${preset.accentColor} transition-colors`}
                 >
-                  {serviceName}222
+                  {serviceName}
                 </h3>
                 <p className="text-muted-foreground leading-relaxed flex-1 mb-6">{serviceDesc}</p>
 
@@ -269,12 +269,10 @@ const ProductCard = ({
                 </div>
 
                 <div className="flex items-center justify-between pt-4 border-t border-border/50">
-                  {serviceMetric && (
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-primary" />
-                      <span className="text-sm font-semibold text-primary">{serviceMetric}111</span>
-                    </div>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-semibold text-primary"></span>
+                  </div>
                   <ArrowRight
                     className={`w-5 h-5 text-muted-foreground group-hover:text-${preset.accentColor} group-hover:translate-x-1 transition-all`}
                   />
