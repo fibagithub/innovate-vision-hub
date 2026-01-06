@@ -27,23 +27,85 @@ import {
   TopPagesTable,
   GeoDistribution
 } from '@/components/admin/AnalyticsCharts';
-
-const stats = [
-  { label: 'Нийт зочид', value: '12,543', change: '+12.5%', trend: 'up', icon: Eye, subtext: 'Өмнөх 7 хоногтой харьцуулахад' },
-  { label: 'Хуудас үзэлт', value: '45,234', change: '+8.2%', trend: 'up', icon: Activity, subtext: 'Өмнөх 7 хоногтой харьцуулахад' },
-  { label: 'Дундаж хугацаа', value: '3м 42с', change: '+5.1%', trend: 'up', icon: Clock, subtext: 'Сессийн дундаж үргэлжлэх хугацаа' },
-  { label: 'Буцах хувь', value: '34.2%', change: '-5.3%', trend: 'up', icon: MousePointer, subtext: 'Өмнөх 7 хоногтой харьцуулахад' },
-];
-
-const realtimeStats = [
-  { label: 'Одоо идэвхтэй', value: '127', icon: Activity },
-  { label: 'Өнөөдөр нийт', value: '2,847', icon: Eye },
-  { label: 'Энэ цагт', value: '342', icon: Clock },
-];
+import {
+  useAnalyticsStats,
+  useTrafficOverview,
+  useHourlyData,
+  useTrafficSources,
+  useDeviceBreakdown,
+  useTopPages,
+  useGeoDistribution,
+  useRealtimeStats,
+  DateRange
+} from '@/hooks/useAnalytics';
 
 const AdminDashboard = () => {
-  const [dateRange, setDateRange] = useState('7d');
+  const [dateRange, setDateRange] = useState<DateRange>('7d');
   const navigate = useNavigate();
+
+  // Real data hooks
+  const { data: stats, isLoading: statsLoading } = useAnalyticsStats(dateRange);
+  const { data: trafficData, isLoading: trafficLoading } = useTrafficOverview(dateRange);
+  const { data: hourlyData, isLoading: hourlyLoading } = useHourlyData();
+  const { data: trafficSources, isLoading: sourcesLoading } = useTrafficSources(dateRange);
+  const { data: deviceData, isLoading: devicesLoading } = useDeviceBreakdown(dateRange);
+  const { data: topPages, isLoading: pagesLoading } = useTopPages(dateRange);
+  const { data: geoData, isLoading: geoLoading } = useGeoDistribution(dateRange);
+  const realtimeStats = useRealtimeStats();
+
+  // Calculate percentage changes
+  const getChange = (current: number, previous: number) => {
+    if (previous === 0) return { value: '+0%', trend: 'up' as const };
+    const change = ((current - previous) / previous) * 100;
+    return {
+      value: `${change >= 0 ? '+' : ''}${change.toFixed(1)}%`,
+      trend: change >= 0 ? 'up' as const : 'down' as const
+    };
+  };
+
+  const visitorChange = stats ? getChange(stats.totalVisitors, stats.previousVisitors) : { value: '+0%', trend: 'up' as const };
+  const pageViewChange = stats ? getChange(stats.totalPageViews, stats.previousPageViews) : { value: '+0%', trend: 'up' as const };
+
+  const mainStats = [
+    { 
+      label: 'Нийт зочид', 
+      value: stats?.totalVisitors.toLocaleString() || '0', 
+      change: visitorChange.value, 
+      trend: visitorChange.trend, 
+      icon: Eye, 
+      subtext: `Өмнөх ${dateRange}-тэй харьцуулахад` 
+    },
+    { 
+      label: 'Хуудас үзэлт', 
+      value: stats?.totalPageViews.toLocaleString() || '0', 
+      change: pageViewChange.value, 
+      trend: pageViewChange.trend, 
+      icon: Activity, 
+      subtext: `Өмнөх ${dateRange}-тэй харьцуулахад` 
+    },
+    { 
+      label: 'Дундаж хугацаа', 
+      value: stats?.avgSessionDuration || '0с', 
+      change: '+0%', 
+      trend: 'up' as const, 
+      icon: Clock, 
+      subtext: 'Сессийн дундаж үргэлжлэх хугацаа' 
+    },
+    { 
+      label: 'Буцах хувь', 
+      value: `${stats?.bounceRate || 0}%`, 
+      change: '-0%', 
+      trend: 'up' as const, 
+      icon: MousePointer, 
+      subtext: `Өмнөх ${dateRange}-тэй харьцуулахад` 
+    },
+  ];
+
+  const realtimeStatsDisplay = [
+    { label: 'Одоо идэвхтэй', value: realtimeStats.activeNow.toLocaleString(), icon: Activity },
+    { label: 'Өнөөдөр нийт', value: realtimeStats.todayTotal.toLocaleString(), icon: Eye },
+    { label: 'Энэ цагт', value: realtimeStats.thisHour.toLocaleString(), icon: Clock },
+  ];
 
   return (
     <div className="space-y-6">
@@ -54,7 +116,7 @@ const AdminDashboard = () => {
           <p className="text-sm text-muted-foreground">Вэбсайтын статистик мэдээлэл</p>
         </div>
         <div className="flex items-center gap-2 bg-muted rounded-lg p-1">
-          {['24h', '7d', '30d', '90d'].map((range) => (
+          {(['24h', '7d', '30d', '90d'] as DateRange[]).map((range) => (
             <button
               key={range}
               onClick={() => setDateRange(range)}
@@ -73,7 +135,7 @@ const AdminDashboard = () => {
 
       {/* Realtime Stats Bar */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {realtimeStats.map((stat, index) => (
+        {realtimeStatsDisplay.map((stat, index) => (
           <div key={index} className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border">
             <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
               <stat.icon className="w-6 h-6 text-primary" />
@@ -97,7 +159,7 @@ const AdminDashboard = () => {
 
       {/* Main Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((stat, index) => (
+        {mainStats.map((stat, index) => (
           <div key={index} className="p-5 rounded-2xl bg-card border border-border hover:shadow-lg transition-shadow">
             <div className="flex items-center justify-between mb-3">
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -112,7 +174,7 @@ const AdminDashboard = () => {
               </span>
             </div>
             <div className="font-display text-3xl font-bold text-foreground mb-1">
-              {stat.value}
+              {statsLoading ? '...' : stat.value}
             </div>
             <div className="text-sm font-medium text-foreground mb-1">{stat.label}</div>
             <div className="text-xs text-muted-foreground">{stat.subtext}</div>
@@ -138,7 +200,7 @@ const AdminDashboard = () => {
             </div>
           </div>
         </div>
-        <TrafficOverviewChart />
+        <TrafficOverviewChart data={trafficData || []} isLoading={trafficLoading} />
       </div>
 
       {/* Two Column Layout */}
@@ -153,8 +215,8 @@ const AdminDashboard = () => {
             <Globe className="w-5 h-5 text-muted-foreground" />
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <TrafficSourcesChart />
-            <TrafficSourcesLegend />
+            <TrafficSourcesChart data={trafficSources || []} isLoading={sourcesLoading} />
+            <TrafficSourcesLegend data={trafficSources || []} isLoading={sourcesLoading} />
           </div>
         </div>
 
@@ -170,23 +232,19 @@ const AdminDashboard = () => {
               <Smartphone className="w-5 h-5 text-muted-foreground" />
             </div>
           </div>
-          <DeviceChart />
+          <DeviceChart data={deviceData || []} isLoading={devicesLoading} />
           <div className="grid grid-cols-3 gap-4 mt-4">
-            <div className="text-center p-3 rounded-lg bg-muted/50">
-              <Monitor className="w-5 h-5 mx-auto mb-1 text-primary" />
-              <div className="text-lg font-bold text-foreground">58%</div>
-              <div className="text-xs text-muted-foreground">Desktop</div>
-            </div>
-            <div className="text-center p-3 rounded-lg bg-muted/50">
-              <Smartphone className="w-5 h-5 mx-auto mb-1 text-primary/70" />
-              <div className="text-lg font-bold text-foreground">35%</div>
-              <div className="text-xs text-muted-foreground">Mobile</div>
-            </div>
-            <div className="text-center p-3 rounded-lg bg-muted/50">
-              <Monitor className="w-5 h-5 mx-auto mb-1 text-primary/50" />
-              <div className="text-lg font-bold text-foreground">7%</div>
-              <div className="text-xs text-muted-foreground">Tablet</div>
-            </div>
+            {(deviceData || [{ name: 'Desktop', value: 0 }, { name: 'Mobile', value: 0 }, { name: 'Tablet', value: 0 }]).map((device, index) => (
+              <div key={device.name} className="text-center p-3 rounded-lg bg-muted/50">
+                {index === 0 || index === 2 ? (
+                  <Monitor className={cn("w-5 h-5 mx-auto mb-1", index === 0 ? "text-primary" : "text-primary/50")} />
+                ) : (
+                  <Smartphone className="w-5 h-5 mx-auto mb-1 text-primary/70" />
+                )}
+                <div className="text-lg font-bold text-foreground">{device.value}%</div>
+                <div className="text-xs text-muted-foreground">{device.name}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -206,7 +264,7 @@ const AdminDashboard = () => {
             <span className="text-sm font-medium">Real-time</span>
           </div>
         </div>
-        <RealtimeChart />
+        <RealtimeChart data={hourlyData || []} isLoading={hourlyLoading} />
       </div>
 
       {/* Three Column Layout */}
@@ -222,7 +280,7 @@ const AdminDashboard = () => {
               Бүгдийг харах <ArrowUpRight className="w-4 h-4 ml-1" />
             </Button>
           </div>
-          <TopPagesTable />
+          <TopPagesTable data={topPages || []} isLoading={pagesLoading} />
         </div>
 
         {/* Geographic Distribution */}
@@ -234,7 +292,7 @@ const AdminDashboard = () => {
             </div>
             <Globe className="w-5 h-5 text-muted-foreground" />
           </div>
-          <GeoDistribution />
+          <GeoDistribution data={geoData || []} isLoading={geoLoading} />
         </div>
       </div>
 
