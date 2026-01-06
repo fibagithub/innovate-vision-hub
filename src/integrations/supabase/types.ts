@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      page_views: {
+        Row: {
+          browser: string | null
+          city: string | null
+          country: string | null
+          created_at: string
+          device_type: string | null
+          id: string
+          os: string | null
+          page_path: string
+          page_title: string | null
+          referrer: string | null
+          referrer_source: string | null
+          session_id: string
+          visitor_id: string
+        }
+        Insert: {
+          browser?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          device_type?: string | null
+          id?: string
+          os?: string | null
+          page_path: string
+          page_title?: string | null
+          referrer?: string | null
+          referrer_source?: string | null
+          session_id: string
+          visitor_id: string
+        }
+        Update: {
+          browser?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          device_type?: string | null
+          id?: string
+          os?: string | null
+          page_path?: string
+          page_title?: string | null
+          referrer?: string | null
+          referrer_source?: string | null
+          session_id?: string
+          visitor_id?: string
+        }
+        Relationships: []
+      }
       partners: {
         Row: {
           count: number | null
