@@ -90,6 +90,17 @@ const ProductLogo = ({
   );
 };
 
+// External links for specific products
+const externalLinks: Record<string, string> = {
+  "MeAPP": "https://me.fiba.mn/",
+  "SainScore": "https://sainscore.mn/",
+};
+
+// Get external link if exists
+const getExternalLink = (serviceName: string): string | null => {
+  return externalLinks[serviceName] || null;
+};
+
 // Product Card Component
 const ProductCard = ({
   service,
@@ -112,11 +123,24 @@ const ProductCard = ({
   const serviceCategory = language === "mn" && service.category_mn ? service.category_mn : service.category;
   const serviceMetric = language === "mn" && service.usage_metric_mn ? service.usage_metric_mn : service.usage_metric;
 
+  const externalLink = getExternalLink(service.name);
+
+  const CardWrapper = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+    if (externalLink) {
+      return (
+        <a href={externalLink} target="_blank" rel="noopener noreferrer" className={className}>
+          {children}
+        </a>
+      );
+    }
+    return <Link to={`/services/${service.id}`} className={className}>{children}</Link>;
+  };
+
   const cardContent = (
     <>
       {isFeatured && (
         <div className="col-span-12 lg:col-span-7">
-          <Link to={`/services/${service.id}`} className="block h-full">
+          <CardWrapper className="block h-full">
             <div
               className={`group relative h-full min-h-[480px] p-8 lg:p-10 rounded-[2rem] bg-gradient-to-br ${preset.bgGradient} border border-border/50 overflow-hidden transition-all duration-700 hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/20`}
             >
@@ -171,13 +195,13 @@ const ProductCard = ({
                 </div>
               </div>
             </div>
-          </Link>
+          </CardWrapper>
         </div>
       )}
 
       {isLarge && (
         <div className="col-span-12 lg:col-span-5">
-          <Link to={`/services/${service.id}`} className="block h-full">
+          <CardWrapper className="block h-full">
             <div
               className={`group relative h-full min-h-[480px] p-8 rounded-[2rem] bg-gradient-to-br ${preset.bgGradient} border border-border/50 overflow-hidden transition-all duration-500 hover:shadow-xl hover:border-${preset.accentColor}/30`}
             >
@@ -230,13 +254,13 @@ const ProductCard = ({
                 </div>
               </div>
             </div>
-          </Link>
+          </CardWrapper>
         </div>
       )}
 
       {!isFeatured && !isLarge && (
         <div className="col-span-12 md:col-span-6 lg:col-span-4">
-          <Link to={`/services/${service.id}`} className="block h-full">
+          <CardWrapper className="block h-full">
             <div
               className={`group relative h-full min-h-[380px] p-8 rounded-[2rem] bg-gradient-to-br ${preset.bgGradient} border border-border/50 overflow-hidden transition-all duration-500 hover:shadow-xl hover:border-${preset.accentColor}/30`}
             >
@@ -290,7 +314,7 @@ const ProductCard = ({
                 </div>
               </div>
             </div>
-          </Link>
+          </CardWrapper>
         </div>
       )}
     </>

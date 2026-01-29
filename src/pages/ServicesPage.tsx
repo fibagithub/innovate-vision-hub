@@ -51,6 +51,17 @@ const gradientPresets = [
   { gradient: "from-[#ec4899] to-[#f472b6]", bgGradient: "from-[#ec4899]/10 via-[#ec4899]/5 to-transparent" },
 ];
 
+// External links for specific products
+const externalLinks: Record<string, string> = {
+  "MeAPP": "https://me.fiba.mn/",
+  "SainScore": "https://sainscore.mn/",
+};
+
+// Get external link if exists
+const getExternalLink = (productName: string): string | null => {
+  return externalLinks[productName] || null;
+};
+
 // Parse usage metrics string to array (format: "value1|value2|value3")
 const parseUsageMetrics = (value: string | null | undefined): string[] => {
   if (!value) return [];
@@ -370,13 +381,10 @@ const ServicesPage = () => {
                   .map((p) => {
                     const pTitle = getLocalizedContent(p.title, p.title_mn);
                     const pShortDesc = getLocalizedContent(p.shortDesc, p.shortDesc_mn);
+                    const externalLink = getExternalLink(p.title);
 
-                    return (
-                      <Link
-                        key={p.id}
-                        to={`/services/${p.id}`}
-                        className="group p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all"
-                      >
+                    const CardContent = (
+                      <>
                         <div
                           className={`w-14 h-14 rounded-xl bg-gradient-to-br ${p.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform overflow-hidden`}
                         >
@@ -390,6 +398,30 @@ const ServicesPage = () => {
                           {pTitle}
                         </h3>
                         <p className="text-sm text-muted-foreground">{pShortDesc}</p>
+                      </>
+                    );
+
+                    if (externalLink) {
+                      return (
+                        <a
+                          key={p.id}
+                          href={externalLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all"
+                        >
+                          {CardContent}
+                        </a>
+                      );
+                    }
+
+                    return (
+                      <Link
+                        key={p.id}
+                        to={`/services/${p.id}`}
+                        className="group p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all"
+                      >
+                        {CardContent}
                       </Link>
                     );
                   })}
@@ -460,79 +492,96 @@ const ServicesPage = () => {
 
                 return (
                   <div key={product.id} className={sizeClass}>
-                    <Link to={`/services/${product.id}`} className="block h-full">
-                      <div
-                        className={`group relative h-full ${minHeight} p-8 lg:p-10 rounded-[2rem] bg-gradient-to-br ${product.bgGradient} bg-card border border-border/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-primary/20`}
-                      >
-                        {/* Gradient Accent */}
-                        <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${product.gradient}`} />
-
-                        {/* Decorative */}
+                    {(() => {
+                      const externalLink = getExternalLink(product.title);
+                      const cardContent = (
                         <div
-                          className={`absolute top-10 right-10 w-32 h-32 bg-gradient-to-br ${product.gradient} opacity-10 rounded-full blur-3xl group-hover:opacity-20 transition-opacity`}
-                        />
+                          className={`group relative h-full ${minHeight} p-8 lg:p-10 rounded-[2rem] bg-gradient-to-br ${product.bgGradient} bg-card border border-border/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-primary/20`}
+                        >
+                          {/* Gradient Accent */}
+                          <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${product.gradient}`} />
 
-                        <div className="relative h-full flex flex-col">
-                          <div className="flex items-start justify-between mb-6">
-                            <div
-                              className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 overflow-hidden`}
+                          {/* Decorative */}
+                          <div
+                            className={`absolute top-10 right-10 w-32 h-32 bg-gradient-to-br ${product.gradient} opacity-10 rounded-full blur-3xl group-hover:opacity-20 transition-opacity`}
+                          />
+
+                          <div className="relative h-full flex flex-col">
+                            <div className="flex items-start justify-between mb-6">
+                              <div
+                                className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 overflow-hidden`}
+                              >
+                                {product.icon_url ? (
+                                  <img src={product.icon_url} alt={productTitle} className="w-full h-full object-cover" />
+                                ) : (
+                                  <product.icon className="w-8 h-8 text-white" />
+                                )}
+                              </div>
+                              <span className="text-6xl font-black text-foreground/5"></span>
+                            </div>
+
+                            <span
+                              className="text-xs font-bold tracking-widest uppercase mb-2"
+                              style={{
+                                background: `linear-gradient(to right, ${product.gradient.includes("primary") ? "hsl(var(--primary))" : product.gradient.split(" ")[0].replace("from-[", "").replace("]", "")}, ${product.gradient.split(" ")[1].replace("to-[", "").replace("]", "")})`,
+                                WebkitBackgroundClip: "text",
+                                WebkitTextFillColor: "transparent",
+                              }}
                             >
-                              {product.icon_url ? (
-                                <img src={product.icon_url} alt={productTitle} className="w-full h-full object-cover" />
-                              ) : (
-                                <product.icon className="w-8 h-8 text-white" />
-                              )}
+                              {productSubtitle}
+                            </span>
+
+                            <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
+                              {productTitle}
+                            </h2>
+
+                            <p className="text-muted-foreground leading-relaxed flex-1 mb-6">{productShortDesc}</p>
+
+                            {/* Features Preview */}
+                            {product.features.length > 0 && (
+                              <div className="flex flex-wrap gap-2 mb-6">
+                                {product.features.slice(0, 6).map((feature, i) => (
+                                  <span
+                                    key={i}
+                                    className="px-3 py-1.5 rounded-full bg-foreground/5 border border-border/50 text-xs font-medium text-foreground/70"
+                                  >
+                                    {feature.title}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+
+                            <div className="flex items-center justify-between pt-6 border-t border-border/50">
+                              <div className="flex items-center gap-2">
+                                <Sparkles
+                                  className="w-4 h-4"
+                                  style={{
+                                    color: product.gradient.includes("primary")
+                                      ? "hsl(var(--primary))"
+                                      : product.gradient.split(" ")[0].replace("from-[", "").replace("]", ""),
+                                  }}
+                                />
+                              </div>
+                              <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                             </div>
-                            <span className="text-6xl font-black text-foreground/5"></span>
-                          </div>
-
-                          <span
-                            className="text-xs font-bold tracking-widest uppercase mb-2"
-                            style={{
-                              background: `linear-gradient(to right, ${product.gradient.includes("primary") ? "hsl(var(--primary))" : product.gradient.split(" ")[0].replace("from-[", "").replace("]", "")}, ${product.gradient.split(" ")[1].replace("to-[", "").replace("]", "")})`,
-                              WebkitBackgroundClip: "text",
-                              WebkitTextFillColor: "transparent",
-                            }}
-                          >
-                            {productSubtitle}
-                          </span>
-
-                          <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
-                            {productTitle}
-                          </h2>
-
-                          <p className="text-muted-foreground leading-relaxed flex-1 mb-6">{productShortDesc}</p>
-
-                          {/* Features Preview */}
-                          {product.features.length > 0 && (
-                            <div className="flex flex-wrap gap-2 mb-6">
-                              {product.features.slice(0, 6).map((feature, i) => (
-                                <span
-                                  key={i}
-                                  className="px-3 py-1.5 rounded-full bg-foreground/5 border border-border/50 text-xs font-medium text-foreground/70"
-                                >
-                                  {feature.title}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-
-                          <div className="flex items-center justify-between pt-6 border-t border-border/50">
-                            <div className="flex items-center gap-2">
-                              <Sparkles
-                                className="w-4 h-4"
-                                style={{
-                                  color: product.gradient.includes("primary")
-                                    ? "hsl(var(--primary))"
-                                    : product.gradient.split(" ")[0].replace("from-[", "").replace("]", ""),
-                                }}
-                              />
-                            </div>
-                            <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                           </div>
                         </div>
-                      </div>
-                    </Link>
+                      );
+
+                      if (externalLink) {
+                        return (
+                          <a href={externalLink} target="_blank" rel="noopener noreferrer" className="block h-full">
+                            {cardContent}
+                          </a>
+                        );
+                      }
+
+                      return (
+                        <Link to={`/services/${product.id}`} className="block h-full">
+                          {cardContent}
+                        </Link>
+                      );
+                    })()}
                   </div>
                 );
               })}
