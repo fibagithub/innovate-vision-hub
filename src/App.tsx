@@ -28,7 +28,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter basename="/mono-flex-design">
+        <BrowserRouter basename="/innovate-vision-hub">
           <AuthProvider>
             <Routes>
               <Route path="/" element={<Index />} />
