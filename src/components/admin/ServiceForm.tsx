@@ -44,12 +44,19 @@ interface Benefit {
 export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: ServiceFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [features, setFeatures] = useState<string[]>([]);
+  const [featuresMn, setFeaturesMn] = useState<string[]>([]);
   const [newFeature, setNewFeature] = useState('');
+  const [newFeatureMn, setNewFeatureMn] = useState('');
   const [usageMetrics, setUsageMetrics] = useState<string[]>([]);
+  const [usageMetricsMn, setUsageMetricsMn] = useState<string[]>([]);
   const [newUsageMetric, setNewUsageMetric] = useState('');
+  const [newUsageMetricMn, setNewUsageMetricMn] = useState('');
   const [benefits, setBenefits] = useState<Benefit[]>([]);
+  const [benefitsMn, setBenefitsMn] = useState<Benefit[]>([]);
   const [newBenefitTitle, setNewBenefitTitle] = useState('');
   const [newBenefitDesc, setNewBenefitDesc] = useState('');
+  const [newBenefitTitleMn, setNewBenefitTitleMn] = useState('');
+  const [newBenefitDescMn, setNewBenefitDescMn] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [iconPreview, setIconPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
