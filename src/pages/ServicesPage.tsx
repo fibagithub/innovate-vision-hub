@@ -223,9 +223,9 @@ const ServicesPage = () => {
 
                 <div className="flex flex-wrap gap-4">
                   <Link to="/contact">
-                    <Button variant="gradient" size="xl" className={`bg-gradient-to-r ${product.gradient}`}>
-                      Холбоо барих
-                      <ArrowRight className="ml-2" />
+                      <Button variant="gradient" size="xl" className={`bg-gradient-to-r ${product.gradient}`}>
+                        {t('servicesPage.contactUs')}
+                        <ArrowRight className="ml-2" />
                     </Button>
                   </Link>
                 </div>
