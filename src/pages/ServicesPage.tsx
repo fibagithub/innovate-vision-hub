@@ -304,7 +304,7 @@ const ServicesPage = () => {
                   {t('servicesPage.whyProduct')} {productTitle}?
                 </h2>
                 <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-                  Таны бизнесийг дараагийн түвшинд хүргэх инновацлаг шийдэл
+                  {t('servicesPage.innovativeDesc')}
                 </p>
 
                 <div className="space-y-4">
