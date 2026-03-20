@@ -79,7 +79,7 @@ export function Partners() {
                 {[...partnersWithLogos, ...partnersWithLogos, ...partnersWithLogos].map((partner, index) => (
                   <div
                     key={`${partner.id}-${index}`}
-                    className="flex-shrink-0 mx-10 w-28 h-16 flex items-center justify-center grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300"
+                    className="flex-shrink-0 mx-10 w-28 h-16 flex items-center justify-center transition-all duration-300"
                   >
                     <img
                       src={partner.logo_url!}
