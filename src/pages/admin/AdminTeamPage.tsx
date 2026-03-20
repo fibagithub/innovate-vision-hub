@@ -27,6 +27,7 @@ import { toast } from 'sonner';
 interface TeamMember {
   id: string;
   name: string;
+  name_mn: string | null;
   position: string | null;
   position_mn: string | null;
   email: string | null;

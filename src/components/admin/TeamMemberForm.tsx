@@ -13,7 +13,8 @@ import { toast } from 'sonner';
 import { Loader2, Upload, X, User } from 'lucide-react';
 
 const teamMemberSchema = z.object({
-  name: z.string().min(1, 'Нэр оруулна уу'),
+  name: z.string().min(1, 'Англи нэр оруулна уу'),
+  name_mn: z.string().optional(),
   position: z.string().optional(),
   position_mn: z.string().optional(),
   bio: z.string().optional(),
