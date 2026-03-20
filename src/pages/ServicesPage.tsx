@@ -203,15 +203,15 @@ const ServicesPage = () => {
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
                 {/* Logo */}
-                <div
-                  className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${product.gradient} flex items-center justify-center mb-8 shadow-2xl overflow-hidden`}
-                >
-                  {product.icon_url ? (
-                    <img src={product.icon_url} alt={productTitle} className="w-full h-full object-cover" />
-                  ) : (
-                    <product.icon className="w-12 h-12 text-white" />
-                  )}
+                {product.icon_url ? (
+                <div className="w-24 h-24 flex items-center justify-center mb-8">
+                  <img src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
                 </div>
+                ) : (
+                <div className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${product.gradient} flex items-center justify-center mb-8 shadow-2xl`}>
+                  <product.icon className="w-12 h-12 text-white" />
+                </div>
+                )}
 
                 <span
                   className="text-sm font-bold tracking-widest uppercase mb-4 block"
@@ -358,13 +358,15 @@ const ServicesPage = () => {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
 
                 <div className="relative">
-                  <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center mb-8 overflow-hidden">
-                    {product.icon_url ? (
-                      <img src={product.icon_url} alt={productTitle} className="w-full h-full object-cover" />
-                    ) : (
+                  {product.icon_url ? (
+                    <div className="w-20 h-20 flex items-center justify-center mb-8">
+                      <img src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
+                    </div>
+                  ) : (
+                    <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center mb-8">
                       <product.icon className="w-10 h-10 text-white" />
-                    )}
-                  </div>
+                    </div>
+                  )}
 
                   <h3 className="font-display text-3xl font-bold text-white mb-4">{t('servicesPage.readyToStart')}</h3>
                   <p className="text-white/80 text-lg mb-8 leading-relaxed">
@@ -402,15 +404,15 @@ const ServicesPage = () => {
 
                     const CardContent = (
                       <>
-                        <div
-                          className={`w-14 h-14 rounded-xl bg-gradient-to-br ${p.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform overflow-hidden`}
-                        >
-                          {p.icon_url ? (
-                            <img src={p.icon_url} alt={pTitle} className="w-full h-full object-cover" />
-                          ) : (
-                            <p.icon className="w-7 h-7 text-white" />
-                          )}
+                        {p.icon_url ? (
+                        <div className="w-14 h-14 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                          <img src={p.icon_url} alt={pTitle} className="w-full h-full object-contain" />
                         </div>
+                        ) : (
+                        <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${p.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                          <p.icon className="w-7 h-7 text-white" />
+                        </div>
+                        )}
                         <h3 className="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                           {pTitle}
                         </h3>
@@ -525,15 +527,15 @@ const ServicesPage = () => {
 
                           <div className="relative h-full flex flex-col">
                             <div className="flex items-start justify-between mb-6">
-                              <div
-                                className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 overflow-hidden`}
-                              >
-                                {product.icon_url ? (
-                                  <img src={product.icon_url} alt={productTitle} className="w-full h-full object-cover" />
-                                ) : (
-                                  <product.icon className="w-8 h-8 text-white" />
-                                )}
+                              {product.icon_url ? (
+                              <div className="w-16 h-16 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                                <img src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
                               </div>
+                              ) : (
+                              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
+                                <product.icon className="w-8 h-8 text-white" />
+                              </div>
+                              )}
                               <span className="text-6xl font-black text-foreground/5"></span>
                             </div>
 
