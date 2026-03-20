@@ -449,7 +449,7 @@ const ServicesPage = () => {
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-8">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-primary font-medium text-sm tracking-wide">Бүтээгдэхүүн & Үйлчилгээ</span>
+              <span className="text-primary font-medium text-sm tracking-wide">{t('servicesPage.badge')}</span>
             </div>
 
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-8 tracking-tight leading-[1.1]">
