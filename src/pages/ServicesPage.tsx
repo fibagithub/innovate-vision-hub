@@ -348,9 +348,7 @@ const ServicesPage = () => {
                         </div>
                       </div>
                     );
-                  });})()}
-                </div>
-                </div>
+                   </div>
               </div>
 
               {/* Decorative Card */}
