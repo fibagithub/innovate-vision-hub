@@ -555,9 +555,11 @@ const ServicesPage = () => {
                             <p className="text-muted-foreground leading-relaxed flex-1 mb-6">{productShortDesc}</p>
 
                             {/* Features Preview */}
-                            {product.features.length > 0 && (
+                            {(() => {
+                              const pFeatures = language === 'mn' && product.features_mn.length > 0 ? product.features_mn : product.features;
+                              return pFeatures.length > 0 && (
                               <div className="flex flex-wrap gap-2 mb-6">
-                                {product.features.slice(0, 6).map((feature, i) => (
+                                {pFeatures.slice(0, 6).map((feature, i) => (
                                   <span
                                     key={i}
                                     className="px-3 py-1.5 rounded-full bg-foreground/5 border border-border/50 text-xs font-medium text-foreground/70"
