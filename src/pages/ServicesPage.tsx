@@ -320,7 +320,13 @@ const ServicesPage = () => {
 
                 <div className="space-y-4">
                   {/* Show benefits from admin if available, otherwise fallback to features */}
-                  {(product.benefits && product.benefits.length > 0 ? product.benefits : product.features.slice(0, 4)).map((item, index) => {
+                  {(() => {
+                    const localizedBenefits = language === 'mn' && product.benefits_mn && product.benefits_mn.length > 0 
+                      ? product.benefits_mn 
+                      : product.benefits && product.benefits.length > 0 
+                        ? product.benefits 
+                        : (language === 'mn' && product.features_mn.length > 0 ? product.features_mn : product.features).slice(0, 4);
+                    return localizedBenefits.map((item, index) => {
                     const title = 'title' in item ? item.title : (item as { title: string }).title;
                     const description = 'description' in item ? (item as { description?: string }).description : undefined;
                     
