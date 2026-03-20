@@ -99,8 +99,11 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
         display_order: editData.display_order || 0,
       });
       setFeatures(editData.features || []);
+      setFeaturesMn(editData.features_mn || []);
       setUsageMetrics(parseUsageMetrics(editData.usage_metric));
+      setUsageMetricsMn(parseUsageMetrics(editData.usage_metric_mn));
       setBenefits(editData.benefits || []);
+      setBenefitsMn(editData.benefits_mn || []);
       setIconPreview(editData.icon_url || null);
     } else {
       reset({
@@ -118,8 +121,11 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
         display_order: 0,
       });
       setFeatures([]);
+      setFeaturesMn([]);
       setUsageMetrics([]);
+      setUsageMetricsMn([]);
       setBenefits([]);
+      setBenefitsMn([]);
       setIconPreview(null);
     }
   }, [editData, reset]);
