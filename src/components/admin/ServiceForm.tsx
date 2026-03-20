@@ -44,12 +44,19 @@ interface Benefit {
 export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: ServiceFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [features, setFeatures] = useState<string[]>([]);
+  const [featuresMn, setFeaturesMn] = useState<string[]>([]);
   const [newFeature, setNewFeature] = useState('');
+  const [newFeatureMn, setNewFeatureMn] = useState('');
   const [usageMetrics, setUsageMetrics] = useState<string[]>([]);
+  const [usageMetricsMn, setUsageMetricsMn] = useState<string[]>([]);
   const [newUsageMetric, setNewUsageMetric] = useState('');
+  const [newUsageMetricMn, setNewUsageMetricMn] = useState('');
   const [benefits, setBenefits] = useState<Benefit[]>([]);
+  const [benefitsMn, setBenefitsMn] = useState<Benefit[]>([]);
   const [newBenefitTitle, setNewBenefitTitle] = useState('');
   const [newBenefitDesc, setNewBenefitDesc] = useState('');
+  const [newBenefitTitleMn, setNewBenefitTitleMn] = useState('');
+  const [newBenefitDescMn, setNewBenefitDescMn] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [iconPreview, setIconPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -92,8 +99,11 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
         display_order: editData.display_order || 0,
       });
       setFeatures(editData.features || []);
+      setFeaturesMn(editData.features_mn || []);
       setUsageMetrics(parseUsageMetrics(editData.usage_metric));
+      setUsageMetricsMn(parseUsageMetrics(editData.usage_metric_mn));
       setBenefits(editData.benefits || []);
+      setBenefitsMn(editData.benefits_mn || []);
       setIconPreview(editData.icon_url || null);
     } else {
       reset({
@@ -111,8 +121,11 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
         display_order: 0,
       });
       setFeatures([]);
+      setFeaturesMn([]);
       setUsageMetrics([]);
+      setUsageMetricsMn([]);
       setBenefits([]);
+      setBenefitsMn([]);
       setIconPreview(null);
     }
   }, [editData, reset]);
@@ -165,9 +178,18 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
       setNewFeature('');
     }
   };
+  const addFeatureMn = () => {
+    if (newFeatureMn.trim()) {
+      setFeaturesMn([...featuresMn, newFeatureMn.trim()]);
+      setNewFeatureMn('');
+    }
+  };
 
   const removeFeature = (index: number) => {
     setFeatures(features.filter((_, i) => i !== index));
+  };
+  const removeFeatureMn = (index: number) => {
+    setFeaturesMn(featuresMn.filter((_, i) => i !== index));
   };
 
   const addUsageMetric = () => {
@@ -178,11 +200,24 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
       setNewUsageMetric('');
     }
   };
+  const addUsageMetricMn = () => {
+    if (newUsageMetricMn.trim()) {
+      const updated = [...usageMetricsMn, newUsageMetricMn.trim()];
+      setUsageMetricsMn(updated);
+      setValue('usage_metric_mn', joinUsageMetrics(updated));
+      setNewUsageMetricMn('');
+    }
+  };
 
   const removeUsageMetric = (index: number) => {
     const updated = usageMetrics.filter((_, i) => i !== index);
     setUsageMetrics(updated);
     setValue('usage_metric', joinUsageMetrics(updated));
+  };
+  const removeUsageMetricMn = (index: number) => {
+    const updated = usageMetricsMn.filter((_, i) => i !== index);
+    setUsageMetricsMn(updated);
+    setValue('usage_metric_mn', joinUsageMetrics(updated));
   };
 
   const addBenefit = () => {
@@ -192,9 +227,19 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
       setNewBenefitDesc('');
     }
   };
+  const addBenefitMn = () => {
+    if (newBenefitTitleMn.trim()) {
+      setBenefitsMn([...benefitsMn, { title: newBenefitTitleMn.trim(), description: newBenefitDescMn.trim() }]);
+      setNewBenefitTitleMn('');
+      setNewBenefitDescMn('');
+    }
+  };
 
   const removeBenefit = (index: number) => {
     setBenefits(benefits.filter((_, i) => i !== index));
+  };
+  const removeBenefitMn = (index: number) => {
+    setBenefitsMn(benefitsMn.filter((_, i) => i !== index));
   };
 
   const onSubmit = async (data: ServiceFormData) => {
@@ -203,7 +248,9 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
       const payload = {
         ...data,
         features,
+        features_mn: featuresMn,
         benefits: JSON.parse(JSON.stringify(benefits)),
+        benefits_mn: JSON.parse(JSON.stringify(benefitsMn)),
       };
 
       if (editData?.id) {
@@ -324,93 +371,170 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
             </div>
           </div>
 
-          {/* Usage Metrics Section - Multiple Values */}
-          <div className="space-y-2">
+          {/* Usage Metrics Section - Bilingual */}
+          <div className="space-y-3">
             <Label>Usage Metrics (Хэрэглээний үзүүлэлтүүд)</Label>
-            <div className="flex gap-2">
-              <Input 
-                value={newUsageMetric} 
-                onChange={(e) => setNewUsageMetric(e.target.value)} 
-                placeholder="Үзүүлэлт нэмэх (жнь: 50+ байгууллага, 1000+ хэрэглэгч)"
-                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addUsageMetric())}
-              />
-              <Button type="button" variant="outline" onClick={addUsageMetric}>
-                <Plus className="w-4 h-4" />
-              </Button>
-            </div>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {usageMetrics.map((metric, index) => (
-                <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-accent/20 text-sm font-medium border border-accent/30">
-                  {metric}
-                  <button type="button" onClick={() => removeUsageMetric(index)} className="hover:text-destructive">
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              ))}
-            </div>
             <p className="text-xs text-muted-foreground">Олон үзүүлэлт нэмэх боломжтой. Дэлгэрэнгүй хуудас дээр тус тусдаа харуулна.</p>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">English (EN)</Label>
+                <div className="flex gap-2">
+                  <Input 
+                    value={newUsageMetric} 
+                    onChange={(e) => setNewUsageMetric(e.target.value)} 
+                    placeholder="e.g. 50+ organizations"
+                    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addUsageMetric())}
+                  />
+                  <Button type="button" variant="outline" onClick={addUsageMetric}><Plus className="w-4 h-4" /></Button>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {usageMetrics.map((metric, index) => (
+                    <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-accent/20 text-sm font-medium border border-accent/30">
+                      {metric}
+                      <button type="button" onClick={() => removeUsageMetric(index)} className="hover:text-destructive"><X className="w-3 h-3" /></button>
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">Монгол (MN)</Label>
+                <div className="flex gap-2">
+                  <Input 
+                    value={newUsageMetricMn} 
+                    onChange={(e) => setNewUsageMetricMn(e.target.value)} 
+                    placeholder="жнь: 50+ байгууллага"
+                    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addUsageMetricMn())}
+                  />
+                  <Button type="button" variant="outline" onClick={addUsageMetricMn}><Plus className="w-4 h-4" /></Button>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {usageMetricsMn.map((metric, index) => (
+                    <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-accent/20 text-sm font-medium border border-accent/30">
+                      {metric}
+                      <button type="button" onClick={() => removeUsageMetricMn(index)} className="hover:text-destructive"><X className="w-3 h-3" /></button>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
             <input type="hidden" {...register('usage_metric')} />
+            <input type="hidden" {...register('usage_metric_mn')} />
           </div>
 
-          {/* Feature Badges Section */}
-          <div className="space-y-2">
-            <Label>Feature Badges</Label>
-            <div className="flex gap-2">
-              <Input 
-                value={newFeature} 
-                onChange={(e) => setNewFeature(e.target.value)} 
-                placeholder="Онцлог нэмэх (жнь: Санхүүгийн бүртгэл)"
-                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addFeature())}
-              />
-              <Button type="button" variant="outline" onClick={addFeature}>
-                <Plus className="w-4 h-4" />
-              </Button>
-            </div>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {features.map((feature, index) => (
-                <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary/10 text-sm font-medium">
-                  {feature}
-                  <button type="button" onClick={() => removeFeature(index)} className="hover:text-destructive">
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              ))}
+          {/* Feature Badges Section - Bilingual */}
+          <div className="space-y-3">
+            <Label>Feature Badges (Онцлогууд)</Label>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">English (EN)</Label>
+                <div className="flex gap-2">
+                  <Input 
+                    value={newFeature} 
+                    onChange={(e) => setNewFeature(e.target.value)} 
+                    placeholder="e.g. Financial Reporting"
+                    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addFeature())}
+                  />
+                  <Button type="button" variant="outline" onClick={addFeature}><Plus className="w-4 h-4" /></Button>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {features.map((feature, index) => (
+                    <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary/10 text-sm font-medium">
+                      {feature}
+                      <button type="button" onClick={() => removeFeature(index)} className="hover:text-destructive"><X className="w-3 h-3" /></button>
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">Монгол (MN)</Label>
+                <div className="flex gap-2">
+                  <Input 
+                    value={newFeatureMn} 
+                    onChange={(e) => setNewFeatureMn(e.target.value)} 
+                    placeholder="жнь: Санхүүгийн бүртгэл"
+                    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addFeatureMn())}
+                  />
+                  <Button type="button" variant="outline" onClick={addFeatureMn}><Plus className="w-4 h-4" /></Button>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {featuresMn.map((feature, index) => (
+                    <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary/10 text-sm font-medium">
+                      {feature}
+                      <button type="button" onClick={() => removeFeatureMn(index)} className="hover:text-destructive"><X className="w-3 h-3" /></button>
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Benefits/Advantages Section */}
+          {/* Benefits/Advantages Section - Bilingual */}
           <div className="space-y-3">
             <Label>Давуу талууд (Benefits)</Label>
             <p className="text-xs text-muted-foreground">Дэлгэрэнгүй хуудасны "Яагаад..." хэсэгт харуулагдана</p>
-            <div className="space-y-2">
-              <Input 
-                value={newBenefitTitle} 
-                onChange={(e) => setNewBenefitTitle(e.target.value)} 
-                placeholder="Давуу талын нэр (жнь: Хурдан хандалт)"
-              />
-              <Input 
-                value={newBenefitDesc} 
-                onChange={(e) => setNewBenefitDesc(e.target.value)} 
-                placeholder="Тайлбар (заавал биш)"
-                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addBenefit())}
-              />
-              <Button type="button" variant="outline" onClick={addBenefit} className="w-full">
-                <Plus className="w-4 h-4 mr-2" />
-                Давуу тал нэмэх
-              </Button>
-            </div>
-            <div className="space-y-2 mt-3">
-              {benefits.map((benefit, index) => (
-                <div key={index} className="flex items-start gap-2 p-3 rounded-lg bg-muted/50 border border-border/50">
-                  <div className="flex-1">
-                    <p className="font-medium text-sm">{benefit.title}</p>
-                    {benefit.description && <p className="text-xs text-muted-foreground mt-1">{benefit.description}</p>}
-                  </div>
-                  <button type="button" onClick={() => removeBenefit(index)} className="text-muted-foreground hover:text-destructive">
-                    <X className="w-4 h-4" />
-                  </button>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">English (EN)</Label>
+                <Input 
+                  value={newBenefitTitle} 
+                  onChange={(e) => setNewBenefitTitle(e.target.value)} 
+                  placeholder="Benefit title (e.g. Fast Access)"
+                />
+                <Input 
+                  value={newBenefitDesc} 
+                  onChange={(e) => setNewBenefitDesc(e.target.value)} 
+                  placeholder="Description (optional)"
+                  onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addBenefit())}
+                />
+                <Button type="button" variant="outline" onClick={addBenefit} className="w-full">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add benefit (EN)
+                </Button>
+                <div className="space-y-2 mt-2">
+                  {benefits.map((benefit, index) => (
+                    <div key={index} className="flex items-start gap-2 p-3 rounded-lg bg-muted/50 border border-border/50">
+                      <div className="flex-1">
+                        <p className="font-medium text-sm">{benefit.title}</p>
+                        {benefit.description && <p className="text-xs text-muted-foreground mt-1">{benefit.description}</p>}
+                      </div>
+                      <button type="button" onClick={() => removeBenefit(index)} className="text-muted-foreground hover:text-destructive">
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+              <div className="space-y-2">
+                <Label className="text-xs text-muted-foreground">Монгол (MN)</Label>
+                <Input 
+                  value={newBenefitTitleMn} 
+                  onChange={(e) => setNewBenefitTitleMn(e.target.value)} 
+                  placeholder="Давуу талын нэр (жнь: Хурдан хандалт)"
+                />
+                <Input 
+                  value={newBenefitDescMn} 
+                  onChange={(e) => setNewBenefitDescMn(e.target.value)} 
+                  placeholder="Тайлбар (заавал биш)"
+                  onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addBenefitMn())}
+                />
+                <Button type="button" variant="outline" onClick={addBenefitMn} className="w-full">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Давуу тал нэмэх (MN)
+                </Button>
+                <div className="space-y-2 mt-2">
+                  {benefitsMn.map((benefit, index) => (
+                    <div key={index} className="flex items-start gap-2 p-3 rounded-lg bg-muted/50 border border-border/50">
+                      <div className="flex-1">
+                        <p className="font-medium text-sm">{benefit.title}</p>
+                        {benefit.description && <p className="text-xs text-muted-foreground mt-1">{benefit.description}</p>}
+                      </div>
+                      <button type="button" onClick={() => removeBenefitMn(index)} className="text-muted-foreground hover:text-destructive">
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 

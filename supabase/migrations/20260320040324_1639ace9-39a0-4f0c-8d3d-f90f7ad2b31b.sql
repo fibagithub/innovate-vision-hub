@@ -1,0 +1,1 @@
+ALTER TABLE public.services ADD COLUMN features_mn text[] DEFAULT NULL;

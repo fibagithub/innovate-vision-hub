@@ -157,6 +157,7 @@ export type Database = {
           description_mn: string | null
           display_order: number | null
           features: string[] | null
+          features_mn: string[] | null
           icon: string | null
           icon_url: string | null
           id: string
@@ -177,6 +178,7 @@ export type Database = {
           description_mn?: string | null
           display_order?: number | null
           features?: string[] | null
+          features_mn?: string[] | null
           icon?: string | null
           icon_url?: string | null
           id?: string
@@ -197,6 +199,7 @@ export type Database = {
           description_mn?: string | null
           display_order?: number | null
           features?: string[] | null
+          features_mn?: string[] | null
           icon?: string | null
           icon_url?: string | null
           id?: string
