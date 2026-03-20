@@ -273,15 +273,8 @@ const PartnersPage = () => {
               </div>
 
               <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-                {language === "mn" ? (
-                  <>
-                    Монгол даяар <span className="gradient-text">12 аймагт</span>
-                  </>
-                ) : (
-                  <>
-                    Across <span className="gradient-text">12 Provinces</span> in Mongolia
-                  </>
-                )}
+              {t('partnersPage.acrossProvinces')}{' '}
+              <span className="gradient-text">{t('partnersPage.provincesHighlight')}</span>
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("partnersPage.regionalDesc")}</p>
             </div>
