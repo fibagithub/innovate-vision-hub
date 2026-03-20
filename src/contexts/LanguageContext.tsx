@@ -227,6 +227,24 @@ const translations: Translations = {
   'aboutPage.ctaDesc': { mn: 'Санхүүгийн технологийн шийдлүүдийн талаар дэлгэрэнгүй мэдээлэл авах бол бидэнтэй холбогдоорой.', en: 'Contact us to learn more about our financial technology solutions.' },
   'aboutPage.ctaContact': { mn: 'Холбогдох', en: 'Get in Touch' },
   'aboutPage.ctaProducts': { mn: 'Бүтээгдэхүүн үзэх', en: 'View Products' },
+  'aboutPage.storyDesc1': { mn: 'Манай компани нь 2021 онд байгуулагдсан бөгөөд, банк санхүүгийн Програм хангамж, түүний шийдэл, мэдээллийн сан зохион байгуулах, төлбөр тооцооны шийдэл боловсруулах чиглэлээр үйл ажиллагаа явуулдаг.', en: 'Our company was founded in 2021 and specializes in banking software, solutions, database management, and payment system development.' },
+  'aboutPage.storyDesc2': { mn: 'Мөн банк санхүүгийн мэдээллийн систем, Програм хангамж, мэдээллийн сан болон түүний нууцлал аюулгүй байдлыг хариуцан ажиллаж байсан тухайн салбартаа олон жилийн мэдлэг туршлага хуримтлуулсан чадварлаг, бүтээлч хамт олноос бүрдэж байна.', en: 'Our team consists of talented and creative professionals who have accumulated years of knowledge and experience in banking information systems, software, database management, and security.' },
+
+  // Services Page
+  'servicesPage.badge': { mn: 'Бүтээгдэхүүн & Үйлчилгээ', en: 'Products & Services' },
+  'servicesPage.heroTitle1': { mn: 'Санхүүгийн', en: 'Financial' },
+  'servicesPage.heroTitle2': { mn: 'Технологийн Шийдлүүд', en: 'Technology Solutions' },
+  'servicesPage.heroDesc': { mn: 'Олон улсын стандартад нийцсэн, найдвартай програм хангамжийн бүтээгдэхүүнүүд', en: 'Reliable software products that meet international standards' },
+  'servicesPage.noProducts': { mn: 'Бүтээгдэхүүн олдсонгүй', en: 'No products found' },
+  'servicesPage.ctaBadge': { mn: 'Зөвлөгөө авах', en: 'Get Advice' },
+  'servicesPage.ctaTitle': { mn: 'Аль бүтээгдэхүүн тохирохоо мэдэхгүй байна уу?', en: 'Not sure which product is right for you?' },
+  'servicesPage.ctaDesc': { mn: 'Манай мэргэжилтнүүд танд тохирох шийдлийг санал болгоход бэлэн байна.', en: 'Our experts are ready to recommend the right solution for you.' },
+  'servicesPage.ctaBtn': { mn: 'Зөвлөгөө авах', en: 'Get Advice' },
+  'servicesPage.learnMore': { mn: 'Дэлгэрэнгүй үзэх', en: 'Learn More' },
+  'servicesPage.featuresDesc': { mn: '-ийн гол онцлог, давуу талууд', en: ' key features and advantages' },
+  'servicesPage.nextLevel': { mn: 'Таны бизнесийг дараагийн түвшинд хүргэх инновацлаг шийдэл', en: 'An innovative solution to take your business to the next level' },
+  'servicesPage.contactTeam': { mn: 'Манай багтай холбогдож', en: 'Contact our team to learn more about' },
+  'servicesPage.learnMoreAbout': { mn: '-ийн талаар дэлгэрэнгүй мэдээлэл аваарай.', en: '.' },
 
   // Footer
   'footer.company': { mn: 'Компани', en: 'Company' },
