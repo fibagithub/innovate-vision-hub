@@ -77,15 +77,19 @@ const ProductLogo = ({
 }) => {
   const IconComponent = iconMap[service.icon || "Package"] || Package;
 
+  if (service.icon_url) {
+    return (
+      <div className={`flex items-center justify-center ${className}`}>
+        <img src={service.icon_url} alt={service.name} className="w-full h-full object-contain" />
+      </div>
+    );
+  }
+
   return (
     <div
       className={`flex items-center justify-center rounded-2xl bg-gradient-to-br ${gradient} shadow-lg ${className}`}
     >
-      {service.icon_url ? (
-        <img src={service.icon_url} alt={service.name} className="w-1/2 h-1/2 object-contain" />
-      ) : (
-        <IconComponent className="w-1/2 h-1/2 text-white" />
-      )}
+      <IconComponent className="w-1/2 h-1/2 text-white" />
     </div>
   );
 };
