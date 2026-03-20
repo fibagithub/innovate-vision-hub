@@ -257,6 +257,7 @@ export type Database = {
           is_active: boolean | null
           linkedin_url: string | null
           name: string
+          name_mn: string | null
           phone: string | null
           position: string | null
           position_mn: string | null
@@ -273,6 +274,7 @@ export type Database = {
           is_active?: boolean | null
           linkedin_url?: string | null
           name: string
+          name_mn?: string | null
           phone?: string | null
           position?: string | null
           position_mn?: string | null
@@ -289,6 +291,7 @@ export type Database = {
           is_active?: boolean | null
           linkedin_url?: string | null
           name?: string
+          name_mn?: string | null
           phone?: string | null
           position?: string | null
           position_mn?: string | null

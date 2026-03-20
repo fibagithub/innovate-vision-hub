@@ -17,6 +17,7 @@ type AnyMember = TeamMember | (typeof fallbackTeamMembers)[0];
 const TeamMemberCard = ({ member, index, onExpand, language }: { member: AnyMember; index: number; onExpand: (m: AnyMember) => void; language: 'mn' | 'en' }) => {
   const linkedinUrl = "linkedin_url" in member ? member.linkedin_url : null;
   const email = "email" in member ? member.email : null;
+  const memberName = language === 'mn' ? (("name_mn" in member ? member.name_mn : null) || member.name) : (member.name || ("name_mn" in member ? member.name_mn : null));
   const position = language === 'mn' ? (member.position_mn || ("position" in member ? member.position : "")) : (("position" in member ? member.position : "") || member.position_mn);
   const bio = language === 'mn' ? (member.bio_mn || ("bio" in member ? member.bio : "")) : (("bio" in member ? member.bio : "") || member.bio_mn);
 
@@ -33,7 +34,7 @@ const TeamMemberCard = ({ member, index, onExpand, language }: { member: AnyMemb
         </div>
       </div>
       <div className="p-5">
-        <h3 className="font-display text-[15px] font-bold text-foreground tracking-tight leading-tight mb-1">{member.name}</h3>
+        <h3 className="font-display text-[15px] font-bold text-foreground tracking-tight leading-tight mb-1">{memberName}</h3>
         <p className="text-primary text-xs font-semibold mb-2">{position}</p>
         <p className="text-muted-foreground text-xs leading-relaxed">{bio}</p>
       </div>
@@ -44,6 +45,7 @@ const TeamMemberCard = ({ member, index, onExpand, language }: { member: AnyMemb
 const ProfileModal = ({ member, onClose, language, t }: { member: AnyMember; onClose: () => void; language: 'mn' | 'en'; t: (k: string) => string }) => {
   const linkedinUrl = "linkedin_url" in member ? member.linkedin_url : null;
   const email = "email" in member ? member.email : null;
+  const memberName = language === 'mn' ? (("name_mn" in member ? member.name_mn : null) || member.name) : (member.name || ("name_mn" in member ? member.name_mn : null));
   const position = language === 'mn' ? (member.position_mn || ("position" in member ? member.position : "")) : (("position" in member ? member.position : "") || member.position_mn);
   const bio = language === 'mn' ? (member.bio_mn || ("bio" in member ? member.bio : "")) : (("bio" in member ? member.bio : "") || member.bio_mn);
 
@@ -59,7 +61,7 @@ const ProfileModal = ({ member, onClose, language, t }: { member: AnyMember; onC
           </div>
           <div className="flex-1 p-8 sm:p-10 flex flex-col justify-center">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 w-fit">{position}</div>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-4">{member.name}</h2>
+            <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-4">{memberName}</h2>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">{bio}</p>
             <div className="flex gap-3">
               {linkedinUrl && <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-sm font-medium hover:bg-primary/20 transition-colors duration-200"><Linkedin className="w-4 h-4" />LinkedIn<ExternalLink className="w-3 h-3" /></a>}
