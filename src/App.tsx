@@ -28,7 +28,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter basename={import.meta.env.DEV ? '' : '/innovate-vision-hub'}>
+        <BrowserRouter>
           <AuthProvider>
             <Routes>
               <Route path="/" element={<Index />} />
