@@ -203,15 +203,15 @@ const ServicesPage = () => {
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
                 {/* Logo */}
-                <div
-                  className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${product.gradient} flex items-center justify-center mb-8 shadow-2xl overflow-hidden`}
-                >
-                  {product.icon_url ? (
-                    <img src={product.icon_url} alt={productTitle} className="w-full h-full object-cover" />
-                  ) : (
-                    <product.icon className="w-12 h-12 text-white" />
-                  )}
+                {product.icon_url ? (
+                <div className="w-24 h-24 flex items-center justify-center mb-8">
+                  <img src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
                 </div>
+                ) : (
+                <div className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${product.gradient} flex items-center justify-center mb-8 shadow-2xl`}>
+                  <product.icon className="w-12 h-12 text-white" />
+                </div>
+                )}
 
                 <span
                   className="text-sm font-bold tracking-widest uppercase mb-4 block"
