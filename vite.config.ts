@@ -4,7 +4,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: '/innovate-vision-hub/',  // ← ЗААВАЛ НЭМ! Repo нэр + '/' (том жижиг үсэг яг таарах ёстой)
+  base: process.env.NODE_ENV === 'production' ? '/innovate-vision-hub/' : '/',
 
   server: {
     host: "::",
