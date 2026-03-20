@@ -260,7 +260,7 @@ const ServicesPage = () => {
                   className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r ${product.gradient} bg-opacity-10 mb-6`}
                 >
                   <Sparkles className="w-4 h-4 text-white" />
-                  <span className="text-white font-medium text-sm">Онцлог боломжууд</span>
+                  <span className="text-white font-medium text-sm">{t('servicesPage.features')}</span>
                 </div>
                 <h2 className="font-display text-4xl lg:text-5xl font-bold text-foreground mb-4">
                   Бүтээгдэхүүний боломжууд
