@@ -226,7 +226,7 @@ const TeamPage = () => {
                   }}
                 >
                   {/* Image */}
-                  <div className="aspect-[3/4] overflow-hidden relative">
+                  <div className="aspect-square overflow-hidden relative">
                     <img
                       src={
                         member.image_url ||
