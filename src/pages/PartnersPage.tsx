@@ -138,19 +138,10 @@ const PartnersPage = () => {
               className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight animate-fade-in"
               style={{ animationDelay: "0.1s" }}
             >
-              {language === "mn" ? (
-                <>
-                  Салбарын <span className="gradient-text">тэргүүлэгчдийн</span>
-                  <br />
-                  итгэлийг хүлээсэн
-                </>
-              ) : (
-                <>
-                  <span className="gradient-text">Trusted</span> by
-                  <br />
-                  Industry Leaders
-                </>
-              )}
+              {t('partnersPage.heroTitle1')}{' '}
+              <span className="gradient-text">{t('partnersPage.heroHighlight')}</span>
+              <br />
+              {t('partnersPage.heroTitle2')}
             </h1>
 
             <p
