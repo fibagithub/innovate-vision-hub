@@ -188,7 +188,7 @@ const ServicesPage = () => {
               <div className="w-8 h-8 rounded-full bg-foreground/5 flex items-center justify-center group-hover:bg-foreground/10 transition-colors">
                 <ArrowLeft className="w-4 h-4" />
               </div>
-              <span className="font-medium">Бүтээгдэхүүнүүд</span>
+              <span className="font-medium">{t('servicesPage.backToProducts')}</span>
             </Link>
 
             <div className="grid lg:grid-cols-2 gap-16 items-center">
