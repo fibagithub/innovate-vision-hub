@@ -83,8 +83,15 @@ const serviceToProduct = (service: Service, index: number) => {
     desc: "",
   }));
 
+  // Parse features_mn from array
+  const features_mn = (service.features_mn || []).map((f) => ({
+    title: f,
+    desc: "",
+  }));
+
   // Parse usage metrics to array
   const usageMetrics = parseUsageMetrics(service.usage_metric);
+  const usageMetricsMn = parseUsageMetrics(service.usage_metric_mn);
 
   return {
     id: service.id,
@@ -100,10 +107,12 @@ const serviceToProduct = (service: Service, index: number) => {
     description_mn: service.description_mn || "",
     usage_metric: service.usage_metric,
     usage_metric_mn: service.usage_metric_mn,
-    usageMetrics, // Array of usage metrics
+    usageMetrics,
+    usageMetricsMn,
     gradient: preset.gradient,
     bgGradient: preset.bgGradient,
     features,
+    features_mn,
     benefits: (service.benefits || []) as ServiceBenefit[],
     benefits_mn: (service.benefits_mn || []) as ServiceBenefit[],
     stats: [],
@@ -233,11 +242,11 @@ const ServicesPage = () => {
 
               {/* Usage Metrics and Features Preview */}
               <div className="grid grid-cols-2 gap-4">
-                {/* Display each usage metric separately */}
-                {product.usageMetrics.map((metric, index) => (
+                {/* Display each usage metric separately - use localized version */}
+                {(language === 'mn' && product.usageMetricsMn.length > 0 ? product.usageMetricsMn : product.usageMetrics).map((metric, index) => (
                   <div
                     key={`metric-${index}`}
-                    className={`${product.usageMetrics.length === 1 ? "col-span-2" : ""} p-6 rounded-3xl bg-card border border-border/50`}
+                    className={`${(language === 'mn' && product.usageMetricsMn.length > 0 ? product.usageMetricsMn : product.usageMetrics).length === 1 ? "col-span-2" : ""} p-6 rounded-3xl bg-card border border-border/50`}
                   >
                     <div
                       className={`text-xl lg:text-2xl font-bold bg-gradient-to-r ${product.gradient} bg-clip-text text-transparent`}
@@ -252,7 +261,9 @@ const ServicesPage = () => {
         </section>
 
         {/* Features Section - Bento Grid */}
-        {product.features.length > 0 && (
+        {(() => {
+          const localizedFeatures = language === 'mn' && product.features_mn.length > 0 ? product.features_mn : product.features;
+          return localizedFeatures.length > 0 && (
           <section className="py-24 bg-muted/30">
             <div className="container mx-auto px-4">
               <div className="text-center mb-16">
@@ -271,7 +282,7 @@ const ServicesPage = () => {
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {product.features.map((feature, index) => (
+                {localizedFeatures.map((feature, index) => (
                   <div
                     key={index}
                     className={`group p-8 rounded-3xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-xl transition-all duration-500 ${index === 0 ? "md:col-span-2 lg:col-span-1" : ""}`}
@@ -290,7 +301,7 @@ const ServicesPage = () => {
               </div>
             </div>
           </section>
-        )}
+        );})()}
 
         {/* CTA Section - Benefits/Advantages */}
         <section className="py-24 bg-background">
@@ -309,7 +320,13 @@ const ServicesPage = () => {
 
                 <div className="space-y-4">
                   {/* Show benefits from admin if available, otherwise fallback to features */}
-                  {(product.benefits && product.benefits.length > 0 ? product.benefits : product.features.slice(0, 4)).map((item, index) => {
+                  {(() => {
+                    const localizedBenefits = language === 'mn' && product.benefits_mn && product.benefits_mn.length > 0 
+                      ? product.benefits_mn 
+                      : product.benefits && product.benefits.length > 0 
+                        ? product.benefits 
+                        : (language === 'mn' && product.features_mn.length > 0 ? product.features_mn : product.features).slice(0, 4);
+                    return localizedBenefits.map((item, index) => {
                     const title = 'title' in item ? item.title : (item as { title: string }).title;
                     const description = 'description' in item ? (item as { description?: string }).description : undefined;
                     
@@ -331,7 +348,7 @@ const ServicesPage = () => {
                         </div>
                       </div>
                     );
-                  })}
+                  });})()}
                 </div>
               </div>
 
@@ -538,9 +555,11 @@ const ServicesPage = () => {
                             <p className="text-muted-foreground leading-relaxed flex-1 mb-6">{productShortDesc}</p>
 
                             {/* Features Preview */}
-                            {product.features.length > 0 && (
+                            {(() => {
+                              const pFeatures = language === 'mn' && product.features_mn.length > 0 ? product.features_mn : product.features;
+                              return pFeatures.length > 0 && (
                               <div className="flex flex-wrap gap-2 mb-6">
-                                {product.features.slice(0, 6).map((feature, i) => (
+                                {pFeatures.slice(0, 6).map((feature, i) => (
                                   <span
                                     key={i}
                                     className="px-3 py-1.5 rounded-full bg-foreground/5 border border-border/50 text-xs font-medium text-foreground/70"
@@ -549,7 +568,7 @@ const ServicesPage = () => {
                                   </span>
                                 ))}
                               </div>
-                            )}
+                            );})()}
 
                             <div className="flex items-center justify-between pt-6 border-t border-border/50">
                               <div className="flex items-center gap-2">

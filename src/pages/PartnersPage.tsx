@@ -138,19 +138,10 @@ const PartnersPage = () => {
               className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight animate-fade-in"
               style={{ animationDelay: "0.1s" }}
             >
-              {language === "mn" ? (
-                <>
-                  Салбарын <span className="gradient-text">тэргүүлэгчдийн</span>
-                  <br />
-                  итгэлийг хүлээсэн
-                </>
-              ) : (
-                <>
-                  <span className="gradient-text">Trusted</span> by
-                  <br />
-                  Industry Leaders
-                </>
-              )}
+              {t('partnersPage.heroTitle1')}{' '}
+              <span className="gradient-text">{t('partnersPage.heroHighlight')}</span>
+              <br />
+              {t('partnersPage.heroTitle2')}
             </h1>
 
             <p
@@ -282,15 +273,8 @@ const PartnersPage = () => {
               </div>
 
               <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-                {language === "mn" ? (
-                  <>
-                    Монгол даяар <span className="gradient-text">12 аймагт</span>
-                  </>
-                ) : (
-                  <>
-                    Across <span className="gradient-text">12 Provinces</span> in Mongolia
-                  </>
-                )}
+              {t('partnersPage.acrossProvinces')}{' '}
+              <span className="gradient-text">{t('partnersPage.provincesHighlight')}</span>
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("partnersPage.regionalDesc")}</p>
             </div>
@@ -330,15 +314,8 @@ const PartnersPage = () => {
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              {language === "mn" ? (
-                <>
-                  Санхүүгийн <span className="gradient-text">бүх салбарт</span>
-                </>
-              ) : (
-                <>
-                  Across All <span className="gradient-text">Financial Sectors</span>
-                </>
-              )}
+              {t('partnersPage.financialAll')}{' '}
+              <span className="gradient-text">{t('partnersPage.financialHighlight')}</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("partnersPage.clientTypesDesc")}</p>
           </div>
@@ -380,15 +357,8 @@ const PartnersPage = () => {
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              {language === "mn" ? (
-                <>
-                  Харилцагчид <span className="gradient-text">юу хэлдэг вэ?</span>
-                </>
-              ) : (
-                <>
-                  What Our <span className="gradient-text">Clients Say?</span>
-                </>
-              )}
+              {t('partnersPage.clientsSay')}{' '}
+              <span className="gradient-text">{t('partnersPage.clientsSayHighlight')}</span>
             </h2>
           </div>
 

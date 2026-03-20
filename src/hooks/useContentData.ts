@@ -19,6 +19,7 @@ export interface Service {
   usage_metric: string | null;
   usage_metric_mn: string | null;
   features: string[] | null;
+  features_mn: string[] | null;
   benefits: ServiceBenefit[] | null;
   benefits_mn: ServiceBenefit[] | null;
   is_active: boolean;
