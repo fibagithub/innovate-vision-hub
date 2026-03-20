@@ -603,10 +603,10 @@ const ServicesPage = () => {
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-6">
-              Аль бүтээгдэхүүн тохирохоо мэдэхгүй байна уу?
+              {t('servicesPage.ctaTitle')}
             </h2>
             <p className="text-xl text-white/80 mb-10 leading-relaxed">
-              Манай мэргэжилтнүүд танд тохирох шийдлийг санал болгоход бэлэн байна.
+              {t('servicesPage.ctaDesc')}
             </p>
 
             <Link to="/contact">
