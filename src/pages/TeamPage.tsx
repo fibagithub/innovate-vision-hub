@@ -103,7 +103,7 @@ const TeamPage = () => {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {teamMembers.map((member, index) => {
-                const memberName = language === 'mn' ? (("name_mn" in member ? member.name_mn : null) || member.name) : (member.name || ("name_mn" in member ? member.name_mn : null));
+                const memberName = language === 'mn' ? (("name_mn" in member ? (member as any).name_mn : null) || member.name) : (member.name || ("name_mn" in member ? (member as any).name_mn : null));
                 const position = language === 'mn' ? (member.position_mn || ("position" in member ? member.position : "")) : (("position" in member ? member.position : "") || member.position_mn);
                 const bio = language === 'mn' ? (member.bio_mn || ("bio" in member ? member.bio : "")) : (("bio" in member ? member.bio : "") || member.bio_mn);
                 return (
