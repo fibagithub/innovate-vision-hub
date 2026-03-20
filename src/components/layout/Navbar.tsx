@@ -53,7 +53,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-2">
-            <img src={fibaLogo} alt="FIBA" className="h-8 w-auto" />
+            <img src={fibaLogo} alt="FIBA" className="h-12 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
