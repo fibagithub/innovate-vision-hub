@@ -112,7 +112,7 @@ const serviceToProduct = (service: Service, index: number) => {
 
 const ServicesPage = () => {
   const { serviceId } = useParams();
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const { data: services, isLoading } = useServices();
 
   // Transform services to products
