@@ -230,7 +230,7 @@ const TeamPage = () => {
                     <img
                       src={
                         member.image_url ||
-                        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop&crop=face"
+                        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
                       }
                       alt={member.name}
                       className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.08]"
