@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Facebook } from "lucide-react";
+import fibaLogoWhite from "@/assets/fiba-logo-white.png";
 
 const footerLinks = {
   company: [
