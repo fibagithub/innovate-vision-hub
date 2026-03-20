@@ -282,7 +282,7 @@ const ServicesPage = () => {
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {product.features.map((feature, index) => (
+                {localizedFeatures.map((feature, index) => (
                   <div
                     key={index}
                     className={`group p-8 rounded-3xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-xl transition-all duration-500 ${index === 0 ? "md:col-span-2 lg:col-span-1" : ""}`}
@@ -301,7 +301,7 @@ const ServicesPage = () => {
               </div>
             </div>
           </section>
-        )}
+        );})()}
 
         {/* CTA Section - Benefits/Advantages */}
         <section className="py-24 bg-background">
