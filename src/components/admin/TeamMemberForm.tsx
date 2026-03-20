@@ -56,6 +56,7 @@ export const TeamMemberForm = ({ open, onOpenChange, editData, onSuccess }: Team
     if (editData) {
       reset({
         name: editData.name || '',
+        name_mn: editData.name_mn || '',
         position: editData.position || '',
         position_mn: editData.position_mn || '',
         bio: editData.bio || '',
