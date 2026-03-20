@@ -33,7 +33,7 @@ const ProfileModal = ({ member, onClose, language, t }: { member: AnyMember; onC
           </div>
           <div className="flex-1 p-8 sm:p-10 flex flex-col justify-center">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 w-fit">{position}</div>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-4">{member.name}</h2>
+            <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-4">{memberName}</h2>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">{bio}</p>
             <div className="flex gap-3">
               {linkedinUrl && <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-sm font-medium hover:bg-primary/20 transition-colors duration-200"><Linkedin className="w-4 h-4" />LinkedIn<ExternalLink className="w-3 h-3" /></a>}
