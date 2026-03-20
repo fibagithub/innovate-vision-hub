@@ -527,15 +527,15 @@ const ServicesPage = () => {
 
                           <div className="relative h-full flex flex-col">
                             <div className="flex items-start justify-between mb-6">
-                              <div
-                                className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 overflow-hidden`}
-                              >
-                                {product.icon_url ? (
-                                  <img src={product.icon_url} alt={productTitle} className="w-full h-full object-cover" />
-                                ) : (
-                                  <product.icon className="w-8 h-8 text-white" />
-                                )}
+                              {product.icon_url ? (
+                              <div className="w-16 h-16 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                                <img src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
                               </div>
+                              ) : (
+                              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
+                                <product.icon className="w-8 h-8 text-white" />
+                              </div>
+                              )}
                               <span className="text-6xl font-black text-foreground/5"></span>
                             </div>
 
