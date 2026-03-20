@@ -349,9 +349,9 @@ const ServicesPage = () => {
                     )}
                   </div>
 
-                  <h3 className="font-display text-3xl font-bold text-white mb-4">Эхлүүлэхэд бэлэн үү?</h3>
+                  <h3 className="font-display text-3xl font-bold text-white mb-4">{t('servicesPage.readyToStart')}</h3>
                   <p className="text-white/80 text-lg mb-8 leading-relaxed">
-                    Манай багтай холбогдож {productTitle}-ийн талаар дэлгэрэнгүй мэдээлэл аваарай.
+                    {t('servicesPage.contactTeam')} {productTitle}{t('servicesPage.learnMoreAbout')}
                   </p>
 
                   <Link to="/contact">
