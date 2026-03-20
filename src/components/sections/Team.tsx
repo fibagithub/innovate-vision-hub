@@ -128,8 +128,11 @@ const TeamMemberCard = ({
         <h3 className="font-display text-[15px] font-bold text-foreground tracking-tight leading-tight mb-1">
           {member.name}
         </h3>
-        <p className="text-muted-foreground text-xs font-medium">
+        <p className="text-primary text-xs font-semibold mb-2">
           {member.position_mn || ("position" in member ? member.position : "")}
+        </p>
+        <p className="text-muted-foreground text-xs leading-relaxed">
+          {member.bio_mn || ("bio" in member ? member.bio : "")}
         </p>
       </div>
     </div>
