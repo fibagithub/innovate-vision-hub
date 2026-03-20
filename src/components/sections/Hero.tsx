@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
       {/* Soft gradient background */}
@@ -32,7 +35,7 @@ export function Hero() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/5 border border-primary/10 mb-10 animate-fade-in">
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-primary text-sm font-semibold tracking-wide">FIBA LLC — 2021 оноос</span>
+            <span className="text-primary text-sm font-semibold tracking-wide">{t('hero.badge')}</span>
           </div>
 
           {/* Headline */}
@@ -40,9 +43,9 @@ export function Hero() {
             className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight animate-fade-in"
             style={{ animationDelay: "0.1s" }}
           >
-            Бид шалтгааныг ойлгоход
+            {t('hero.title1')}
             <br />
-            анхаардаг учраас <span className="gradient-text">бодит үр дүн</span> гаргадаг
+            {t('hero.title2')} <span className="gradient-text">{t('hero.titleHighlight')}</span> {t('hero.titleSuffix')}
           </h1>
 
           {/* Subheadline */}
@@ -50,8 +53,7 @@ export function Hero() {
             className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in"
             style={{ animationDelay: "0.2s" }}
           >
-            Банк санхүүгийн програм хангамж, төлбөр тооцооны систем, мэдээллийн сан зохион байгуулах чиглэлээр 15+
-            жилийн туршлагатай мэргэжлийн баг
+            {t('hero.description')}
           </p>
 
           {/* CTAs */}
@@ -61,13 +63,13 @@ export function Hero() {
           >
             <Link to="/services">
               <Button size="xl" className="group shadow-soft hover:shadow-glow transition-all duration-300">
-                Бүтээгдэхүүн үзэх
+                {t('hero.viewProducts')}
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Link to="/about">
               <Button variant="outline" size="xl" className="group">
-                Бидний тухай
+                {t('hero.aboutUs')}
               </Button>
             </Link>
           </div>
@@ -78,9 +80,9 @@ export function Hero() {
             style={{ animationDelay: "0.4s" }}
           >
             {[
-              { value: "15+", label: "Жилийн туршлага" },
-              { value: "13+", label: "Мэргэжлийн баг" },
-              { value: "99.9%", label: "Харилцагчийн сэтгэл ханамж" },
+              { value: "15+", label: t('hero.stat.experience') },
+              { value: "13+", label: t('hero.stat.team') },
+              { value: "99.9%", label: t('hero.stat.satisfaction') },
             ].map((stat, index) => (
               <div
                 key={index}
