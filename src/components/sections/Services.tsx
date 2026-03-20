@@ -230,7 +230,7 @@ const ProductCard = ({
                 <p className="text-muted-foreground leading-relaxed flex-1 mb-6">{serviceDesc}</p>
 
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {service.features?.map((feature, i) => (
+                  {(language === 'mn' && service.features_mn && service.features_mn.length > 0 ? service.features_mn : service.features)?.map((feature, i) => (
                     <span
                       key={i}
                       className={`px-3 py-1.5 rounded-full bg-${preset.accentColor}/5 border border-${preset.accentColor}/10 text-xs font-medium text-foreground/80`}
