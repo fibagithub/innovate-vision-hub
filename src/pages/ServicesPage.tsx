@@ -404,15 +404,15 @@ const ServicesPage = () => {
 
                     const CardContent = (
                       <>
-                        <div
-                          className={`w-14 h-14 rounded-xl bg-gradient-to-br ${p.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform overflow-hidden`}
-                        >
-                          {p.icon_url ? (
-                            <img src={p.icon_url} alt={pTitle} className="w-full h-full object-cover" />
-                          ) : (
-                            <p.icon className="w-7 h-7 text-white" />
-                          )}
+                        {p.icon_url ? (
+                        <div className="w-14 h-14 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                          <img src={p.icon_url} alt={pTitle} className="w-full h-full object-contain" />
                         </div>
+                        ) : (
+                        <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${p.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                          <p.icon className="w-7 h-7 text-white" />
+                        </div>
+                        )}
                         <h3 className="font-display text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                           {pTitle}
                         </h3>
