@@ -242,11 +242,11 @@ const ServicesPage = () => {
 
               {/* Usage Metrics and Features Preview */}
               <div className="grid grid-cols-2 gap-4">
-                {/* Display each usage metric separately */}
-                {product.usageMetrics.map((metric, index) => (
+                {/* Display each usage metric separately - use localized version */}
+                {(language === 'mn' && product.usageMetricsMn.length > 0 ? product.usageMetricsMn : product.usageMetrics).map((metric, index) => (
                   <div
                     key={`metric-${index}`}
-                    className={`${product.usageMetrics.length === 1 ? "col-span-2" : ""} p-6 rounded-3xl bg-card border border-border/50`}
+                    className={`${(language === 'mn' && product.usageMetricsMn.length > 0 ? product.usageMetricsMn : product.usageMetrics).length === 1 ? "col-span-2" : ""} p-6 rounded-3xl bg-card border border-border/50`}
                   >
                     <div
                       className={`text-xl lg:text-2xl font-bold bg-gradient-to-r ${product.gradient} bg-clip-text text-transparent`}
