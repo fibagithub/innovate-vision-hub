@@ -178,9 +178,18 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
       setNewFeature('');
     }
   };
+  const addFeatureMn = () => {
+    if (newFeatureMn.trim()) {
+      setFeaturesMn([...featuresMn, newFeatureMn.trim()]);
+      setNewFeatureMn('');
+    }
+  };
 
   const removeFeature = (index: number) => {
     setFeatures(features.filter((_, i) => i !== index));
+  };
+  const removeFeatureMn = (index: number) => {
+    setFeaturesMn(featuresMn.filter((_, i) => i !== index));
   };
 
   const addUsageMetric = () => {
@@ -191,11 +200,24 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
       setNewUsageMetric('');
     }
   };
+  const addUsageMetricMn = () => {
+    if (newUsageMetricMn.trim()) {
+      const updated = [...usageMetricsMn, newUsageMetricMn.trim()];
+      setUsageMetricsMn(updated);
+      setValue('usage_metric_mn', joinUsageMetrics(updated));
+      setNewUsageMetricMn('');
+    }
+  };
 
   const removeUsageMetric = (index: number) => {
     const updated = usageMetrics.filter((_, i) => i !== index);
     setUsageMetrics(updated);
     setValue('usage_metric', joinUsageMetrics(updated));
+  };
+  const removeUsageMetricMn = (index: number) => {
+    const updated = usageMetricsMn.filter((_, i) => i !== index);
+    setUsageMetricsMn(updated);
+    setValue('usage_metric_mn', joinUsageMetrics(updated));
   };
 
   const addBenefit = () => {
@@ -205,9 +227,19 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
       setNewBenefitDesc('');
     }
   };
+  const addBenefitMn = () => {
+    if (newBenefitTitleMn.trim()) {
+      setBenefitsMn([...benefitsMn, { title: newBenefitTitleMn.trim(), description: newBenefitDescMn.trim() }]);
+      setNewBenefitTitleMn('');
+      setNewBenefitDescMn('');
+    }
+  };
 
   const removeBenefit = (index: number) => {
     setBenefits(benefits.filter((_, i) => i !== index));
+  };
+  const removeBenefitMn = (index: number) => {
+    setBenefitsMn(benefitsMn.filter((_, i) => i !== index));
   };
 
   const onSubmit = async (data: ServiceFormData) => {
@@ -216,7 +248,9 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
       const payload = {
         ...data,
         features,
+        features_mn: featuresMn,
         benefits: JSON.parse(JSON.stringify(benefits)),
+        benefits_mn: JSON.parse(JSON.stringify(benefitsMn)),
       };
 
       if (editData?.id) {
