@@ -460,7 +460,7 @@ const ServicesPage = () => {
             </h1>
 
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Олон улсын стандартад нийцсэн, найдвартай програм хангамжийн бүтээгдэхүүнүүд
+              {t('servicesPage.heroDesc')}
             </p>
           </div>
         </div>
