@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import fibaLogo from "@/assets/fiba-logo.png";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/ui/language-switcher";
@@ -52,10 +53,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-              <span className="text-primary-foreground font-display font-bold text-xl">F</span>
-            </div>
-            <span className="font-display font-bold text-xl text-foreground">FIBA</span>
+            <img src={fibaLogo} alt="FIBA" className="h-8 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
