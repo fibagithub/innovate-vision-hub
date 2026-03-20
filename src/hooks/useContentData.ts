@@ -28,6 +28,7 @@ export interface Service {
 export interface TeamMember {
   id: string;
   name: string;
+  name_mn: string | null;
   position: string | null;
   position_mn: string | null;
   bio: string | null;

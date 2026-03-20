@@ -34,7 +34,7 @@ const TeamMemberCard = ({ member, index, onExpand, language }: { member: AnyMemb
         </div>
       </div>
       <div className="p-5">
-        <h3 className="font-display text-[15px] font-bold text-foreground tracking-tight leading-tight mb-1">{member.name}</h3>
+        <h3 className="font-display text-[15px] font-bold text-foreground tracking-tight leading-tight mb-1">{memberName}</h3>
         <p className="text-primary text-xs font-semibold mb-2">{position}</p>
         <p className="text-muted-foreground text-xs leading-relaxed">{bio}</p>
       </div>
