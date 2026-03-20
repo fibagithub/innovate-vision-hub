@@ -72,6 +72,7 @@ export const TeamMemberForm = ({ open, onOpenChange, editData, onSuccess }: Team
     } else {
       reset({
         name: '',
+        name_mn: '',
         position: '',
         position_mn: '',
         bio: '',
