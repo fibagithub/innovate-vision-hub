@@ -188,10 +188,16 @@ export const TeamMemberForm = ({ open, onOpenChange, editData, onSuccess }: Team
           <DialogTitle>{editData ? 'Гишүүн засах' : 'Шинэ гишүүн нэмэх'}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="name">Нэр *</Label>
-            <Input id="name" {...register('name')} placeholder="Нэр" />
-            {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Нэр (EN) *</Label>
+              <Input id="name" {...register('name')} placeholder="Name (English)" />
+              {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="name_mn">Нэр (MN)</Label>
+              <Input id="name_mn" {...register('name_mn')} placeholder="Нэр (Монгол)" />
+            </div>
           </div>
 
           {/* Image Upload Section */}

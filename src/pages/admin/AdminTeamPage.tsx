@@ -126,7 +126,10 @@ const AdminTeamPage = () => {
             <TableBody>
               {members.map((member) => (
                 <TableRow key={member.id}>
-                  <TableCell className="font-medium">{member.name}</TableCell>
+                  <TableCell className="font-medium">
+                    <div>{member.name_mn || member.name}</div>
+                    <div className="text-xs text-muted-foreground">{member.name}</div>
+                  </TableCell>
                   <TableCell>{member.position_mn || member.position || '-'}</TableCell>
                   <TableCell>{member.email || '-'}</TableCell>
                   <TableCell>
