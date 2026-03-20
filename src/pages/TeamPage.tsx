@@ -261,12 +261,6 @@ const TeamPage = () => {
                       )}
                     </div>
 
-                    {/* Bio reveal */}
-                    <div className="absolute bottom-0 left-0 right-0 p-5 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 delay-75">
-                      <p className="text-white/90 text-xs leading-relaxed line-clamp-2">
-                        {member.bio_mn || ""}
-                      </p>
-                    </div>
                   </div>
 
                   {/* Content */}
