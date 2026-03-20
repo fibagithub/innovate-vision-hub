@@ -45,6 +45,7 @@ const TeamMemberCard = ({ member, index, onExpand, language }: { member: AnyMemb
 const ProfileModal = ({ member, onClose, language, t }: { member: AnyMember; onClose: () => void; language: 'mn' | 'en'; t: (k: string) => string }) => {
   const linkedinUrl = "linkedin_url" in member ? member.linkedin_url : null;
   const email = "email" in member ? member.email : null;
+  const memberName = language === 'mn' ? (("name_mn" in member ? member.name_mn : null) || member.name) : (member.name || ("name_mn" in member ? member.name_mn : null));
   const position = language === 'mn' ? (member.position_mn || ("position" in member ? member.position : "")) : (("position" in member ? member.position : "") || member.position_mn);
   const bio = language === 'mn' ? (member.bio_mn || ("bio" in member ? member.bio : "")) : (("bio" in member ? member.bio : "") || member.bio_mn);
 
