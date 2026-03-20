@@ -358,13 +358,15 @@ const ServicesPage = () => {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
 
                 <div className="relative">
-                  <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center mb-8 overflow-hidden">
-                    {product.icon_url ? (
-                      <img src={product.icon_url} alt={productTitle} className="w-full h-full object-cover" />
-                    ) : (
+                  {product.icon_url ? (
+                    <div className="w-20 h-20 flex items-center justify-center mb-8">
+                      <img src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
+                    </div>
+                  ) : (
+                    <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center mb-8">
                       <product.icon className="w-10 h-10 text-white" />
-                    )}
-                  </div>
+                    </div>
+                  )}
 
                   <h3 className="font-display text-3xl font-bold text-white mb-4">{t('servicesPage.readyToStart')}</h3>
                   <p className="text-white/80 text-lg mb-8 leading-relaxed">
