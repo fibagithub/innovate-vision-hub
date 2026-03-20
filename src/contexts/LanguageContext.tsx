@@ -242,9 +242,6 @@ const translations: Translations = {
   'servicesPage.ctaBtn': { mn: 'Зөвлөгөө авах', en: 'Get Advice' },
   'servicesPage.learnMore': { mn: 'Дэлгэрэнгүй үзэх', en: 'Learn More' },
   'servicesPage.featuresDesc': { mn: '-ийн гол онцлог, давуу талууд', en: ' key features and advantages' },
-  'servicesPage.nextLevel': { mn: 'Таны бизнесийг дараагийн түвшинд хүргэх инновацлаг шийдэл', en: 'An innovative solution to take your business to the next level' },
-  'servicesPage.contactTeam': { mn: 'Манай багтай холбогдож', en: 'Contact our team to learn more about' },
-  'servicesPage.learnMoreAbout': { mn: '-ийн талаар дэлгэрэнгүй мэдээлэл аваарай.', en: '.' },
 
   // Footer
   'footer.company': { mn: 'Компани', en: 'Company' },
