@@ -471,7 +471,7 @@ const ServicesPage = () => {
         <div className="container mx-auto px-4">
           {products.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Бүтээгдэхүүн олдсонгүй</p>
+              <p className="text-muted-foreground">{t('servicesPage.noProducts')}</p>
             </div>
           ) : (
             <div className="grid grid-cols-12 gap-6">
