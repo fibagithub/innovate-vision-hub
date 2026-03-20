@@ -318,6 +318,44 @@ const translations: Translations = {
   'common.add': { mn: 'Нэмэх', en: 'Add' },
   'common.active': { mn: 'Идэвхтэй', en: 'Active' },
   'common.inactive': { mn: 'Идэвхгүй', en: 'Inactive' },
+
+  // Auth Page
+  'auth.backToHome': { mn: 'Нүүр хуудас', en: 'Home' },
+  'auth.adminLogin': { mn: 'Админ нэвтрэх', en: 'Admin Login' },
+  'auth.adminLoginDesc': { mn: 'Админ панел руу нэвтрэхийн тулд имэйл, нууц үгээ оруулна уу', en: 'Enter your email and password to access the admin panel' },
+  'auth.signIn': { mn: 'Нэвтрэх', en: 'Sign In' },
+  'auth.signUp': { mn: 'Бүртгүүлэх', en: 'Sign Up' },
+  'auth.email': { mn: 'Имэйл', en: 'Email' },
+  'auth.password': { mn: 'Нууц үг', en: 'Password' },
+  'auth.signingIn': { mn: 'Нэвтэрч байна...', en: 'Signing in...' },
+  'auth.signingUp': { mn: 'Бүртгүүлж байна...', en: 'Signing up...' },
+  'auth.successLogin': { mn: 'Амжилттай нэвтэрлээ', en: 'Successfully signed in' },
+  'auth.successSignUp': { mn: 'Бүртгэл амжилттай! Та нэвтрэх боломжтой.', en: 'Registration successful! You can now sign in.' },
+  'auth.invalidCredentials': { mn: 'Имэйл эсвэл нууц үг буруу байна', en: 'Invalid email or password' },
+  'auth.userExists': { mn: 'Энэ имэйл хаяг бүртгэлтэй байна', en: 'This email is already registered' },
+  'auth.emailValidation': { mn: 'Зөв имэйл хаяг оруулна уу', en: 'Please enter a valid email address' },
+  'auth.passwordValidation': { mn: 'Нууц үг хамгийн багадаа 6 тэмдэгт байх ёстой', en: 'Password must be at least 6 characters' },
+  'auth.adminOnly': { mn: 'Зөвхөн админ эрхтэй хэрэглэгчид нэвтрэх боломжтой', en: 'Only admin users can sign in' },
+
+  // Admin Layout
+  'admin.dashboard': { mn: 'Хянах самбар', en: 'Dashboard' },
+  'admin.services': { mn: 'Үйлчилгээ', en: 'Services' },
+  'admin.team': { mn: 'Баг', en: 'Team' },
+  'admin.partners': { mn: 'Хамтрагчид', en: 'Partners' },
+  'admin.signOut': { mn: 'Гарах', en: 'Sign Out' },
+  'admin.signOutSuccess': { mn: 'Амжилттай гарлаа', en: 'Successfully signed out' },
+  'admin.backToSite': { mn: 'Вэбсайт руу буцах', en: 'Back to Website' },
+
+  // Partners Page inline texts
+  'partnersPage.heroTitle1': { mn: 'Салбарын', en: '' },
+  'partnersPage.heroHighlight': { mn: 'тэргүүлэгчдийн', en: 'Trusted' },
+  'partnersPage.heroTitle2': { mn: 'итгэлийг хүлээсэн', en: 'by Industry Leaders' },
+  'partnersPage.financialAll': { mn: 'Санхүүгийн', en: 'Across All' },
+  'partnersPage.financialHighlight': { mn: 'бүх салбарт', en: 'Financial Sectors' },
+  'partnersPage.acrossProvinces': { mn: 'Монгол даяар', en: 'Across' },
+  'partnersPage.provincesHighlight': { mn: '12 аймагт', en: '12 Provinces in Mongolia' },
+  'partnersPage.clientsSay': { mn: 'Харилцагчид', en: 'What Our' },
+  'partnersPage.clientsSayHighlight': { mn: 'юу хэлдэг вэ?', en: 'Clients Say?' },
 };
 
 interface LanguageContextType {

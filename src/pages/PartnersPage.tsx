@@ -357,15 +357,8 @@ const PartnersPage = () => {
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              {language === "mn" ? (
-                <>
-                  Харилцагчид <span className="gradient-text">юу хэлдэг вэ?</span>
-                </>
-              ) : (
-                <>
-                  What Our <span className="gradient-text">Clients Say?</span>
-                </>
-              )}
+              {t('partnersPage.clientsSay')}{' '}
+              <span className="gradient-text">{t('partnersPage.clientsSayHighlight')}</span>
             </h2>
           </div>
 

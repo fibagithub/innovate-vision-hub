@@ -60,7 +60,7 @@ export function Partners() {
               {totalCount}+
             </div>
             <p className="text-xl text-muted-foreground mt-4">
-              {language === 'mn' ? 'Нийт харилцагч байгууллага' : 'Total Partner Organizations'}
+              {t('partners.totalOrgs')}
             </p>
           </div>
         )}
