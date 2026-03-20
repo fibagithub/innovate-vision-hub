@@ -74,18 +74,17 @@ export function Partners() {
         {/* Logo Marquee */}
         {partnersWithLogos.length > 0 && (
           <div className="mb-20">
-            <div className="marquee-container py-8">
-              <div className="flex animate-marquee">
-                {/* Duplicate logos for seamless loop */}
-                {[...partnersWithLogos, ...partnersWithLogos].map((partner, index) => (
+            <div className="marquee-container">
+              <div className="flex animate-marquee items-center">
+                {[...partnersWithLogos, ...partnersWithLogos, ...partnersWithLogos].map((partner, index) => (
                   <div
                     key={`${partner.id}-${index}`}
-                    className="flex-shrink-0 mx-8 w-32 h-20 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300"
+                    className="flex-shrink-0 mx-10 w-28 h-16 flex items-center justify-center grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-300"
                   >
                     <img
                       src={partner.logo_url!}
                       alt={partner.name || 'Partner logo'}
-                      className="max-w-full max-h-full object-contain"
+                      className="w-full h-full object-contain"
                     />
                   </div>
                 ))}
