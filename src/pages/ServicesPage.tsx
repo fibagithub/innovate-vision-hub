@@ -611,7 +611,7 @@ const ServicesPage = () => {
 
             <Link to="/contact">
               <Button size="xl" className="bg-white text-primary hover:bg-white/90 shadow-2xl">
-                Зөвлөгөө авах
+                {t('servicesPage.ctaBtn')}
                 <ArrowRight className="ml-2" />
               </Button>
             </Link>
