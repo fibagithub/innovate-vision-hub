@@ -263,7 +263,7 @@ const ServicesPage = () => {
                   <span className="text-white font-medium text-sm">{t('servicesPage.features')}</span>
                 </div>
                 <h2 className="font-display text-4xl lg:text-5xl font-bold text-foreground mb-4">
-                  Бүтээгдэхүүний боломжууд
+                  {t('servicesPage.featuresTitle')}
                 </h2>
                 <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
                   {productTitle}-ийн гол онцлог, давуу талууд
