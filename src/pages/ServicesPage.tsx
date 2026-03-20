@@ -301,7 +301,7 @@ const ServicesPage = () => {
                   {t('servicesPage.advantages')}
                 </span>
                 <h2 className="font-display text-4xl lg:text-5xl font-bold text-foreground mb-6">
-                  Яагаад {productTitle}?
+                  {t('servicesPage.whyProduct')} {productTitle}?
                 </h2>
                 <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
                   Таны бизнесийг дараагийн түвшинд хүргэх инновацлаг шийдэл
