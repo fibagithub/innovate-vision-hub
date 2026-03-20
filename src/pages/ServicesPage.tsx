@@ -266,7 +266,7 @@ const ServicesPage = () => {
                   {t('servicesPage.featuresTitle')}
                 </h2>
                 <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                  {productTitle}-ийн гол онцлог, давуу талууд
+                  {productTitle}{t('servicesPage.featuresDesc')}
                 </p>
               </div>
 
