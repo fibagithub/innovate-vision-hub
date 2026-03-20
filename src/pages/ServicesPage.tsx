@@ -83,8 +83,15 @@ const serviceToProduct = (service: Service, index: number) => {
     desc: "",
   }));
 
+  // Parse features_mn from array
+  const features_mn = (service.features_mn || []).map((f) => ({
+    title: f,
+    desc: "",
+  }));
+
   // Parse usage metrics to array
   const usageMetrics = parseUsageMetrics(service.usage_metric);
+  const usageMetricsMn = parseUsageMetrics(service.usage_metric_mn);
 
   return {
     id: service.id,
@@ -100,10 +107,12 @@ const serviceToProduct = (service: Service, index: number) => {
     description_mn: service.description_mn || "",
     usage_metric: service.usage_metric,
     usage_metric_mn: service.usage_metric_mn,
-    usageMetrics, // Array of usage metrics
+    usageMetrics,
+    usageMetricsMn,
     gradient: preset.gradient,
     bgGradient: preset.bgGradient,
     features,
+    features_mn,
     benefits: (service.benefits || []) as ServiceBenefit[],
     benefits_mn: (service.benefits_mn || []) as ServiceBenefit[],
     stats: [],
