@@ -153,6 +153,7 @@ export const TeamMemberForm = ({ open, onOpenChange, editData, onSuccess }: Team
         ...data,
         email: data.email || null,
         image_url: data.image_url || null,
+        name_mn: data.name_mn || null,
       };
 
       if (editData?.id) {
