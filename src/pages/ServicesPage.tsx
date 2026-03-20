@@ -261,7 +261,9 @@ const ServicesPage = () => {
         </section>
 
         {/* Features Section - Bento Grid */}
-        {product.features.length > 0 && (
+        {(() => {
+          const localizedFeatures = language === 'mn' && product.features_mn.length > 0 ? product.features_mn : product.features;
+          return localizedFeatures.length > 0 && (
           <section className="py-24 bg-muted/30">
             <div className="container mx-auto px-4">
               <div className="text-center mb-16">
