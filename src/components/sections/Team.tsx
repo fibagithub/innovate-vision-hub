@@ -79,11 +79,11 @@ const TeamMemberCard = ({
       }}
     >
       {/* Image Container */}
-      <div className="aspect-[3/4] overflow-hidden relative">
+      <div className="aspect-square overflow-hidden relative">
         <img
           src={
             member.image_url ||
-            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop&crop=face"
+            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
           }
           alt={member.name}
           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.08]"
@@ -128,8 +128,11 @@ const TeamMemberCard = ({
         <h3 className="font-display text-[15px] font-bold text-foreground tracking-tight leading-tight mb-1">
           {member.name}
         </h3>
-        <p className="text-muted-foreground text-xs font-medium">
+        <p className="text-primary text-xs font-semibold mb-2">
           {member.position_mn || ("position" in member ? member.position : "")}
+        </p>
+        <p className="text-muted-foreground text-xs leading-relaxed">
+          {member.bio_mn || ("bio" in member ? member.bio : "")}
         </p>
       </div>
     </div>
