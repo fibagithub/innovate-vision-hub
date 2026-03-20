@@ -112,7 +112,7 @@ const serviceToProduct = (service: Service, index: number) => {
 
 const ServicesPage = () => {
   const { serviceId } = useParams();
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const { data: services, isLoading } = useServices();
 
   // Transform services to products
@@ -188,7 +188,7 @@ const ServicesPage = () => {
               <div className="w-8 h-8 rounded-full bg-foreground/5 flex items-center justify-center group-hover:bg-foreground/10 transition-colors">
                 <ArrowLeft className="w-4 h-4" />
               </div>
-              <span className="font-medium">Бүтээгдэхүүнүүд</span>
+              <span className="font-medium">{t('servicesPage.backToProducts')}</span>
             </Link>
 
             <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -223,9 +223,9 @@ const ServicesPage = () => {
 
                 <div className="flex flex-wrap gap-4">
                   <Link to="/contact">
-                    <Button variant="gradient" size="xl" className={`bg-gradient-to-r ${product.gradient}`}>
-                      Холбоо барих
-                      <ArrowRight className="ml-2" />
+                      <Button variant="gradient" size="xl" className={`bg-gradient-to-r ${product.gradient}`}>
+                        {t('servicesPage.contactUs')}
+                        <ArrowRight className="ml-2" />
                     </Button>
                   </Link>
                 </div>
@@ -260,13 +260,13 @@ const ServicesPage = () => {
                   className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r ${product.gradient} bg-opacity-10 mb-6`}
                 >
                   <Sparkles className="w-4 h-4 text-white" />
-                  <span className="text-white font-medium text-sm">Онцлог боломжууд</span>
+                  <span className="text-white font-medium text-sm">{t('servicesPage.features')}</span>
                 </div>
                 <h2 className="font-display text-4xl lg:text-5xl font-bold text-foreground mb-4">
-                  Бүтээгдэхүүний боломжууд
+                  {t('servicesPage.featuresTitle')}
                 </h2>
                 <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                  {productTitle}-ийн гол онцлог, давуу талууд
+                  {productTitle}{t('servicesPage.featuresDesc')}
                 </p>
               </div>
 
@@ -298,13 +298,13 @@ const ServicesPage = () => {
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
                 <span className="text-sm font-bold tracking-widest text-primary uppercase mb-4 block">
-                  Давуу талууд
+                  {t('servicesPage.advantages')}
                 </span>
                 <h2 className="font-display text-4xl lg:text-5xl font-bold text-foreground mb-6">
-                  Яагаад {productTitle}?
+                  {t('servicesPage.whyProduct')} {productTitle}?
                 </h2>
                 <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-                  Таны бизнесийг дараагийн түвшинд хүргэх инновацлаг шийдэл
+                  {t('servicesPage.innovativeDesc')}
                 </p>
 
                 <div className="space-y-4">
@@ -349,14 +349,14 @@ const ServicesPage = () => {
                     )}
                   </div>
 
-                  <h3 className="font-display text-3xl font-bold text-white mb-4">Эхлүүлэхэд бэлэн үү?</h3>
+                  <h3 className="font-display text-3xl font-bold text-white mb-4">{t('servicesPage.readyToStart')}</h3>
                   <p className="text-white/80 text-lg mb-8 leading-relaxed">
-                    Манай багтай холбогдож {productTitle}-ийн талаар дэлгэрэнгүй мэдээлэл аваарай.
+                    {t('servicesPage.contactTeam')} {productTitle}{t('servicesPage.learnMoreAbout')}
                   </p>
 
                   <Link to="/contact">
                     <Button size="lg" className="bg-white text-foreground hover:bg-white/90 shadow-xl">
-                      Холбоо барих
+                      {t('servicesPage.contactUs')}
                       <ArrowRight className="ml-2" />
                     </Button>
                   </Link>
@@ -371,8 +371,8 @@ const ServicesPage = () => {
           <section className="py-24 bg-muted/30">
             <div className="container mx-auto px-4">
               <div className="text-center mb-12">
-                <h2 className="font-display text-3xl font-bold text-foreground mb-4">Бусад бүтээгдэхүүнүүд</h2>
-                <p className="text-muted-foreground">Манай бусад технологийн шийдлүүдтэй танилцана уу</p>
+                <h2 className="font-display text-3xl font-bold text-foreground mb-4">{t('servicesPage.otherProducts')}</h2>
+                <p className="text-muted-foreground">{t('servicesPage.otherProductsDesc')}</p>
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -449,18 +449,18 @@ const ServicesPage = () => {
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-8">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-primary font-medium text-sm tracking-wide">Бүтээгдэхүүн & Үйлчилгээ</span>
+              <span className="text-primary font-medium text-sm tracking-wide">{t('servicesPage.badge')}</span>
             </div>
 
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-8 tracking-tight leading-[1.1]">
-              Санхүүгийн
+              {t('servicesPage.heroTitle1')}
               <span className="block mt-2 bg-gradient-to-r from-primary via-[#2563eb] to-primary bg-clip-text text-transparent">
-                Технологийн Шийдлүүд
+                {t('servicesPage.heroTitle2')}
               </span>
             </h1>
 
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Олон улсын стандартад нийцсэн, найдвартай програм хангамжийн бүтээгдэхүүнүүд
+              {t('servicesPage.heroDesc')}
             </p>
           </div>
         </div>
@@ -471,7 +471,7 @@ const ServicesPage = () => {
         <div className="container mx-auto px-4">
           {products.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Бүтээгдэхүүн олдсонгүй</p>
+              <p className="text-muted-foreground">{t('servicesPage.noProducts')}</p>
             </div>
           ) : (
             <div className="grid grid-cols-12 gap-6">
@@ -599,19 +599,19 @@ const ServicesPage = () => {
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur mb-8">
               <Users className="w-4 h-4 text-white" />
-              <span className="text-white/90 font-medium text-sm">Зөвлөгөө авах</span>
+              <span className="text-white/90 font-medium text-sm">{t('servicesPage.ctaBadge')}</span>
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-6">
-              Аль бүтээгдэхүүн тохирохоо мэдэхгүй байна уу?
+              {t('servicesPage.ctaTitle')}
             </h2>
             <p className="text-xl text-white/80 mb-10 leading-relaxed">
-              Манай мэргэжилтнүүд танд тохирох шийдлийг санал болгоход бэлэн байна.
+              {t('servicesPage.ctaDesc')}
             </p>
 
             <Link to="/contact">
               <Button size="xl" className="bg-white text-primary hover:bg-white/90 shadow-2xl">
-                Зөвлөгөө авах
+                {t('servicesPage.ctaBtn')}
                 <ArrowRight className="ml-2" />
               </Button>
             </Link>
