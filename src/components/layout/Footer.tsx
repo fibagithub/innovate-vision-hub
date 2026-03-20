@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Facebook } from "lucide-react";
+import fibaLogoWhite from "@/assets/fiba-logo-white.png";
 
 const footerLinks = {
   company: [
@@ -30,10 +31,7 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                <span className="text-primary-foreground font-display font-bold text-xl">F</span>
-              </div>
-              <span className="font-display font-bold text-xl">FIBA LLC</span>
+              <img src={fibaLogoWhite} alt="FIBA" className="h-10 w-auto" />
             </div>
             <p className="text-background/70 mb-6 max-w-sm">
               Банк санхүүгийн програм хангамж, төлбөр тооцооны систем, мэдээллийн сан зохион байгуулах чиглэлээр 2021
