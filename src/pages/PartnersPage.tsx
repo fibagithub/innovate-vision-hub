@@ -314,15 +314,8 @@ const PartnersPage = () => {
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              {language === "mn" ? (
-                <>
-                  Санхүүгийн <span className="gradient-text">бүх салбарт</span>
-                </>
-              ) : (
-                <>
-                  Across All <span className="gradient-text">Financial Sectors</span>
-                </>
-              )}
+              {t('partnersPage.financialAll')}{' '}
+              <span className="gradient-text">{t('partnersPage.financialHighlight')}</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("partnersPage.clientTypesDesc")}</p>
           </div>
