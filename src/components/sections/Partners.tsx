@@ -18,16 +18,19 @@ export function Partners() {
   const { data: partnerData, isLoading } = usePartnerStats();
   const { t, language } = useLanguage();
 
-  const regions = partnerData?.partners?.filter(p => p.region).map(p => ({
-    name: language === 'mn' ? t(`region.${p.region}`) : t(`region.${p.region}`),
-    count: p.count || 0,
-    ...REGION_POSITIONS[p.region || 'ulaanbaatar']
-  })) || [];
+  const regions =
+    partnerData?.partners
+      ?.filter((p) => p.region)
+      .map((p) => ({
+        name: language === "mn" ? t(`region.${p.region}`) : t(`region.${p.region}`),
+        count: p.count || 0,
+        ...REGION_POSITIONS[p.region || "ulaanbaatar"],
+      })) || [];
 
   const totalCount = partnerData?.totalCount || 0;
-  
+
   // Get partners with logos for marquee
-  const partnersWithLogos = partnerData?.partners?.filter(p => p.logo_url) || [];
+  const partnersWithLogos = partnerData?.partners?.filter((p) => p.logo_url) || [];
 
   return (
     <section className="py-32 bg-background relative overflow-hidden" id="clients">
@@ -39,18 +42,16 @@ export function Partners() {
         <div className="max-w-4xl mx-auto text-center mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
             <Globe2 className="w-4 h-4 text-primary" />
-            <span className="text-primary font-medium text-sm">{t('partners.badge')}</span>
+            <span className="text-primary font-medium text-sm">{t("partners.badge")}</span>
           </div>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-            {t('partners.title1')}
+            {t("partners.title1")}
             <br />
             <span className="bg-gradient-to-r from-primary via-[#2563eb] to-primary bg-clip-text text-transparent">
-              {t('partners.title2')}
+              {t("partners.title2")}
             </span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            {t('partners.description')}
-          </p>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("partners.description")}</p>
         </div>
 
         {/* Large Total Stats */}
@@ -59,9 +60,7 @@ export function Partners() {
             <div className="font-display text-7xl lg:text-9xl font-bold bg-gradient-to-r from-primary to-[#2563eb] bg-clip-text text-transparent">
               {totalCount}+
             </div>
-            <p className="text-xl text-muted-foreground mt-4">
-              {t('partners.totalOrgs')}
-            </p>
+            <p className="text-xl text-muted-foreground mt-4">{t("partners.totalOrgs")}</p>
           </div>
         )}
 
@@ -83,7 +82,7 @@ export function Partners() {
                   >
                     <img
                       src={partner.logo_url!}
-                      alt={partner.name || 'Partner logo'}
+                      alt={partner.name || "Partner logo"}
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -121,7 +120,10 @@ export function Partners() {
                     style={{ left: region.x, top: region.y }}
                   >
                     <div className="absolute inset-0 w-16 h-16 -translate-x-1/4 -translate-y-1/4">
-                      <div className="absolute inset-0 bg-primary/20 rounded-full animate-ping" style={{ animationDelay: `${index * 200}ms` }} />
+                      <div
+                        className="absolute inset-0 bg-primary/20 rounded-full animate-ping"
+                        style={{ animationDelay: `${index * 200}ms` }}
+                      />
                     </div>
                     <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-[#2563eb] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                       <span className="font-display font-bold text-white text-sm">{region.count}</span>
@@ -137,24 +139,6 @@ export function Partners() {
             </div>
           </div>
         )}
-
-        {/* CTA */}
-        <div className="relative rounded-[2rem] bg-gradient-to-br from-primary/5 via-card to-accent/5 border border-border/50 p-10 lg:p-16 overflow-hidden">
-          <div className="relative grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-6">
-                {t('partners.whyChoose')}
-              </h3>
-              <p className="text-muted-foreground text-lg mb-8">{t('partners.whyChooseDesc')}</p>
-              <Link to="/partners">
-                <Button variant="gradient" size="lg">
-                  {t('partners.moreInfo')}
-                  <ArrowRight className="ml-2" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
