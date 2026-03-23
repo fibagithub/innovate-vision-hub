@@ -13,7 +13,7 @@ export function WhyChooseUs() {
       title: t("why.innovation"),
       subtitle: t("why.innovationSub"),
       description: t("why.innovationDesc"),
-      stat: "100+",
+      stat: "40+",
       statLabel: t("why.innovationStat"),
       gradient: "from-[#6366f1] to-[#8b5cf6]",
       delay: 0,
