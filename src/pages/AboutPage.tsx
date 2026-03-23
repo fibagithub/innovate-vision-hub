@@ -169,7 +169,7 @@ const AboutPage = () => {
                   {t("aboutPage.storySuffix")}
                 </h2>
 
-                <div className="space-y-4 text-muted-foreground">
+                <div className="space-y-4 text-muted-foreground text-justify">
                   <p>{t("aboutPage.storyDesc1")}</p>
                   <p>{t("aboutPage.storyDesc2")}</p>
                 </div>
