@@ -23,44 +23,69 @@ const AboutPage = () => {
   const values = [
     {
       icon: Target,
-      title: t('about.value.mission'),
-      description: t('about.value.missionDesc'),
+      title: t("about.value.mission"),
+      description: t("about.value.missionDesc"),
       gradient: "from-primary to-[#2563eb]",
     },
     {
       icon: Eye,
-      title: t('about.value.vision'),
-      description: t('about.value.visionDesc'),
+      title: t("about.value.vision"),
+      description: t("about.value.visionDesc"),
       gradient: "from-[#7c3aed] to-[#a855f7]",
     },
     {
       icon: Lightbulb,
-      title: t('about.value.values'),
-      description: t('about.value.valuesDesc'),
+      title: t("about.value.values"),
+      description: t("about.value.valuesDesc"),
       gradient: "from-[#059669] to-[#34d399]",
     },
     {
       icon: Award,
-      title: t('aboutPage.quality'),
-      description: t('aboutPage.qualityDesc'),
+      title: t("aboutPage.quality"),
+      description: t("aboutPage.qualityDesc"),
       gradient: "from-[#f59e0b] to-[#fbbf24]",
     },
   ];
 
   const milestones = [
-    { year: "2021", title: t('aboutPage.milestone.2021'), description: t('aboutPage.milestone.2021Desc'), icon: Sparkles },
-    { year: "2022", title: t('aboutPage.milestone.2022'), description: t('aboutPage.milestone.2022Desc'), icon: Shield },
-    { year: "2023", title: t('aboutPage.milestone.2023'), description: t('aboutPage.milestone.2023Desc'), icon: Zap },
-    { year: "2024", title: t('aboutPage.milestone.2024'), description: t('aboutPage.milestone.2024Desc'), icon: Globe },
-    { year: "2025", title: t('aboutPage.milestone.2025'), description: t('aboutPage.milestone.2025Desc'), icon: TrendingUp },
-    { year: "2026", title: t('aboutPage.milestone.2026'), description: t('aboutPage.milestone.2026Desc'), icon: Award },
+    {
+      year: "2021",
+      title: t("aboutPage.milestone.2021"),
+      description: t("aboutPage.milestone.2021Desc"),
+      icon: Sparkles,
+    },
+    {
+      year: "2022",
+      title: t("aboutPage.milestone.2022"),
+      description: t("aboutPage.milestone.2022Desc"),
+      icon: Shield,
+    },
+    { year: "2023", title: t("aboutPage.milestone.2023"), description: t("aboutPage.milestone.2023Desc"), icon: Zap },
+    { year: "2024", title: t("aboutPage.milestone.2024"), description: t("aboutPage.milestone.2024Desc"), icon: Globe },
+    {
+      year: "2025",
+      title: t("aboutPage.milestone.2025"),
+      description: t("aboutPage.milestone.2025Desc"),
+      icon: TrendingUp,
+    },
+    { year: "2026", title: t("aboutPage.milestone.2026"), description: t("aboutPage.milestone.2026Desc"), icon: Award },
   ];
 
   const stats = [
-    { icon: Clock, value: "15+", label: t('aboutPage.stat.experience'), description: t('aboutPage.stat.experienceDesc') },
-    { icon: Users, value: "13+", label: t('aboutPage.stat.team'), description: t('aboutPage.stat.teamDesc') },
-    { icon: Globe, value: "50+", label: t('aboutPage.stat.clients'), description: t('aboutPage.stat.clientsDesc') },
-    { icon: TrendingUp, value: "99.9%", label: t('aboutPage.stat.satisfaction'), description: t('aboutPage.stat.satisfactionDesc') },
+    {
+      icon: Clock,
+      value: "15+",
+      label: t("aboutPage.stat.experience"),
+      description: t("aboutPage.stat.experienceDesc"),
+    },
+    { icon: Users, value: "13+", label: t("aboutPage.stat.team"), description: t("aboutPage.stat.teamDesc") },
+    { icon: Globe, value: "33+", label: t("aboutPage.stat.clients"), description: t("aboutPage.stat.clientsDesc") },
+    {
+      icon: TrendingUp,
+      value: "99.9%",
+      label: t("aboutPage.stat.satisfaction"),
+      description: t("aboutPage.stat.satisfactionDesc"),
+    },
   ];
 
   return (
@@ -78,23 +103,23 @@ const AboutPage = () => {
           <div className="max-w-5xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/5 border border-primary/10 mb-10 animate-fade-in">
               <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-primary text-sm font-semibold tracking-wide">{t('aboutPage.badge')}</span>
+              <span className="text-primary text-sm font-semibold tracking-wide">{t("aboutPage.badge")}</span>
             </div>
 
             <h1
               className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight animate-fade-in"
               style={{ animationDelay: "0.1s" }}
             >
-              {t('aboutPage.heroTitle1')} <span className="gradient-text">{t('aboutPage.heroHighlight')}</span>
+              {t("aboutPage.heroTitle1")} <span className="gradient-text">{t("aboutPage.heroHighlight")}</span>
               <br />
-              {t('aboutPage.heroTitle2')}
+              {t("aboutPage.heroTitle2")}
             </h1>
 
             <p
-              className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in"
+              className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in sm:text-justify"
               style={{ animationDelay: "0.2s" }}
             >
-              {t('aboutPage.heroDesc')}
+              {t("aboutPage.heroDesc")}
             </p>
           </div>
         </div>
@@ -136,16 +161,17 @@ const AboutPage = () => {
               <div className="relative">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 mb-6">
                   <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                  <span className="text-primary font-medium text-sm">{t('aboutPage.storyBadge')}</span>
+                  <span className="text-primary font-medium text-sm">{t("aboutPage.storyBadge")}</span>
                 </div>
 
                 <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-6">
-                  {t('aboutPage.storyTitle')} <span className="gradient-text">{t('aboutPage.storyHighlight')}</span> {t('aboutPage.storySuffix')}
+                  {t("aboutPage.storyTitle")} <span className="gradient-text">{t("aboutPage.storyHighlight")}</span>{" "}
+                  {t("aboutPage.storySuffix")}
                 </h2>
 
                 <div className="space-y-4 text-muted-foreground">
-                  <p>{t('aboutPage.storyDesc1')}</p>
-                  <p>{t('aboutPage.storyDesc2')}</p>
+                  <p>{t("aboutPage.storyDesc1")}</p>
+                  <p>{t("aboutPage.storyDesc2")}</p>
                 </div>
               </div>
             </div>
@@ -163,7 +189,7 @@ const AboutPage = () => {
                   <span className="text-6xl font-display font-bold text-white">F</span>
                 </div>
                 <h3 className="font-display text-4xl font-bold text-white mb-4">FIBA LLC</h3>
-                <p className="text-white/80 text-lg mb-6">{t('aboutPage.since')}</p>
+                <p className="text-white/80 text-lg mb-6">{t("aboutPage.since")}</p>
                 <div className="flex items-center gap-3">
                   <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm">
                     <span className="text-white/90 text-sm font-medium">fiba.mn</span>
@@ -186,11 +212,11 @@ const AboutPage = () => {
           <div className="max-w-4xl mx-auto text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-8">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-primary font-medium text-sm tracking-wide">{t('aboutPage.valuesBadge')}</span>
+              <span className="text-primary font-medium text-sm tracking-wide">{t("aboutPage.valuesBadge")}</span>
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              {t('aboutPage.valuesTitle')} <span className="gradient-text">{t('aboutPage.valuesHighlight')}</span>
+              {t("aboutPage.valuesTitle")} <span className="gradient-text">{t("aboutPage.valuesHighlight")}</span>
             </h2>
           </div>
 
@@ -226,11 +252,11 @@ const AboutPage = () => {
           <div className="max-w-4xl mx-auto text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-8">
               <Clock className="w-4 h-4 text-primary" />
-              <span className="text-primary font-medium text-sm tracking-wide">{t('aboutPage.timelineBadge')}</span>
+              <span className="text-primary font-medium text-sm tracking-wide">{t("aboutPage.timelineBadge")}</span>
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              {t('aboutPage.timelineTitle')} <span className="gradient-text">{t('aboutPage.timelineHighlight')}</span>
+              {t("aboutPage.timelineTitle")} <span className="gradient-text">{t("aboutPage.timelineHighlight")}</span>
             </h2>
           </div>
 
@@ -272,21 +298,19 @@ const AboutPage = () => {
 
             <div className="relative max-w-3xl mx-auto text-center">
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-                {t('aboutPage.ctaTitle')}
+                {t("aboutPage.ctaTitle")}
               </h2>
-              <p className="text-white/80 text-lg mb-10 max-w-2xl mx-auto">
-                {t('aboutPage.ctaDesc')}
-              </p>
+              <p className="text-white/80 text-lg mb-10 max-w-2xl mx-auto">{t("aboutPage.ctaDesc")}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/contact">
                   <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-xl">
-                    {t('aboutPage.ctaContact')}
+                    {t("aboutPage.ctaContact")}
                     <ArrowRight className="ml-2" />
                   </Button>
                 </Link>
                 <Link to="/services">
                   <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-xl">
-                    {t('aboutPage.ctaProducts')}
+                    {t("aboutPage.ctaProducts")}
                     <ArrowRight className="ml-2" />
                   </Button>
                 </Link>
