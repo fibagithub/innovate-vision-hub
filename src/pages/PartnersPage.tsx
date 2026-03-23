@@ -65,7 +65,7 @@ const PartnersPage = () => {
   ];
 
   const achievements = [
-    { value: "50+", label: t("achievement.totalClients"), icon: Users },
+    { value: "33+", label: t("achievement.totalClients"), icon: Users },
     { value: "15+", label: t("achievement.experience"), icon: Award },
     { value: "12", label: t("achievement.provinces"), icon: MapPin },
     { value: "99.9%", label: t("achievement.uptime"), icon: Shield },
@@ -138,10 +138,9 @@ const PartnersPage = () => {
               className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight animate-fade-in"
               style={{ animationDelay: "0.1s" }}
             >
-              {t('partnersPage.heroTitle1')}{' '}
-              <span className="gradient-text">{t('partnersPage.heroHighlight')}</span>
+              {t("partnersPage.heroTitle1")} <span className="gradient-text">{t("partnersPage.heroHighlight")}</span>
               <br />
-              {t('partnersPage.heroTitle2')}
+              {t("partnersPage.heroTitle2")}
             </h1>
 
             <p
@@ -273,8 +272,8 @@ const PartnersPage = () => {
               </div>
 
               <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              {t('partnersPage.acrossProvinces')}{' '}
-              <span className="gradient-text">{t('partnersPage.provincesHighlight')}</span>
+                {t("partnersPage.acrossProvinces")}{" "}
+                <span className="gradient-text">{t("partnersPage.provincesHighlight")}</span>
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("partnersPage.regionalDesc")}</p>
             </div>
@@ -314,8 +313,8 @@ const PartnersPage = () => {
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              {t('partnersPage.financialAll')}{' '}
-              <span className="gradient-text">{t('partnersPage.financialHighlight')}</span>
+              {t("partnersPage.financialAll")}{" "}
+              <span className="gradient-text">{t("partnersPage.financialHighlight")}</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("partnersPage.clientTypesDesc")}</p>
           </div>
@@ -357,8 +356,8 @@ const PartnersPage = () => {
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              {t('partnersPage.clientsSay')}{' '}
-              <span className="gradient-text">{t('partnersPage.clientsSayHighlight')}</span>
+              {t("partnersPage.clientsSay")}{" "}
+              <span className="gradient-text">{t("partnersPage.clientsSayHighlight")}</span>
             </h2>
           </div>
 
