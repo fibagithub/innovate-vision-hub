@@ -176,7 +176,7 @@ const PartnersPage = () => {
               {[...partnersWithLogos, ...partnersWithLogos].map((partner, index) => (
                 <div
                   key={`${partner.id}-${index}`}
-                  className="flex-shrink-0 mx-8 w-32 h-20 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300"
+                  className="flex-shrink-0 mx-10 w-28 h-16 flex items-center justify-center transition-all duration-300"
                 >
                   <img
                     src={partner.logo_url!}
@@ -188,41 +188,6 @@ const PartnersPage = () => {
             </div>
           </div>
         </div>
-      )}
-
-      {/* Database Partners Display */}
-      {dbPartners && dbPartners.length > 0 && (
-        <section className="py-12 bg-background relative">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-8">
-              <h2 className="font-display text-2xl font-bold text-foreground">{t("partnersPage.ourPartners")}</h2>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {dbPartners.map((partner) => (
-                <a
-                  key={partner.id}
-                  href={partner.website_url || "#"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 flex flex-col items-center justify-center gap-3"
-                >
-                  {partner.logo_url ? (
-                    <img
-                      src={partner.logo_url}
-                      alt={partner.name}
-                      className="h-12 object-contain grayscale group-hover:grayscale-0 transition-all"
-                    />
-                  ) : (
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <Building2 className="w-6 h-6 text-primary" />
-                    </div>
-                  )}
-                  <span className="text-sm font-medium text-foreground text-center">{partner.name}</span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
       )}
 
       {isLoading && (
