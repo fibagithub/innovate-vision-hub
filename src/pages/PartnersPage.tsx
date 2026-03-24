@@ -243,49 +243,6 @@ const PartnersPage = () => {
         </section>
       )}
 
-      {/* Client Types */}
-      <section className="py-24 bg-background relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
-
-        <div className="container mx-auto px-4 relative">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-8">
-              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-primary font-medium text-sm tracking-wide">{t("partnersPage.clientTypes")}</span>
-            </div>
-
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              {t("partnersPage.financialAll")}{" "}
-              <span className="gradient-text">{t("partnersPage.financialHighlight")}</span>
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("partnersPage.clientTypesDesc")}</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {clientTypes.map((client, index) => (
-              <div
-                key={index}
-                className="group relative p-8 rounded-[2rem] bg-card border border-border/50 hover:border-primary/20 hover:shadow-xl transition-all duration-500 overflow-hidden"
-              >
-                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${client.gradient}`} />
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                <div className="relative">
-                  <div
-                    className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${client.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    <client.icon className="w-7 h-7 text-white" />
-                  </div>
-                  <div className="font-display text-4xl font-bold text-foreground mb-2">{client.count}</div>
-                  <h3 className="font-display text-xl font-bold text-foreground mb-2">{client.title}</h3>
-                  <p className="text-muted-foreground text-sm">{client.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Testimonials */}
       <section className="py-24 bg-background relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
