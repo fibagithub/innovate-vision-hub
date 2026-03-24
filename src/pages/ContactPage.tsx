@@ -253,7 +253,7 @@ const ContactPage = () => {
 
               <div className="h-64 md:h-86 lg:h-[400px] rounded-2xl overflow-hidden border border-border">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2674.5!2d106.9!3d47.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDfCsDU0JzAwLjAiTiAxMDbCsDU0JzAwLjAiRQ!5e0!3m2!1sen!2smn!4v1620000000000!5m2!1sen!2smn"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3173.162720188043!2d106.9036436!3d47.89632619999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5d969300349fb393%3A0x4ff6fa5aa91c2847!2sFiba%20LLC!5e1!3m2!1sen!2smn!4v1774322622221!5m2!1sen!2smn"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
