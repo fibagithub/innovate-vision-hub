@@ -17,7 +17,7 @@ const ContactPage = () => {
     {
       icon: Phone,
       title: t("contact.phoneLabel"),
-      details: ["+976 7509-2211"],
+      details: ["+976-7509-2211 (1 → 2)"],
       gradient: "from-[#7c3aed] to-[#a855f7]",
     },
     {

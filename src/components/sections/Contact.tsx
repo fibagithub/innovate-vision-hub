@@ -134,7 +134,7 @@ export function Contact() {
                 </div>
                 <h3 className="font-display font-semibold text-foreground mb-1">{t("contact.phoneLabel")}</h3>
                 <a href="tel:+97675092211" className="text-muted-foreground hover:text-primary transition-colors">
-                  +976-7509-2211
+                  +976-7509-2211 (1 → 2)
                 </a>
               </div>
               <div className="p-6 rounded-2xl bg-card border border-border">
