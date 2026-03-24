@@ -231,7 +231,7 @@ const ContactPage = () => {
                     >
                       <div className="flex items-center gap-3">
                         <Phone className="w-5 h-5 text-primary" />
-                        <span className="font-medium text-foreground">+976 7509-2211</span>
+                        <span className="font-medium text-foreground">+976-7509-2211 (1 → 2)</span>
                       </div>
                       <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                     </a>
