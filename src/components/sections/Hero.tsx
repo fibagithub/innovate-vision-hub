@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import heroImage from "@/assets/hero-image.jpg";
 
 export function Hero() {
   const { t } = useLanguage();
@@ -74,10 +75,27 @@ export function Hero() {
             </Link>
           </div>
 
+          {/* Hero Image */}
+          <div
+            className="mt-16 animate-fade-in"
+            style={{ animationDelay: "0.4s" }}
+          >
+            <div className="relative max-w-5xl mx-auto">
+              <div className="absolute -inset-4 bg-primary/5 rounded-3xl blur-2xl" />
+              <img
+                src={heroImage}
+                alt="FIBA Technology Dashboard"
+                width={1920}
+                height={1080}
+                className="relative rounded-2xl shadow-xl border border-border/30"
+              />
+            </div>
+          </div>
+
           {/* Stats */}
           <div
             className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-12 mt-24 animate-fade-in"
-            style={{ animationDelay: "0.4s" }}
+            style={{ animationDelay: "0.5s" }}
           >
             {[
               { value: "15+", label: t('hero.stat.experience') },
