@@ -129,8 +129,8 @@ export function Contact() {
                   rows={5}
                 />
               </div>
-              <Button type="submit" variant="gradient" size="lg" className="w-full">
-                {t("contact.send")}
+              <Button type="submit" variant="gradient" size="lg" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? (t("contact.sending") || "Илгээж байна...") : t("contact.send")}
                 <Send className="ml-2" size={18} />
               </Button>
             </form>
