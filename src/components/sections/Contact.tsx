@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { supabase } from "@/integrations/supabase/client";
 
 export function Contact() {
   const { toast } = useToast();
@@ -18,13 +19,31 @@ export function Contact() {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: t("contact.successTitle"),
-      description: t("contact.successDesc"),
-    });
-    setFormData({ name: "", email: "", company: "", phone: "", subject: "", message: "" });
+    setIsSubmitting(true);
+    try {
+      const { error } = await supabase.functions.invoke("send-contact-email", {
+        body: formData,
+      });
+      if (error) throw error;
+      toast({
+        title: t("contact.successTitle"),
+        description: t("contact.successDesc"),
+      });
+      setFormData({ name: "", email: "", company: "", phone: "", subject: "", message: "" });
+    } catch (err) {
+      console.error("Email send error:", err);
+      toast({
+        title: t("contact.errorTitle") || "Алдаа",
+        description: t("contact.errorDesc") || "Мессеж илгээхэд алдаа гарлаа. Дахин оролдоно уу.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -110,8 +129,8 @@ export function Contact() {
                   rows={5}
                 />
               </div>
-              <Button type="submit" variant="gradient" size="lg" className="w-full">
-                {t("contact.send")}
+              <Button type="submit" variant="gradient" size="lg" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? (t("contact.sending") || "Илгээж байна...") : t("contact.send")}
                 <Send className="ml-2" size={18} />
               </Button>
             </form>
