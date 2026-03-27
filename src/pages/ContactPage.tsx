@@ -217,8 +217,8 @@ const ContactPage = () => {
                         className="rounded-xl"
                       />
                     </div>
-                    <Button type="submit" variant="gradient" size="lg" className="w-full">
-                      {t("contact.sendMessage")}
+                    <Button type="submit" variant="gradient" size="lg" className="w-full" disabled={isSubmitting}>
+                      {isSubmitting ? (t("contact.sending") || "Илгээж байна...") : t("contact.sendMessage")}
                       <Send className="ml-2" size={18} />
                     </Button>
                   </form>
