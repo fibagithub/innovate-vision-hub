@@ -36,7 +36,7 @@ export function Hero() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/5 border border-primary/10 mb-10 animate-fade-in">
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-primary text-sm font-semibold tracking-wide">{t('hero.badge')}</span>
+            <span className="text-primary text-sm font-semibold tracking-wide">{t("hero.badge")}</span>
           </div>
 
           {/* Headline */}
@@ -44,9 +44,9 @@ export function Hero() {
             className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight animate-fade-in"
             style={{ animationDelay: "0.1s" }}
           >
-            {t('hero.title1')}
+            {t("hero.title1")}
             <br />
-            {t('hero.title2')} <span className="gradient-text">{t('hero.titleHighlight')}</span> {t('hero.titleSuffix')}
+            {t("hero.title2")} <span className="gradient-text">{t("hero.titleHighlight")}</span> {t("hero.titleSuffix")}
           </h1>
 
           {/* Subheadline */}
@@ -54,7 +54,7 @@ export function Hero() {
             className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in"
             style={{ animationDelay: "0.2s" }}
           >
-            {t('hero.description')}
+            {t("hero.description")}
           </p>
 
           {/* CTAs */}
@@ -64,32 +64,15 @@ export function Hero() {
           >
             <Link to="/services">
               <Button size="xl" className="group shadow-soft hover:shadow-glow transition-all duration-300">
-                {t('hero.viewProducts')}
+                {t("hero.viewProducts")}
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Link to="/about">
               <Button variant="outline" size="xl" className="group">
-                {t('hero.aboutUs')}
+                {t("hero.aboutUs")}
               </Button>
             </Link>
-          </div>
-
-          {/* Hero Image */}
-          <div
-            className="mt-16 animate-fade-in"
-            style={{ animationDelay: "0.4s" }}
-          >
-            <div className="relative max-w-5xl mx-auto">
-              <div className="absolute -inset-4 bg-primary/5 rounded-3xl blur-2xl" />
-              <img
-                src={heroImage}
-                alt="FIBA Technology Dashboard"
-                width={1920}
-                height={1080}
-                className="relative rounded-2xl shadow-xl border border-border/30"
-              />
-            </div>
           </div>
 
           {/* Stats */}
@@ -98,9 +81,9 @@ export function Hero() {
             style={{ animationDelay: "0.5s" }}
           >
             {[
-              { value: "15+", label: t('hero.stat.experience') },
-              { value: "13+", label: t('hero.stat.team') },
-              { value: "99.9%", label: t('hero.stat.satisfaction') },
+              { value: "15+", label: t("hero.stat.experience") },
+              { value: "13+", label: t("hero.stat.team") },
+              { value: "99.9%", label: t("hero.stat.satisfaction") },
             ].map((stat, index) => (
               <div
                 key={index}
