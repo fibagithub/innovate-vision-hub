@@ -35,10 +35,28 @@ const ContactPage = () => {
     },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({ title: t("contact.successTitle"), description: t("contact.successDesc") });
-    setFormData({ name: "", email: "", company: "", phone: "", subject: "", message: "" });
+    setIsSubmitting(true);
+    try {
+      const { error } = await supabase.functions.invoke("send-contact-email", {
+        body: formData,
+      });
+      if (error) throw error;
+      toast({ title: t("contact.successTitle"), description: t("contact.successDesc") });
+      setFormData({ name: "", email: "", company: "", phone: "", subject: "", message: "" });
+    } catch (err) {
+      console.error("Email send error:", err);
+      toast({
+        title: t("contact.errorTitle") || "Алдаа",
+        description: t("contact.errorDesc") || "Мессеж илгээхэд алдаа гарлаа. Дахин оролдоно уу.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
