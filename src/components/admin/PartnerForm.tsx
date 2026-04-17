@@ -12,21 +12,23 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import { Loader2, Upload, X } from 'lucide-react';
+import { AIMAGS } from '@/lib/aimags';
 
 const REGIONS = [
-  { value: 'ulaanbaatar', label: 'Улаанбаатар хот', label_en: 'Ulaanbaatar City' },
-  { value: 'west', label: 'Баруун бүс', label_en: 'Western Region' },
-  { value: 'north', label: 'Хойд бүс', label_en: 'Northern Region' },
-  { value: 'khangai', label: 'Хангайн бүс', label_en: 'Khangai Region' },
-  { value: 'central', label: 'Төвийн бүс', label_en: 'Central Region' },
-  { value: 'gobi', label: 'Говийн бүс', label_en: 'Gobi Region' },
-  { value: 'east', label: 'Зүүн бүс', label_en: 'Eastern Region' },
+  { value: 'ulaanbaatar', label: 'Улаанбаатар хот' },
+  { value: 'west', label: 'Баруун бүс' },
+  { value: 'north', label: 'Хойд бүс' },
+  { value: 'khangai', label: 'Хангайн бүс' },
+  { value: 'central', label: 'Төвийн бүс' },
+  { value: 'gobi', label: 'Говийн бүс' },
+  { value: 'east', label: 'Зүүн бүс' },
 ];
 
 const partnerSchema = z.object({
   name: z.string().min(1, 'Нэр заавал оруулна'),
   partner_type: z.enum(['partner', 'client']),
-  region: z.string().min(1, 'Бүс сонгоно уу'),
+  aimag: z.string().min(1, 'Аймаг сонгоно уу'),
+  region: z.string().optional(),
   count: z.number().min(0, 'Тоо 0-ээс их байх ёстой'),
   description: z.string().optional(),
   description_mn: z.string().optional(),
@@ -54,6 +56,7 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
     defaultValues: {
       name: '',
       partner_type: 'partner',
+      aimag: '',
       region: '',
       count: 0,
       description: '',
@@ -69,6 +72,7 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
       reset({
         name: editData.name || '',
         partner_type: (editData.partner_type as 'partner' | 'client') || 'partner',
+        aimag: editData.aimag || '',
         region: editData.region || '',
         count: editData.count || 0,
         description: editData.description || '',
@@ -82,6 +86,7 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
       reset({
         name: '',
         partner_type: 'partner',
+        aimag: '',
         region: '',
         count: 0,
         description: '',
@@ -132,10 +137,11 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
   const onSubmit = async (data: PartnerFormData) => {
     setIsLoading(true);
     try {
-      const payload = {
+      const payload: any = {
         name: data.name,
         partner_type: data.partner_type,
-        region: data.region,
+        aimag: data.aimag,
+        region: data.region || null,
         count: data.count,
         description: data.description || null,
         description_mn: data.description_mn || null,
@@ -230,9 +236,27 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
             </div>
           </div>
 
-          {/* Region Selection */}
+          {/* Aimag Selection */}
           <div className="space-y-2">
-            <Label>Бүс *</Label>
+            <Label>Аймаг *</Label>
+            <Select value={watch('aimag') || ''} onValueChange={(value) => setValue('aimag', value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Аймаг сонгох" />
+              </SelectTrigger>
+              <SelectContent className="max-h-72">
+                {AIMAGS.map((a) => (
+                  <SelectItem key={a.value} value={a.value}>
+                    {a.label_mn}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {errors.aimag && <p className="text-sm text-destructive">{errors.aimag.message}</p>}
+          </div>
+
+          {/* Region Selection (legacy / optional grouping) */}
+          <div className="space-y-2">
+            <Label>Бүс (нэмэлт)</Label>
             <Select value={watch('region') || ''} onValueChange={(value) => setValue('region', value)}>
               <SelectTrigger>
                 <SelectValue placeholder="Бүс сонгох" />
@@ -245,7 +269,6 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
                 ))}
               </SelectContent>
             </Select>
-            {errors.region && <p className="text-sm text-destructive">{errors.region.message}</p>}
           </div>
 
           {/* Count */}
