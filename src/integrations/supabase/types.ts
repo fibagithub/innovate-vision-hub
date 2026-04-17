@@ -64,6 +64,7 @@ export type Database = {
       }
       partners: {
         Row: {
+          aimag: string | null
           count: number | null
           country: string | null
           created_at: string
@@ -81,6 +82,7 @@ export type Database = {
           website_url: string | null
         }
         Insert: {
+          aimag?: string | null
           count?: number | null
           country?: string | null
           created_at?: string
@@ -98,6 +100,7 @@ export type Database = {
           website_url?: string | null
         }
         Update: {
+          aimag?: string | null
           count?: number | null
           country?: string | null
           created_at?: string
