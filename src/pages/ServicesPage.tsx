@@ -54,7 +54,6 @@ const gradientPresets = [
 // External links for specific products
 const externalLinks: Record<string, string> = {
   "MeAPP": "https://me.fiba.mn/",
-  "SainScore": "https://sainscore.mn/",
 };
 
 // Get external link if exists
