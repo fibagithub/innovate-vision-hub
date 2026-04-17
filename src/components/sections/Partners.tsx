@@ -1,32 +1,14 @@
-import { Link } from "react-router-dom";
-import { ArrowRight, Globe2, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Globe2, Loader2 } from "lucide-react";
 import { usePartnerStats } from "@/hooks/useContentData";
 import { useLanguage } from "@/contexts/LanguageContext";
-
-const REGION_POSITIONS: Record<string, { x: string; y: string }> = {
-  ulaanbaatar: { x: "52%", y: "45%" },
-  khangai: { x: "35%", y: "65%" },
-  central: { x: "50%", y: "32%" },
-  west: { x: "20%", y: "40%" },
-  east: { x: "80%", y: "38%" },
-  gobi: { x: "60%", y: "65%" },
-  north: { x: "45%", y: "20%" },
-};
+import { MongoliaMap } from "./MongoliaMap";
 
 export function Partners() {
   const { data: partnerData, isLoading } = usePartnerStats();
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
-  const regions =
-    partnerData?.partners
-      ?.filter((p) => p.region)
-      .map((p) => ({
-        name: language === "mn" ? t(`region.${p.region}`) : t(`region.${p.region}`),
-        count: p.count || 0,
-        ...REGION_POSITIONS[p.region || "ulaanbaatar"],
-      })) || [];
-
+  const regionStats = partnerData?.regionStats || {};
+  const hasRegionData = Object.keys(regionStats).length > 0;
   const totalCount = partnerData?.totalCount || 0;
 
   // Get partners with logos for marquee
