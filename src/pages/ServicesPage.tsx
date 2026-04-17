@@ -419,6 +419,17 @@ const ServicesPage = () => {
                       </>
                     );
 
+                    if (p.title === "SainScore") {
+                      return (
+                        <div
+                          key={p.id}
+                          className="group p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all"
+                        >
+                          {CardContent}
+                        </div>
+                      );
+                    }
+
                     if (externalLink) {
                       return (
                         <a
@@ -587,6 +598,10 @@ const ServicesPage = () => {
                           </div>
                         </div>
                       );
+
+                      if (product.title === "SainScore") {
+                        return <div className="block h-full">{cardContent}</div>;
+                      }
 
                       if (externalLink) {
                         return (
