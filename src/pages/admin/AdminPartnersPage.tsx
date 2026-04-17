@@ -23,6 +23,7 @@ import {
 import { PartnerForm } from '@/components/admin/PartnerForm';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { AIMAG_BY_VALUE } from '@/lib/aimags';
 
 interface Partner {
   id: string;
@@ -32,6 +33,7 @@ interface Partner {
   partner_type: string | null;
   is_active: boolean | null;
   display_order: number | null;
+  aimag?: string | null;
 }
 
 const AdminPartnersPage = () => {
@@ -125,6 +127,7 @@ const AdminPartnersPage = () => {
               <TableRow>
                 <TableHead>Нэр</TableHead>
                 <TableHead>Төрөл</TableHead>
+                <TableHead>Аймаг</TableHead>
                 <TableHead>Вэбсайт</TableHead>
                 <TableHead>Төлөв</TableHead>
                 <TableHead>Дараалал</TableHead>
@@ -136,6 +139,7 @@ const AdminPartnersPage = () => {
                 <TableRow key={partner.id}>
                   <TableCell className="font-medium">{partner.name}</TableCell>
                   <TableCell>{getPartnerTypeLabel(partner.partner_type)}</TableCell>
+                  <TableCell>{partner.aimag ? (AIMAG_BY_VALUE[partner.aimag]?.label_mn || partner.aimag) : '-'}</TableCell>
                   <TableCell>
                     {partner.website_url ? (
                       <a 

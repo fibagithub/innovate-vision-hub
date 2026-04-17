@@ -7,8 +7,8 @@ export function Partners() {
   const { data: partnerData, isLoading } = usePartnerStats();
   const { t } = useLanguage();
 
-  const regionStats = partnerData?.regionStats || {};
-  const hasRegionData = Object.keys(regionStats).length > 0;
+  const aimagStats = partnerData?.aimagStats || {};
+  const hasAimagData = Object.keys(aimagStats).length > 0;
   const totalCount = partnerData?.totalCount || 0;
 
   // Get partners with logos for marquee
@@ -75,10 +75,10 @@ export function Partners() {
         )}
 
         {/* Mongolia Map Section */}
-        {hasRegionData && (
+        {hasAimagData && (
           <div className="relative mb-20">
             <div className="bg-card rounded-[2rem] border border-border/50 p-6 lg:p-10 overflow-hidden">
-              <MongoliaMap regionStats={regionStats} totalCount={totalCount} />
+              <MongoliaMap aimagStats={aimagStats} />
             </div>
           </div>
         )}

@@ -104,24 +104,30 @@ export const usePartners = () => {
   });
 };
 
-// Hook to get aggregated partner statistics by region
+// Hook to get aggregated partner statistics by aimag (and legacy region)
 export const usePartnerStats = () => {
   return useQuery({
     queryKey: ['partner_stats'],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase
         .from('partners')
-        .select('id, region, count, name, description, description_mn, logo_url')
+        .select('id, region, aimag, count, name, description, description_mn, logo_url')
         .eq('is_active', true)
-        .order('display_order');
+        .order('display_order') as any);
       
       if (error) throw error;
       
-      // Aggregate counts by region
+      // Aggregate counts by aimag (preferred) and region (legacy)
+      const aimagStats: Record<string, { count: number }> = {};
       const regionStats: Record<string, { count: number; name: string; description?: string; description_mn?: string }> = {};
       let totalCount = 0;
       
       (data || []).forEach((partner: any) => {
+        const c = partner.count || 0;
+        if (partner.aimag) {
+          if (!aimagStats[partner.aimag]) aimagStats[partner.aimag] = { count: 0 };
+          aimagStats[partner.aimag].count += c;
+        }
         if (partner.region) {
           if (!regionStats[partner.region]) {
             regionStats[partner.region] = { 
@@ -131,15 +137,16 @@ export const usePartnerStats = () => {
               description_mn: partner.description_mn 
             };
           }
-          regionStats[partner.region].count += partner.count || 0;
-          totalCount += partner.count || 0;
+          regionStats[partner.region].count += c;
         }
+        totalCount += c;
       });
       
       return { 
+        aimagStats,
         regionStats, 
         totalCount, 
-        partners: data as { id: string; region: string; count: number; name: string; description: string; description_mn: string; logo_url: string | null }[] 
+        partners: data as any[]
       };
     },
   });
