@@ -77,11 +77,6 @@ export function Navbar() {
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-3">
             <LanguageSwitcher />
-            <Link to="/admin">
-              <Button variant="ghost" size="sm">
-                Admin
-              </Button>
-            </Link>
             <Button variant="gradient" size="sm" onClick={() => handleNavClick('/contact')}>
               {t('nav.getStarted')}
             </Button>
@@ -123,11 +118,6 @@ export function Navbar() {
             </button>
           ))}
           <div className="pt-4 flex flex-col gap-2">
-            <Link to="/admin" onClick={() => setIsOpen(false)}>
-              <Button variant="outline" className="w-full">
-                Admin Panel
-              </Button>
-            </Link>
             <Button variant="gradient" className="w-full" onClick={() => handleNavClick('/contact')}>
               {t('nav.getStarted')}
             </Button>
