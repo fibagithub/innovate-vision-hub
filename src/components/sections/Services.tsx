@@ -128,7 +128,12 @@ const ProductCard = ({
 
   const externalLink = getExternalLink(service.name);
 
+  const isNoLink = service.name === "SainScore";
+
   const CardWrapper = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+    if (isNoLink) {
+      return <div className={className}>{children}</div>;
+    }
     if (externalLink) {
       return (
         <a href={externalLink} target="_blank" rel="noopener noreferrer" className={className}>
