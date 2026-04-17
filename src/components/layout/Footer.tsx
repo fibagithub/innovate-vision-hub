@@ -18,7 +18,6 @@ export function Footer() {
       { label: "MeLP System", href: "/services/melp" },
       { label: "MeAPP Application", href: "https://me.fiba.mn/", external: true },
       { label: "SmartWare", href: "/services/smartware" },
-      { label: "SainScore", href: "/services/sainscore" },
     ],
     services: [
       { label: t('footer.consulting'), href: "/services/consulting" },
