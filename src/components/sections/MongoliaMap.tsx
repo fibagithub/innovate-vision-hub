@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import * as am5 from "@amcharts/amcharts5";
 import * as am5map from "@amcharts/amcharts5/map";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
@@ -57,7 +57,6 @@ export function MongoliaMap({ regionStats }: MongoliaMapProps) {
 
     const polygonSeries = chart.series.push(
       am5map.MapPolygonSeries.new(root, {
-        geoJSONpath: "https://cdn.amcharts.com/lib/5/geodata/json/mongoliaLow.json" as any,
         valueField: "value",
         calculateAggregates: true,
       })
@@ -102,6 +101,8 @@ export function MongoliaMap({ regionStats }: MongoliaMapProps) {
         startText: "Бага",
         endText: "Их",
         stepCount: 5,
+        startOpacity: 1,
+        endOpacity: 1,
         x: am5.percent(50),
         centerX: am5.percent(50),
         y: am5.percent(95),
