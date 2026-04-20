@@ -27,7 +27,6 @@ export function Footer() {
       { label: "MeLP System", href: findServiceHref("melp") },
       { label: "MeAPP Application", href: "https://me.fiba.mn/", external: true },
       { label: "SmartWare", href: findServiceHref("smartware") },
-      { label: "SainScore", href: findServiceHref("sainscore") },
     ],
     services: [
       { label: t('footer.consulting'), href: "/services/consulting" },
