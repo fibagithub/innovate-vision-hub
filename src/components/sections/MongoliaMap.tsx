@@ -77,16 +77,75 @@ export function MongoliaMap({ aimagStats }: MongoliaMapProps) {
     );
 
     pointSeries.bullets.push(() => {
+      const container = am5.Container.new(root, {
+        centerX: am5.percent(50),
+        centerY: am5.percent(50),
+        cursorOverStyle: "pointer",
+      });
+
+      // Soft outer glow
+      container.children.push(
+        am5.Circle.new(root, {
+          radius: 22,
+          fill: am5.color(0x193c69),
+          fillOpacity: 0.12,
+          centerX: am5.percent(50),
+          centerY: am5.percent(50),
+        })
+      );
+
+      // Pill background
+      const pill = am5.RoundedRectangle.new(root, {
+        cornerRadiusTL: 999,
+        cornerRadiusTR: 999,
+        cornerRadiusBL: 999,
+        cornerRadiusBR: 999,
+        fill: am5.color(0xffffff),
+        stroke: am5.color(0x193c69),
+        strokeWidth: 2,
+        shadowColor: am5.color(0x193c69),
+        shadowBlur: 12,
+        shadowOffsetX: 0,
+        shadowOffsetY: 2,
+        shadowOpacity: 0.25,
+      });
+      container.children.push(pill);
+
+      // Number label
       const label = am5.Label.new(root, {
         text: "{value}",
         fill: am5.color(0x193c69),
-        fontSize: 14,
-        fontWeight: "700",
+        fontSize: 13,
+        fontWeight: "800",
         centerX: am5.percent(50),
         centerY: am5.percent(50),
+        paddingTop: 4,
+        paddingBottom: 4,
+        paddingLeft: 12,
+        paddingRight: 12,
         populateText: true,
       });
-      return am5.Bullet.new(root, { sprite: label });
+      container.children.push(label);
+
+      // Make pill size match label
+      label.events.on("boundschanged", () => {
+        const b = label.localBounds();
+        const w = (b.right - b.left);
+        const h = (b.bottom - b.top);
+        pill.setAll({ width: w, height: h, centerX: w / 2, centerY: h / 2 });
+      });
+
+      // Subtle pulse animation
+      container.animate({
+        key: "scale",
+        from: 1,
+        to: 1.08,
+        duration: 1600,
+        easing: am5.ease.inOut(am5.ease.sine),
+        loops: Infinity,
+      });
+
+      return am5.Bullet.new(root, { sprite: container, dynamic: true });
     });
 
     fetch("https://cdn.amcharts.com/lib/5/geodata/json/mongoliaLow.json")
