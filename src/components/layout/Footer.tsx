@@ -2,9 +2,18 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Facebook } from "lucide-react";
 import fibaLogoWhite from "@/assets/fiba-logo-white.png";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useServices } from "@/hooks/useContentData";
 
 export function Footer() {
   const { t } = useLanguage();
+  const { data: services } = useServices();
+
+  const findServiceHref = (keyword: string): string => {
+    const match = services?.find((s) =>
+      s.name?.toLowerCase().includes(keyword.toLowerCase())
+    );
+    return match ? `/services/${match.id}` : "/services";
+  };
 
   const footerLinks = {
     company: [
@@ -14,10 +23,11 @@ export function Footer() {
       { label: t('footer.contact'), href: "/contact" },
     ],
     products: [
-      { label: "MeCore System", href: "/services/mecore" },
-      { label: "MeLP System", href: "/services/melp" },
+      { label: "MeCore System", href: findServiceHref("mecore") },
+      { label: "MeLP System", href: findServiceHref("melp") },
       { label: "MeAPP Application", href: "https://me.fiba.mn/", external: true },
-      { label: "SmartWare", href: "/services/smartware" },
+      { label: "SmartWare", href: findServiceHref("smartware") },
+      { label: "SainScore", href: findServiceHref("sainscore") },
     ],
     services: [
       { label: t('footer.consulting'), href: "/services/consulting" },
