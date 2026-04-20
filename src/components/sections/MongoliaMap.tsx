@@ -20,6 +20,11 @@ export function MongoliaMap({ aimagStats }: MongoliaMapProps) {
     rootRef.current = root;
     root.setThemes([am5themes_Animated.new(root)]);
 
+    // Hide amCharts logo
+    if (root._logo) {
+      root._logo.dispose();
+    }
+
     const chart = root.container.children.push(
       am5map.MapChart.new(root, {
         panX: "translateX",
@@ -72,27 +77,15 @@ export function MongoliaMap({ aimagStats }: MongoliaMapProps) {
     );
 
     pointSeries.bullets.push(() => {
-      const container = am5.Container.new(root, {});
-      container.children.push(
-        am5.Circle.new(root, {
-          radius: 14,
-          fill: am5.color(0x193c69),
-          stroke: am5.color(0xffffff),
-          strokeWidth: 2,
-          fillOpacity: 0.95,
-        })
-      );
-      container.children.push(
-        am5.Label.new(root, {
-          text: "{value}",
-          fill: am5.color(0xffffff),
-          fontSize: 12,
-          fontWeight: "700",
-          centerX: am5.percent(50),
-          centerY: am5.percent(50),
-        })
-      );
-      return am5.Bullet.new(root, { sprite: container });
+      const label = am5.Label.new(root, {
+        text: "{value}",
+        fill: am5.color(0x193c69),
+        fontSize: 14,
+        fontWeight: "700",
+        centerX: am5.percent(50),
+        centerY: am5.percent(50),
+      });
+      return am5.Bullet.new(root, { sprite: label });
     });
 
     fetch("https://cdn.amcharts.com/lib/5/geodata/json/mongoliaLow.json")
@@ -112,36 +105,6 @@ export function MongoliaMap({ aimagStats }: MongoliaMapProps) {
         pointSeries.data.setAll(pointData);
       })
       .catch((err) => console.error("Failed to load Mongolia geodata", err));
-
-    const heatLegend = chart.children.push(
-      am5.HeatLegend.new(root, {
-        orientation: "horizontal",
-        startColor: am5.color(0xdbeafe),
-        endColor: am5.color(0x193c69),
-        startText: "Бага",
-        endText: "Их",
-        stepCount: 5,
-        startOpacity: 1,
-        endOpacity: 1,
-        x: am5.percent(50),
-        centerX: am5.percent(50),
-        y: am5.percent(95),
-        width: am5.percent(60),
-      })
-    );
-
-    heatLegend.startLabel.setAll({ fontSize: 12, fill: am5.color(0x64748b) });
-    heatLegend.endLabel.setAll({ fontSize: 12, fill: am5.color(0x193c69) });
-
-    polygonSeries.events.on("datavalidated", () => {
-      heatLegend.set("startValue", polygonSeries.getPrivate("valueLow") || 0);
-      heatLegend.set("endValue", polygonSeries.getPrivate("valueHigh") || 0);
-    });
-
-    polygonSeries.mapPolygons.template.events.on("pointerover", (ev) => {
-      const value = (ev.target.dataItem as any)?.get("value");
-      if (typeof value === "number") heatLegend.showValue(value);
-    });
 
     return () => {
       root.dispose();
