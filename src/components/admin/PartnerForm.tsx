@@ -14,21 +14,10 @@ import { toast } from 'sonner';
 import { Loader2, Upload, X } from 'lucide-react';
 import { AIMAGS } from '@/lib/aimags';
 
-const REGIONS = [
-  { value: 'ulaanbaatar', label: 'Улаанбаатар хот' },
-  { value: 'west', label: 'Баруун бүс' },
-  { value: 'north', label: 'Хойд бүс' },
-  { value: 'khangai', label: 'Хангайн бүс' },
-  { value: 'central', label: 'Төвийн бүс' },
-  { value: 'gobi', label: 'Говийн бүс' },
-  { value: 'east', label: 'Зүүн бүс' },
-];
-
 const partnerSchema = z.object({
   name: z.string().min(1, 'Нэр заавал оруулна'),
   partner_type: z.enum(['partner', 'client']),
   aimag: z.string().min(1, 'Аймаг сонгоно уу'),
-  region: z.string().optional(),
   count: z.number().min(0, 'Тоо 0-ээс их байх ёстой'),
   description: z.string().optional(),
   description_mn: z.string().optional(),

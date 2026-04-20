@@ -84,6 +84,7 @@ export function MongoliaMap({ aimagStats }: MongoliaMapProps) {
         fontWeight: "700",
         centerX: am5.percent(50),
         centerY: am5.percent(50),
+        populateText: true,
       });
       return am5.Bullet.new(root, { sprite: label });
     });
