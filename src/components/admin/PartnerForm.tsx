@@ -46,7 +46,6 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
       name: '',
       partner_type: 'partner',
       aimag: '',
-      region: '',
       count: 0,
       description: '',
       description_mn: '',
@@ -62,7 +61,6 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
         name: editData.name || '',
         partner_type: (editData.partner_type as 'partner' | 'client') || 'partner',
         aimag: editData.aimag || '',
-        region: editData.region || '',
         count: editData.count || 0,
         description: editData.description || '',
         description_mn: editData.description_mn || '',
@@ -76,7 +74,6 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
         name: '',
         partner_type: 'partner',
         aimag: '',
-        region: '',
         count: 0,
         description: '',
         description_mn: '',
@@ -130,7 +127,6 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
         name: data.name,
         partner_type: data.partner_type,
         aimag: data.aimag,
-        region: data.region || null,
         count: data.count,
         description: data.description || null,
         description_mn: data.description_mn || null,
@@ -241,23 +237,6 @@ export const PartnerForm = ({ open, onOpenChange, editData, onSuccess }: Partner
               </SelectContent>
             </Select>
             {errors.aimag && <p className="text-sm text-destructive">{errors.aimag.message}</p>}
-          </div>
-
-          {/* Region Selection (legacy / optional grouping) */}
-          <div className="space-y-2">
-            <Label>Бүс (нэмэлт)</Label>
-            <Select value={watch('region') || ''} onValueChange={(value) => setValue('region', value)}>
-              <SelectTrigger>
-                <SelectValue placeholder="Бүс сонгох" />
-              </SelectTrigger>
-              <SelectContent>
-                {REGIONS.map((region) => (
-                  <SelectItem key={region.value} value={region.value}>
-                    {region.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
           </div>
 
           {/* Count */}
