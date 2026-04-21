@@ -189,8 +189,8 @@ const PartnersPage = () => {
         </div>
       )}
 
-      {/* Regional Coverage with Database Stats */}
-      {regions.length > 0 && (
+      {/* Regional Coverage with aimag map (synced with homepage) */}
+      {aimagEntries.length > 0 && (
         <section className="py-24 bg-muted/30 relative overflow-hidden">
           <div className="absolute inset-0">
             <div className="absolute top-20 right-[10%] w-[400px] h-[400px] bg-gradient-radial from-primary/5 to-transparent rounded-full blur-3xl" />
@@ -213,24 +213,29 @@ const PartnersPage = () => {
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("partnersPage.regionalDesc")}</p>
             </div>
 
-            {/* Regional Stats Grid with Large Numbers */}
+            {/* Mongolia map — same data source as homepage */}
+            <div className="relative mb-12">
+              <div className="bg-card rounded-[2rem] border border-border/50 p-6 lg:p-10 overflow-hidden">
+                <MongoliaMap aimagStats={aimagStats} />
+              </div>
+            </div>
+
+            {/* Aimag stats grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-              {regions
-                .filter((region) => region.count > 0)
-                .map((region, index) => (
-                  <div
-                    key={index}
-                    className="group relative p-8 rounded-3xl bg-card border border-border/50 hover:border-primary/20 hover:shadow-xl transition-all duration-300 text-center"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl" />
-                    <div className="relative">
-                      <div className="font-display text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-[#2563eb] bg-clip-text text-transparent mb-3">
-                        {region.count}
-                      </div>
-                      <div className="text-foreground font-medium">{region.name}</div>
+              {aimagEntries.map((aimag) => (
+                <div
+                  key={aimag.value}
+                  className="group relative p-8 rounded-3xl bg-card border border-border/50 hover:border-primary/20 hover:shadow-xl transition-all duration-300 text-center"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl" />
+                  <div className="relative">
+                    <div className="font-display text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary to-[#2563eb] bg-clip-text text-transparent mb-3">
+                      {aimag.count}
                     </div>
+                    <div className="text-foreground font-medium">{aimag.label}</div>
                   </div>
-                ))}
+                </div>
+              ))}
             </div>
           </div>
         </section>
