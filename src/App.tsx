@@ -20,8 +20,14 @@ import AdminServicesPage from "./pages/admin/AdminServicesPage";
 import AdminTeamPage from "./pages/admin/AdminTeamPage";
 import AdminPartnersPage from "./pages/admin/AdminPartnersPage";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { useContentRealtimeSync } from "@/hooks/useContentData";
 
 const queryClient = new QueryClient();
+
+const RealtimeSync = () => {
+  useContentRealtimeSync();
+  return null;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -31,6 +37,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
+          <RealtimeSync />
           <AuthProvider>
             <Routes>
               <Route path="/" element={<Index />} />
