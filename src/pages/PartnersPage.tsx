@@ -17,16 +17,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { usePartners, usePartnerStats } from "@/hooks/useContentData";
 import { useLanguage } from "@/contexts/LanguageContext";
-
-const REGION_POSITIONS: Record<string, { x: string; y: string }> = {
-  ulaanbaatar: { x: "52%", y: "45%" },
-  khangai: { x: "35%", y: "65%" },
-  central: { x: "50%", y: "32%" },
-  west: { x: "20%", y: "40%" },
-  east: { x: "80%", y: "38%" },
-  gobi: { x: "60%", y: "65%" },
-  north: { x: "45%", y: "20%" },
-};
+import { MongoliaMap } from "@/components/sections/MongoliaMap";
+import { AIMAG_BY_VALUE } from "@/lib/aimags";
 
 const PartnersPage = () => {
   const { data: dbPartners, isLoading } = usePartners();
@@ -101,15 +93,16 @@ const PartnersPage = () => {
     },
   ];
 
-  // Get regions from partner data
-  const regions =
-    partnerData?.partners
-      ?.filter((p) => p.region)
-      .map((p) => ({
-        name: t(`region.${p.region}`),
-        count: p.count || 0,
-        ...REGION_POSITIONS[p.region || "ulaanbaatar"],
-      })) || [];
+  // Aggregate by aimag (matches the homepage map)
+  const aimagStats = partnerData?.aimagStats || {};
+  const aimagEntries = Object.entries(aimagStats)
+    .map(([value, info]) => ({
+      value,
+      count: info.count,
+      label: language === "mn" ? AIMAG_BY_VALUE[value]?.label_mn : AIMAG_BY_VALUE[value]?.label_en,
+    }))
+    .filter((e) => e.count > 0 && e.label)
+    .sort((a, b) => b.count - a.count);
 
   const totalCount = partnerData?.totalCount || 0;
 
