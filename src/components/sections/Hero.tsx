@@ -57,36 +57,15 @@ export function Hero() {
             {t("hero.description")}
           </p>
 
-          {/* CTAs */}
+          {/* Stats - only satisfaction */}
           <div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in"
-            style={{ animationDelay: "0.3s" }}
-          >
-            <Link to="/about">
-              <Button variant="outline" size="xl" className="group">
-                {t("hero.aboutUs")}
-              </Button>
-            </Link>
-          </div>
-
-          {/* Stats */}
-          <div
-            className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-12 mt-24 animate-fade-in"
+            className="flex justify-center mt-24 animate-fade-in"
             style={{ animationDelay: "0.5s" }}
           >
-            {[
-              { value: "15+", label: t("hero.stat.experience") },
-              { value: "13+", label: t("hero.stat.team") },
-              { value: "99.9%", label: t("hero.stat.satisfaction") },
-            ].map((stat, index) => (
-              <div
-                key={index}
-                className="text-center p-6 rounded-2xl bg-card border border-border/50 shadow-soft hover:shadow-md transition-all duration-300"
-              >
-                <div className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-2">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </div>
-            ))}
+            <div className="text-center p-6 rounded-2xl bg-card border border-border/50 shadow-soft hover:shadow-md transition-all duration-300 max-w-xs">
+              <div className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-2">99.9%</div>
+              <div className="text-sm text-muted-foreground">{t("hero.stat.satisfaction")}</div>
+            </div>
           </div>
         </div>
       </div>
