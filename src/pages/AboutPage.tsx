@@ -150,7 +150,7 @@ const AboutPage = () => {
       </section>
 
       {/* Story Section */}
-      <section className="py-24 bg-background relative overflow-hidden">
+      <section className="pt-12 pb-24 bg-background relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.02)_1px,transparent_1px)] bg-[size:80px_80px]" />
 
         <div className="container mx-auto px-4 relative">
