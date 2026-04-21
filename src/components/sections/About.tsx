@@ -19,7 +19,7 @@ export function About() {
   ];
 
   return (
-    <section className="py-24 bg-muted/50" id="about">
+    <section className="pt-12 pb-24 bg-muted/50" id="about">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
@@ -49,17 +49,41 @@ export function About() {
           </div>
 
           <div className="relative">
-            <div className="aspect-square rounded-3xl bg-gradient-to-br from-primary/20 to-accent/20 p-8 lg:p-12">
-              <div className="w-full h-full rounded-2xl bg-card border border-border shadow-elevated flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-primary to-accent mx-auto mb-6 flex items-center justify-center">
-                    <span className="text-5xl font-display font-bold text-primary-foreground">F</span>
+            <div className="aspect-square rounded-[2.5rem] bg-gradient-to-br from-primary via-[#2563eb] to-primary p-1 shadow-elevated overflow-hidden">
+              <div className="w-full h-full rounded-[2.25rem] bg-card relative overflow-hidden p-8 lg:p-10 flex flex-col justify-between">
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.04)_1px,transparent_1px)] bg-[size:32px_32px]" />
+                <div className="absolute -top-20 -right-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
+                <div className="absolute -bottom-20 -left-10 w-56 h-56 bg-accent/10 rounded-full blur-3xl" />
+
+                <div className="relative">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                    <span className="text-primary text-xs font-semibold tracking-wider uppercase">{t('aboutPage.since')}</span>
                   </div>
-                  <h3 className="font-display text-2xl font-bold text-foreground mb-2">FIBA LLC</h3>
-                  <p className="text-muted-foreground mb-4">{t('aboutPage.since')}</p>
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-                    <span className="text-primary text-sm font-medium">fiba.mn</span>
-                  </div>
+                  <h3 className="font-display text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-none">
+                    FIBA<span className="text-primary">.</span>
+                  </h3>
+                  <p className="text-muted-foreground mt-3 max-w-xs">{t('about.desc1')}</p>
+                </div>
+
+                <div className="relative grid grid-cols-3 gap-4 mt-8">
+                  {[
+                    { v: "15+", l: t('hero.stat.experience') },
+                    { v: "33+", l: t('achievement.totalClients') },
+                    { v: "13+", l: t('hero.stat.team') },
+                  ].map((s, i) => (
+                    <div key={i} className="text-center">
+                      <div className="font-display text-2xl lg:text-3xl font-bold text-foreground">{s.v}</div>
+                      <div className="text-[10px] lg:text-xs text-muted-foreground mt-1 uppercase tracking-wide">{s.l}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="relative flex items-center justify-between pt-6 border-t border-border/60">
+                  <a href="https://www.fiba.mn" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-primary hover:underline">
+                    fiba.mn
+                  </a>
+                  <span className="text-xs text-muted-foreground font-medium">FIBA LLC</span>
                 </div>
               </div>
             </div>

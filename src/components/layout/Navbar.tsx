@@ -77,9 +77,6 @@ export function Navbar() {
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-3">
             <LanguageSwitcher />
-            <Button variant="gradient" size="sm" onClick={() => handleNavClick('/contact')}>
-              {t('nav.getStarted')}
-            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -117,11 +114,6 @@ export function Navbar() {
               {item.label}
             </button>
           ))}
-          <div className="pt-4 flex flex-col gap-2">
-            <Button variant="gradient" className="w-full" onClick={() => handleNavClick('/contact')}>
-              {t('nav.getStarted')}
-            </Button>
-          </div>
         </div>
       </div>
     </nav>

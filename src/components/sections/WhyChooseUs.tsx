@@ -1,54 +1,10 @@
-import { useState } from "react";
-import { Rocket, Shield, Zap, Users, Clock, Award, TrendingUp, Cpu, ArrowRight } from "lucide-react";
+import { Shield, Clock, Award, TrendingUp, Cpu, ArrowRight, Users, CheckCircle2, Layers, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export function WhyChooseUs() {
   const { t } = useLanguage();
-
-  const reasons = [
-    {
-      icon: Rocket,
-      title: t("why.innovation"),
-      subtitle: t("why.innovationSub"),
-      description: t("why.innovationDesc"),
-      stat: "40+",
-      statLabel: t("why.innovationStat"),
-      gradient: "from-[#6366f1] to-[#8b5cf6]",
-      delay: 0,
-    },
-    {
-      icon: Shield,
-      title: t("why.security"),
-      subtitle: t("why.securitySub"),
-      description: t("why.securityDesc"),
-      stat: "24/7",
-      statLabel: t("why.securityStat"),
-      gradient: "from-[#059669] to-[#34d399]",
-      delay: 100,
-    },
-    {
-      icon: Zap,
-      title: t("why.speed"),
-      subtitle: t("why.speedSub"),
-      description: t("why.speedDesc"),
-      stat: "2x",
-      statLabel: t("why.speedStat"),
-      gradient: "from-[#f59e0b] to-[#fbbf24]",
-      delay: 200,
-    },
-    {
-      icon: Users,
-      title: t("why.team"),
-      subtitle: t("why.teamSub"),
-      description: t("why.teamDesc"),
-      stat: "15+",
-      statLabel: t("why.teamStat"),
-      gradient: "from-[#ec4899] to-[#f472b6]",
-      delay: 300,
-    },
-  ];
 
   const stats = [
     { value: "33+", label: t("why.stat.clients"), icon: Users },
@@ -57,64 +13,8 @@ export function WhyChooseUs() {
     { value: "24/7", label: t("why.stat.support"), icon: Clock },
   ];
 
-  const FeatureCard = ({ reason, index }: { reason: (typeof reasons)[0]; index: number }) => {
-    const [isHovered, setIsHovered] = useState(false);
-    return (
-      <div
-        className="group relative"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        style={{ animationDelay: `${reason.delay}ms` }}
-      >
-        <div
-          className={`absolute -inset-0.5 rounded-3xl bg-gradient-to-r ${reason.gradient} opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500`}
-        />
-        <div className="relative h-full p-8 rounded-3xl bg-card/80 backdrop-blur-xl border border-border/50 overflow-hidden transition-all duration-500 group-hover:border-transparent group-hover:shadow-2xl group-hover:-translate-y-2">
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <div className={`absolute inset-0 bg-gradient-to-br ${reason.gradient} opacity-5`} />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.1),transparent_50%)]" />
-          </div>
-          <div className="absolute top-4 right-4 w-20 h-20 opacity-20 group-hover:opacity-40 transition-opacity">
-            <div
-              className={`absolute inset-0 rounded-full bg-gradient-to-r ${reason.gradient} blur-2xl animate-pulse`}
-            />
-          </div>
-          <div className="relative z-10">
-            <div
-              className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${reason.gradient} p-0.5 mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}
-            >
-              <div className="w-full h-full rounded-2xl bg-card flex items-center justify-center group-hover:bg-transparent transition-colors duration-300">
-                <reason.icon className="w-7 h-7 text-foreground group-hover:text-white transition-colors duration-300" />
-              </div>
-            </div>
-            <span
-              className={`text-xs font-bold tracking-widest uppercase bg-gradient-to-r ${reason.gradient} bg-clip-text text-transparent`}
-            >
-              {reason.subtitle}
-            </span>
-            <h3 className="font-display text-2xl font-bold text-foreground mt-2 mb-3 group-hover:text-foreground transition-colors">
-              {reason.title}
-            </h3>
-            <p className="text-muted-foreground leading-relaxed mb-6">{reason.description}</p>
-            <div className="flex items-end gap-3 pt-6 border-t border-border/50">
-              <span
-                className={`text-4xl font-display font-bold bg-gradient-to-r ${reason.gradient} bg-clip-text text-transparent`}
-              >
-                {reason.stat}
-              </span>
-              <span className="text-muted-foreground text-sm pb-1">{reason.statLabel}</span>
-            </div>
-          </div>
-          <div
-            className={`absolute -bottom-10 -right-10 w-32 h-32 rounded-full bg-gradient-to-r ${reason.gradient} opacity-10 group-hover:opacity-30 blur-2xl transition-all duration-500 group-hover:scale-150`}
-          />
-        </div>
-      </div>
-    );
-  };
-
   return (
-    <section className="py-32 bg-background relative overflow-hidden" id="why-us">
+    <section className="pt-12 pb-24 bg-background relative overflow-hidden" id="why-us">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gradient-to-r from-primary/10 to-accent/10 rounded-full blur-3xl animate-pulse" />
         <div
@@ -164,10 +64,79 @@ export function WhyChooseUs() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {reasons.map((reason, index) => (
-            <FeatureCard key={index} reason={reason} index={index} />
-          ))}
+        {/* Capability showcase — bento layout */}
+        <div className="grid grid-cols-12 gap-6 mb-16">
+          {/* Big card */}
+          <div className="col-span-12 lg:col-span-7 group relative rounded-[2rem] overflow-hidden border border-border/50 bg-gradient-to-br from-primary via-[#2563eb] to-primary p-10 lg:p-12 min-h-[340px]">
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:40px_40px] opacity-30" />
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+            <div className="absolute -bottom-32 -left-20 w-80 h-80 border border-white/10 rounded-full" />
+            <div className="relative h-full flex flex-col">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur w-fit mb-6">
+                <Sparkles className="w-3.5 h-3.5 text-white" />
+                <span className="text-white/90 text-xs font-semibold tracking-wide">FIBA EDGE</span>
+              </div>
+              <h3 className="font-display text-3xl lg:text-5xl font-bold text-white tracking-tight mb-4 leading-tight">
+                {t("why.titleHighlight")}
+              </h3>
+              <p className="text-white/80 text-lg max-w-lg mb-8 leading-relaxed">{t("why.description")}</p>
+              <div className="mt-auto grid grid-cols-2 gap-4 max-w-md">
+                {[
+                  { icon: CheckCircle2, label: "ISO 27001" },
+                  { icon: Shield, label: "Bank-grade" },
+                  { icon: Layers, label: "Modular API" },
+                  { icon: Award, label: "15+ Years" },
+                ].map((b, i) => (
+                  <div key={i} className="flex items-center gap-2.5 text-white/90 text-sm">
+                    <div className="w-8 h-8 rounded-lg bg-white/15 backdrop-blur flex items-center justify-center">
+                      <b.icon className="w-4 h-4" />
+                    </div>
+                    <span className="font-medium">{b.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Stack of small cards */}
+          <div className="col-span-12 lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+            <div className="group relative rounded-[1.75rem] p-7 bg-card border border-border/50 hover:border-primary/30 hover:shadow-xl transition-all duration-500 overflow-hidden">
+              <div className="absolute -top-12 -right-12 w-32 h-32 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-colors" />
+              <div className="relative flex items-start gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-[#2563eb] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <Shield className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-display font-bold text-foreground text-lg mb-1">{t("why.security")}</h4>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{t("why.securityDesc")}</p>
+                </div>
+              </div>
+            </div>
+            <div className="group relative rounded-[1.75rem] p-7 bg-card border border-border/50 hover:border-primary/30 hover:shadow-xl transition-all duration-500 overflow-hidden">
+              <div className="absolute -top-12 -right-12 w-32 h-32 bg-[#7c3aed]/10 rounded-full blur-2xl group-hover:bg-[#7c3aed]/20 transition-colors" />
+              <div className="relative flex items-start gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#7c3aed] to-[#a855f7] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <Cpu className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-display font-bold text-foreground text-lg mb-1">{t("why.innovation")}</h4>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{t("why.innovationDesc")}</p>
+                </div>
+              </div>
+            </div>
+            <div className="group relative rounded-[1.75rem] p-7 bg-card border border-border/50 hover:border-primary/30 hover:shadow-xl transition-all duration-500 overflow-hidden sm:col-span-2 lg:col-span-1">
+              <div className="absolute -top-12 -right-12 w-32 h-32 bg-[#059669]/10 rounded-full blur-2xl group-hover:bg-[#059669]/20 transition-colors" />
+              <div className="relative flex items-start gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#059669] to-[#34d399] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <Users className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-display font-bold text-foreground text-lg mb-1">{t("why.team")}</h4>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{t("why.teamDesc")}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="relative rounded-3xl overflow-hidden">

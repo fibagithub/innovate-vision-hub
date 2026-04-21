@@ -1,4 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
 export interface ServiceBenefit {
@@ -150,4 +151,33 @@ export const usePartnerStats = () => {
       };
     },
   });
+};
+
+/**
+ * Subscribes to realtime changes on the given Supabase tables and
+ * invalidates the matching React Query caches so the UI refreshes
+ * automatically when admins create/update/delete records.
+ */
+export const useContentRealtimeSync = () => {
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const channel = supabase
+      .channel('content-sync')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'partners' }, () => {
+        queryClient.invalidateQueries({ queryKey: ['partners'] });
+        queryClient.invalidateQueries({ queryKey: ['partner_stats'] });
+      })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'services' }, () => {
+        queryClient.invalidateQueries({ queryKey: ['services'] });
+      })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'team_members' }, () => {
+        queryClient.invalidateQueries({ queryKey: ['team_members'] });
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [queryClient]);
 };

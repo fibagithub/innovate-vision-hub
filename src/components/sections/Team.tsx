@@ -242,7 +242,7 @@ export function Team() {
   const teamMembers = dbTeamMembers && dbTeamMembers.length > 0 ? dbTeamMembers : fallbackTeamMembers;
 
   return (
-    <section className="py-32 relative overflow-hidden" id="team">
+    <section className="pt-12 pb-24 relative overflow-hidden" id="team">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-primary/[0.03] rounded-full blur-[120px]" />
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-accent/[0.04] rounded-full blur-[80px]" />

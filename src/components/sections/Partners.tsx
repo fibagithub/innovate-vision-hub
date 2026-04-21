@@ -15,7 +15,7 @@ export function Partners() {
   const partnersWithLogos = partnerData?.partners?.filter((p) => p.logo_url) || [];
 
   return (
-    <section className="py-32 bg-background relative overflow-hidden" id="clients">
+    <section className="pt-12 pb-24 bg-background relative overflow-hidden" id="clients">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-radial from-primary/5 via-transparent to-transparent" />
       </div>
