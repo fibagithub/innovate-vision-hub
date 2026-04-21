@@ -79,7 +79,7 @@ const AboutPage = () => {
       description: t("aboutPage.stat.experienceDesc"),
     },
     { icon: Users, value: "13+", label: t("aboutPage.stat.team"), description: t("aboutPage.stat.teamDesc") },
-    { icon: Globe, value: "33+", label: t("aboutPage.stat.clients"), description: t("aboutPage.stat.clientsDesc") },
+      { icon: Globe, value: "33+", label: t("aboutPage.stat.clients"), description: "ББСБ, ХЗХ" },
     {
       icon: TrendingUp,
       value: "99.9%",
@@ -181,19 +181,47 @@ const AboutPage = () => {
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:40px_40px]" />
               </div>
               <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-              <div className="absolute -bottom-20 -left-20 w-64 h-64 border border-white/10 rounded-full" />
               <div className="absolute -bottom-32 -left-32 w-96 h-96 border border-white/5 rounded-full" />
 
-              <div className="relative h-full flex flex-col justify-center items-center text-center">
-                <div className="w-24 h-24 rounded-3xl bg-white/10 backdrop-blur-sm flex items-center justify-center mb-8">
-                  <span className="text-6xl font-display font-bold text-white">F</span>
-                </div>
-                <h3 className="font-display text-4xl font-bold text-white mb-4">FIBA LLC</h3>
-                <p className="text-white/80 text-lg mb-6">{t("aboutPage.since")}</p>
-                <div className="flex items-center gap-3">
-                  <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm">
-                    <span className="text-white/90 text-sm font-medium">fiba.mn</span>
+              <div className="relative h-full flex flex-col justify-between">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-sm mb-6">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                    <span className="text-white/90 text-xs font-semibold tracking-widest uppercase">
+                      {t("aboutPage.since")}
+                    </span>
                   </div>
+                  <h3 className="font-display text-6xl lg:text-7xl font-bold text-white tracking-tight leading-none">
+                    FIBA<span className="text-white/60">.</span>
+                  </h3>
+                  <p className="text-white/80 text-base lg:text-lg mt-4 max-w-sm">
+                    {t("aboutPage.storyDesc1")}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-3 gap-3 mt-8">
+                  {[
+                    { v: "15+", l: t("hero.stat.experience") },
+                    { v: "33+", l: t("achievement.totalClients") },
+                    { v: "13+", l: t("hero.stat.team") },
+                  ].map((s, i) => (
+                    <div key={i} className="rounded-2xl bg-white/10 backdrop-blur-sm p-4 text-center">
+                      <div className="font-display text-2xl lg:text-3xl font-bold text-white">{s.v}</div>
+                      <div className="text-[10px] lg:text-xs text-white/70 mt-1 uppercase tracking-wide">{s.l}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex items-center justify-between pt-6 mt-6 border-t border-white/15">
+                  <a
+                    href="https://www.fiba.mn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white font-semibold text-sm hover:underline"
+                  >
+                    fiba.mn
+                  </a>
+                  <span className="text-white/70 text-xs font-medium">FIBA LLC</span>
                 </div>
               </div>
             </div>
