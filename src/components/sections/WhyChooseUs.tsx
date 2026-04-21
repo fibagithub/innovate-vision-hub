@@ -64,10 +64,79 @@ export function WhyChooseUs() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {reasons.map((reason, index) => (
-            <FeatureCard key={index} reason={reason} index={index} />
-          ))}
+        {/* Capability showcase — bento layout */}
+        <div className="grid grid-cols-12 gap-6 mb-16">
+          {/* Big card */}
+          <div className="col-span-12 lg:col-span-7 group relative rounded-[2rem] overflow-hidden border border-border/50 bg-gradient-to-br from-primary via-[#2563eb] to-primary p-10 lg:p-12 min-h-[340px]">
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:40px_40px] opacity-30" />
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+            <div className="absolute -bottom-32 -left-20 w-80 h-80 border border-white/10 rounded-full" />
+            <div className="relative h-full flex flex-col">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur w-fit mb-6">
+                <Sparkles className="w-3.5 h-3.5 text-white" />
+                <span className="text-white/90 text-xs font-semibold tracking-wide">FIBA EDGE</span>
+              </div>
+              <h3 className="font-display text-3xl lg:text-5xl font-bold text-white tracking-tight mb-4 leading-tight">
+                {t("why.titleHighlight")}
+              </h3>
+              <p className="text-white/80 text-lg max-w-lg mb-8 leading-relaxed">{t("why.description")}</p>
+              <div className="mt-auto grid grid-cols-2 gap-4 max-w-md">
+                {[
+                  { icon: CheckCircle2, label: "ISO 27001" },
+                  { icon: Shield, label: "Bank-grade" },
+                  { icon: Layers, label: "Modular API" },
+                  { icon: Award, label: "15+ Years" },
+                ].map((b, i) => (
+                  <div key={i} className="flex items-center gap-2.5 text-white/90 text-sm">
+                    <div className="w-8 h-8 rounded-lg bg-white/15 backdrop-blur flex items-center justify-center">
+                      <b.icon className="w-4 h-4" />
+                    </div>
+                    <span className="font-medium">{b.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Stack of small cards */}
+          <div className="col-span-12 lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+            <div className="group relative rounded-[1.75rem] p-7 bg-card border border-border/50 hover:border-primary/30 hover:shadow-xl transition-all duration-500 overflow-hidden">
+              <div className="absolute -top-12 -right-12 w-32 h-32 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-colors" />
+              <div className="relative flex items-start gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-[#2563eb] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <Shield className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-display font-bold text-foreground text-lg mb-1">{t("why.security")}</h4>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{t("why.securityDesc")}</p>
+                </div>
+              </div>
+            </div>
+            <div className="group relative rounded-[1.75rem] p-7 bg-card border border-border/50 hover:border-primary/30 hover:shadow-xl transition-all duration-500 overflow-hidden">
+              <div className="absolute -top-12 -right-12 w-32 h-32 bg-[#7c3aed]/10 rounded-full blur-2xl group-hover:bg-[#7c3aed]/20 transition-colors" />
+              <div className="relative flex items-start gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#7c3aed] to-[#a855f7] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <Cpu className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-display font-bold text-foreground text-lg mb-1">{t("why.innovation")}</h4>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{t("why.innovationDesc")}</p>
+                </div>
+              </div>
+            </div>
+            <div className="group relative rounded-[1.75rem] p-7 bg-card border border-border/50 hover:border-primary/30 hover:shadow-xl transition-all duration-500 overflow-hidden sm:col-span-2 lg:col-span-1">
+              <div className="absolute -top-12 -right-12 w-32 h-32 bg-[#059669]/10 rounded-full blur-2xl group-hover:bg-[#059669]/20 transition-colors" />
+              <div className="relative flex items-start gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#059669] to-[#34d399] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <Users className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="font-display font-bold text-foreground text-lg mb-1">{t("why.team")}</h4>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{t("why.teamDesc")}</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="relative rounded-3xl overflow-hidden">
