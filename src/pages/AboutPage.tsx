@@ -230,7 +230,7 @@ const AboutPage = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-24 bg-muted/30 relative overflow-hidden">
+      <section className="pt-12 pb-24 bg-muted/30 relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-20 right-[10%] w-[400px] h-[400px] bg-gradient-radial from-primary/5 to-transparent rounded-full blur-3xl" />
           <div className="absolute bottom-20 left-[5%] w-[300px] h-[300px] bg-gradient-radial from-accent/5 to-transparent rounded-full blur-3xl" />
