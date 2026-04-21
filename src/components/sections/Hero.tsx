@@ -62,12 +62,6 @@ export function Hero() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in"
             style={{ animationDelay: "0.3s" }}
           >
-            <Link to="/services">
-              <Button size="xl" className="group shadow-soft hover:shadow-glow transition-all duration-300">
-                {t("hero.viewProducts")}
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
             <Link to="/about">
               <Button variant="outline" size="xl" className="group">
                 {t("hero.aboutUs")}
