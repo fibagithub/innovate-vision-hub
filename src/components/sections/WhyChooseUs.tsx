@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Rocket, Shield, Zap, Users, Clock, Award, TrendingUp, Cpu, ArrowRight } from "lucide-react";
+import { Shield, Clock, Award, TrendingUp, Cpu, ArrowRight, Users, CheckCircle2, Layers, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -7,111 +6,12 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export function WhyChooseUs() {
   const { t } = useLanguage();
 
-  const reasons = [
-    {
-      icon: Rocket,
-      title: t("why.innovation"),
-      subtitle: t("why.innovationSub"),
-      description: t("why.innovationDesc"),
-      stat: "40+",
-      statLabel: t("why.innovationStat"),
-      gradient: "from-[#6366f1] to-[#8b5cf6]",
-      delay: 0,
-    },
-    {
-      icon: Shield,
-      title: t("why.security"),
-      subtitle: t("why.securitySub"),
-      description: t("why.securityDesc"),
-      stat: "24/7",
-      statLabel: t("why.securityStat"),
-      gradient: "from-[#059669] to-[#34d399]",
-      delay: 100,
-    },
-    {
-      icon: Zap,
-      title: t("why.speed"),
-      subtitle: t("why.speedSub"),
-      description: t("why.speedDesc"),
-      stat: "2x",
-      statLabel: t("why.speedStat"),
-      gradient: "from-[#f59e0b] to-[#fbbf24]",
-      delay: 200,
-    },
-    {
-      icon: Users,
-      title: t("why.team"),
-      subtitle: t("why.teamSub"),
-      description: t("why.teamDesc"),
-      stat: "15+",
-      statLabel: t("why.teamStat"),
-      gradient: "from-[#ec4899] to-[#f472b6]",
-      delay: 300,
-    },
-  ];
-
   const stats = [
     { value: "33+", label: t("why.stat.clients"), icon: Users },
     { value: "99.9%", label: t("why.stat.uptime"), icon: TrendingUp },
     { value: "5M+", label: t("why.stat.transactions"), icon: Cpu },
     { value: "24/7", label: t("why.stat.support"), icon: Clock },
   ];
-
-  const FeatureCard = ({ reason, index }: { reason: (typeof reasons)[0]; index: number }) => {
-    const [isHovered, setIsHovered] = useState(false);
-    return (
-      <div
-        className="group relative"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        style={{ animationDelay: `${reason.delay}ms` }}
-      >
-        <div
-          className={`absolute -inset-0.5 rounded-3xl bg-gradient-to-r ${reason.gradient} opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500`}
-        />
-        <div className="relative h-full p-8 rounded-3xl bg-card/80 backdrop-blur-xl border border-border/50 overflow-hidden transition-all duration-500 group-hover:border-transparent group-hover:shadow-2xl group-hover:-translate-y-2">
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <div className={`absolute inset-0 bg-gradient-to-br ${reason.gradient} opacity-5`} />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.1),transparent_50%)]" />
-          </div>
-          <div className="absolute top-4 right-4 w-20 h-20 opacity-20 group-hover:opacity-40 transition-opacity">
-            <div
-              className={`absolute inset-0 rounded-full bg-gradient-to-r ${reason.gradient} blur-2xl animate-pulse`}
-            />
-          </div>
-          <div className="relative z-10">
-            <div
-              className={`relative w-16 h-16 rounded-2xl bg-gradient-to-br ${reason.gradient} p-0.5 mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}
-            >
-              <div className="w-full h-full rounded-2xl bg-card flex items-center justify-center group-hover:bg-transparent transition-colors duration-300">
-                <reason.icon className="w-7 h-7 text-foreground group-hover:text-white transition-colors duration-300" />
-              </div>
-            </div>
-            <span
-              className={`text-xs font-bold tracking-widest uppercase bg-gradient-to-r ${reason.gradient} bg-clip-text text-transparent`}
-            >
-              {reason.subtitle}
-            </span>
-            <h3 className="font-display text-2xl font-bold text-foreground mt-2 mb-3 group-hover:text-foreground transition-colors">
-              {reason.title}
-            </h3>
-            <p className="text-muted-foreground leading-relaxed mb-6">{reason.description}</p>
-            <div className="flex items-end gap-3 pt-6 border-t border-border/50">
-              <span
-                className={`text-4xl font-display font-bold bg-gradient-to-r ${reason.gradient} bg-clip-text text-transparent`}
-              >
-                {reason.stat}
-              </span>
-              <span className="text-muted-foreground text-sm pb-1">{reason.statLabel}</span>
-            </div>
-          </div>
-          <div
-            className={`absolute -bottom-10 -right-10 w-32 h-32 rounded-full bg-gradient-to-r ${reason.gradient} opacity-10 group-hover:opacity-30 blur-2xl transition-all duration-500 group-hover:scale-150`}
-          />
-        </div>
-      </div>
-    );
-  };
 
   return (
     <section className="pt-12 pb-24 bg-background relative overflow-hidden" id="why-us">
