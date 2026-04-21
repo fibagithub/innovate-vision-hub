@@ -114,7 +114,7 @@ export function WhyChooseUs() {
   };
 
   return (
-    <section className="py-32 bg-background relative overflow-hidden" id="why-us">
+    <section className="pt-12 pb-24 bg-background relative overflow-hidden" id="why-us">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gradient-to-r from-primary/10 to-accent/10 rounded-full blur-3xl animate-pulse" />
         <div

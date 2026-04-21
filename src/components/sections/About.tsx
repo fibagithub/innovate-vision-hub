@@ -19,7 +19,7 @@ export function About() {
   ];
 
   return (
-    <section className="py-24 bg-muted/50" id="about">
+    <section className="pt-12 pb-24 bg-muted/50" id="about">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>

@@ -47,7 +47,7 @@ export function Contact() {
   };
 
   return (
-    <section className="py-24 bg-background" id="contact">
+    <section className="pt-12 pb-24 bg-background" id="contact">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="text-primary font-medium text-sm tracking-wider uppercase mb-4 block">
