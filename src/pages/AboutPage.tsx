@@ -272,48 +272,6 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Timeline Section */}
-      <section className="py-24 bg-background relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
-
-        <div className="container mx-auto px-4 relative">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-8">
-              <Clock className="w-4 h-4 text-primary" />
-              <span className="text-primary font-medium text-sm tracking-wide">{t("aboutPage.timelineBadge")}</span>
-            </div>
-
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
-              {t("aboutPage.timelineTitle")} <span className="gradient-text">{t("aboutPage.timelineHighlight")}</span>
-            </h2>
-          </div>
-
-          <div className="max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {milestones.map((milestone, index) => (
-                <div
-                  key={index}
-                  className="group relative p-6 lg:p-8 rounded-[2rem] bg-card border border-border/50 hover:border-primary/20 hover:shadow-xl transition-all duration-500 overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                  <div className="relative">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="font-display text-3xl font-bold text-primary">{milestone.year}</span>
-                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                        <milestone.icon className="w-5 h-5" />
-                      </div>
-                    </div>
-                    <h3 className="font-display text-xl font-bold text-foreground mb-3">{milestone.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{milestone.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-24 relative overflow-hidden">
         <div className="container mx-auto px-4">
