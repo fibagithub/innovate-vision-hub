@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Target, Eye, Lightbulb, ArrowRight, Award, Shield, Users } from "lucide-react";
+import { Target, Eye, Lightbulb, ArrowRight, Award, Shield, Users, TrendingUp, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -49,46 +49,63 @@ export function About() {
           </div>
 
           <div className="relative">
-            <div className="aspect-square rounded-[2.5rem] bg-gradient-to-br from-primary via-[#2563eb] to-primary p-1 shadow-elevated overflow-hidden">
-              <div className="w-full h-full rounded-[2.25rem] bg-card relative overflow-hidden p-8 lg:p-10 flex flex-col justify-between">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.04)_1px,transparent_1px)] bg-[size:32px_32px]" />
-                <div className="absolute -top-20 -right-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
-                <div className="absolute -bottom-20 -left-10 w-56 h-56 bg-accent/10 rounded-full blur-3xl" />
+            <div className="absolute -top-6 -right-6 w-40 h-40 bg-primary/10 rounded-full blur-3xl -z-10 animate-pulse" />
+            <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-accent/10 rounded-full blur-3xl -z-10 animate-pulse" style={{ animationDelay: "1s" }} />
 
-                <div className="relative">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-6">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                    <span className="text-primary text-xs font-semibold tracking-wider uppercase">{t('aboutPage.since')}</span>
-                  </div>
-                  <h3 className="font-display text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-none">
-                    FIBA<span className="text-primary">.</span>
-                  </h3>
-                  <p className="text-muted-foreground mt-3 max-w-xs">{t('about.desc1')}</p>
-                </div>
+            <div className="space-y-5">
+              {[
+                {
+                  v: "15+",
+                  l: t('hero.stat.experience'),
+                  icon: Award,
+                  gradient: "from-primary to-[#2563eb]",
+                  glow: "bg-primary/20",
+                },
+                {
+                  v: "33+",
+                  l: t('achievement.totalClients'),
+                  icon: TrendingUp,
+                  gradient: "from-[#7c3aed] to-[#a855f7]",
+                  glow: "bg-[#7c3aed]/20",
+                },
+                {
+                  v: "13+",
+                  l: t('hero.stat.team'),
+                  icon: Users,
+                  gradient: "from-[#059669] to-[#34d399]",
+                  glow: "bg-[#059669]/20",
+                },
+              ].map((s, i) => (
+                <div
+                  key={i}
+                  className="group relative rounded-3xl p-6 lg:p-7 bg-card border border-border/50 hover:border-primary/30 hover:shadow-2xl transition-all duration-500 overflow-hidden hover:-translate-y-1"
+                  style={{
+                    marginLeft: `${i * 24}px`,
+                    marginRight: `${(2 - i) * 24}px`,
+                  }}
+                >
+                  <div className={`absolute -top-16 -right-16 w-40 h-40 ${s.glow} rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700`} />
+                  <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.03)_1px,transparent_1px)] bg-[size:24px_24px] opacity-50" />
 
-                <div className="relative grid grid-cols-3 gap-4 mt-8">
-                  {[
-                    { v: "15+", l: t('hero.stat.experience') },
-                    { v: "33+", l: t('achievement.totalClients') },
-                    { v: "13+", l: t('hero.stat.team') },
-                  ].map((s, i) => (
-                    <div key={i} className="text-center">
-                      <div className="font-display text-2xl lg:text-3xl font-bold text-foreground">{s.v}</div>
-                      <div className="text-[10px] lg:text-xs text-muted-foreground mt-1 uppercase tracking-wide">{s.l}</div>
+                  <div className="relative flex items-center gap-5">
+                    <div className={`w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-gradient-to-br ${s.gradient} flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg`}>
+                      <s.icon className="w-7 h-7 lg:w-9 lg:h-9 text-white" />
                     </div>
-                  ))}
+                    <div className="flex-1">
+                      <div className="flex items-baseline gap-2">
+                        <span className={`font-display text-4xl lg:text-5xl font-bold bg-gradient-to-br ${s.gradient} bg-clip-text text-transparent`}>
+                          {s.v}
+                        </span>
+                        <Sparkles className="w-4 h-4 text-primary/60 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <div className="text-sm lg:text-base text-muted-foreground font-medium mt-1 uppercase tracking-wider">
+                        {s.l}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-
-                <div className="relative flex items-center justify-between pt-6 border-t border-border/60">
-                  <a href="https://www.fiba.mn" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-primary hover:underline">
-                    fiba.mn
-                  </a>
-                  <span className="text-xs text-muted-foreground font-medium">FIBA LLC</span>
-                </div>
-              </div>
+              ))}
             </div>
-            <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-2xl -z-10" />
-            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent/10 rounded-2xl -z-10" />
           </div>
         </div>
 
