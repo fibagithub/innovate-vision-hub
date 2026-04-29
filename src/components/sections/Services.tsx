@@ -434,14 +434,6 @@ export function Services() {
           </div>
         </div>
 
-        <div className="flex justify-center mt-16">
-          <Link to="/services">
-            <Button variant="outline" size="xl" className="gap-2 group">
-              {t("services.viewAll")}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
-        </div>
       </div>
     </section>
   );
