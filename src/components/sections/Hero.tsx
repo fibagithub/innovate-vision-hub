@@ -57,16 +57,6 @@ export function Hero() {
             {t("hero.description")}
           </p>
 
-          {/* Stats - only satisfaction */}
-          <div
-            className="flex justify-center mt-24 animate-fade-in"
-            style={{ animationDelay: "0.5s" }}
-          >
-            <div className="text-center p-6 rounded-2xl bg-card border border-border/50 shadow-soft hover:shadow-md transition-all duration-300 max-w-xs">
-              <div className="font-display text-3xl sm:text-4xl font-bold text-foreground mb-2">99.9%</div>
-              <div className="text-sm text-muted-foreground">{t("hero.stat.satisfaction")}</div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
