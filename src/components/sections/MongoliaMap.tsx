@@ -113,7 +113,7 @@ export function MongoliaMap({ aimagStats }: MongoliaMapProps) {
 
       // Number label
       const label = am5.Label.new(root, {
-        text: "{value}",
+        text: "{name}: {value}",
         fill: am5.color(0x193c69),
         fontSize: 13,
         fontWeight: "800",
