@@ -1,4 +1,4 @@
-import { Shield, Clock, Award, TrendingUp, Cpu, ArrowRight, Users, CheckCircle2, Layers, Sparkles } from "lucide-react";
+import { Shield, Clock, Award, TrendingUp, Cpu, ArrowRight, Users, CheckCircle2, Layers, Sparkles, Package } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -9,7 +9,7 @@ export function WhyChooseUs() {
   const stats = [
     { value: "33+", label: t("why.stat.clients"), icon: Users },
     { value: "99.9%", label: t("why.stat.uptime"), icon: TrendingUp },
-    { value: "5M+", label: t("why.stat.transactions"), icon: Cpu },
+    { value: "6+", label: t("why.stat.products"), icon: Package },
     { value: "24/7", label: t("why.stat.support"), icon: Clock },
   ];
 

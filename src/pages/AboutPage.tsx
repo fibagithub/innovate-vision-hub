@@ -151,77 +151,79 @@ const AboutPage = () => {
 
       {/* Story Section */}
       <section className="pt-12 pb-24 bg-background relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.02)_1px,transparent_1px)] bg-[size:80px_80px]" />
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(25,60,105,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(25,60,105,0.025)_1px,transparent_1px)] bg-[size:80px_80px]" />
+          <div className="absolute top-1/3 -left-20 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] animate-pulse" />
+          <div className="absolute bottom-0 -right-20 w-[400px] h-[400px] bg-[#7c3aed]/5 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "1.5s" }} />
+        </div>
 
         <div className="container mx-auto px-4 relative">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-            <div className="relative p-8 lg:p-12 rounded-[2.5rem] bg-gradient-to-br from-primary/5 via-card to-card border border-border/50 overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl" />
-
-              <div className="relative">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 mb-6">
-                  <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                  <span className="text-primary font-medium text-sm">{t("aboutPage.storyBadge")}</span>
-                </div>
-
-                <h2 className="font-display text-3xl lg:text-4xl font-bold text-foreground mb-6">
-                  {t("aboutPage.storyTitle")} <span className="gradient-text">{t("aboutPage.storyHighlight")}</span>{" "}
-                  {t("aboutPage.storySuffix")}
-                </h2>
-
-                <div className="space-y-4 text-muted-foreground text-justify">
-                  <p>{t("aboutPage.storyDesc1")}</p>
-                  <p>{t("aboutPage.storyDesc2")}</p>
-                </div>
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-14">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6 backdrop-blur-sm">
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span className="text-primary font-semibold text-sm tracking-wide">{t("aboutPage.storyBadge")}</span>
               </div>
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground tracking-tight">
+                {t("aboutPage.storyTitle")}{" "}
+                <span className="bg-gradient-to-r from-primary via-[#6366f1] to-[#ec4899] bg-clip-text text-transparent">
+                  {t("aboutPage.storyHighlight")}
+                </span>{" "}
+                {t("aboutPage.storySuffix")}
+              </h2>
             </div>
 
-            <div className="relative p-8 lg:p-12 rounded-[2.5rem] bg-gradient-to-br from-primary via-[#2563eb] to-primary overflow-hidden min-h-[400px]">
-              <div className="absolute inset-0 opacity-10">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:40px_40px]" />
-              </div>
-              <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-              <div className="absolute -bottom-32 -left-32 w-96 h-96 border border-white/5 rounded-full" />
-
-              <div className="relative h-full flex flex-col justify-between">
-                <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-sm mb-6">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                    <span className="text-white/90 text-xs font-semibold tracking-widest uppercase">
-                      {t("aboutPage.since")}
-                    </span>
+            <div className="grid lg:grid-cols-12 gap-6">
+              {/* Narrative – glass card */}
+              <div className="lg:col-span-7 group relative rounded-[2.5rem] p-8 lg:p-12 bg-card/70 backdrop-blur-xl border border-border/50 hover:border-primary/30 transition-all duration-500 overflow-hidden">
+                <div className="absolute -top-24 -right-24 w-72 h-72 bg-gradient-to-br from-primary/15 to-transparent rounded-full blur-3xl group-hover:scale-110 transition-transform duration-700" />
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-[#6366f1] to-[#ec4899]" />
+                <div className="relative">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="font-display text-5xl lg:text-6xl font-bold bg-gradient-to-br from-primary to-[#6366f1] bg-clip-text text-transparent">2021</span>
+                    <div className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent" />
                   </div>
-                  <h3 className="font-display text-6xl lg:text-7xl font-bold text-white tracking-tight leading-none">
-                    FIBA<span className="text-white/60">.</span>
-                  </h3>
-                  <p className="text-white/80 text-base lg:text-lg mt-4 max-w-sm">
-                    {t("aboutPage.storyDesc1")}
-                  </p>
+                  <div className="space-y-5 text-muted-foreground text-justify text-base lg:text-lg leading-relaxed">
+                    <p>{t("aboutPage.storyDesc1")}</p>
+                    <p>{t("aboutPage.storyDesc2")}</p>
+                  </div>
                 </div>
+              </div>
 
-                <div className="grid grid-cols-3 gap-3 mt-8">
-                  {[
-                    { v: "15+", l: t("hero.stat.experience") },
-                    { v: "33+", l: t("achievement.totalClients") },
-                    { v: "13+", l: t("hero.stat.team") },
-                  ].map((s, i) => (
-                    <div key={i} className="rounded-2xl bg-white/10 backdrop-blur-sm p-4 text-center">
-                      <div className="font-display text-2xl lg:text-3xl font-bold text-white">{s.v}</div>
-                      <div className="text-[10px] lg:text-xs text-white/70 mt-1 uppercase tracking-wide">{s.l}</div>
+              {/* Brand block – vertical accent */}
+              <div className="lg:col-span-5 relative rounded-[2.5rem] p-8 lg:p-10 bg-gradient-to-br from-primary via-[#2563eb] to-[#1e3a8a] overflow-hidden group">
+                <div className="absolute inset-0 opacity-15">
+                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:32px_32px]" />
+                </div>
+                <div className="absolute -top-20 -right-20 w-72 h-72 bg-white/10 rounded-full blur-3xl group-hover:scale-110 transition-transform duration-700" />
+                <div className="absolute -bottom-32 -left-32 w-72 h-72 border border-white/10 rounded-full" />
+
+                <div className="relative h-full flex flex-col justify-between gap-8">
+                  <div>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur-sm mb-5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      <span className="text-white/90 text-xs font-semibold tracking-widest uppercase">{t("aboutPage.since")}</span>
                     </div>
-                  ))}
-                </div>
+                    <h3 className="font-display text-7xl font-bold text-white tracking-tight leading-none">
+                      FIBA<span className="text-white/50">.</span>
+                    </h3>
+                    <p className="text-white/80 text-sm mt-3 max-w-xs">FinTech Innovation & Banking Architecture</p>
+                  </div>
 
-                <div className="flex items-center justify-between pt-6 mt-6 border-t border-white/15">
-                  <a
-                    href="https://www.fiba.mn"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white font-semibold text-sm hover:underline"
-                  >
-                    fiba.mn
-                  </a>
-                  <span className="text-white/70 text-xs font-medium">FIBA LLC</span>
+                  <div className="space-y-3">
+                    {[
+                      { icon: Zap, label: t("about.value.mission") },
+                      { icon: Shield, label: t("aboutPage.quality") },
+                      { icon: TrendingUp, label: t("about.value.vision") },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center gap-3 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/10 px-4 py-3 hover:bg-white/15 transition-colors">
+                        <div className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center shrink-0">
+                          <item.icon className="w-4 h-4 text-white" />
+                        </div>
+                        <span className="text-white/90 text-sm font-medium">{item.label}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

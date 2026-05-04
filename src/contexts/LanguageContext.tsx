@@ -118,6 +118,7 @@ const translations: Translations = {
   "why.stat.clients": { mn: "Харилцагчид", en: "Clients" },
   "why.stat.uptime": { mn: "Uptime", en: "Uptime" },
   "why.stat.transactions": { mn: "Гүйлгээ/сар", en: "Transactions/month" },
+ "why.stat.products": { mn: "Бүтээгдэхүүн", en: "Products" },
   "why.stat.support": { mn: "Дэмжлэг", en: "Support" },
   "why.cta.title": { mn: "Бидэнтэй хамтран ажиллахад бэлэн үү?", en: "Ready to work with us?" },
   "why.cta.desc": {
