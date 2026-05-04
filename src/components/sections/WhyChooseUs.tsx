@@ -2,12 +2,17 @@ import { Shield, Clock, Award, TrendingUp, Cpu, ArrowRight, Users, CheckCircle2,
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { usePartners } from "@/hooks/useContentData";
 
 export function WhyChooseUs() {
   const { t } = useLanguage();
+  const { data: partners } = usePartners();
+  const clientsTotal = (partners || [])
+    .filter((p) => p.partner_type === "client")
+    .reduce((sum, p) => sum + (p.count || 0), 0);
 
   const stats = [
-    { value: "33+", label: t("why.stat.clients"), icon: Users },
+    { value: `${clientsTotal}+`, label: t("why.stat.clients"), icon: Users },
     { value: "99.9%", label: t("why.stat.uptime"), icon: TrendingUp },
     { value: "6+", label: t("why.stat.products"), icon: Package },
     { value: "24/7", label: t("why.stat.support"), icon: Clock },

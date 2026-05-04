@@ -51,9 +51,10 @@ const TeamPage = () => {
   const [expandedMember, setExpandedMember] = useState<AnyMember | null>(null);
   const { t, language } = useLanguage();
   const teamMembers = dbTeamMembers && dbTeamMembers.length > 0 ? dbTeamMembers : fallbackTeamMembers;
+  const activeTeamCount = (dbTeamMembers || []).filter((m) => m.is_active).length;
 
   const teamStats = [
-    { icon: Users, value: "13+", label: t('teamPage.stat.team') },
+    { icon: Users, value: `${activeTeamCount}+`, label: t('teamPage.stat.team') },
     { icon: Award, value: "15+", label: t('teamPage.stat.experience') },
     { icon: Target, value: "40+", label: t('teamPage.stat.projects') },
   ];

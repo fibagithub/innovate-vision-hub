@@ -2,9 +2,16 @@ import { Link } from "react-router-dom";
 import { Target, Eye, Lightbulb, ArrowRight, Award, Shield, Users, TrendingUp, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { usePartners, useTeamMembers } from "@/hooks/useContentData";
 
 export function About() {
   const { t } = useLanguage();
+  const { data: partners } = usePartners();
+  const { data: team } = useTeamMembers();
+  const clientsTotal = (partners || [])
+    .filter((p) => p.partner_type === "client")
+    .reduce((sum, p) => sum + (p.count || 0), 0);
+  const teamTotal = (team || []).filter((m) => m.is_active).length;
 
   const values = [
     { icon: Target, title: t('about.value.mission'), description: t('about.value.missionDesc') },
@@ -62,14 +69,14 @@ export function About() {
                   glow: "bg-primary/20",
                 },
                 {
-                  v: "33+",
+                  v: `${clientsTotal}+`,
                   l: t('achievement.totalClients'),
                   icon: TrendingUp,
                   gradient: "from-[#7c3aed] to-[#a855f7]",
                   glow: "bg-[#7c3aed]/20",
                 },
                 {
-                  v: "13+",
+                  v: `${teamTotal}+`,
                   l: t('hero.stat.team'),
                   icon: Users,
                   gradient: "from-[#059669] to-[#34d399]",
