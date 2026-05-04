@@ -85,7 +85,8 @@ const AboutPage = () => {
       label: t("aboutPage.stat.experience"),
       description: t("aboutPage.stat.experienceDesc"),
     },
-    { icon: Users, value: "13+", label: t("aboutPage.stat.team"), description: t("aboutPage.stat.teamDesc") },
+    { icon: Users, value: `${teamTotal}+`, label: t("aboutPage.stat.team"), description: t("aboutPage.stat.teamDesc") },
+    { icon: Globe, value: `${clientsTotal}+`, label: t("aboutPage.stat.clients"), description: "ББСБ, ХЗХ" },
     {
       icon: TrendingUp,
       value: "99.9%",
