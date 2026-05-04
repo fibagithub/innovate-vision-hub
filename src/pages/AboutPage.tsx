@@ -16,9 +16,16 @@ import {
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { usePartners, useTeamMembers } from "@/hooks/useContentData";
 
 const AboutPage = () => {
   const { t } = useLanguage();
+  const { data: partners } = usePartners();
+  const { data: team } = useTeamMembers();
+  const clientsTotal = (partners || [])
+    .filter((p) => p.partner_type === "client")
+    .reduce((sum, p) => sum + (p.count || 0), 0);
+  const teamTotal = (team || []).filter((m) => m.is_active).length;
 
   const values = [
     {
@@ -79,7 +86,6 @@ const AboutPage = () => {
       description: t("aboutPage.stat.experienceDesc"),
     },
     { icon: Users, value: "13+", label: t("aboutPage.stat.team"), description: t("aboutPage.stat.teamDesc") },
-      { icon: Globe, value: "33+", label: t("aboutPage.stat.clients"), description: "ББСБ, ХЗХ" },
     {
       icon: TrendingUp,
       value: "99.9%",
