@@ -31,6 +31,7 @@ interface Partner {
   logo_url: string | null;
   website_url: string | null;
   partner_type: string | null;
+  count: number | null;
   is_active: boolean | null;
   display_order: number | null;
   aimag?: string | null;
@@ -128,7 +129,7 @@ const AdminPartnersPage = () => {
                 <TableHead>Нэр</TableHead>
                 <TableHead>Төрөл</TableHead>
                 <TableHead>Аймаг</TableHead>
-                <TableHead>Вэбсайт</TableHead>
+                <TableHead>Тоо</TableHead>
                 <TableHead>Төлөв</TableHead>
                 <TableHead>Дараалал</TableHead>
                 <TableHead className="text-right">Үйлдэл</TableHead>
@@ -140,18 +141,7 @@ const AdminPartnersPage = () => {
                   <TableCell className="font-medium">{partner.name}</TableCell>
                   <TableCell>{getPartnerTypeLabel(partner.partner_type)}</TableCell>
                   <TableCell>{partner.aimag ? (AIMAG_BY_VALUE[partner.aimag]?.label_mn || partner.aimag) : '-'}</TableCell>
-                  <TableCell>
-                    {partner.website_url ? (
-                      <a 
-                        href={partner.website_url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-primary hover:underline"
-                      >
-                        {new URL(partner.website_url).hostname}
-                      </a>
-                    ) : '-'}
-                  </TableCell>
+                  <TableCell className="font-medium">{partner.count ?? 0}</TableCell>
                   <TableCell>
                     <Badge variant={partner.is_active ? 'default' : 'secondary'}>
                       {partner.is_active ? 'Идэвхтэй' : 'Идэвхгүй'}
