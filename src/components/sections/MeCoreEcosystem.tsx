@@ -18,6 +18,16 @@ import {
   ArrowRight,
   Sparkles,
   X,
+  Landmark,
+  ScanLine,
+  Users,
+  Wallet2,
+  Calculator,
+  PieChart,
+  Database,
+  Globe2,
+  Store,
+  FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -28,32 +38,44 @@ type Node = {
   desc: { mn: string; en: string };
   icon: any;
   ring: 0 | 1 | 2;
-  angle: number; // degrees
+  angle: number; // degrees (initial position)
+  side: "left" | "right";
 };
 
+// Left-heavy (banking, payments, ERP) / Right-side (gov + scoring + gateway)
+// Angles measured clockwise from 3 o'clock. Left side ~ 90°..270°, Right ~ -90°..90°.
 const NODES: Node[] = [
-  // Inner ring – core banking
-  { id: "meapp", name: { mn: "Me App цахим банк", en: "Me App Digital Bank" }, desc: { mn: "Хувийн санхүүгийн цахим банкны апп.", en: "Personal digital banking app." }, icon: Smartphone, ring: 0, angle: 0 },
-  { id: "negdi", name: { mn: "NEGDi картын систем", en: "NEGDi Card System" }, desc: { mn: "Картын процессинг ба удирдлагын систем.", en: "Card processing & management." }, icon: CreditCard, ring: 0, angle: 72 },
-  { id: "los", name: { mn: "LOS зээлийн систем", en: "LOS Loan System" }, desc: { mn: "Зээлийн үйл ажиллагааны цогц шийдэл.", en: "End-to-end loan origination." }, icon: Wallet, ring: 0, angle: 144 },
-  { id: "erp", name: { mn: "Sync ERP систем", en: "ERP System" }, desc: { mn: "Дотоод үйл ажиллагааны цогц ERP.", en: "Internal operations ERP suite." }, icon: Building2, ring: 0, angle: 216 },
-  { id: "qpay", name: { mn: "QPay", en: "QPay" }, desc: { mn: "QR төлбөрийн нэгдсэн интеграц.", en: "Unified QR payment integration." }, icon: Banknote, ring: 0, angle: 288 },
+  // LEFT — inner ring
+  { id: "meapp-bank", name: { mn: "Me App цахим банк", en: "Me App Digital Bank" }, desc: { mn: "Хувийн санхүүгийн цахим банкны апп.", en: "Personal digital banking app." }, icon: Smartphone, ring: 0, angle: 150, side: "left" },
+  { id: "negdi", name: { mn: "NEGDi картын систем", en: "NEGDi Card System" }, desc: { mn: "Картын процессинг ба удирдлагын систем.", en: "Card processing & management." }, icon: CreditCard, ring: 0, angle: 180, side: "left" },
+  { id: "qpay", name: { mn: "QPay", en: "QPay" }, desc: { mn: "QR төлбөрийн нэгдсэн интеграц.", en: "Unified QR payment integration." }, icon: Banknote, ring: 0, angle: 210, side: "left" },
 
-  // Middle ring – commerce & scoring
-  { id: "ecom", name: { mn: "E-commerce", en: "E-commerce" }, desc: { mn: "Цахим худалдааны төлбөрийн шийдэл.", en: "E-commerce payment solutions." }, icon: ShoppingCart, ring: 1, angle: 30 },
-  { id: "score", name: { mn: "SainScore зээлийн оноо", en: "Credit Scoring" }, desc: { mn: "AI суурьт зээлийн оноо.", en: "AI-powered credit scoring." }, icon: Gauge, ring: 1, angle: 102 },
-  { id: "gateway", name: { mn: "Банкны Gateway", en: "Banking Gateway" }, desc: { mn: "Олон банк руу холбогдох гарц.", en: "Multi-bank payment gateway." }, icon: Network, ring: 1, angle: 174 },
-  { id: "ebarimt", name: { mn: "E-Barimt", en: "E-Barimt" }, desc: { mn: "Татварын цахим баримтын холболт.", en: "Electronic tax receipt integration." }, icon: Receipt, ring: 1, angle: 246 },
-  { id: "ndaatgal", name: { mn: "Нийгмийн даатгал", en: "Social Insurance" }, desc: { mn: "НДЕГ-ийн системтэй интеграц.", en: "Social insurance integration." }, icon: Shield, ring: 1, angle: 318 },
+  // LEFT — middle ring
+  { id: "ecom", name: { mn: "E-commerce", en: "E-commerce" }, desc: { mn: "Цахим худалдааны төлбөрийн шийдэл.", en: "E-commerce payment solutions." }, icon: ShoppingCart, ring: 1, angle: 120, side: "left" },
+  { id: "melp", name: { mn: "Me LP — LOS систем", en: "Me LP — LOS System" }, desc: { mn: "Зээлийн үйл ажиллагааны цогц шийдэл.", en: "End-to-end loan origination." }, icon: Wallet, ring: 1, angle: 150, side: "left" },
+  { id: "pos", name: { mn: "POS төхөөрөмж", en: "POS Terminal" }, desc: { mn: "Худалдааны цэгийн төлбөрийн шийдэл.", en: "Point-of-sale payment solution." }, icon: Store, ring: 1, angle: 180, side: "left" },
+  { id: "meapp-mn", name: { mn: "Me App Mongolia", en: "Me App Mongolia" }, desc: { mn: "Хэрэглэгчдэд зориулсан супер апп.", en: "Consumer super-app." }, icon: Globe2, ring: 1, angle: 210, side: "left" },
+  { id: "syncerp-app", name: { mn: "SYNC ERP App", en: "SYNC ERP App" }, desc: { mn: "ERP-ийн мобайл апп.", en: "ERP mobile companion app." }, icon: Smartphone, ring: 1, angle: 240, side: "left" },
 
-  // Outer ring – intelligence
-  { id: "api", name: { mn: "External APIs", en: "External APIs" }, desc: { mn: "Гадаад үйлчилгээний нээлттэй API.", en: "Open APIs for external services." }, icon: Plug, ring: 2, angle: 60 },
-  { id: "ai", name: { mn: "AI Analytics", en: "AI Analytics" }, desc: { mn: "Хиймэл оюун ухаанд суурилсан анализ.", en: "AI-driven analytics." }, icon: Brain, ring: 2, angle: 180 },
-  { id: "kpi", name: { mn: "Reporting & KPI", en: "Reporting & KPI" }, desc: { mn: "Тайлан, KPI хяналтын дашбоард.", en: "Reporting & KPI dashboards." }, icon: BarChart3, ring: 2, angle: 300 },
+  // LEFT — outer ring (ERP cluster)
+  { id: "syncerp", name: { mn: "Sync ERP систем", en: "Sync ERP System" }, desc: { mn: "Дотоод үйл ажиллагааны цогц ERP.", en: "Internal operations ERP suite." }, icon: Building2, ring: 2, angle: 110, side: "left" },
+  { id: "kpi", name: { mn: "KPI", en: "KPI" }, desc: { mn: "Гүйцэтгэлийн үзүүлэлтийн удирдлага.", en: "Performance KPI management." }, icon: BarChart3, ring: 2, angle: 135, side: "left" },
+  { id: "hr", name: { mn: "Хүний нөөц", en: "Human Resource" }, desc: { mn: "Хүний нөөцийн удирдлага.", en: "HR management." }, icon: Users, ring: 2, angle: 160, side: "left" },
+  { id: "payroll", name: { mn: "Цалин", en: "Payroll" }, desc: { mn: "Цалингийн системийн модуль.", en: "Payroll module." }, icon: Wallet2, ring: 2, angle: 185, side: "left" },
+  { id: "budget", name: { mn: "Төсөв", en: "Budget" }, desc: { mn: "Төсөв төлөвлөлт, хяналт.", en: "Budgeting & planning." }, icon: PieChart, ring: 2, angle: 210, side: "left" },
+  { id: "acc", name: { mn: "Нягтлан бодох", en: "Accounting" }, desc: { mn: "Нягтлан бодох бүртгэлийн модуль.", en: "Accounting module." }, icon: Calculator, ring: 2, angle: 235, side: "left" },
+
+  // RIGHT
+  { id: "score", name: { mn: "SainScore", en: "Sain Score" }, desc: { mn: "AI суурьт зээлийн оноо.", en: "AI-powered credit scoring." }, icon: Gauge, ring: 0, angle: 330, side: "right" },
+  { id: "gateway", name: { mn: "Banking Gateway", en: "Banking Gateway" }, desc: { mn: "Олон банкны нэгдсэн гарц.", en: "Multi-bank payment gateway." }, icon: Network, ring: 0, angle: 0, side: "right" },
+  { id: "mongolbank", name: { mn: "Монголбанк / EMD", en: "Mongol Bank / EMD" }, desc: { mn: "Төв банк, EMD-тэй холболт.", en: "Central bank & EMD integration." }, icon: Landmark, ring: 1, angle: 340, side: "right" },
+  { id: "emongolia", name: { mn: "E-Mongolia", en: "E-Mongolia" }, desc: { mn: "Төрийн үйлчилгээний интеграц.", en: "Government services integration." }, icon: Database, ring: 1, angle: 10, side: "right" },
+  { id: "ebarimt", name: { mn: "E-Barimt", en: "E-Barimt" }, desc: { mn: "Татварын цахим баримт.", en: "Electronic tax receipt." }, icon: FileText, ring: 1, angle: 30, side: "right" },
 ];
 
-const RING_RADII = [22, 35, 46]; // percentage of container
-const RING_DURATIONS = [60, 90, 120]; // seconds per rotation
+const RING_RADII = [24, 36, 46]; // percentage of container
+const RING_DURATIONS = [80, 110, 140]; // seconds per rotation (slow, cinematic)
+const RING_OSCILLATION = 6; // degrees of gentle sway instead of full rotation
 
 export const MeCoreEcosystem = () => {
   const { language } = useLanguage();
@@ -157,37 +179,7 @@ export const MeCoreEcosystem = () => {
             transition: "transform 0.3s ease-out",
           }}
         >
-          {/* Connection lines (SVG) */}
-          <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-              <radialGradient id="lineGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="rgba(56,189,248,0.6)" />
-                <stop offset="100%" stopColor="rgba(56,189,248,0)" />
-              </radialGradient>
-            </defs>
-            {NODES.map((n) => {
-              const rad = (n.angle * Math.PI) / 180;
-              const r = RING_RADII[n.ring];
-              const x = 50 + r * Math.cos(rad);
-              const y = 50 + r * Math.sin(rad);
-              const isHover = hovered === n.id;
-              return (
-                <line
-                  key={n.id}
-                  x1="50"
-                  y1="50"
-                  x2={x}
-                  y2={y}
-                  stroke={isHover ? "rgba(56,189,248,0.9)" : "url(#lineGrad)"}
-                  strokeWidth={isHover ? 0.4 : 0.18}
-                  strokeDasharray={isHover ? "0" : "0.6 0.6"}
-                  style={{ transition: "all 0.3s ease" }}
-                />
-              );
-            })}
-          </svg>
-
-          {/* Rotating rings */}
+          {/* Decorative rotating rings */}
           {RING_RADII.map((r, idx) => (
             <motion.div
               key={idx}
@@ -238,52 +230,118 @@ export const MeCoreEcosystem = () => {
             </motion.div>
           </div>
 
-          {/* Orbiting nodes */}
-          {NODES.map((n) => {
+          {/* Orbit groups — each node is wrapped in a rotating group so its connection
+             line and node move together. Nodes oscillate gently around their base
+             angle so the left/right structure of the ecosystem is preserved. */}
+          {NODES.map((n, i) => {
             const r = RING_RADII[n.ring];
-            const duration = RING_DURATIONS[n.ring];
-            const direction = n.ring % 2 === 0 ? 1 : -1;
+            const duration = 8 + (n.ring * 3) + (i % 4); // each node sways at its own pace
             const Icon = n.icon;
             const isActive = hovered === n.id || active?.id === n.id;
+            const delay = (i % 7) * 0.4;
+            // Endpoint in 100x100 viewBox space (within the wrapper's own un-rotated frame)
+            const rad = (n.angle * Math.PI) / 180;
+            const x2 = 50 + r * Math.cos(rad);
+            const y2 = 50 + r * Math.sin(rad);
             return (
               <motion.div
                 key={n.id}
-                className="absolute left-1/2 top-1/2"
-                style={{ width: 0, height: 0 }}
-                animate={{ rotate: 360 * direction }}
-                transition={{ duration, repeat: Infinity, ease: "linear" }}
-                initial={{ rotate: n.angle }}
+                className="absolute inset-0"
+                animate={{ rotate: [-RING_OSCILLATION, RING_OSCILLATION, -RING_OSCILLATION] }}
+                transition={{ duration, repeat: Infinity, ease: "easeInOut", delay }}
+                style={{ transformOrigin: "50% 50%" }}
               >
+                {/* Animated connection line for this node */}
+                <svg
+                  className="pointer-events-none absolute inset-0 h-full w-full"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="none"
+                >
+                  <defs>
+                    <linearGradient id={`grad-${n.id}`} x1="50%" y1="50%" x2={`${x2}%`} y2={`${y2}%`} gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="rgba(125,211,252,0.85)" />
+                      <stop offset="100%" stopColor="rgba(56,189,248,0)" />
+                    </linearGradient>
+                  </defs>
+                  <line
+                    x1="50"
+                    y1="50"
+                    x2={x2}
+                    y2={y2}
+                    stroke={isActive ? "rgba(125,211,252,0.95)" : `url(#grad-${n.id})`}
+                    strokeWidth={isActive ? 0.35 : 0.18}
+                    strokeDasharray={isActive ? "0" : "0.7 0.7"}
+                    style={{ transition: "all 0.3s ease" }}
+                  />
+                  {/* Travelling light particle along the line */}
+                  <circle r={isActive ? 0.7 : 0.5} fill="rgba(186,230,253,0.95)">
+                    <animate
+                      attributeName="cx"
+                      from="50"
+                      to={x2}
+                      dur={`${3 + (i % 3)}s`}
+                      begin={`${(i * 0.3) % 3}s`}
+                      repeatCount="indefinite"
+                    />
+                    <animate
+                      attributeName="cy"
+                      from="50"
+                      to={y2}
+                      dur={`${3 + (i % 3)}s`}
+                      begin={`${(i * 0.3) % 3}s`}
+                      repeatCount="indefinite"
+                    />
+                    <animate
+                      attributeName="opacity"
+                      values="0;1;0"
+                      dur={`${3 + (i % 3)}s`}
+                      begin={`${(i * 0.3) % 3}s`}
+                      repeatCount="indefinite"
+                    />
+                  </circle>
+                </svg>
+
+                {/* The node itself, positioned at the line endpoint */}
                 <div
+                  className="absolute"
                   style={{
-                    transform: `rotate(${n.angle}deg) translate(${r * 8.2}px) rotate(${-n.angle}deg)`,
+                    left: `${x2}%`,
+                    top: `${y2}%`,
+                    transform: "translate(-50%, -50%)",
                   }}
                 >
-                  {/* Counter-rotate so node stays upright */}
+                  {/* Counter-rotate so labels stay upright while group sways */}
                   <motion.button
                     type="button"
                     onMouseEnter={() => setHovered(n.id)}
                     onMouseLeave={() => setHovered(null)}
                     onClick={() => setActive(n)}
-                    animate={{ rotate: -360 * direction }}
-                    transition={{ duration, repeat: Infinity, ease: "linear" }}
-                    className="group relative -translate-x-1/2 -translate-y-1/2"
+                    animate={{ rotate: [RING_OSCILLATION, -RING_OSCILLATION, RING_OSCILLATION] }}
+                    transition={{ duration, repeat: Infinity, ease: "easeInOut", delay }}
+                    className="group relative flex flex-col items-center"
                   >
                     <div
-                      className={`relative flex h-14 w-14 items-center justify-center rounded-2xl border backdrop-blur-md transition-all duration-300 sm:h-16 sm:w-16 ${
+                      className={`relative flex items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 ${
+                        n.ring === 0 ? "h-16 w-16 sm:h-20 sm:w-20" : n.ring === 1 ? "h-14 w-14 sm:h-16 sm:w-16" : "h-12 w-12 sm:h-14 sm:w-14"
+                      } ${
                         isActive
-                          ? "border-cyan-300/80 bg-cyan-400/20 shadow-[0_0_30px_rgba(56,189,248,0.6)]"
-                          : "border-white/10 bg-white/5 hover:border-cyan-300/50 hover:bg-cyan-400/10"
+                          ? "border-cyan-300/80 bg-cyan-400/20 shadow-[0_0_30px_rgba(56,189,248,0.7)] scale-110"
+                          : "border-cyan-300/20 bg-slate-900/60 hover:border-cyan-300/60 hover:bg-cyan-400/10"
                       }`}
                     >
-                      <Icon className={`h-6 w-6 transition-colors ${isActive ? "text-cyan-200" : "text-slate-200"}`} />
+                      <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(56,189,248,0.25),transparent_60%)]" />
+                      <Icon
+                        className={`relative ${n.ring === 0 ? "h-7 w-7" : n.ring === 1 ? "h-6 w-6" : "h-5 w-5"} transition-colors ${
+                          isActive ? "text-cyan-200" : "text-slate-100"
+                        }`}
+                      />
                       {isActive && (
-                        <span className="pointer-events-none absolute -inset-1 rounded-2xl border border-cyan-300/40" />
+                        <span className="pointer-events-none absolute -inset-1 rounded-full border border-cyan-300/40" />
                       )}
                     </div>
                     <div
-                      className={`pointer-events-none absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-white/10 bg-slate-900/90 px-2 py-1 text-[10px] font-medium text-slate-100 backdrop-blur-md transition-opacity ${
-                        isActive ? "opacity-100" : "opacity-0"
+                      className={`pointer-events-none mt-2 max-w-[110px] whitespace-normal text-center text-[10px] font-medium leading-tight text-slate-200/90 transition-all sm:text-[11px] ${
+                        isActive ? "text-cyan-200" : ""
                       }`}
                     >
                       {t(n.name.mn, n.name.en)}
