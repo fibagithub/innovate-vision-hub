@@ -13,8 +13,8 @@ const Index = () => {
   return (
     <Layout>
       <Hero />
-      <Services />
       <MeCoreEcosystem />
+      <Services />
       <Partners />
       <WhyChooseUs />
       <About />

@@ -14,8 +14,6 @@ import {
   Brain,
   BarChart3,
   Banknote,
-  Play,
-  ArrowRight,
   Sparkles,
   X,
   Landmark,
@@ -29,7 +27,6 @@ import {
   Store,
   FileText,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 type Node = {
@@ -154,7 +151,7 @@ export const MeCoreEcosystem = () => {
             transition={{ delay: 0.1 }}
             className="font-display mt-5 bg-gradient-to-b from-white via-white to-cyan-200/70 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl"
           >
-            {t("Санхүүгийн цогц шийдлийн төв цөм", "The intelligent core of finance")}
+            {t("Бид шалтгааныг ойлгоход анхаардаг учраас бодит үр дүн гаргадаг", "We focus on understanding the cause, so we deliver real results")}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -353,24 +350,6 @@ export const MeCoreEcosystem = () => {
           })}
         </div>
 
-        {/* CTAs */}
-        <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button
-            size="lg"
-            className="group bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 hover:from-cyan-300 hover:to-blue-400"
-          >
-            <Play className="mr-2 h-4 w-4" />
-            {t("Демо үзэх", "Watch demo")}
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            className="border-white/20 bg-white/5 text-white backdrop-blur-md hover:bg-white/10 hover:text-white"
-          >
-            {t("Системийн боломжууд", "Explore capabilities")}
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
       </div>
 
       {/* Modal */}
