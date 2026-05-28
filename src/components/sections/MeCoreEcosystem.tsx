@@ -18,6 +18,16 @@ import {
   ArrowRight,
   Sparkles,
   X,
+  Landmark,
+  ScanLine,
+  Users,
+  Wallet2,
+  Calculator,
+  PieChart,
+  Database,
+  Globe2,
+  Store,
+  FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -28,32 +38,44 @@ type Node = {
   desc: { mn: string; en: string };
   icon: any;
   ring: 0 | 1 | 2;
-  angle: number; // degrees
+  angle: number; // degrees (initial position)
+  side: "left" | "right";
 };
 
+// Left-heavy (banking, payments, ERP) / Right-side (gov + scoring + gateway)
+// Angles measured clockwise from 3 o'clock. Left side ~ 90°..270°, Right ~ -90°..90°.
 const NODES: Node[] = [
-  // Inner ring – core banking
-  { id: "meapp", name: { mn: "Me App цахим банк", en: "Me App Digital Bank" }, desc: { mn: "Хувийн санхүүгийн цахим банкны апп.", en: "Personal digital banking app." }, icon: Smartphone, ring: 0, angle: 0 },
-  { id: "negdi", name: { mn: "NEGDi картын систем", en: "NEGDi Card System" }, desc: { mn: "Картын процессинг ба удирдлагын систем.", en: "Card processing & management." }, icon: CreditCard, ring: 0, angle: 72 },
-  { id: "los", name: { mn: "LOS зээлийн систем", en: "LOS Loan System" }, desc: { mn: "Зээлийн үйл ажиллагааны цогц шийдэл.", en: "End-to-end loan origination." }, icon: Wallet, ring: 0, angle: 144 },
-  { id: "erp", name: { mn: "Sync ERP систем", en: "ERP System" }, desc: { mn: "Дотоод үйл ажиллагааны цогц ERP.", en: "Internal operations ERP suite." }, icon: Building2, ring: 0, angle: 216 },
-  { id: "qpay", name: { mn: "QPay", en: "QPay" }, desc: { mn: "QR төлбөрийн нэгдсэн интеграц.", en: "Unified QR payment integration." }, icon: Banknote, ring: 0, angle: 288 },
+  // LEFT — inner ring
+  { id: "meapp-bank", name: { mn: "Me App цахим банк", en: "Me App Digital Bank" }, desc: { mn: "Хувийн санхүүгийн цахим банкны апп.", en: "Personal digital banking app." }, icon: Smartphone, ring: 0, angle: 150, side: "left" },
+  { id: "negdi", name: { mn: "NEGDi картын систем", en: "NEGDi Card System" }, desc: { mn: "Картын процессинг ба удирдлагын систем.", en: "Card processing & management." }, icon: CreditCard, ring: 0, angle: 180, side: "left" },
+  { id: "qpay", name: { mn: "QPay", en: "QPay" }, desc: { mn: "QR төлбөрийн нэгдсэн интеграц.", en: "Unified QR payment integration." }, icon: Banknote, ring: 0, angle: 210, side: "left" },
 
-  // Middle ring – commerce & scoring
-  { id: "ecom", name: { mn: "E-commerce", en: "E-commerce" }, desc: { mn: "Цахим худалдааны төлбөрийн шийдэл.", en: "E-commerce payment solutions." }, icon: ShoppingCart, ring: 1, angle: 30 },
-  { id: "score", name: { mn: "SainScore зээлийн оноо", en: "Credit Scoring" }, desc: { mn: "AI суурьт зээлийн оноо.", en: "AI-powered credit scoring." }, icon: Gauge, ring: 1, angle: 102 },
-  { id: "gateway", name: { mn: "Банкны Gateway", en: "Banking Gateway" }, desc: { mn: "Олон банк руу холбогдох гарц.", en: "Multi-bank payment gateway." }, icon: Network, ring: 1, angle: 174 },
-  { id: "ebarimt", name: { mn: "E-Barimt", en: "E-Barimt" }, desc: { mn: "Татварын цахим баримтын холболт.", en: "Electronic tax receipt integration." }, icon: Receipt, ring: 1, angle: 246 },
-  { id: "ndaatgal", name: { mn: "Нийгмийн даатгал", en: "Social Insurance" }, desc: { mn: "НДЕГ-ийн системтэй интеграц.", en: "Social insurance integration." }, icon: Shield, ring: 1, angle: 318 },
+  // LEFT — middle ring
+  { id: "ecom", name: { mn: "E-commerce", en: "E-commerce" }, desc: { mn: "Цахим худалдааны төлбөрийн шийдэл.", en: "E-commerce payment solutions." }, icon: ShoppingCart, ring: 1, angle: 120, side: "left" },
+  { id: "melp", name: { mn: "Me LP — LOS систем", en: "Me LP — LOS System" }, desc: { mn: "Зээлийн үйл ажиллагааны цогц шийдэл.", en: "End-to-end loan origination." }, icon: Wallet, ring: 1, angle: 150, side: "left" },
+  { id: "pos", name: { mn: "POS төхөөрөмж", en: "POS Terminal" }, desc: { mn: "Худалдааны цэгийн төлбөрийн шийдэл.", en: "Point-of-sale payment solution." }, icon: Store, ring: 1, angle: 180, side: "left" },
+  { id: "meapp-mn", name: { mn: "Me App Mongolia", en: "Me App Mongolia" }, desc: { mn: "Хэрэглэгчдэд зориулсан супер апп.", en: "Consumer super-app." }, icon: Globe2, ring: 1, angle: 210, side: "left" },
+  { id: "syncerp-app", name: { mn: "SYNC ERP App", en: "SYNC ERP App" }, desc: { mn: "ERP-ийн мобайл апп.", en: "ERP mobile companion app." }, icon: Smartphone, ring: 1, angle: 240, side: "left" },
 
-  // Outer ring – intelligence
-  { id: "api", name: { mn: "External APIs", en: "External APIs" }, desc: { mn: "Гадаад үйлчилгээний нээлттэй API.", en: "Open APIs for external services." }, icon: Plug, ring: 2, angle: 60 },
-  { id: "ai", name: { mn: "AI Analytics", en: "AI Analytics" }, desc: { mn: "Хиймэл оюун ухаанд суурилсан анализ.", en: "AI-driven analytics." }, icon: Brain, ring: 2, angle: 180 },
-  { id: "kpi", name: { mn: "Reporting & KPI", en: "Reporting & KPI" }, desc: { mn: "Тайлан, KPI хяналтын дашбоард.", en: "Reporting & KPI dashboards." }, icon: BarChart3, ring: 2, angle: 300 },
+  // LEFT — outer ring (ERP cluster)
+  { id: "syncerp", name: { mn: "Sync ERP систем", en: "Sync ERP System" }, desc: { mn: "Дотоод үйл ажиллагааны цогц ERP.", en: "Internal operations ERP suite." }, icon: Building2, ring: 2, angle: 110, side: "left" },
+  { id: "kpi", name: { mn: "KPI", en: "KPI" }, desc: { mn: "Гүйцэтгэлийн үзүүлэлтийн удирдлага.", en: "Performance KPI management." }, icon: BarChart3, ring: 2, angle: 135, side: "left" },
+  { id: "hr", name: { mn: "Хүний нөөц", en: "Human Resource" }, desc: { mn: "Хүний нөөцийн удирдлага.", en: "HR management." }, icon: Users, ring: 2, angle: 160, side: "left" },
+  { id: "payroll", name: { mn: "Цалин", en: "Payroll" }, desc: { mn: "Цалингийн системийн модуль.", en: "Payroll module." }, icon: Wallet2, ring: 2, angle: 185, side: "left" },
+  { id: "budget", name: { mn: "Төсөв", en: "Budget" }, desc: { mn: "Төсөв төлөвлөлт, хяналт.", en: "Budgeting & planning." }, icon: PieChart, ring: 2, angle: 210, side: "left" },
+  { id: "acc", name: { mn: "Нягтлан бодох", en: "Accounting" }, desc: { mn: "Нягтлан бодох бүртгэлийн модуль.", en: "Accounting module." }, icon: Calculator, ring: 2, angle: 235, side: "left" },
+
+  // RIGHT
+  { id: "score", name: { mn: "SainScore", en: "Sain Score" }, desc: { mn: "AI суурьт зээлийн оноо.", en: "AI-powered credit scoring." }, icon: Gauge, ring: 0, angle: 330, side: "right" },
+  { id: "gateway", name: { mn: "Banking Gateway", en: "Banking Gateway" }, desc: { mn: "Олон банкны нэгдсэн гарц.", en: "Multi-bank payment gateway." }, icon: Network, ring: 0, angle: 0, side: "right" },
+  { id: "mongolbank", name: { mn: "Монголбанк / EMD", en: "Mongol Bank / EMD" }, desc: { mn: "Төв банк, EMD-тэй холболт.", en: "Central bank & EMD integration." }, icon: Landmark, ring: 1, angle: 340, side: "right" },
+  { id: "emongolia", name: { mn: "E-Mongolia", en: "E-Mongolia" }, desc: { mn: "Төрийн үйлчилгээний интеграц.", en: "Government services integration." }, icon: Database, ring: 1, angle: 10, side: "right" },
+  { id: "ebarimt", name: { mn: "E-Barimt", en: "E-Barimt" }, desc: { mn: "Татварын цахим баримт.", en: "Electronic tax receipt." }, icon: FileText, ring: 1, angle: 30, side: "right" },
 ];
 
-const RING_RADII = [22, 35, 46]; // percentage of container
-const RING_DURATIONS = [60, 90, 120]; // seconds per rotation
+const RING_RADII = [24, 36, 46]; // percentage of container
+const RING_DURATIONS = [80, 110, 140]; // seconds per rotation (slow, cinematic)
+const RING_OSCILLATION = 6; // degrees of gentle sway instead of full rotation
 
 export const MeCoreEcosystem = () => {
   const { language } = useLanguage();
