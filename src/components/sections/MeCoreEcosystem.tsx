@@ -48,7 +48,7 @@ const NODES: Node[] = [
   { id: "qpay", name: { mn: "QPay", en: "QPay" }, desc: { mn: "QR төлбөрийн нэгдсэн интеграц.", en: "Unified QR payment integration." }, icon: Banknote, ring: 0, angle: 210, side: "left" },
 
   // LEFT — middle ring
-  { id: "ecom", name: { mn: "E-commerce", en: "E-commerce" }, desc: { mn: "Цахим худалдааны төлбөрийн шийдэл.", en: "E-commerce payment solutions." }, icon: ShoppingCart, ring: 1, angle: 120, side: "left" },
+  { id: "ecom", name: { mn: "Цахим худалдаа", en: "E-commerce" }, desc: { mn: "Цахим худалдааны төлбөрийн шийдэл.", en: "E-commerce payment solutions." }, icon: ShoppingCart, ring: 1, angle: 120, side: "left" },
   { id: "melp", name: { mn: "Me LP — LOS систем", en: "Me LP — LOS System" }, desc: { mn: "Зээлийн үйл ажиллагааны цогц шийдэл.", en: "End-to-end loan origination." }, icon: Wallet, ring: 1, angle: 150, side: "left" },
   { id: "pos", name: { mn: "POS төхөөрөмж", en: "POS Terminal" }, desc: { mn: "Худалдааны цэгийн төлбөрийн шийдэл.", en: "Point-of-sale payment solution." }, icon: Store, ring: 1, angle: 180, side: "left" },
   { id: "meapp-mn", name: { mn: "Me App Mongolia", en: "Me App Mongolia" }, desc: { mn: "Хэрэглэгчдэд зориулсан супер апп.", en: "Consumer super-app." }, icon: Globe2, ring: 1, angle: 210, side: "left" },
@@ -64,7 +64,7 @@ const NODES: Node[] = [
 
   // RIGHT
   { id: "score", name: { mn: "SainScore", en: "Sain Score" }, desc: { mn: "AI суурьт зээлийн оноо.", en: "AI-powered credit scoring." }, icon: Gauge, ring: 0, angle: 330, side: "right" },
-  { id: "gateway", name: { mn: "Banking Gateway", en: "Banking Gateway" }, desc: { mn: "Олон банкны нэгдсэн гарц.", en: "Multi-bank payment gateway." }, icon: Network, ring: 0, angle: 0, side: "right" },
+  { id: "gateway", name: { mn: "Банкны гарц (Gateway)", en: "Banking Gateway" }, desc: { mn: "Олон банкны нэгдсэн гарц.", en: "Multi-bank payment gateway." }, icon: Network, ring: 0, angle: 0, side: "right" },
   { id: "mongolbank", name: { mn: "Монголбанк / EMD", en: "Mongol Bank / EMD" }, desc: { mn: "Төв банк, EMD-тэй холболт.", en: "Central bank & EMD integration." }, icon: Landmark, ring: 1, angle: 340, side: "right" },
   { id: "emongolia", name: { mn: "E-Mongolia", en: "E-Mongolia" }, desc: { mn: "Төрийн үйлчилгээний интеграц.", en: "Government services integration." }, icon: Database, ring: 1, angle: 10, side: "right" },
   { id: "ebarimt", name: { mn: "E-Barimt", en: "E-Barimt" }, desc: { mn: "Татварын цахим баримт.", en: "Electronic tax receipt." }, icon: FileText, ring: 1, angle: 30, side: "right" },
@@ -142,7 +142,7 @@ export const MeCoreEcosystem = () => {
             className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-1.5 text-xs font-medium text-cyan-300 backdrop-blur-sm"
           >
             <Sparkles className="h-3.5 w-3.5" />
-            {t("Financial Core Ecosystem", "Financial Core Ecosystem")}
+            {t("Санхүүгийн нэгдсэн экосистем", "Financial Core Ecosystem")}
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

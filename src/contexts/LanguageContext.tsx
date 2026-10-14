@@ -26,7 +26,7 @@ const translations: Translations = {
   "hero.titleHighlight": { mn: "бодит үр дүн", en: "real results" },
   "hero.titleSuffix": { mn: "гаргадаг", en: "" },
   "hero.description": {
-    mn: "Банк санхүүгийн програм хангамж, төлбөр тооцооны систем, мэдээллийн сан зохион байгуулах чиглэлээр 15+ жилийн туршлагатай мэргэжлийн баг",
+    mn: "Банк санхүүгийн программ хангамж, төлбөр тооцооны систем, мэдээллийн сан зохион байгуулах чиглэлээр 15+ жилийн туршлагатай мэргэжлийн баг",
     en: "A professional team with 15+ years of experience in banking software, payment systems, and database management",
   },
   "hero.viewProducts": { mn: "Бүтээгдэхүүн үзэх", en: "View Products" },
@@ -38,19 +38,19 @@ const translations: Translations = {
   // About Section (homepage)
   "about.badge": { mn: "Бидний тухай", en: "About Us" },
   "about.title": { mn: "Таны санааг бид", en: "We make your ideas" },
-  "about.titleHighlight": { mn: "Бодит болгоно", en: "a Reality" },
+  "about.titleHighlight": { mn: "бодит болгоно", en: "a Reality" },
   "about.desc1": {
-    mn: "Манай компани нь 2021 онд байгуулагдсан бөгөөд, банк санхүүгийн Програм хангамж, түүний шийдэл, мэдээллийн сан зохион байгуулах, төлбөр тооцооны шийдэл боловсруулах чиглэлээр үйл ажиллагаа явуулдаг.",
+    mn: "Манай компани нь 2021 онд байгуулагдсан бөгөөд, банк санхүүгийн программ хангамж, түүний шийдэл, мэдээллийн сан зохион байгуулах, төлбөр тооцооны шийдэл боловсруулах чиглэлээр үйл ажиллагаа явуулдаг.",
     en: "Our company was founded in 2021 and operates in the field of banking software, solutions, database management, and payment system development.",
   },
   "about.desc2": {
-    mn: "Мөн банк санхүүгийн мэдээллийн систем, Програм хангамж, мэдээллийн сан болон түүний нууцлал аюулгүй байдлыг хариуцан ажиллаж байсан тухайн салбартаа олон жилийн мэдлэг туршлага хуримтлуулсан чадварлаг, бүтээлч хамт олноос бүрдэж байна.",
+    mn: "Мөн банк санхүүгийн мэдээллийн систем, программ хангамж, мэдээллийн сан болон түүний нууцлал аюулгүй байдлыг хариуцан ажиллаж байсан тухайн салбартаа олон жилийн мэдлэг туршлага хуримтлуулсан чадварлаг, бүтээлч хамт олноос бүрдэж байна.",
     en: "Our team consists of talented and creative professionals who have accumulated years of knowledge and experience in banking information systems, software, database management, and security.",
   },
   "about.learnMore": { mn: "Дэлгэрэнгүй үзэх", en: "Learn More" },
   "about.feature.experience": { mn: "Туршлага", en: "Experience" },
   "about.feature.experienceDesc": {
-    mn: "Тэргүүлэгч банкны олон жилийн туршлагад суурилагдан бүтээгдсэн",
+    mn: "Тэргүүлэгч банкуудад хуримтлуулсан олон жилийн туршлагад суурилсан",
     en: "Built on years of experience with leading banks",
   },
   "about.feature.reliable": { mn: "24/7 Найдвартай", en: "24/7 Reliable" },
@@ -60,7 +60,7 @@ const translations: Translations = {
   },
   "about.feature.support": { mn: "Мэргэжлийн дэмжлэг", en: "Professional Support" },
   "about.feature.supportDesc": {
-    mn: "Мэргэжлийн өндөр түвшний ашиглалт үйлчилгээ үзүүлдэг",
+    mn: "Мэргэжлийн өндөр түвшний ашиглалт, засвар үйлчилгээ үзүүлдэг",
     en: "Providing high-level professional maintenance and service",
   },
   "about.value.mission": { mn: "Бидний эрхэм зорилго", en: "Our Mission" },
@@ -82,7 +82,7 @@ const translations: Translations = {
   // WhyChooseUs Section
   "why.badge": { mn: "Яагаад биднийг сонгох вэ", en: "Why Choose Us" },
   "why.title1": { mn: "Таны бизнесийг", en: "Take your business" },
-  "why.titleHighlight": { mn: "дараагийн түвшинд", en: "to the next level" },
+  "why.titleHighlight": { mn: "дараагийн түвшинд гаргана", en: "to the next level" },
   "why.description": {
     mn: "Бид таны санааг бодит болгох, бизнесийг тэлэх инновацлаг шийдлүүдийг санал болгодог",
     en: "We offer innovative solutions to turn your ideas into reality and grow your business",
@@ -91,14 +91,14 @@ const translations: Translations = {
   "why.innovationSub": { mn: "Дэвшилтэт технологи", en: "Advanced Technology" },
   "why.innovationDesc": {
     mn: "Хамгийн сүүлийн үеийн технологийг ашиглан үйлчлүүлэгчдийнхээ бизнесийг хөгжүүлнэ",
-    en: "Developing our clients' business using the latest technology",
+    en: "We grow our clients' businesses with the latest technology",
   },
   "why.innovationStat": { mn: "Төсөл", en: "Projects" },
   "why.security": { mn: "Аюулгүй байдал", en: "Security" },
   "why.securitySub": { mn: "Олон улсын стандарт", en: "International Standards" },
   "why.securityDesc": {
     mn: "Олон улсын аюулгүй байдлын стандартад нийцсэн системүүдийг хөгжүүлнэ",
-    en: "Developing systems that meet international security standards",
+    en: "We build systems that meet international security standards",
   },
   "why.securityStat": { mn: "Хамгаалалт", en: "Protection" },
   "why.speed": { mn: "Хурдан хүргэлт", en: "Fast Delivery" },
@@ -116,7 +116,7 @@ const translations: Translations = {
   },
   "why.teamStat": { mn: "Жилийн туршлага", en: "Years of Experience" },
   "why.stat.clients": { mn: "Харилцагчид", en: "Clients" },
-  "why.stat.uptime": { mn: "Uptime", en: "Uptime" },
+  "why.stat.uptime": { mn: "Тасралтгүй ажиллагаа", en: "Uptime" },
   "why.stat.transactions": { mn: "Гүйлгээ/сар", en: "Transactions/month" },
  "why.stat.products": { mn: "Бүтээгдэхүүн", en: "Products" },
   "why.stat.support": { mn: "Дэмжлэг", en: "Support" },
@@ -158,10 +158,10 @@ const translations: Translations = {
   // Services Section
   "services.badge": { mn: "Бүтээгдэхүүн & Үйлчилгээ", en: "Products & Services" },
   "services.title": { mn: "Манай шийдлүүд", en: "Our Solutions" },
-  "services.title2": { mn: "Санхүүгийн Технологи", en: "Financial Technology" },
-  "services.subtitle": { mn: "Дараа үеийн", en: "Next Generation" },
+  "services.title2": { mn: "санхүүгийн технологи", en: "Financial Technology" },
+  "services.subtitle": { mn: "Дараагийн үеийн", en: "Next Generation" },
   "services.description": {
-    mn: "Олон улсын стандартад нийцсэн, найдвартай програм хангамжийн шийдлүүд",
+    mn: "Олон улсын стандартад нийцсэн, найдвартай программ хангамжийн шийдлүүд",
     en: "Reliable software solutions that meet international standards",
   },
   "services.learnMore": { mn: "Дэлгэрэнгүй үзэх", en: "Learn More" },
@@ -169,14 +169,14 @@ const translations: Translations = {
   "services.consulting": { mn: "Зөвлөх үйлчилгээ", en: "Consulting Services" },
   "services.consultingTitle": { mn: "Захиалгат шийдэл хэрэгтэй юу?", en: "Need a Custom Solution?" },
   "services.consultingDesc": {
-    mn: "Манай байгууллага нь банкны суурь бүртгэлийн систем, төлбөрийн картын систем, мөн банктай интеграци хийхтэй холбоотой зөвлөх үйлчилгээ буюу шийдэл боловсруулдаг.",
+    mn: "Манай байгууллага нь банкны суурь бүртгэлийн систем, төлбөрийн картын систем, мөн банктай интеграц хийхтэй холбоотой зөвлөх үйлчилгээ буюу шийдэл боловсруулдаг.",
     en: "Our company develops consulting services and solutions related to core banking systems, payment card systems, and bank integration.",
   },
   "services.contactUs": { mn: "Холбоо барих", en: "Contact Us" },
   "services.cardSystem": { mn: "Картын систем", en: "Card System" },
-  "services.walletService": { mn: "Wallet үйлчилгээ", en: "Wallet Service" },
-  "services.systemIntegration": { mn: "Системийн интеграци", en: "System Integration" },
-  "services.aiScoring": { mn: "AI Credit Scoring", en: "AI Credit Scoring" },
+  "services.walletService": { mn: "Цахим түрийвч", en: "Wallet Service" },
+  "services.systemIntegration": { mn: "Системийн интеграц", en: "System Integration" },
+  "services.aiScoring": { mn: "AI зээлийн скоринг", en: "AI Credit Scoring" },
 
   // Services Page
   "servicesPage.backToProducts": { mn: "Бүтээгдэхүүнүүд", en: "Products" },
@@ -301,7 +301,7 @@ const translations: Translations = {
   "aboutPage.timelineHighlight": { mn: "чухал үе шатууд", en: "Milestones" },
   "aboutPage.milestone.2021": { mn: "Байгуулагдсан", en: "Founded" },
   "aboutPage.milestone.2021Desc": {
-    mn: "ФИБА ХХК байгуулагдаж, банк санхүүгийн програм хангамжийн чиглэлээр үйл ажиллагаагаа эхэлсэн.",
+    mn: "ФИБА ХХК байгуулагдаж, банк санхүүгийн программ хангамжийн чиглэлээр үйл ажиллагаагаа эхэлсэн.",
     en: "FIBA LLC was founded and began operations in banking software development.",
   },
   "aboutPage.milestone.2022": { mn: "Анхны гэрээ", en: "First Contract" },
@@ -337,11 +337,11 @@ const translations: Translations = {
   "aboutPage.ctaContact": { mn: "Холбогдох", en: "Get in Touch" },
   "aboutPage.ctaProducts": { mn: "Бүтээгдэхүүн үзэх", en: "View Products" },
   "aboutPage.storyDesc1": {
-    mn: "Манай компани нь 2021 онд байгуулагдсан бөгөөд, банк санхүүгийн Програм хангамж, түүний шийдэл, мэдээллийн сан зохион байгуулах, төлбөр тооцооны шийдэл боловсруулах чиглэлээр үйл ажиллагаа явуулдаг.",
+    mn: "Манай компани нь 2021 онд байгуулагдсан бөгөөд, банк санхүүгийн программ хангамж, түүний шийдэл, мэдээллийн сан зохион байгуулах, төлбөр тооцооны шийдэл боловсруулах чиглэлээр үйл ажиллагаа явуулдаг.",
     en: "Our company was founded in 2021 and specializes in banking software, solutions, database management, and payment system development.",
   },
   "aboutPage.storyDesc2": {
-    mn: "Мөн банк санхүүгийн мэдээллийн систем, Програм хангамж, мэдээллийн сан болон түүний нууцлал аюулгүй байдлыг хариуцан ажиллаж байсан тухайн салбартаа олон жилийн мэдлэг туршлага хуримтлуулсан чадварлаг, бүтээлч хамт олноос бүрдэж байна.",
+    mn: "Мөн банк санхүүгийн мэдээллийн систем, программ хангамж, мэдээллийн сан болон түүний нууцлал аюулгүй байдлыг хариуцан ажиллаж байсан тухайн салбартаа олон жилийн мэдлэг туршлага хуримтлуулсан чадварлаг, бүтээлч хамт олноос бүрдэж байна.",
     en: "Our team consists of talented and creative professionals who have accumulated years of knowledge and experience in banking information systems, software, database management, and security.",
   },
 
@@ -350,7 +350,7 @@ const translations: Translations = {
   "servicesPage.heroTitle1": { mn: "Санхүүгийн", en: "Financial" },
   "servicesPage.heroTitle2": { mn: "Технологийн Шийдлүүд", en: "Technology Solutions" },
   "servicesPage.heroDesc": {
-    mn: "Олон улсын стандартад нийцсэн, найдвартай програм хангамжийн бүтээгдэхүүнүүд",
+    mn: "Олон улсын стандартад нийцсэн, найдвартай программ хангамжийн бүтээгдэхүүнүүд",
     en: "Reliable software products that meet international standards",
   },
   "servicesPage.noProducts": { mn: "Бүтээгдэхүүн олдсонгүй", en: "No products found" },
@@ -377,10 +377,10 @@ const translations: Translations = {
   "footer.partners": { mn: "Харилцагчид", en: "Partners" },
   "footer.contact": { mn: "Холбоо барих", en: "Contact" },
   "footer.consulting": { mn: "Зөвлөх үйлчилгээ", en: "Consulting" },
-  "footer.integration": { mn: "Системийн интеграци", en: "System Integration" },
+  "footer.integration": { mn: "Системийн интеграц", en: "System Integration" },
   "footer.techSupport": { mn: "Техникийн дэмжлэг", en: "Technical Support" },
   "footer.desc": {
-    mn: "Банк санхүүгийн програм хангамж, төлбөр тооцооны систем, мэдээллийн сан зохион байгуулах чиглэлээр 2021 оноос үйл ажиллагаа явуулж байна.",
+    mn: "Банк санхүүгийн программ хангамж, төлбөр тооцооны систем, мэдээллийн сан зохион байгуулах чиглэлээр 2021 оноос үйл ажиллагаа явуулж байна.",
     en: "Operating since 2021 in banking software, payment systems, and database management.",
   },
 
@@ -436,7 +436,7 @@ const translations: Translations = {
   "achievement.totalClients": { mn: "Нийт харилцагч", en: "Total Clients" },
   "achievement.experience": { mn: "Жилийн туршлага", en: "Years of Experience" },
   "achievement.provinces": { mn: "Аймаг хамрагдсан", en: "Provinces Covered" },
-  "achievement.uptime": { mn: "Uptime найдвартай", en: "Uptime Reliability" },
+  "achievement.uptime": { mn: "Тасралтгүй ажиллагаа", en: "Uptime Reliability" },
 
   // Quick Links
   "quickLinks.title": { mn: "Хурдан холбоос", en: "Quick Links" },
