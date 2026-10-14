@@ -13,7 +13,7 @@ export function WhyChooseUs() {
 
   const stats = [
     { value: `${clientsTotal}+`, label: t("why.stat.clients"), icon: Users },
-    { value: "99.9%", label: t("why.stat.uptime"), icon: TrendingUp },
+    { value: "2021", label: t("why.stat.uptime"), icon: TrendingUp },
     { value: "6+", label: t("why.stat.products"), icon: Package },
     { value: "24/7", label: t("why.stat.support"), icon: Clock },
   ];

@@ -42,9 +42,9 @@ const fallbackTeamMembers = [
   {
     id: "4",
     name: "Цэндсүрэн Мөнх-эрдэнэ",
-    position_mn: "Програм хангамж хөгжүүлэлт",
+    position_mn: "программ хангамж хөгжүүлэлт",
     position: "Software Development",
-    bio_mn: "Програм хангамж, Алгоритм, 17-н жилийн туршлагатай.",
+    bio_mn: "программ хангамж, Алгоритм, 17-н жилийн туршлагатай.",
     bio: "Software, Algorithms, 17 years of experience.",
     image_url: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=face",
     linkedin_url: null,

@@ -8,7 +8,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const fallbackTeamMembers = [
   { id: "1", name: "Б. Батбаяр", position_mn: "Захирал", position: "Director", bio_mn: "Банк санхүүгийн салбарт 20+ жилийн туршлагатай. FIBA компанийг 2009 онд үүсгэн байгуулсан.", bio: "20+ years of experience in banking and finance. Founded FIBA in 2009.", image_url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop&crop=face", linkedin_url: "#", email: null },
-  { id: "2", name: "Д. Дорж", position_mn: "Технологийн захирал", position: "CTO", bio_mn: "Програм хангамжийн архитектур, системийн интеграцийн чиглэлээр 15+ жилийн туршлагатай.", bio: "15+ years of experience in software architecture and system integration.", image_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face", linkedin_url: "#", email: null },
+  { id: "2", name: "Д. Дорж", position_mn: "Технологийн захирал", position: "CTO", bio_mn: "программ хангамжийн архитектур, системийн интеграцйн чиглэлээр 15+ жилийн туршлагатай.", bio: "15+ years of experience in software architecture and system integration.", image_url: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face", linkedin_url: "#", email: null },
   { id: "3", name: "Г. Ганбаатар", position_mn: "Бүтээгдэхүүний менежер", position: "Product Manager", bio_mn: "Core Banking системийн хөгжүүлэлт, нэвтрүүлэлтийн чиглэлээр мэргэшсэн.", bio: "Specialized in Core Banking system development and implementation.", image_url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=500&fit=crop&crop=face", linkedin_url: "#", email: null },
   { id: "4", name: "С. Сараа", position_mn: "Ахлах програмист", position: "Senior Developer", bio_mn: "Full-stack хөгжүүлэгч. React, Node.js, PostgreSQL чиглэлээр мэргэшсэн.", bio: "Full-stack developer. Specialized in React, Node.js, PostgreSQL.", image_url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=500&fit=crop&crop=face", linkedin_url: "#", email: null },
 ];
@@ -54,7 +54,7 @@ const TeamPage = () => {
   const activeTeamCount = (dbTeamMembers || []).filter((m) => m.is_active).length;
 
   const teamStats = [
-    { icon: Users, value: `${activeTeamCount}+`, label: t('teamPage.stat.team') },
+    { icon: Users, value: `${activeTeamCount}`, label: t('teamPage.stat.team') },
     { icon: Award, value: "15+", label: t('teamPage.stat.experience') },
     { icon: Target, value: "40+", label: t('teamPage.stat.projects') },
   ];

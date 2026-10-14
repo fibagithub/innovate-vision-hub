@@ -15,7 +15,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useServices, Service } from "@/hooks/useContentData";
+import { useServices, usePartners, Service } from "@/hooks/useContentData";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // Icon mapping for dynamic icons
@@ -124,7 +124,9 @@ const ProductCard = ({
   const serviceName = language === "mn" && service.name_mn ? service.name_mn : service.name;
   const serviceDesc = language === "mn" && service.description_mn ? service.description_mn : service.description;
   const serviceCategory = language === "mn" && service.category_mn ? service.category_mn : service.category;
-  const serviceMetric = language === "mn" && service.usage_metric_mn ? service.usage_metric_mn : service.usage_metric;
+  const { data: partnersData } = usePartners();
+  const clientsTotal = (partnersData || []).filter((p) => p.partner_type === "client").reduce((s, p) => s + (p.count || 0), 0);
+  const serviceMetric = (language === "mn" && service.usage_metric_mn ? service.usage_metric_mn : service.usage_metric)?.replace(/\{clients\}/g, String(clientsTotal));
 
   const externalLink = getExternalLink(service.name);
 

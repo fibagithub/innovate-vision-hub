@@ -18,7 +18,7 @@ const ContactPage = () => {
     {
       icon: Phone,
       title: t("contact.phoneLabel"),
-      details: ["+976-7509-2211 (1 → 2)"],
+      details: [t("contact.phoneValue")],
       gradient: "from-[#7c3aed] to-[#a855f7]",
     },
     {
@@ -250,7 +250,7 @@ const ContactPage = () => {
                     >
                       <div className="flex items-center gap-3">
                         <Phone className="w-5 h-5 text-primary" />
-                        <span className="font-medium text-foreground">+976-7509-2211 (1 → 2)</span>
+                        <span className="font-medium text-foreground">{t("contact.phoneValue")}</span>
                       </div>
                       <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                     </a>
