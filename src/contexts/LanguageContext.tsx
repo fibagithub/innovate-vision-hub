@@ -199,13 +199,14 @@ const translations: Translations = {
   "servicesPage.contactTeam": { mn: "Манай багтай холбогдож", en: "Contact our team to learn more about" },
 
   // Partners Section
-  "partners.badge": { mn: "Түншүүд & Харилцагчид", en: "Partners & Clients" },
-  "partners.title1": { mn: "Технологийн", en: "Technology" },
-  "partners.title2": { mn: "Түншүүд", en: "Partners" },
+  "partners.badge": { mn: "Интеграц & Хамтрал", en: "Integrations" },
+  "partners.title1": { mn: "Холбогдсон", en: "Connected" },
+  "partners.title2": { mn: "системүүд", en: "Systems" },
   "partners.description": {
-    mn: "Монгол орон даяар санхүүгийн байгууллагуудтай хамтран ажиллаж байна",
-    en: "Working with financial institutions across Mongolia",
+    mn: "Манай системүүд улсын болон санхүүгийн гол дэд бүтцүүдтэй шууд холбогдсон",
+    en: "Our systems connect directly to Mongolia's key government and financial infrastructure",
   },
+  "partners.clientsAcross": { mn: "Монгол орон даяарх харилцагчид", en: "Clients across Mongolia" },
   "partners.whyChoose": { mn: "Яагаад биднийг сонгох вэ?", en: "Why Choose Us?" },
   "partners.whyChooseDesc": {
     mn: "Манай системүүд нь олон улсын стандартад нийцсэн, найдвартай, хэрэглэхэд хялбар.",

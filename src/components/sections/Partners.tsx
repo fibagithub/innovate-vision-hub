@@ -12,10 +12,12 @@ export function Partners() {
   const totalCount = partnerData?.totalCount || 0;
 
   // Get partners with logos for marquee
-  const partnersWithLogos = partnerData?.partners?.filter((p) => p.logo_url) || [];
+  const OWN_PRODUCTS = ["sainscore", "meapp", "sync"];
+  const partnersWithLogos =
+    partnerData?.partners?.filter((p) => p.logo_url && !OWN_PRODUCTS.includes((p.name || "").toLowerCase())) || [];
 
   return (
-    <section className="pt-12 pb-24 bg-background relative overflow-hidden" id="clients">
+    <section className="pt-12 pb-16 bg-background relative overflow-hidden" id="clients">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-radial from-primary/5 via-transparent to-transparent" />
       </div>
@@ -35,22 +37,6 @@ export function Partners() {
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("partners.description")}</p>
         </div>
-
-        {/* Large Total Stats */}
-        {totalCount > 0 && (
-          <div className="text-center mb-16">
-            <div className="font-display text-7xl lg:text-9xl font-bold bg-gradient-to-r from-primary to-[#2563eb] bg-clip-text text-transparent">
-              {totalCount}+
-            </div>
-            <p className="text-xl text-muted-foreground mt-4">{t("partners.totalOrgs")}</p>
-          </div>
-        )}
-
-        {isLoading && (
-          <div className="flex items-center justify-center py-12">
-            <Loader2 className="w-8 h-8 animate-spin text-primary" />
-          </div>
-        )}
 
         {/* Logo Marquee */}
         {partnersWithLogos.length > 0 && (
@@ -74,9 +60,28 @@ export function Partners() {
           </div>
         )}
 
+        <h3 className="font-display text-2xl lg:text-3xl font-bold text-foreground text-center mb-6">{t("partners.clientsAcross")}</h3>
+
+        {/* Large Total Stats */}
+        {totalCount > 0 && (
+          <div className="text-center mb-10">
+            <div className="font-display text-7xl lg:text-9xl font-bold bg-gradient-to-r from-primary to-[#2563eb] bg-clip-text text-transparent">
+              {totalCount}+
+            </div>
+            <p className="text-xl text-muted-foreground mt-4">{t("partners.totalOrgs")}</p>
+          </div>
+        )}
+
+        {isLoading && (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        )}
+
+
         {/* Mongolia Map Section */}
         {hasAimagData && (
-          <div className="relative mb-20">
+          <div className="relative">
             <div className="bg-card rounded-[2rem] border border-border/50 p-6 lg:p-10 overflow-hidden">
               <MongoliaMap aimagStats={aimagStats} />
             </div>
