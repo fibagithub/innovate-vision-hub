@@ -21,7 +21,7 @@ import {
   LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useServices, Service, ServiceBenefit } from "@/hooks/useContentData";
+import { useServices, usePartners, Service, ServiceBenefit } from "@/hooks/useContentData";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -121,6 +121,8 @@ const serviceToProduct = (service: Service, index: number) => {
 const ServicesPage = () => {
   const { serviceId } = useParams();
   const { language, t } = useLanguage();
+  const { data: partnersData } = usePartners();
+  const clientsTotal = (partnersData || []).filter((p) => p.partner_type === "client").reduce((s, p) => s + (p.count || 0), 0);
   const { data: services, isLoading } = useServices();
 
   // Transform services to products
@@ -250,7 +252,7 @@ const ServicesPage = () => {
                     <div
                       className={`text-xl lg:text-2xl font-bold bg-gradient-to-r ${product.gradient} bg-clip-text text-transparent`}
                     >
-                      {metric}
+                      {metric.replace("{clients}", String(clientsTotal))}
                     </div>
                   </div>
                 ))}
