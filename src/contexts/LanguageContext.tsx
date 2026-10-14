@@ -31,7 +31,7 @@ const translations: Translations = {
   },
   "hero.viewProducts": { mn: "Бүтээгдэхүүн үзэх", en: "View Products" },
   "hero.aboutUs": { mn: "Бидний тухай", en: "About Us" },
-  "hero.stat.experience": { mn: "Жилийн туршлага", en: "Years of Experience" },
+  "hero.stat.experience": { mn: "Багийн дундаж туршлага (жил)", en: "Years of team experience" },
   "hero.stat.team": { mn: "Мэргэжлийн баг", en: "Professional Team" },
   "hero.stat.satisfaction": { mn: "Харилцагчийн сэтгэл ханамж", en: "Client Satisfaction" },
 
@@ -116,7 +116,7 @@ const translations: Translations = {
   },
   "why.teamStat": { mn: "Жилийн туршлага", en: "Years of Experience" },
   "why.stat.clients": { mn: "Харилцагчид", en: "Clients" },
-  "why.stat.uptime": { mn: "Тасралтгүй ажиллагаа", en: "Uptime" },
+  "why.stat.uptime": { mn: "Оноос хойш", en: "Since" },
   "why.stat.transactions": { mn: "Гүйлгээ/сар", en: "Transactions/month" },
  "why.stat.products": { mn: "Бүтээгдэхүүн", en: "Products" },
   "why.stat.support": { mn: "Дэмжлэг", en: "Support" },
@@ -147,7 +147,7 @@ const translations: Translations = {
     en: "Our talented team combines years of experience and knowledge in financial technology to create the best solutions.",
   },
   "teamPage.stat.team": { mn: "Баг хамт олон", en: "Team Members" },
-  "teamPage.stat.experience": { mn: "Жилийн туршлага", en: "Years of Experience" },
+  "teamPage.stat.experience": { mn: "Багийн дундаж туршлага (жил)", en: "Years of team experience" },
   "teamPage.stat.projects": { mn: "Амжилттай төсөл", en: "Successful Projects" },
   "teamPage.joinTitle": { mn: "Бидэнтэй нэгдэх үү?", en: "Want to Join Us?" },
   "teamPage.joinDesc": {
@@ -276,7 +276,7 @@ const translations: Translations = {
     mn: "2021 оноос хойш банк санхүүгийн салбарт технологийн шилдэг шийдлүүдийг бүтээж, Монголын санхүүгийн дэд бүтцийг хөгжүүлж байна.",
     en: "Since 2021, we have been building the best technology solutions in the banking and finance sector, developing Mongolia's financial infrastructure.",
   },
-  "aboutPage.stat.experience": { mn: "Жилийн туршлага", en: "Years of Experience" },
+  "aboutPage.stat.experience": { mn: "Багийн дундаж туршлага (жил)", en: "Years of team experience" },
   "aboutPage.stat.experienceDesc": { mn: "2021 оноос хойш", en: "Since 2021" },
   "aboutPage.stat.team": { mn: "Мэргэжлийн баг", en: "Professional Team" },
   "aboutPage.stat.teamDesc": { mn: "Туршлагатай инженерүүд", en: "Experienced Engineers" },
@@ -437,7 +437,7 @@ const translations: Translations = {
   "achievement.totalClients": { mn: "Нийт харилцагч", en: "Total Clients" },
   "achievement.experience": { mn: "Жилийн туршлага", en: "Years of Experience" },
   "achievement.provinces": { mn: "Аймаг хамрагдсан", en: "Provinces Covered" },
-  "achievement.uptime": { mn: "Тасралтгүй ажиллагаа", en: "Uptime Reliability" },
+  "achievement.uptime": { mn: "Оноос хойш", en: "Since" },
 
   // Quick Links
   "quickLinks.title": { mn: "Хурдан холбоос", en: "Quick Links" },

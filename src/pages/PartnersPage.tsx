@@ -60,7 +60,7 @@ const PartnersPage = () => {
     { value: "33+", label: t("achievement.totalClients"), icon: Users },
     { value: "15+", label: t("achievement.experience"), icon: Award },
     { value: "12", label: t("achievement.provinces"), icon: MapPin },
-    { value: "99.9%", label: t("achievement.uptime"), icon: Shield },
+    { value: "2021", label: t("achievement.uptime"), icon: Shield },
   ];
 
   const testimonials = [

@@ -76,7 +76,7 @@ export function About() {
                   glow: "bg-[#7c3aed]/20",
                 },
                 {
-                  v: `${teamTotal}+`,
+                  v: `${teamTotal}`,
                   l: t('hero.stat.team'),
                   icon: Users,
                   gradient: "from-[#059669] to-[#34d399]",
