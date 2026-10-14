@@ -37,8 +37,8 @@ const translations: Translations = {
 
   // About Section (homepage)
   "about.badge": { mn: "Бидний тухай", en: "About Us" },
-  "about.title": { mn: "Таны санааг бид", en: "We make your ideas" },
-  "about.titleHighlight": { mn: "бодит болгоно", en: "a Reality" },
+  "about.title": { mn: "Таны санааг бид", en: "We turn your ideas" },
+  "about.titleHighlight": { mn: "бодит болгоно", en: "into reality" },
   "about.desc1": {
     mn: "Манай компани нь 2021 онд байгуулагдсан бөгөөд, банк санхүүгийн программ хангамж, түүний шийдэл, мэдээллийн сан зохион байгуулах, төлбөр тооцооны шийдэл боловсруулах чиглэлээр үйл ажиллагаа явуулдаг.",
     en: "Our company was founded in 2021 and operates in the field of banking software, solutions, database management, and payment system development.",
@@ -240,10 +240,11 @@ const translations: Translations = {
   "contact.website": { mn: "Вэбсайт", en: "Website" },
   "contact.workHours": { mn: "Ажлын цаг", en: "Working Hours" },
   "contact.workHoursValue": { mn: "Даваа - Баасан: 9:00 - 18:00", en: "Monday - Friday: 9:00 - 18:00" },
+  "contact.phoneValue": { mn: "+976-7509-2211 (дотуур 2)", en: "+976-7509-2211 (ext. 2)" },
   "contact.address": { mn: "Хаяг", en: "Address" },
   "contact.addressValue": {
     mn: "Монгол улс, Улаанбаатар хот, Хан-Уул дүүрэг, 15-р хороо, Үйлдвэр, Богд жавзан дамба гудамж 12 байр, 1 тоот",
-    en: "Building 12, Apt 1, Bogd Javzan Damba Street, 15th Khoroo, Khan-Uul District, Ulaanbaatar, Mongolia",
+    en: "Bldg 12, Door 1, Bogd Javzandamba Street, Uildver, 15th Khoroo, Khan-Uul District, Ulaanbaatar, Mongolia",
   },
   "contact.successTitle": { mn: "Мессеж илгээгдлээ!", en: "Message sent!" },
   "contact.successDesc": { mn: "Бид 24 цагийн дотор хариу өгөх болно.", en: "We will respond within 24 hours." },
