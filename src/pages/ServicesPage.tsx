@@ -1,4 +1,6 @@
-import { Link, useParams } from "react-router-dom";
+import { Seo } from "@/components/Seo";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import {
   ArrowRight,
@@ -75,6 +77,7 @@ const serviceToProduct = (service: Service, index: number) => {
   const presetIndex = index % gradientPresets.length;
   const preset = gradientPresets[presetIndex];
   const IconComponent = iconMap[service.icon || "Package"] || Package;
+  const slug = (service.name || "").toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
   // Parse features from array
   const features = (service.features || []).map((f) => ({
@@ -93,6 +96,7 @@ const serviceToProduct = (service: Service, index: number) => {
   const usageMetricsMn = parseUsageMetrics(service.usage_metric_mn);
 
   return {
+    slug,
     id: service.id,
     icon: IconComponent,
     icon_url: service.icon_url,
@@ -128,7 +132,11 @@ const ServicesPage = () => {
   // Transform services to products
   const products = (services || []).map((service, index) => serviceToProduct(service, index));
 
-  const product = serviceId ? products.find((p) => p.id === serviceId) : null;
+  const product = serviceId ? products.find((p) => p.slug === serviceId || p.id === serviceId) : null;
+  const navigateTo = useNavigate();
+  useEffect(() => {
+    if (product && serviceId === product.id) navigateTo(`/services/${product.slug}`, { replace: true });
+  }, [product, serviceId, navigateTo]);
 
   // Helper function to get localized content
   const getLocalizedContent = (en: string | null | undefined, mn: string | null | undefined) => {
@@ -176,6 +184,7 @@ const ServicesPage = () => {
 
     return (
       <Layout>
+        <Seo title={`${productTitle} | Фиба ХХК`} description={productDescription?.slice(0, 160)} />
         {/* Hero Section - Innovative Design */}
         <section className="relative pt-32 pb-24 overflow-hidden">
           {/* Background */}
@@ -206,7 +215,7 @@ const ServicesPage = () => {
                 {/* Logo */}
                 {product.icon_url ? (
                 <div className="w-24 h-24 flex items-center justify-center mb-8">
-                  <img src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
+                  <img loading="lazy" decoding="async" src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
                 </div>
                 ) : (
                 <div className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${product.gradient} flex items-center justify-center mb-8 shadow-2xl`}>
@@ -361,7 +370,7 @@ const ServicesPage = () => {
                 <div className="relative">
                   {product.icon_url ? (
                     <div className="w-20 h-20 flex items-center justify-center mb-8">
-                      <img src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
+                      <img loading="lazy" decoding="async" src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
                     </div>
                   ) : (
                     <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center mb-8">
@@ -397,7 +406,7 @@ const ServicesPage = () => {
 
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {products
-                  .filter((p) => p.id !== serviceId)
+                  .filter((p) => p.id !== product?.id)
                   .map((p) => {
                     const pTitle = getLocalizedContent(p.title, p.title_mn);
                     const pShortDesc = getLocalizedContent(p.shortDesc, p.shortDesc_mn);
@@ -407,7 +416,7 @@ const ServicesPage = () => {
                       <>
                         {p.icon_url ? (
                         <div className="w-14 h-14 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                          <img src={p.icon_url} alt={pTitle} className="w-full h-full object-contain" />
+                          <img loading="lazy" decoding="async" src={p.icon_url} alt={pTitle} className="w-full h-full object-contain" />
                         </div>
                         ) : (
                         <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${p.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
@@ -449,7 +458,7 @@ const ServicesPage = () => {
                     return (
                       <Link
                         key={p.id}
-                        to={`/services/${p.id}`}
+                        to={`/services/${p.slug}`}
                         className="group p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all"
                       >
                         {CardContent}
@@ -467,6 +476,7 @@ const ServicesPage = () => {
   // Products List Page
   return (
     <Layout>
+      <Seo title={{ mn: "Бүтээгдэхүүн, үйлчилгээ | Фиба ХХК", en: "Products & services | FIBA LLC" }} />
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background" />
@@ -485,7 +495,7 @@ const ServicesPage = () => {
 
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-8 tracking-tight leading-[1.1]">
               {t('servicesPage.heroTitle1')}
-              <span className="block mt-2 bg-gradient-to-r from-primary via-[#2563eb] to-primary bg-clip-text text-transparent">
+              <span className="block mt-2 bg-gradient-to-r from-primary via-[#2563eb] to-primary bg-clip-text text-transparent pb-2 leading-tight">
                 {t('servicesPage.heroTitle2')}
               </span>
             </h1>
@@ -541,7 +551,7 @@ const ServicesPage = () => {
                             <div className="flex items-start justify-between mb-6">
                               {product.icon_url ? (
                               <div className="w-16 h-16 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
-                                <img src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
+                                <img loading="lazy" decoding="async" src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
                               </div>
                               ) : (
                               <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
@@ -614,7 +624,7 @@ const ServicesPage = () => {
                       }
 
                       return (
-                        <Link to={`/services/${product.id}`} className="block h-full">
+                        <Link to={`/services/${product.slug}`} className="block h-full">
                           {cardContent}
                         </Link>
                       );

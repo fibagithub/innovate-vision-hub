@@ -8,8 +8,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 // Small regions: label placed outside the map with a leader line [lon, lat]
 const OUTSIDE_LABELS: Record<string, [number, number]> = {
   "MN-1": [110.8, 51.6],
-  "MN-037": [105.2, 52.7],
-  "MN-035": [100.8, 52.9],
+  "MN-037": [105.5, 52.2],
+  "MN-035": [99.5, 52.2],
   "MN-064": [114.5, 42.6],
 };
 
@@ -50,7 +50,7 @@ export function MongoliaMap({ aimagStats }: MongoliaMapProps) {
         panY: "translateY",
         projection: am5map.geoMercator(),
         wheelY: "none",
-        paddingTop: 30,
+        paddingTop: 50,
         paddingBottom: 30,
         paddingLeft: 20,
         paddingRight: 20,

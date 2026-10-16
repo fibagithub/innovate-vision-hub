@@ -1,3 +1,4 @@
+import { Seo } from "@/components/Seo";
 import { Layout } from "@/components/layout/Layout";
 import {
   Target,
@@ -97,6 +98,7 @@ const AboutPage = () => {
 
   return (
     <Layout>
+      <Seo title={{ mn: "Бидний тухай | Фиба ХХК", en: "About us | FIBA LLC" }} />
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-background">
         <div className="absolute inset-0">
@@ -173,7 +175,7 @@ const AboutPage = () => {
               </div>
               <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground tracking-tight">
                 {t("aboutPage.storyTitle")}{" "}
-                <span className="bg-gradient-to-r from-primary via-[#6366f1] to-[#ec4899] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary via-[#6366f1] to-[#ec4899] bg-clip-text text-transparent pb-2 leading-tight">
                   {t("aboutPage.storyHighlight")}
                 </span>{" "}
                 {t("aboutPage.storySuffix")}
@@ -187,7 +189,7 @@ const AboutPage = () => {
                 <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary via-[#6366f1] to-[#ec4899]" />
                 <div className="relative">
                   <div className="flex items-center gap-3 mb-6">
-                    <span className="font-display text-5xl lg:text-6xl font-bold bg-gradient-to-br from-primary to-[#6366f1] bg-clip-text text-transparent">2021</span>
+                    <span className="font-display text-5xl lg:text-6xl font-bold bg-gradient-to-br from-primary to-[#6366f1] bg-clip-text text-transparent pb-2 leading-tight">2021</span>
                     <div className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent" />
                   </div>
                   <div className="space-y-5 text-muted-foreground text-justify text-base lg:text-lg leading-relaxed">

@@ -80,7 +80,7 @@ const ProductLogo = ({
   if (service.icon_url) {
     return (
       <div className={`flex items-center justify-center ${className}`}>
-        <img src={service.icon_url} alt={service.name} className="w-full h-full object-contain" />
+        <img loading="lazy" decoding="async" src={service.icon_url} alt={service.name} className="w-full h-full object-contain" />
       </div>
     );
   }
@@ -143,7 +143,7 @@ const ProductCard = ({
         </a>
       );
     }
-    return <Link to={`/services/${service.id}`} className={className}>{children}</Link>;
+    return <Link to={`/services/${(service.name || "").toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className={className}>{children}</Link>;
   };
 
   const cardContent = (
@@ -364,7 +364,7 @@ export function Services() {
 
           <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-8 tracking-tight leading-[1.1]">
             {t("services.subtitle")}
-            <span className="block mt-2 bg-gradient-to-r from-primary via-[#2563eb] to-primary bg-clip-text text-transparent">
+            <span className="block mt-2 bg-gradient-to-r from-primary via-[#2563eb] to-primary bg-clip-text text-transparent pb-2 leading-tight">
               {t("services.title2")}
             </span>
           </h2>

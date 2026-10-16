@@ -1,3 +1,4 @@
+import { Seo } from "@/components/Seo";
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Linkedin, Mail, ArrowRight, Sparkles, Users, Award, Target, Loader2, X, ExternalLink } from "lucide-react";
@@ -29,7 +30,7 @@ const ProfileModal = ({ member, onClose, language, t }: { member: AnyMember; onC
         <button onClick={onClose} className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-background transition-colors duration-200"><X className="w-5 h-5" /></button>
         <div className="flex flex-col sm:flex-row">
           <div className="sm:w-2/5 aspect-[3/4] sm:aspect-auto relative flex-shrink-0">
-            <img src={member.image_url || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop&crop=face"} alt={member.name} className="w-full h-full object-cover" />
+            <img loading="lazy" decoding="async" src={member.image_url || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop&crop=face"} alt={member.name} className="w-full h-full object-cover" />
           </div>
           <div className="flex-1 p-8 sm:p-10 flex flex-col justify-center">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-4 w-fit">{position}</div>
@@ -61,6 +62,7 @@ const TeamPage = () => {
 
   return (
     <Layout>
+      <Seo title={{ mn: "Манай хамт олон | Фиба ХХК", en: "Our team | FIBA LLC" }} />
       {/* Hero */}
       <section className="relative min-h-[55vh] flex items-center overflow-hidden bg-background">
         <div className="absolute inset-0">
@@ -77,7 +79,7 @@ const TeamPage = () => {
             </div>
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground mb-8 leading-[1.1] tracking-tight animate-fade-in" style={{ animationDelay: "0.1s" }}>
               {t('teamPage.heroTitle1')}{" "}
-              <span className="bg-gradient-to-r from-primary via-[hsl(214,62%,35%)] to-primary bg-clip-text text-transparent">{t('teamPage.heroHighlight')}</span>
+              <span className="bg-gradient-to-r from-primary via-[hsl(214,62%,35%)] to-primary bg-clip-text text-transparent pb-2 leading-tight">{t('teamPage.heroHighlight')}</span>
             </h1>
             <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in" style={{ animationDelay: "0.2s" }}>{t('teamPage.heroDesc')}</p>
             <div className="flex flex-wrap justify-center gap-5 animate-fade-in" style={{ animationDelay: "0.3s" }}>
@@ -102,7 +104,7 @@ const TeamPage = () => {
           {isLoading ? (
             <div className="flex items-center justify-center py-20"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="flex flex-wrap justify-center gap-6 [&>*]:w-full sm:[&>*]:w-[calc(50%-12px)] lg:[&>*]:w-[calc(33.333%-16px)] xl:[&>*]:w-[calc(25%-18px)]">
               {teamMembers.map((member, index) => {
                 const memberName = language === 'mn' ? (("name_mn" in member ? (member as any).name_mn : null) || member.name) : (member.name || ("name_mn" in member ? (member as any).name_mn : null));
                 const position = language === 'mn' ? (member.position_mn || ("position" in member ? member.position : "")) : (("position" in member ? member.position : "") || member.position_mn);
@@ -111,8 +113,8 @@ const TeamPage = () => {
                   <div key={member.id} className="group relative rounded-[20px] bg-card border border-border/40 overflow-hidden cursor-pointer" style={{ boxShadow: "var(--shadow-sm)", transition: "all 400ms cubic-bezier(0.16, 1, 0.3, 1)" }} onClick={() => setExpandedMember(member)}
                     onMouseMove={(e) => { const rect = e.currentTarget.getBoundingClientRect(); const x = (e.clientX - rect.left) / rect.width - 0.5; const y = (e.clientY - rect.top) / rect.height - 0.5; e.currentTarget.style.transform = `perspective(800px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg) translateY(-4px)`; e.currentTarget.style.boxShadow = "var(--shadow-xl)"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.transform = "perspective(800px) rotateY(0deg) rotateX(0deg) translateY(0)"; e.currentTarget.style.boxShadow = "var(--shadow-sm)"; }}>
-                    <div className="aspect-square overflow-hidden relative">
-                      <img src={member.image_url || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"} alt={member.name} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.08]" />
+                    <div className="aspect-[4/5] overflow-hidden relative bg-muted">
+                      <img loading="lazy" decoding="async" src={member.image_url || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"} alt={member.name} className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.08]" />
                       <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-100">
                         {member.linkedin_url && <a href={member.linkedin_url} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-colors duration-200"><Linkedin className="w-4 h-4" /></a>}

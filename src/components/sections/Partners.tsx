@@ -31,7 +31,7 @@ export function Partners() {
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight">
             {t("partners.title1")}
             <br />
-            <span className="bg-gradient-to-r from-primary via-[#2563eb] to-primary bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary via-[#2563eb] to-primary bg-clip-text text-transparent pb-2 leading-tight">
               {t("partners.title2")}
             </span>
           </h2>
@@ -48,7 +48,7 @@ export function Partners() {
                     key={`${partner.id}-${index}`}
                     className="flex-shrink-0 mx-10 w-28 h-16 flex items-center justify-center transition-all duration-300"
                   >
-                    <img
+                    <img loading="lazy" decoding="async"
                       src={partner.logo_url!}
                       alt={partner.name || "Partner logo"}
                       className="w-full h-full object-contain"

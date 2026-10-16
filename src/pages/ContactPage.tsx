@@ -1,3 +1,4 @@
+import { Seo } from "@/components/Seo";
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Mail, Phone, MapPin, Send, Clock, MessageSquare, Globe, ArrowRight, Sparkles } from "lucide-react";
@@ -61,6 +62,7 @@ const ContactPage = () => {
 
   return (
     <Layout>
+      <Seo title={{ mn: "Холбоо барих | Фиба ХХК", en: "Contact | FIBA LLC" }} />
       {/* Hero */}
       <section className="relative min-h-[50vh] flex items-center overflow-hidden bg-background">
         <div className="absolute inset-0">

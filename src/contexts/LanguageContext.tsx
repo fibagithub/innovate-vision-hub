@@ -31,6 +31,8 @@ const translations: Translations = {
   },
   "hero.viewProducts": { mn: "Бүтээгдэхүүн үзэх", en: "View Products" },
   "hero.aboutUs": { mn: "Бидний тухай", en: "About Us" },
+  "hero.ctaContact": { mn: "Холбогдох", en: "Contact us" },
+  "hero.ctaProducts": { mn: "Бүтээгдэхүүн үзэх", en: "View products" },
   "hero.stat.experience": { mn: "Багийн дундаж туршлага (жил)", en: "Years of team experience" },
   "hero.stat.team": { mn: "Мэргэжлийн баг", en: "Professional Team" },
   "hero.stat.satisfaction": { mn: "Харилцагчийн сэтгэл ханамж", en: "Client Satisfaction" },
@@ -445,11 +447,8 @@ const translations: Translations = {
 
   // 404
   "notFound.title": { mn: "Хуудас олдсонгүй", en: "Page not found" },
-  "notFound.desc": {
-    mn: "Уучлаарай! Таны хайсан хуудас олдсонгүй.",
-    en: "Oops! The page you are looking for does not exist.",
-  },
-  "notFound.goHome": { mn: "Нүүр хуудас руу буцах", en: "Return to Home" },
+  "notFound.desc": { mn: "Хуудас олдсонгүй", en: "Page not found" },
+  "notFound.goHome": { mn: "Нүүр хуудас руу буцах", en: "Back to home" },
 
   // Common
   "common.viewAll": { mn: "Бүгдийг харах", en: "View All" },
@@ -519,22 +518,18 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-function detectBrowserLanguage(): Language {
-  const browserLang = navigator.language || (navigator as any).userLanguage || "";
-  if (browserLang.startsWith("mn")) return "mn";
-  if (browserLang.startsWith("en")) return "en";
-  return "mn"; // fallback to Mongolian
-}
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>(() => {
-    const saved = localStorage.getItem("language");
-    if (saved === "mn" || saved === "en") return saved;
-    return detectBrowserLanguage();
+    try {
+      const saved = localStorage.getItem("language");
+      if (saved === "mn" || saved === "en") return saved;
+    } catch {}
+    return "mn";
   });
 
   useEffect(() => {
-    localStorage.setItem("language", language);
+    try { localStorage.setItem("language", language); } catch {}
     document.documentElement.lang = language;
   }, [language]);
 
