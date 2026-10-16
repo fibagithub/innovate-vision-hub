@@ -48,7 +48,7 @@ export function Partners() {
                     key={`${partner.id}-${index}`}
                     className="flex-shrink-0 mx-10 w-28 h-16 flex items-center justify-center transition-all duration-300"
                   >
-                    <img
+                    <img loading="lazy" decoding="async"
                       src={partner.logo_url!}
                       alt={partner.name || "Partner logo"}
                       className="w-full h-full object-contain"

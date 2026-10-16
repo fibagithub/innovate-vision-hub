@@ -1,3 +1,4 @@
+import { Seo } from "@/components/Seo";
 import { Layout } from "@/components/layout/Layout";
 import {
   Target,
@@ -97,6 +98,7 @@ const AboutPage = () => {
 
   return (
     <Layout>
+      <Seo title={{ mn: "Бидний тухай | Фиба ХХК", en: "About us | FIBA LLC" }} />
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-background">
         <div className="absolute inset-0">

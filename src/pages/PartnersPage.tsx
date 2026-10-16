@@ -1,3 +1,4 @@
+import { Seo } from "@/components/Seo";
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import {
@@ -111,6 +112,7 @@ const PartnersPage = () => {
 
   return (
     <Layout>
+      <Seo title={{ mn: "Холбогдсон системүүд | Фиба ХХК", en: "Integrations | FIBA LLC" }} />
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center overflow-hidden bg-background">
         <div className="absolute inset-0">
@@ -171,7 +173,7 @@ const PartnersPage = () => {
                   key={`${partner.id}-${index}`}
                   className="flex-shrink-0 mx-10 w-28 h-16 flex items-center justify-center transition-all duration-300"
                 >
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={partner.logo_url!}
                     alt={partner.name || "Partner logo"}
                     className="max-w-full max-h-full object-contain"

@@ -447,11 +447,8 @@ const translations: Translations = {
 
   // 404
   "notFound.title": { mn: "Хуудас олдсонгүй", en: "Page not found" },
-  "notFound.desc": {
-    mn: "Уучлаарай! Таны хайсан хуудас олдсонгүй.",
-    en: "Oops! The page you are looking for does not exist.",
-  },
-  "notFound.goHome": { mn: "Нүүр хуудас руу буцах", en: "Return to Home" },
+  "notFound.desc": { mn: "Хуудас олдсонгүй", en: "Page not found" },
+  "notFound.goHome": { mn: "Нүүр хуудас руу буцах", en: "Back to home" },
 
   // Common
   "common.viewAll": { mn: "Бүгдийг харах", en: "View All" },

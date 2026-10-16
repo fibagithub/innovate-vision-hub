@@ -1,3 +1,4 @@
+import { Seo } from "@/components/Seo";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
@@ -183,6 +184,7 @@ const ServicesPage = () => {
 
     return (
       <Layout>
+        <Seo title={`${productTitle} | Фиба ХХК`} description={productDescription?.slice(0, 160)} />
         {/* Hero Section - Innovative Design */}
         <section className="relative pt-32 pb-24 overflow-hidden">
           {/* Background */}
@@ -213,7 +215,7 @@ const ServicesPage = () => {
                 {/* Logo */}
                 {product.icon_url ? (
                 <div className="w-24 h-24 flex items-center justify-center mb-8">
-                  <img src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
+                  <img loading="lazy" decoding="async" src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
                 </div>
                 ) : (
                 <div className={`w-24 h-24 rounded-3xl bg-gradient-to-br ${product.gradient} flex items-center justify-center mb-8 shadow-2xl`}>
@@ -368,7 +370,7 @@ const ServicesPage = () => {
                 <div className="relative">
                   {product.icon_url ? (
                     <div className="w-20 h-20 flex items-center justify-center mb-8">
-                      <img src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
+                      <img loading="lazy" decoding="async" src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
                     </div>
                   ) : (
                     <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center mb-8">
@@ -414,7 +416,7 @@ const ServicesPage = () => {
                       <>
                         {p.icon_url ? (
                         <div className="w-14 h-14 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                          <img src={p.icon_url} alt={pTitle} className="w-full h-full object-contain" />
+                          <img loading="lazy" decoding="async" src={p.icon_url} alt={pTitle} className="w-full h-full object-contain" />
                         </div>
                         ) : (
                         <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${p.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
@@ -474,6 +476,7 @@ const ServicesPage = () => {
   // Products List Page
   return (
     <Layout>
+      <Seo title={{ mn: "Бүтээгдэхүүн, үйлчилгээ | Фиба ХХК", en: "Products & services | FIBA LLC" }} />
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background" />
@@ -548,7 +551,7 @@ const ServicesPage = () => {
                             <div className="flex items-start justify-between mb-6">
                               {product.icon_url ? (
                               <div className="w-16 h-16 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
-                                <img src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
+                                <img loading="lazy" decoding="async" src={product.icon_url} alt={productTitle} className="w-full h-full object-contain" />
                               </div>
                               ) : (
                               <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${product.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>

@@ -80,7 +80,7 @@ const ProductLogo = ({
   if (service.icon_url) {
     return (
       <div className={`flex items-center justify-center ${className}`}>
-        <img src={service.icon_url} alt={service.name} className="w-full h-full object-contain" />
+        <img loading="lazy" decoding="async" src={service.icon_url} alt={service.name} className="w-full h-full object-contain" />
       </div>
     );
   }

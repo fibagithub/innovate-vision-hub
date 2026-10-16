@@ -102,7 +102,7 @@ const TeamMemberCard = ({
       }}
     >
       <div className="aspect-[4/5] overflow-hidden relative bg-muted">
-        <img
+        <img loading="lazy" decoding="async"
           src={
             member.image_url ||
             "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
@@ -187,7 +187,7 @@ const ProfileModal = ({
         </button>
         <div className="flex flex-col sm:flex-row">
           <div className="sm:w-2/5 aspect-[3/4] sm:aspect-auto relative flex-shrink-0">
-            <img
+            <img loading="lazy" decoding="async"
               src={
                 member.image_url ||
                 "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop&crop=face"

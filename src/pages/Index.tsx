@@ -1,3 +1,4 @@
+import { Seo } from "@/components/Seo";
 import { Layout } from "@/components/layout/Layout";
 import { Hero } from "@/components/sections/Hero";
 import { Services } from "@/components/sections/Services";
@@ -12,6 +13,7 @@ import { QuickLinks } from "@/components/sections/QuickLinks";
 const Index = () => {
   return (
     <Layout>
+      <Seo />
       <Hero />
       <MeCoreEcosystem />
       <Services />
