@@ -101,14 +101,14 @@ const TeamMemberCard = ({
         e.currentTarget.style.boxShadow = "var(--shadow-sm)";
       }}
     >
-      <div className="aspect-square overflow-hidden relative">
+      <div className="aspect-[4/5] overflow-hidden relative bg-muted">
         <img
           src={
             member.image_url ||
             "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
           }
           alt={member.name}
-          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.08]"
+          className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.08]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-100">
@@ -256,7 +256,7 @@ export function Team() {
           </div>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6 tracking-tight leading-[1.1]">
             {t("team.title")}{" "}
-            <span className="bg-gradient-to-r from-primary via-[hsl(214,62%,35%)] to-primary bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary via-[hsl(214,62%,35%)] to-primary bg-clip-text text-transparent pb-2 leading-tight">
               {t("team.titleHighlight")}
             </span>
           </h2>
@@ -268,7 +268,7 @@ export function Team() {
           </div>
         )}
         {!isLoading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
+          <div className="flex flex-wrap justify-center gap-6 [&>*]:w-full sm:[&>*]:w-[calc(50%-12px)] lg:[&>*]:w-[calc(33.333%-16px)] xl:[&>*]:w-[calc(25%-18px)] mb-16">
             {teamMembers.map((member, index) => (
               <TeamMemberCard
                 key={member.id}

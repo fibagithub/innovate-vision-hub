@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin, Facebook } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook } from "lucide-react";
 import fibaLogoWhite from "@/assets/fiba-logo-white.png";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useServices } from "@/hooks/useContentData";
@@ -48,9 +48,6 @@ export function Footer() {
             <div className="flex gap-4">
               <a href="https://www.facebook.com/fiba.mn" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-background/10 hover:bg-background/20 transition-colors">
                 <Facebook size={20} />
-              </a>
-              <a href="#" className="p-2 rounded-lg bg-background/10 hover:bg-background/20 transition-colors">
-                <Linkedin size={20} />
               </a>
             </div>
           </div>

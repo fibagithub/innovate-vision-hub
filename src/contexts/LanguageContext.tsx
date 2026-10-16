@@ -31,6 +31,8 @@ const translations: Translations = {
   },
   "hero.viewProducts": { mn: "Бүтээгдэхүүн үзэх", en: "View Products" },
   "hero.aboutUs": { mn: "Бидний тухай", en: "About Us" },
+  "hero.ctaContact": { mn: "Холбогдох", en: "Contact us" },
+  "hero.ctaProducts": { mn: "Бүтээгдэхүүн үзэх", en: "View products" },
   "hero.stat.experience": { mn: "Багийн дундаж туршлага (жил)", en: "Years of team experience" },
   "hero.stat.team": { mn: "Мэргэжлийн баг", en: "Professional Team" },
   "hero.stat.satisfaction": { mn: "Харилцагчийн сэтгэл ханамж", en: "Client Satisfaction" },

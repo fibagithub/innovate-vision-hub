@@ -149,9 +149,9 @@ export const MeCoreEcosystem = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="font-display mt-5 bg-gradient-to-b from-white via-white to-cyan-200/70 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl"
+            className="font-display mt-5 bg-gradient-to-b from-white via-white to-cyan-200/70 bg-clip-text text-4xl font-bold tracking-tight leading-tight pb-2 text-transparent sm:text-5xl md:text-6xl"
           >
-            {t("Бид шалтгааныг ойлгоход анхаардаг учраас бодит үр дүн гаргадаг", "We focus on understanding the cause, so we deliver real results")}
+            {t("Нэг платформ — санхүүгийн бүх үйлчилгээ", "One platform for every financial service")}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

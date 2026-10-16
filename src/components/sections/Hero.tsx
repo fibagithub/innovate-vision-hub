@@ -8,7 +8,7 @@ export function Hero() {
   const { t } = useLanguage();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+    <section className="relative min-h-[78vh] flex items-center justify-center overflow-hidden bg-background">
       {/* Soft gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-secondary/50 via-background to-background" />
 
@@ -31,7 +31,7 @@ export function Hero() {
       <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-primary/3 rounded-full blur-[100px]" />
 
       {/* Content */}
-      <div className="container relative z-10 px-4 pt-32 pb-20">
+      <div className="container relative z-10 px-4 pt-28 pb-10">
         <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary/5 border border-primary/10 mb-10 animate-fade-in">
@@ -56,6 +56,18 @@ export function Hero() {
           >
             {t("hero.description")}
           </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" style={{ animationDelay: "0.3s" }}>
+            <Link to="/contact">
+              <Button variant="gradient" size="lg">
+                {t("hero.ctaContact")}
+                <ArrowRight className="ml-2" />
+              </Button>
+            </Link>
+            <Link to="/services">
+              <Button variant="outline" size="lg">{t("hero.ctaProducts")}</Button>
+            </Link>
+          </div>
 
         </div>
       </div>

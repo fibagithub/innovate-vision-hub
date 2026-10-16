@@ -485,7 +485,7 @@ const ServicesPage = () => {
 
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-8 tracking-tight leading-[1.1]">
               {t('servicesPage.heroTitle1')}
-              <span className="block mt-2 bg-gradient-to-r from-primary via-[#2563eb] to-primary bg-clip-text text-transparent">
+              <span className="block mt-2 bg-gradient-to-r from-primary via-[#2563eb] to-primary bg-clip-text text-transparent pb-2 leading-tight">
                 {t('servicesPage.heroTitle2')}
               </span>
             </h1>

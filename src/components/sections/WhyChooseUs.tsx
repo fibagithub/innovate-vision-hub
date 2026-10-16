@@ -43,7 +43,7 @@ export function WhyChooseUs() {
           <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground mb-8 tracking-tight leading-[1.1]">
             {t("why.title1")}
             <span className="block mt-2">
-              <span className="bg-gradient-to-r from-primary via-[#6366f1] to-[#ec4899] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary via-[#6366f1] to-[#ec4899] bg-clip-text text-transparent pb-2 leading-tight">
                 {t("why.titleHighlight")}
               </span>
             </span>

@@ -121,7 +121,7 @@
 
 @layer utilities {
   .gradient-text {
-    @apply bg-clip-text text-transparent;
+    @apply bg-clip-text text-transparent pb-2 leading-tight;
     background-image: var(--gradient-primary);
   }
 
