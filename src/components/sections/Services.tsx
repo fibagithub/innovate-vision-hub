@@ -143,7 +143,7 @@ const ProductCard = ({
         </a>
       );
     }
-    return <Link to={`/services/${service.id}`} className={className}>{children}</Link>;
+    return <Link to={`/services/${(service.name || "").toLowerCase().replace(/[^a-z0-9]+/g, "-")}`} className={className}>{children}</Link>;
   };
 
   const cardContent = (

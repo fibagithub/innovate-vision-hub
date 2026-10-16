@@ -75,6 +75,7 @@ const serviceToProduct = (service: Service, index: number) => {
   const presetIndex = index % gradientPresets.length;
   const preset = gradientPresets[presetIndex];
   const IconComponent = iconMap[service.icon || "Package"] || Package;
+  const slug = (service.name || "").toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
   // Parse features from array
   const features = (service.features || []).map((f) => ({
@@ -93,6 +94,7 @@ const serviceToProduct = (service: Service, index: number) => {
   const usageMetricsMn = parseUsageMetrics(service.usage_metric_mn);
 
   return {
+    slug,
     id: service.id,
     icon: IconComponent,
     icon_url: service.icon_url,
@@ -128,7 +130,11 @@ const ServicesPage = () => {
   // Transform services to products
   const products = (services || []).map((service, index) => serviceToProduct(service, index));
 
-  const product = serviceId ? products.find((p) => p.id === serviceId) : null;
+  const product = serviceId ? products.find((p) => p.slug === serviceId || p.id === serviceId) : null;
+  const navigateTo = useNavigate();
+  useEffect(() => {
+    if (product && serviceId === product.id) navigateTo(`/services/${product.slug}`, { replace: true });
+  }, [product, serviceId, navigateTo]);
 
   // Helper function to get localized content
   const getLocalizedContent = (en: string | null | undefined, mn: string | null | undefined) => {
@@ -397,7 +403,7 @@ const ServicesPage = () => {
 
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {products
-                  .filter((p) => p.id !== serviceId)
+                  .filter((p) => p.id !== product?.id)
                   .map((p) => {
                     const pTitle = getLocalizedContent(p.title, p.title_mn);
                     const pShortDesc = getLocalizedContent(p.shortDesc, p.shortDesc_mn);
@@ -449,7 +455,7 @@ const ServicesPage = () => {
                     return (
                       <Link
                         key={p.id}
-                        to={`/services/${p.id}`}
+                        to={`/services/${p.slug}`}
                         className="group p-6 rounded-2xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all"
                       >
                         {CardContent}
@@ -614,7 +620,7 @@ const ServicesPage = () => {
                       }
 
                       return (
-                        <Link to={`/services/${product.id}`} className="block h-full">
+                        <Link to={`/services/${product.slug}`} className="block h-full">
                           {cardContent}
                         </Link>
                       );

@@ -521,22 +521,18 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-function detectBrowserLanguage(): Language {
-  const browserLang = navigator.language || (navigator as any).userLanguage || "";
-  if (browserLang.startsWith("mn")) return "mn";
-  if (browserLang.startsWith("en")) return "en";
-  return "mn"; // fallback to Mongolian
-}
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>(() => {
-    const saved = localStorage.getItem("language");
-    if (saved === "mn" || saved === "en") return saved;
-    return detectBrowserLanguage();
+    try {
+      const saved = localStorage.getItem("language");
+      if (saved === "mn" || saved === "en") return saved;
+    } catch {}
+    return "mn";
   });
 
   useEffect(() => {
-    localStorage.setItem("language", language);
+    try { localStorage.setItem("language", language); } catch {}
     document.documentElement.lang = language;
   }, [language]);
 

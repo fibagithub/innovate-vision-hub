@@ -12,7 +12,7 @@ export function Footer() {
     const match = services?.find((s) =>
       s.name?.toLowerCase().includes(keyword.toLowerCase())
     );
-    return match ? `/services/${match.id}` : "/services";
+    return match ? `/services/${match.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}` : "/services";
   };
 
   const footerLinks = {
