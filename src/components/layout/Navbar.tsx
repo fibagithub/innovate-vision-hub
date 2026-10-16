@@ -23,6 +23,29 @@ export function Navbar() {
     { label: t('nav.contact'), href: "/contact" },
   ];
 
+  // Scroll-spy on home page: highlight the section in view
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const sectionMap: Record<string, string> = { about: "/about", products: "/services", team: "/team", clients: "/partners", contact: "/contact" };
+  useEffect(() => {
+    setActiveSection(null);
+    if (location.pathname !== "/") return;
+    const els = Object.keys(sectionMap).map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActiveSection(sectionMap[e.target.id]);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    els.forEach((el) => obs.observe(el));
+    const onTop = () => { if (window.scrollY < 200) setActiveSection(null); };
+    window.addEventListener("scroll", onTop);
+    return () => { obs.disconnect(); window.removeEventListener("scroll", onTop); };
+  }, [location.pathname]);
+  const isActive = (href: string) =>
+    location.pathname === "/" && activeSection ? activeSection === href : location.pathname === href;
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -64,7 +87,7 @@ export function Navbar() {
                 onClick={() => handleNavClick(item.href)}
                 className={cn(
                   "px-4 py-2 rounded-lg text-sm font-medium transition-colors",
-                  location.pathname === item.href
+                  isActive(item.href)
                     ? "text-primary bg-primary/10"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted",
                 )}
@@ -106,7 +129,7 @@ export function Navbar() {
               onClick={() => handleNavClick(item.href)}
               className={cn(
                 "block w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-colors",
-                location.pathname === item.href
+                isActive(item.href)
                   ? "text-primary bg-primary/10"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted",
               )}
