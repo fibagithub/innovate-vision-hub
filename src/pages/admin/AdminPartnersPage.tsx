@@ -1,3 +1,5 @@
+import { SortableContainer, SortableRow } from '@/components/admin/SortableControls';
+import { useAdminOrdering } from '@/hooks/useAdminOrdering';
 import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -63,6 +65,8 @@ const AdminPartnersPage = () => {
     loadPartners();
   }, []);
 
+  const { saveOrder, savingOrder } = useAdminOrdering('partners', setPartners, loadPartners);
+
   const handleDelete = async () => {
     if (!deleteId) return;
     
@@ -123,9 +127,11 @@ const AdminPartnersPage = () => {
             Хамтрагч бүртгээгүй байна
           </div>
         ) : (
+          <SortableContainer items={partners} getId={item => item.id} onChange={saveOrder} disabled={savingOrder}>
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-14">Эрэмбэ</TableHead>
                 <TableHead>Нэр</TableHead>
                 <TableHead>Төрөл</TableHead>
                 <TableHead>Аймаг</TableHead>
@@ -137,7 +143,7 @@ const AdminPartnersPage = () => {
             </TableHeader>
             <TableBody>
               {partners.map((partner) => (
-                <TableRow key={partner.id}>
+                <SortableRow key={partner.id} id={partner.id} disabled={savingOrder}>
                   <TableCell className="font-medium">{partner.name}</TableCell>
                   <TableCell>{getPartnerTypeLabel(partner.partner_type)}</TableCell>
                   <TableCell>{partner.aimag ? (AIMAG_BY_VALUE[partner.aimag]?.label_mn || partner.aimag) : '-'}</TableCell>
@@ -150,7 +156,7 @@ const AdminPartnersPage = () => {
                   <TableCell>{partner.display_order}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button variant="ghost" size="sm" onClick={() => openEdit(partner)}>
+                      <Button variant="ghost" size="sm" aria-label="Засах" title="Засах" onClick={() => openEdit(partner)}>
                         <Edit className="w-4 h-4" />
                       </Button>
                       <Button 
@@ -163,10 +169,11 @@ const AdminPartnersPage = () => {
                       </Button>
                     </div>
                   </TableCell>
-                </TableRow>
+                </SortableRow>
               ))}
             </TableBody>
           </Table>
+          </SortableContainer>
         )}
       </div>
 

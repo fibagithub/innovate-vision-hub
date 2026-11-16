@@ -1,3 +1,5 @@
+import { SortableContainer, SortableRow } from '@/components/admin/SortableControls';
+import { useAdminOrdering } from '@/hooks/useAdminOrdering';
 import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -64,6 +66,8 @@ const AdminServicesPage = () => {
     loadServices();
   }, []);
 
+  const { saveOrder, savingOrder } = useAdminOrdering('services', setServices, loadServices);
+
   const handleDelete = async () => {
     if (!deleteId) return;
     
@@ -115,9 +119,11 @@ const AdminServicesPage = () => {
             Үйлчилгээ бүртгээгүй байна
           </div>
         ) : (
+          <SortableContainer items={services} getId={item => item.id} onChange={saveOrder} disabled={savingOrder}>
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-14">Эрэмбэ</TableHead>
                 <TableHead>Icon</TableHead>
                 <TableHead>Нэр</TableHead>
                 <TableHead>Category</TableHead>
@@ -129,7 +135,7 @@ const AdminServicesPage = () => {
             </TableHeader>
             <TableBody>
               {services.map((service) => (
-                <TableRow key={service.id}>
+                <SortableRow key={service.id} id={service.id} disabled={savingOrder}>
                   <TableCell>
                     {service.icon_url ? (
                       <img src={service.icon_url} alt={service.name} className="w-10 h-10 rounded-lg object-cover" />
@@ -163,7 +169,7 @@ const AdminServicesPage = () => {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button variant="ghost" size="sm" onClick={() => openEdit(service)}>
+                      <Button variant="ghost" size="sm" aria-label="Засах" title="Засах" onClick={() => openEdit(service)}>
                         <Edit className="w-4 h-4" />
                       </Button>
                       <Button 
@@ -176,10 +182,11 @@ const AdminServicesPage = () => {
                       </Button>
                     </div>
                   </TableCell>
-                </TableRow>
+                </SortableRow>
               ))}
             </TableBody>
           </Table>
+          </SortableContainer>
         )}
       </div>
 
