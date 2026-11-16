@@ -8,13 +8,16 @@ import {
   Boxes,
   Building2,
   Cloud,
+  Smartphone,
+  KeyRound,
+  BrainCircuit,
   Sparkles,
   type LucideIcon,
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 type Lang = { mn: string; en: string };
-type HubId = "mecore" | "melp";
+type HubId = "mecore" | "melp" | "meapp";
 
 type System = {
   name: Lang;
@@ -80,7 +83,7 @@ const HUBS: Hub[] = [
         side: "right",
         icon: BellRing,
         title: { mn: "Харилцагчийн суваг", en: "Customer channels" },
-        systems: [s("Me App + FCM push"), s("SMS / CallPro")],
+        systems: [s("Me App", "Me App", "meapp"), s("SMS / CallPro")],
       },
       {
         id: "sub",
@@ -115,11 +118,21 @@ const HUBS: Hub[] = [
         side: "right",
         icon: ShieldCheck,
         title: { mn: "Төрийн мэдээлэл ба шалгалт", en: "Government data & checks" },
-        systems: [s("ХУР", "KHUR"), s("Monpep"), s("Хуулга шинжлэгч", "Statement analyzer")],
+        systems: [s("ХУР", "KHUR"), s("Monpep")],
+      },
+      {
+        id: "ai",
+        side: "right",
+        icon: BrainCircuit,
+        title: { mn: "AI ба шийдвэр гаргалт", en: "AI & decisioning" },
+        systems: [
+          s("AI хуулга цэвэршүүлэлт", "AI statement cleansing"),
+          s("LoanPrediction — шийдвэр гаргах систем", "LoanPrediction — decision engine"),
+        ],
       },
       {
         id: "enterprise",
-        side: "right",
+        side: "left",
         icon: Building2,
         title: { mn: "Байгууллагын систем", en: "Enterprise systems" },
         systems: [s("ERP"), s("Office 365")],
@@ -130,6 +143,41 @@ const HUBS: Hub[] = [
         icon: Cloud,
         title: { mn: "Үүлэн дэд бүтэц", en: "Cloud infrastructure" },
         systems: [s("AWS")],
+      },
+    ],
+  },
+  {
+    id: "meapp",
+    name: "Me App",
+    subtitle: { mn: "Цахим банкны апп", en: "Mobile banking app" },
+    groups: [
+      {
+        id: "core",
+        side: "left",
+        icon: Boxes,
+        title: { mn: "Үндсэн систем", en: "Core system" },
+        systems: [s("MeCore", "MeCore", "mecore")],
+      },
+      {
+        id: "payments",
+        side: "left",
+        icon: CreditCard,
+        title: { mn: "Төлбөр", en: "Payments" },
+        systems: [s("QPay")],
+      },
+      {
+        id: "notify",
+        side: "right",
+        icon: Smartphone,
+        title: { mn: "Мэдэгдэл", en: "Notifications" },
+        systems: [s("FCM push")],
+      },
+      {
+        id: "auth",
+        side: "right",
+        icon: KeyRound,
+        title: { mn: "Иргэний баталгаажуулалт", en: "Citizen authentication" },
+        systems: [s("ДАН", "DAN")],
       },
     ],
   },
