@@ -1,108 +1,347 @@
-import { useState, useRef, useEffect } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Smartphone,
-  CreditCard,
-  Wallet,
-  Building2,
-  ShoppingCart,
-  Gauge,
-  Network,
-  Receipt,
-  Shield,
-  Plug,
-  Brain,
-  BarChart3,
-  Banknote,
-  Sparkles,
-  X,
   Landmark,
-  ScanLine,
-  Users,
-  Wallet2,
-  Calculator,
-  PieChart,
-  Database,
-  Globe2,
-  Store,
-  FileText,
+  CreditCard,
+  ShieldCheck,
+  BellRing,
+  Boxes,
+  Building2,
+  Cloud,
+  Sparkles,
+  type LucideIcon,
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-type Node = {
-  id: string;
-  name: { mn: string; en: string };
-  desc: { mn: string; en: string };
-  icon: any;
-  ring: 0 | 1 | 2;
-  angle: number; // degrees (initial position)
-  side: "left" | "right";
+type Lang = { mn: string; en: string };
+type HubId = "mecore" | "melp";
+
+type System = {
+  name: Lang;
+  // A system that is itself a hub: clicking it switches the diagram to that hub.
+  hub?: HubId;
 };
 
-// Left-heavy (banking, payments, ERP) / Right-side (gov + scoring + gateway)
-// Angles measured clockwise from 3 o'clock. Left side ~ 90°..270°, Right ~ -90°..90°.
-const NODES: Node[] = [
-  // LEFT — inner ring
-  { id: "meapp-bank", name: { mn: "Me App цахим банк", en: "Me App Digital Bank" }, desc: { mn: "Хувийн санхүүгийн цахим банкны апп.", en: "Personal digital banking app." }, icon: Smartphone, ring: 0, angle: 150, side: "left" },
-  { id: "negdi", name: { mn: "NEGDi картын систем", en: "NEGDi Card System" }, desc: { mn: "Картын процессинг ба удирдлагын систем.", en: "Card processing & management." }, icon: CreditCard, ring: 0, angle: 180, side: "left" },
-  { id: "qpay", name: { mn: "QPay", en: "QPay" }, desc: { mn: "QR төлбөрийн нэгдсэн интеграц.", en: "Unified QR payment integration." }, icon: Banknote, ring: 0, angle: 210, side: "left" },
+type Group = {
+  id: string;
+  title: Lang;
+  icon: LucideIcon;
+  side: "left" | "right";
+  systems: System[];
+};
 
-  // LEFT — middle ring
-  { id: "ecom", name: { mn: "Цахим худалдаа", en: "E-commerce" }, desc: { mn: "Цахим худалдааны төлбөрийн шийдэл.", en: "E-commerce payment solutions." }, icon: ShoppingCart, ring: 1, angle: 120, side: "left" },
-  { id: "melp", name: { mn: "Me LP — LOS систем", en: "Me LP — LOS System" }, desc: { mn: "Зээлийн үйл ажиллагааны цогц шийдэл.", en: "End-to-end loan origination." }, icon: Wallet, ring: 1, angle: 150, side: "left" },
-  { id: "pos", name: { mn: "POS төхөөрөмж", en: "POS Terminal" }, desc: { mn: "Худалдааны цэгийн төлбөрийн шийдэл.", en: "Point-of-sale payment solution." }, icon: Store, ring: 1, angle: 180, side: "left" },
-  { id: "meapp-mn", name: { mn: "Me App Mongolia", en: "Me App Mongolia" }, desc: { mn: "Хэрэглэгчдэд зориулсан супер апп.", en: "Consumer super-app." }, icon: Globe2, ring: 1, angle: 210, side: "left" },
-  { id: "syncerp-app", name: { mn: "SYNC ERP App", en: "SYNC ERP App" }, desc: { mn: "ERP-ийн мобайл апп.", en: "ERP mobile companion app." }, icon: Smartphone, ring: 1, angle: 240, side: "left" },
+type Hub = {
+  id: HubId;
+  name: string;
+  subtitle: Lang;
+  groups: Group[];
+};
 
-  // LEFT — outer ring (ERP cluster)
-  { id: "syncerp", name: { mn: "Sync ERP систем", en: "Sync ERP System" }, desc: { mn: "Дотоод үйл ажиллагааны цогц ERP.", en: "Internal operations ERP suite." }, icon: Building2, ring: 2, angle: 110, side: "left" },
-  { id: "kpi", name: { mn: "KPI", en: "KPI" }, desc: { mn: "Гүйцэтгэлийн үзүүлэлтийн удирдлага.", en: "Performance KPI management." }, icon: BarChart3, ring: 2, angle: 135, side: "left" },
-  { id: "hr", name: { mn: "Хүний нөөц", en: "Human Resource" }, desc: { mn: "Хүний нөөцийн удирдлага.", en: "HR management." }, icon: Users, ring: 2, angle: 160, side: "left" },
-  { id: "payroll", name: { mn: "Цалин", en: "Payroll" }, desc: { mn: "Цалингийн системийн модуль.", en: "Payroll module." }, icon: Wallet2, ring: 2, angle: 185, side: "left" },
-  { id: "budget", name: { mn: "Төсөв", en: "Budget" }, desc: { mn: "Төсөв төлөвлөлт, хяналт.", en: "Budgeting & planning." }, icon: PieChart, ring: 2, angle: 210, side: "left" },
-  { id: "acc", name: { mn: "Нягтлан бодох", en: "Accounting" }, desc: { mn: "Нягтлан бодох бүртгэлийн модуль.", en: "Accounting module." }, icon: Calculator, ring: 2, angle: 235, side: "left" },
+const s = (mn: string, en = mn, hub?: HubId): System => ({ name: { mn, en }, hub });
 
-  // RIGHT
-  { id: "score", name: { mn: "SainScore", en: "Sain Score" }, desc: { mn: "AI суурьт зээлийн оноо.", en: "AI-powered credit scoring." }, icon: Gauge, ring: 0, angle: 330, side: "right" },
-  { id: "gateway", name: { mn: "Банкны гарц (Gateway)", en: "Banking Gateway" }, desc: { mn: "Олон банкны нэгдсэн гарц.", en: "Multi-bank payment gateway." }, icon: Network, ring: 0, angle: 0, side: "right" },
-  { id: "mongolbank", name: { mn: "Монголбанк / EMD", en: "Mongol Bank / EMD" }, desc: { mn: "Төв банк, EMD-тэй холболт.", en: "Central bank & EMD integration." }, icon: Landmark, ring: 1, angle: 340, side: "right" },
-  { id: "emongolia", name: { mn: "E-Mongolia", en: "E-Mongolia" }, desc: { mn: "Төрийн үйлчилгээний интеграц.", en: "Government services integration." }, icon: Database, ring: 1, angle: 10, side: "right" },
-  { id: "ebarimt", name: { mn: "E-Barimt", en: "E-Barimt" }, desc: { mn: "Татварын цахим баримт.", en: "Electronic tax receipt." }, icon: FileText, ring: 1, angle: 30, side: "right" },
+// Source: integration lists provided by Fiba (MeCore integration codes; Me LP connections).
+const HUBS: Hub[] = [
+  {
+    id: "mecore",
+    name: "MeCore",
+    subtitle: { mn: "Үндсэн систем", en: "Core system" },
+    groups: [
+      {
+        id: "banks",
+        side: "left",
+        icon: Landmark,
+        title: { mn: "Банк хоорондын холболт", en: "Interbank connections" },
+        systems: [
+          s("ХХБ", "TDB"),
+          s("Хаан банк", "Khan Bank"),
+          s("Голомт банк", "Golomt Bank"),
+          s("Капитрон банк", "Capitron Bank"),
+          s("Хас банк", "XacBank"),
+          s("Төрийн банк", "State Bank"),
+          s("М банк", "M Bank"),
+        ],
+      },
+      {
+        id: "payments",
+        side: "left",
+        icon: CreditCard,
+        title: { mn: "Төлбөр ба карт", en: "Payments & cards" },
+        systems: [s("QPay"), s("Negdi — карт, e-commerce", "Negdi — cards, e-commerce"), s("Bonum карт", "Bonum cards")],
+      },
+      {
+        id: "credit",
+        side: "right",
+        icon: ShieldCheck,
+        title: { mn: "Зээлийн мэдээлэл ба татвар", en: "Credit data & tax" },
+        systems: [s("ЗМС (зээлийн мэдээллийн сан)", "Credit bureau (ZMS)"), s("SainScore"), s("E-Barimt")],
+      },
+      {
+        id: "notify",
+        side: "right",
+        icon: BellRing,
+        title: { mn: "Харилцагчийн суваг", en: "Customer channels" },
+        systems: [s("Mobile app + FCM push"), s("SMS / CallPro")],
+      },
+      {
+        id: "sub",
+        side: "right",
+        icon: Boxes,
+        title: { mn: "Дэд систем", en: "Subsystem" },
+        systems: [s("Me LP", "Me LP", "melp")],
+      },
+    ],
+  },
+  {
+    id: "melp",
+    name: "Me LP",
+    subtitle: { mn: "Зээлийн систем (LOS)", en: "Loan origination system" },
+    groups: [
+      {
+        id: "core",
+        side: "left",
+        icon: Boxes,
+        title: { mn: "Үндсэн систем", en: "Core system" },
+        systems: [s("MeCore", "MeCore", "mecore")],
+      },
+      {
+        id: "payments",
+        side: "left",
+        icon: CreditCard,
+        title: { mn: "Төлбөр", en: "Payments" },
+        systems: [s("QPay"), s("Negdi"), s("Paylink")],
+      },
+      {
+        id: "checks",
+        side: "right",
+        icon: ShieldCheck,
+        title: { mn: "Төрийн мэдээлэл ба шалгалт", en: "Government data & checks" },
+        systems: [s("ХУР", "KHUR"), s("Monpep"), s("Хуулга шинжлэгч", "Statement analyzer")],
+      },
+      {
+        id: "enterprise",
+        side: "right",
+        icon: Building2,
+        title: { mn: "Байгууллагын систем", en: "Enterprise systems" },
+        systems: [s("ERP"), s("Office 365")],
+      },
+      {
+        id: "cloud",
+        side: "right",
+        icon: Cloud,
+        title: { mn: "Үүлэн дэд бүтэц", en: "Cloud infrastructure" },
+        systems: [s("AWS")],
+      },
+    ],
+  },
 ];
 
-const RING_RADII = [24, 36, 46]; // percentage of container
-const RING_DURATIONS = [80, 110, 140]; // seconds per rotation (slow, cinematic)
-const RING_OSCILLATION = 6; // degrees of gentle sway instead of full rotation
+const CYCLE_MS = 3500;
+
+type Line = { id: string; d: string };
 
 export const MeCoreEcosystem = () => {
   const { language } = useLanguage();
-  const [active, setActive] = useState<Node | null>(null);
+  const t = (l: Lang) => (language === "mn" ? l.mn : l.en);
+
+  const [hubId, setHubId] = useState<HubId>("mecore");
+  const hub = HUBS.find((h) => h.id === hubId)!;
+  const total = hub.groups.reduce((n, g) => n + g.systems.length, 0);
+  const left = hub.groups.filter((g) => g.side === "left");
+  const right = hub.groups.filter((g) => g.side === "right");
+
+  const [cycleIdx, setCycleIdx] = useState(0);
   const [hovered, setHovered] = useState<string | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [parallax, setParallax] = useState({ x: 0, y: 0 });
+  const activeGroup = hovered ?? hub.groups[cycleIdx % hub.groups.length].id;
 
+  // Light up one integration group at a time unless the visitor is hovering.
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const handler = (e: MouseEvent) => {
-      const rect = el.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
-      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20;
-      setParallax({ x, y });
-    };
-    el.addEventListener("mousemove", handler);
-    return () => el.removeEventListener("mousemove", handler);
-  }, []);
+    if (hovered) return;
+    const id = window.setInterval(() => setCycleIdx((i) => i + 1), CYCLE_MS);
+    return () => window.clearInterval(id);
+  }, [hovered]);
 
-  const t = (mn: string, en: string) => (language === "mn" ? mn : en);
+  const switchHub = (id: HubId) => {
+    setHubId(id);
+    setCycleIdx(0);
+    setHovered(null);
+  };
+
+  // --- Connection lines measured from real DOM positions (desktop only) ---
+  const canvasRef = useRef<HTMLDivElement>(null);
+  const hubRef = useRef<HTMLDivElement>(null);
+  const groupRefs = useRef<Record<string, HTMLElement | null>>({});
+  const [lines, setLines] = useState<Line[]>([]);
+  const [size, setSize] = useState({ w: 0, h: 0 });
+
+  const measure = useCallback(() => {
+    const canvas = canvasRef.current;
+    const hubEl = hubRef.current;
+    if (!canvas || !hubEl || canvas.offsetParent === null) return;
+    const c = canvas.getBoundingClientRect();
+    const h = hubEl.getBoundingClientRect();
+    const hubY = h.top + h.height / 2 - c.top;
+    const next: Line[] = [];
+    for (const g of hub.groups) {
+      const el = groupRefs.current[g.id];
+      if (!el) continue;
+      const r = el.getBoundingClientRect();
+      const y = r.top + r.height / 2 - c.top;
+      const hy = hubY + (y - hubY) * 0.35;
+      if (g.side === "left") {
+        const x1 = r.right - c.left;
+        const x2 = h.left - c.left;
+        const mx = (x1 + x2) / 2;
+        next.push({ id: g.id, d: `M ${x1} ${y} C ${mx} ${y}, ${mx} ${hy}, ${x2} ${hy}` });
+      } else {
+        const x1 = h.right - c.left;
+        const x2 = r.left - c.left;
+        const mx = (x1 + x2) / 2;
+        next.push({ id: g.id, d: `M ${x1} ${hy} C ${mx} ${hy}, ${mx} ${y}, ${x2} ${y}` });
+      }
+    }
+    setSize({ w: c.width, h: c.height });
+    setLines(next);
+  }, [hub]);
+
+  useLayoutEffect(() => {
+    measure();
+    // Re-measure whenever the canvas, hub or any group card changes size
+    // (fonts loading, hub switch, language switch).
+    const ro = new ResizeObserver(measure);
+    if (canvasRef.current) ro.observe(canvasRef.current);
+    if (hubRef.current) ro.observe(hubRef.current);
+    for (const g of hub.groups) {
+      const el = groupRefs.current[g.id];
+      if (el) ro.observe(el);
+    }
+    // Catch late layout shifts (enter animations, web fonts) that don't resize anything.
+    const timers = [150, 500].map((ms) => window.setTimeout(measure, ms));
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      timers.forEach(window.clearTimeout);
+      window.removeEventListener("resize", measure);
+    };
+  }, [measure, language, hub]);
+
+  const systemChip = (sys: System, lit: boolean) =>
+    sys.hub ? (
+      <button
+        key={sys.name.en}
+        type="button"
+        onClick={() => switchHub(sys.hub!)}
+        className="flex items-center gap-1.5 rounded-md border border-cyan-300/50 bg-cyan-400/15 px-2 py-1 text-xs font-semibold text-cyan-100 transition hover:bg-cyan-400/25"
+      >
+        {t(sys.name)}
+        <span className="text-cyan-300/80">→</span>
+      </button>
+    ) : (
+      <span
+        key={sys.name.en}
+        className={`rounded-md border px-2 py-1 text-xs font-medium transition-colors duration-500 ${
+          lit ? "border-cyan-300/40 bg-cyan-400/10 text-cyan-50" : "border-white/[0.08] bg-white/[0.03] text-slate-300"
+        }`}
+      >
+        {t(sys.name)}
+      </span>
+    );
+
+  // `track` registers the card as a line endpoint; only the desktop copy may do
+  // this, otherwise the hidden mobile copy overwrites the ref with a 0×0 box.
+  const groupCard = (g: Group, align: "left" | "right", track = true) => {
+    const Icon = g.icon;
+    const lit = activeGroup === g.id;
+    return (
+      <div
+        key={g.id}
+        ref={track ? (el) => (groupRefs.current[g.id] = el) : undefined}
+        onMouseEnter={() => setHovered(g.id)}
+        onMouseLeave={() => setHovered(null)}
+        className={`rounded-2xl border p-4 backdrop-blur-md transition-all duration-500 ${
+          lit
+            ? "border-cyan-300/50 bg-cyan-400/[0.07] shadow-[0_0_30px_rgba(56,189,248,0.25)]"
+            : "border-white/[0.07] bg-slate-900/50"
+        }`}
+      >
+        <div className={`mb-3 flex items-center gap-2.5 ${align === "right" ? "flex-row-reverse" : ""}`}>
+          <span
+            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition-colors duration-500 ${
+              lit ? "border-cyan-300/50 bg-cyan-400/15 text-cyan-200" : "border-white/10 bg-white/5 text-slate-400"
+            }`}
+          >
+            <Icon className="h-4 w-4" />
+          </span>
+          <span className={`text-sm font-semibold ${lit ? "text-white" : "text-slate-200"}`}>{t(g.title)}</span>
+          <span className={`text-xs text-slate-500 ${align === "right" ? "mr-auto" : "ml-auto"}`}>{g.systems.length}</span>
+        </div>
+        <div className={`flex flex-wrap gap-1.5 ${align === "right" ? "justify-end" : ""}`}>
+          {g.systems.map((sys) => systemChip(sys, lit))}
+        </div>
+      </div>
+    );
+  };
+
+  const hubTabs = (
+    <div className="mx-auto mb-12 flex w-fit gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1">
+      {HUBS.map((h) => (
+        <button
+          key={h.id}
+          type="button"
+          onClick={() => switchHub(h.id)}
+          className={`relative rounded-full px-5 py-1.5 text-sm font-medium transition-colors ${
+            hubId === h.id ? "text-white" : "text-slate-400 hover:text-slate-200"
+          }`}
+        >
+          {hubId === h.id && (
+            <motion.span
+              layoutId="mecore-hub-tab"
+              className="absolute inset-0 rounded-full border border-cyan-300/40 bg-cyan-400/15"
+              transition={{ type: "spring", stiffness: 400, damping: 32 }}
+            />
+          )}
+          <span className="relative">{h.name}</span>
+        </button>
+      ))}
+    </div>
+  );
+
+  // Only the desktop copy is a line endpoint (see groupCard).
+  const hubCore = (track: boolean) => (
+    <div className="flex flex-col items-center">
+      <div ref={track ? hubRef : undefined} className="relative flex h-28 w-28 items-center justify-center">
+        {[0, 1, 2].map((i) => (
+          <motion.span
+            key={i}
+            className="absolute inset-0 rounded-full border border-cyan-400/40"
+            animate={{ scale: [1, 1.9], opacity: [0.5, 0] }}
+            transition={{ duration: 3, repeat: Infinity, delay: i, ease: "easeOut" }}
+          />
+        ))}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={hub.id}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            className="relative flex h-28 w-28 items-center justify-center rounded-full bg-[radial-gradient(circle_at_30%_30%,#60a5fa,#1e3a8a_55%,#020617_100%)] shadow-[0_0_60px_15px_rgba(59,130,246,0.45)]"
+          >
+            <span className="font-display text-xl font-bold text-white">{hub.name}</span>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+      <div className="mt-6 text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-200/80">{t(hub.subtitle)}</div>
+      <div className="mt-4 flex items-baseline gap-1.5">
+        <span className="font-display text-3xl font-bold text-white">{total}</span>
+        <span className="text-xs text-slate-400">{t({ mn: "системтэй холбогдсон", en: "connected systems" })}</span>
+      </div>
+    </div>
+  );
 
   return (
     <section className="relative overflow-hidden bg-[#040814] py-24 sm:py-32">
-      {/* Background layers */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.18),transparent_60%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,#020512_0%,#040a1c_50%,#020512_100%)] opacity-90" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.16),transparent_60%)]" />
       <div
-        className="absolute inset-0 opacity-[0.07]"
+        className="absolute inset-0 opacity-[0.06]"
         style={{
           backgroundImage:
             "linear-gradient(rgba(99,179,237,.6) 1px, transparent 1px), linear-gradient(90deg, rgba(99,179,237,.6) 1px, transparent 1px)",
@@ -110,31 +349,10 @@ export const MeCoreEcosystem = () => {
           maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
         }}
       />
-      {/* Floating particles */}
-      {Array.from({ length: 30 }).map((_, i) => (
-        <motion.span
-          key={i}
-          className="absolute h-1 w-1 rounded-full bg-cyan-300/60"
-          style={{
-            left: `${(i * 37) % 100}%`,
-            top: `${(i * 53) % 100}%`,
-            filter: "blur(0.5px)",
-          }}
-          animate={{
-            y: [0, -20, 0],
-            opacity: [0.2, 0.9, 0.2],
-          }}
-          transition={{
-            duration: 4 + (i % 5),
-            repeat: Infinity,
-            delay: i * 0.2,
-          }}
-        />
-      ))}
 
       <div className="container relative z-10 mx-auto px-4">
         {/* Header */}
-        <div className="mx-auto mb-12 max-w-3xl text-center">
+        <div className="mx-auto mb-10 max-w-3xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -142,16 +360,16 @@ export const MeCoreEcosystem = () => {
             className="inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-1.5 text-xs font-medium text-cyan-300 backdrop-blur-sm"
           >
             <Sparkles className="h-3.5 w-3.5" />
-            {t("Санхүүгийн нэгдсэн экосистем", "Financial Core Ecosystem")}
+            {t({ mn: "Санхүүгийн нэгдсэн экосистем", en: "Financial Core Ecosystem" })}
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="font-display mt-5 bg-gradient-to-b from-white via-white to-cyan-200/70 bg-clip-text text-4xl font-bold tracking-tight leading-tight pb-2 text-transparent sm:text-5xl md:text-6xl"
+            className="font-display mt-5 bg-gradient-to-b from-white via-white to-cyan-200/70 bg-clip-text pb-2 text-4xl font-bold leading-tight tracking-tight text-transparent sm:text-5xl md:text-6xl"
           >
-            {t("Нэг платформ — санхүүгийн бүх үйлчилгээ", "One platform for every financial service")}
+            {t({ mn: "Нэг платформ — санхүүгийн бүх үйлчилгээ", en: "One platform for every financial service" })}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -160,238 +378,118 @@ export const MeCoreEcosystem = () => {
             transition={{ delay: 0.2 }}
             className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-300/80 sm:text-lg"
           >
-            {t(
-              "MeCore нь банк, төлбөр тооцоо, ERP, зээлийн систем, AI анализ болон олон төрлийн санхүүгийн үйлчилгээг нэгтгэсэн дараагийн үеийн суурь платформ.",
-              "MeCore unifies banking, payments, ERP, lending, AI analytics and dozens of financial services into one next-generation platform."
-            )}
+            {t({
+              mn: "MeCore нь банк, төлбөр тооцоо, ERP, зээлийн систем, AI анализ болон олон төрлийн санхүүгийн үйлчилгээг нэгтгэсэн дараагийн үеийн суурь платформ.",
+              en: "MeCore unifies banking, payments, ERP, lending, AI analytics and dozens of financial services into one next-generation platform.",
+            })}
           </motion.p>
         </div>
 
-        {/* Ecosystem canvas */}
+        {hubTabs}
+
+        {/* ---------- Desktop: groups | hub | groups ---------- */}
         <div
-          ref={containerRef}
-          className="relative mx-auto aspect-square w-full max-w-[820px]"
-          style={{
-            transform: `translate3d(${parallax.x}px, ${parallax.y}px, 0)`,
-            transition: "transform 0.3s ease-out",
-          }}
+          ref={canvasRef}
+          className="relative mx-auto hidden min-h-[440px] max-w-6xl grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)_minmax(0,1fr)] items-center gap-x-24 lg:grid"
         >
-          {/* Decorative rotating rings */}
-          {RING_RADII.map((r, idx) => (
-            <motion.div
-              key={idx}
-              className="absolute inset-0 rounded-full border border-cyan-400/10"
-              style={{
-                top: `${50 - r}%`,
-                left: `${50 - r}%`,
-                width: `${r * 2}%`,
-                height: `${r * 2}%`,
-              }}
-              animate={{ rotate: idx % 2 === 0 ? 360 : -360 }}
-              transition={{ duration: RING_DURATIONS[idx], repeat: Infinity, ease: "linear" }}
-            />
-          ))}
-
-          {/* Radar pulse */}
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              key={`pulse-${i}`}
-              className="absolute left-1/2 top-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-400/40"
-              animate={{ scale: [1, 4], opacity: [0.5, 0] }}
-              transition={{ duration: 4, repeat: Infinity, delay: i * 1.3, ease: "easeOut" }}
-            />
-          ))}
-
-          {/* Core */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <motion.div
-              animate={{ scale: [1, 1.04, 1] }}
-              transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-              className="relative flex h-40 w-40 items-center justify-center rounded-full sm:h-48 sm:w-48"
-            >
-              <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_30%,#60a5fa,#1e3a8a_55%,#020617_100%)] shadow-[0_0_80px_20px_rgba(59,130,246,0.45)]" />
-              <div className="absolute inset-2 rounded-full border border-cyan-300/30 backdrop-blur-sm" />
-              <motion.div
-                className="absolute inset-0 rounded-full border border-cyan-300/40"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-                style={{ borderTopColor: "rgba(125,211,252,0.9)", borderRightColor: "transparent", borderBottomColor: "transparent", borderLeftColor: "transparent" }}
-              />
-              <div className="relative z-10 px-4 text-center">
-                <div className="font-display text-2xl font-bold text-white sm:text-3xl">MeCore</div>
-                <div className="mt-1 text-[10px] uppercase tracking-[0.2em] text-cyan-200/80">
-                  {t("Суурь систем", "Core System")}
-                </div>
-                <div className="mt-2 text-[9px] text-cyan-100/60">Financial Core Ecosystem</div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Orbit groups — each node is wrapped in a rotating group so its connection
-             line and node move together. Nodes oscillate gently around their base
-             angle so the left/right structure of the ecosystem is preserved. */}
-          {NODES.map((n, i) => {
-            const r = RING_RADII[n.ring];
-            const duration = 8 + (n.ring * 3) + (i % 4); // each node sways at its own pace
-            const Icon = n.icon;
-            const isActive = hovered === n.id || active?.id === n.id;
-            const delay = (i % 7) * 0.4;
-            // Endpoint in 100x100 viewBox space (within the wrapper's own un-rotated frame)
-            const rad = (n.angle * Math.PI) / 180;
-            const x2 = 50 + r * Math.cos(rad);
-            const y2 = 50 + r * Math.sin(rad);
-            return (
-              <motion.div
-                key={n.id}
-                className="absolute inset-0"
-                animate={{ rotate: [-RING_OSCILLATION, RING_OSCILLATION, -RING_OSCILLATION] }}
-                transition={{ duration, repeat: Infinity, ease: "easeInOut", delay }}
-                style={{ transformOrigin: "50% 50%" }}
-              >
-                {/* Animated connection line for this node */}
-                <svg
-                  className="pointer-events-none absolute inset-0 h-full w-full"
-                  viewBox="0 0 100 100"
-                  preserveAspectRatio="none"
-                >
-                  <defs>
-                    <linearGradient id={`grad-${n.id}`} x1="50%" y1="50%" x2={`${x2}%`} y2={`${y2}%`} gradientUnits="userSpaceOnUse">
-                      <stop offset="0%" stopColor="rgba(125,211,252,0.85)" />
-                      <stop offset="100%" stopColor="rgba(56,189,248,0)" />
-                    </linearGradient>
-                  </defs>
-                  <line
-                    x1="50"
-                    y1="50"
-                    x2={x2}
-                    y2={y2}
-                    stroke={isActive ? "rgba(125,211,252,0.95)" : `url(#grad-${n.id})`}
-                    strokeWidth={isActive ? 0.35 : 0.18}
-                    strokeDasharray={isActive ? "0" : "0.7 0.7"}
-                    style={{ transition: "all 0.3s ease" }}
-                  />
-                  {/* Travelling light particle along the line */}
-                  <circle r={isActive ? 0.7 : 0.5} fill="rgba(186,230,253,0.95)">
-                    <animate
-                      attributeName="cx"
-                      from="50"
-                      to={x2}
-                      dur={`${3 + (i % 3)}s`}
-                      begin={`${(i * 0.3) % 3}s`}
-                      repeatCount="indefinite"
-                    />
-                    <animate
-                      attributeName="cy"
-                      from="50"
-                      to={y2}
-                      dur={`${3 + (i % 3)}s`}
-                      begin={`${(i * 0.3) % 3}s`}
-                      repeatCount="indefinite"
-                    />
-                    <animate
-                      attributeName="opacity"
-                      values="0;1;0"
-                      dur={`${3 + (i % 3)}s`}
-                      begin={`${(i * 0.3) % 3}s`}
-                      repeatCount="indefinite"
-                    />
+          <svg
+            className="pointer-events-none absolute inset-0 overflow-visible"
+            width={size.w}
+            height={size.h}
+            viewBox={`0 0 ${size.w || 1} ${size.h || 1}`}
+            aria-hidden
+          >
+            <defs>
+              <linearGradient id="mecore-line-lit" x1="0" x2="1">
+                <stop offset="0%" stopColor="rgba(103,232,249,0.9)" />
+                <stop offset="100%" stopColor="rgba(59,130,246,0.9)" />
+              </linearGradient>
+            </defs>
+            {lines.map((l) => {
+              const lit = activeGroup === l.id;
+              const pathId = `mecore-path-${hub.id}-${l.id}`;
+              return (
+                <g key={pathId}>
+                  <path id={pathId} d={l.d} fill="none" stroke="rgba(148,163,184,0.24)" strokeWidth={1} />
+                  {/* Every connection carries a slow, faint packet; the active one is bright. */}
+                  <circle r={2} fill="rgba(186,230,253,0.5)">
+                    <animateMotion dur="3.2s" repeatCount="indefinite">
+                      <mpath href={`#${pathId}`} />
+                    </animateMotion>
                   </circle>
-                </svg>
-
-                {/* The node itself, positioned at the line endpoint */}
-                <div
-                  className="absolute"
-                  style={{
-                    left: `${x2}%`,
-                    top: `${y2}%`,
-                    transform: "translate(-50%, -50%)",
-                  }}
-                >
-                  {/* Counter-rotate so labels stay upright while group sways */}
-                  <motion.button
-                    type="button"
-                    onMouseEnter={() => setHovered(n.id)}
-                    onMouseLeave={() => setHovered(null)}
-                    onClick={() => setActive(n)}
-                    animate={{ rotate: [RING_OSCILLATION, -RING_OSCILLATION, RING_OSCILLATION] }}
-                    transition={{ duration, repeat: Infinity, ease: "easeInOut", delay }}
-                    className="group relative flex flex-col items-center"
-                  >
-                    <div
-                      className={`relative flex items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 ${
-                        n.ring === 0 ? "h-16 w-16 sm:h-20 sm:w-20" : n.ring === 1 ? "h-14 w-14 sm:h-16 sm:w-16" : "h-12 w-12 sm:h-14 sm:w-14"
-                      } ${
-                        isActive
-                          ? "border-cyan-300/80 bg-cyan-400/20 shadow-[0_0_30px_rgba(56,189,248,0.7)] scale-110"
-                          : "border-cyan-300/20 bg-slate-900/60 hover:border-cyan-300/60 hover:bg-cyan-400/10"
-                      }`}
-                    >
-                      <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(56,189,248,0.25),transparent_60%)]" />
-                      <Icon
-                        className={`relative ${n.ring === 0 ? "h-7 w-7" : n.ring === 1 ? "h-6 w-6" : "h-5 w-5"} transition-colors ${
-                          isActive ? "text-cyan-200" : "text-slate-100"
-                        }`}
+                  {lit && (
+                    <>
+                      <path
+                        d={l.d}
+                        fill="none"
+                        stroke="url(#mecore-line-lit)"
+                        strokeWidth={1.75}
+                        strokeDasharray="6 8"
+                        className="mecore-dash"
+                        style={{ filter: "drop-shadow(0 0 4px rgba(56,189,248,0.8))" }}
                       />
-                      {isActive && (
-                        <span className="pointer-events-none absolute -inset-1 rounded-full border border-cyan-300/40" />
-                      )}
-                    </div>
-                    <div
-                      className={`pointer-events-none mt-2 max-w-[110px] whitespace-normal text-center text-[10px] font-medium leading-tight text-slate-200/90 transition-all sm:text-[11px] ${
-                        isActive ? "text-cyan-200" : ""
-                      }`}
-                    >
-                      {t(n.name.mn, n.name.en)}
-                    </div>
-                  </motion.button>
-                </div>
-              </motion.div>
-            );
-          })}
+                      {[0, 1].map((k) => (
+                        <circle key={k} r={3.5} fill="#e0f2fe" style={{ filter: "drop-shadow(0 0 6px #38bdf8)" }}>
+                          <animateMotion dur="1.6s" begin={`${k * 0.8}s`} repeatCount="indefinite">
+                            <mpath href={`#${pathId}`} />
+                          </animateMotion>
+                        </circle>
+                      ))}
+                    </>
+                  )}
+                </g>
+              );
+            })}
+          </svg>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`l-${hub.id}`}
+              initial={{ opacity: 0, x: -16 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -16 }}
+              onAnimationComplete={measure}
+              className="relative space-y-3"
+            >
+              {left.map((g) => groupCard(g, "left"))}
+            </motion.div>
+          </AnimatePresence>
+
+          <div className="relative py-6">{hubCore(true)}</div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`r-${hub.id}`}
+              initial={{ opacity: 0, x: 16 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 16 }}
+              onAnimationComplete={measure}
+              className="relative space-y-3"
+            >
+              {right.map((g) => groupCard(g, "right"))}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
+        {/* ---------- Mobile / tablet: hub then groups ---------- */}
+        <div className="mx-auto max-w-md lg:hidden">
+          {hubCore(false)}
+          <div className="relative mx-auto my-4 h-10 w-px overflow-hidden bg-cyan-400/15">
+            <motion.span
+              className="absolute left-0 h-3 w-px bg-cyan-200 shadow-[0_0_6px_#38bdf8]"
+              animate={{ top: ["-20%", "110%"] }}
+              transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
+            />
+          </div>
+          <div className="space-y-3">{hub.groups.map((g) => groupCard(g, "left", false))}</div>
+        </div>
       </div>
 
-      {/* Modal */}
-      <AnimatePresence>
-        {active && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setActive(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-md p-4"
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-md overflow-hidden rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-slate-900 to-slate-950 p-6 shadow-[0_0_60px_rgba(56,189,248,0.25)]"
-            >
-              <button
-                onClick={() => setActive(null)}
-                className="absolute right-4 top-4 text-slate-400 hover:text-white"
-              >
-                <X className="h-4 w-4" />
-              </button>
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-300/30 bg-cyan-400/10">
-                <active.icon className="h-6 w-6 text-cyan-300" />
-              </div>
-              <h3 className="font-display text-xl font-semibold text-white">
-                {t(active.name.mn, active.name.en)}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-300">
-                {t(active.desc.mn, active.desc.en)}
-              </p>
-              <div className="mt-5 flex items-center gap-2 rounded-lg border border-white/5 bg-white/5 p-3 text-xs text-slate-400">
-                <Network className="h-3.5 w-3.5 text-cyan-300" />
-                {t("MeCore-той шууд холбогдсон", "Directly connected to MeCore")}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <style>{`
+        .mecore-dash { animation: mecore-dash 1.2s linear infinite; }
+        @keyframes mecore-dash { to { stroke-dashoffset: -28; } }
+        @media (prefers-reduced-motion: reduce) { .mecore-dash { animation: none; } }
+      `}</style>
     </section>
   );
 };
