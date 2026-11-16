@@ -33,7 +33,7 @@ const ProtectedRoute = ({ children, requireAdmin = false }: ProtectedRouteProps)
             Та админ эрхгүй тул энэ хуудас руу хандах боломжгүй.
           </p>
           <a 
-            href="/" 
+            href={import.meta.env.BASE_URL}
             className="text-primary hover:underline"
           >
             Нүүр хуудас руу буцах

@@ -37,7 +37,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <HelmetProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "")}>
           <ScrollToTop />
           <RealtimeSync />
           <AuthProvider>
