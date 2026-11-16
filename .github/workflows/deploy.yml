@@ -26,9 +26,10 @@ jobs:
           npm ci                            # Одоо ci ажиллах ёстой
 
       - name: Build
+        # Site is served from the custom domain root (https://fiba.mn/), so the
+        # default base "/" is correct. Only set BASE_PATH when serving from
+        # https://<org>.github.io/<repo>/ without a custom domain.
         run: npm run build
-        env:
-          BASE_PATH: /${{ github.event.repository.name }}/
 
       - name: SPA fallback for deep links (/about, /admin, ...)
         run: |
@@ -40,3 +41,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          # Keep the custom domain: without this every deploy deletes CNAME.
+          cname: fiba.mn
