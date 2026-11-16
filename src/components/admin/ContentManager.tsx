@@ -1,3 +1,5 @@
+import { SortableContainer, SortableRow } from './SortableControls';
+import { useAdminOrdering } from '@/hooks/useAdminOrdering';
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -100,6 +102,10 @@ export const ContentManager = ({ open, onOpenChange, initialTab = 'services' }: 
     }
   };
 
+  const serviceOrder = useAdminOrdering('services', setServices, loadServices);
+  const teamOrder = useAdminOrdering('team_members', setTeamMembers, loadTeamMembers);
+  const partnerOrder = useAdminOrdering('partners', setPartners, loadPartners);
+
   const handleDelete = async () => {
     if (!deleteConfirm) return;
     
@@ -187,9 +193,11 @@ export const ContentManager = ({ open, onOpenChange, initialTab = 'services' }: 
                         </Button>
                       </CardHeader>
                       <CardContent>
+                        <SortableContainer items={services} getId={item => item.id} onChange={serviceOrder.saveOrder} disabled={serviceOrder.savingOrder}>
                         <Table>
                           <TableHeader>
                             <TableRow>
+                              <TableHead>Эрэмбэ</TableHead>
                               <TableHead>Нэр</TableHead>
                               <TableHead>Тайлбар</TableHead>
                               <TableHead>Төлөв</TableHead>
@@ -198,7 +206,7 @@ export const ContentManager = ({ open, onOpenChange, initialTab = 'services' }: 
                           </TableHeader>
                           <TableBody>
                             {services.map((service) => (
-                              <TableRow key={service.id}>
+                              <SortableRow key={service.id} id={service.id} disabled={serviceOrder.savingOrder}>
                                 <TableCell className="font-medium">{service.name_mn || service.name}</TableCell>
                                 <TableCell className="max-w-xs truncate">{service.description_mn || service.description}</TableCell>
                                 <TableCell>
@@ -214,17 +222,18 @@ export const ContentManager = ({ open, onOpenChange, initialTab = 'services' }: 
                                     <Trash2 className="w-4 h-4 text-destructive" />
                                   </Button>
                                 </TableCell>
-                              </TableRow>
+                              </SortableRow>
                             ))}
                             {services.length === 0 && (
                               <TableRow>
-                                <TableCell colSpan={4} className="text-center text-muted-foreground py-8">
+                                <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
                                   Үйлчилгээ байхгүй байна
                                 </TableCell>
                               </TableRow>
                             )}
                           </TableBody>
                         </Table>
+                        </SortableContainer>
                       </CardContent>
                     </Card>
                   </TabsContent>
@@ -239,9 +248,11 @@ export const ContentManager = ({ open, onOpenChange, initialTab = 'services' }: 
                         </Button>
                       </CardHeader>
                       <CardContent>
+                        <SortableContainer items={teamMembers} getId={item => item.id} onChange={teamOrder.saveOrder} disabled={teamOrder.savingOrder}>
                         <Table>
                           <TableHeader>
                             <TableRow>
+                              <TableHead>Эрэмбэ</TableHead>
                               <TableHead>Нэр</TableHead>
                               <TableHead>Албан тушаал</TableHead>
                               <TableHead>Имэйл</TableHead>
@@ -251,7 +262,7 @@ export const ContentManager = ({ open, onOpenChange, initialTab = 'services' }: 
                           </TableHeader>
                           <TableBody>
                             {teamMembers.map((member) => (
-                              <TableRow key={member.id}>
+                              <SortableRow key={member.id} id={member.id} disabled={teamOrder.savingOrder}>
                                 <TableCell className="font-medium">{member.name}</TableCell>
                                 <TableCell>{member.position_mn || member.position}</TableCell>
                                 <TableCell>{member.email}</TableCell>
@@ -268,17 +279,18 @@ export const ContentManager = ({ open, onOpenChange, initialTab = 'services' }: 
                                     <Trash2 className="w-4 h-4 text-destructive" />
                                   </Button>
                                 </TableCell>
-                              </TableRow>
+                              </SortableRow>
                             ))}
                             {teamMembers.length === 0 && (
                               <TableRow>
-                                <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
+                                <TableCell colSpan={6} className="text-center text-muted-foreground py-8">
                                   Багийн гишүүн байхгүй байна
                                 </TableCell>
                               </TableRow>
                             )}
                           </TableBody>
                         </Table>
+                        </SortableContainer>
                       </CardContent>
                     </Card>
                   </TabsContent>
@@ -293,9 +305,11 @@ export const ContentManager = ({ open, onOpenChange, initialTab = 'services' }: 
                         </Button>
                       </CardHeader>
                       <CardContent>
+                        <SortableContainer items={partners} getId={item => item.id} onChange={partnerOrder.saveOrder} disabled={partnerOrder.savingOrder}>
                         <Table>
                           <TableHeader>
                             <TableRow>
+                              <TableHead>Эрэмбэ</TableHead>
                               <TableHead>Нэр</TableHead>
                               <TableHead>Төрөл</TableHead>
                               <TableHead>Вэбсайт</TableHead>
@@ -305,7 +319,7 @@ export const ContentManager = ({ open, onOpenChange, initialTab = 'services' }: 
                           </TableHeader>
                           <TableBody>
                             {partners.map((partner) => (
-                              <TableRow key={partner.id}>
+                              <SortableRow key={partner.id} id={partner.id} disabled={partnerOrder.savingOrder}>
                                 <TableCell className="font-medium">{partner.name}</TableCell>
                                 <TableCell>{partner.partner_type}</TableCell>
                                 <TableCell className="max-w-xs truncate">{partner.website_url}</TableCell>
@@ -322,17 +336,18 @@ export const ContentManager = ({ open, onOpenChange, initialTab = 'services' }: 
                                     <Trash2 className="w-4 h-4 text-destructive" />
                                   </Button>
                                 </TableCell>
-                              </TableRow>
+                              </SortableRow>
                             ))}
                             {partners.length === 0 && (
                               <TableRow>
-                                <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
+                                <TableCell colSpan={6} className="text-center text-muted-foreground py-8">
                                   Хамтрагч байхгүй байна
                                 </TableCell>
                               </TableRow>
                             )}
                           </TableBody>
                         </Table>
+                        </SortableContainer>
                       </CardContent>
                     </Card>
                   </TabsContent>

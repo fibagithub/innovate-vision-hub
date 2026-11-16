@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { EditableSortableList } from './SortableControls';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -42,6 +44,7 @@ interface Benefit {
 }
 
 export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: ServiceFormProps) => {
+  const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const [features, setFeatures] = useState<string[]>([]);
   const [featuresMn, setFeaturesMn] = useState<string[]>([]);
@@ -128,7 +131,7 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
       setBenefitsMn([]);
       setIconPreview(null);
     }
-  }, [editData, reset]);
+  }, [editData, reset, open]);
 
   const handleIconUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -247,6 +250,8 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
     try {
       const payload = {
         ...data,
+        usage_metric: joinUsageMetrics(usageMetrics),
+        usage_metric_mn: joinUsageMetrics(usageMetricsMn),
         features,
         features_mn: featuresMn,
         benefits: JSON.parse(JSON.stringify(benefits)),
@@ -270,6 +275,7 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
         toast.success('Үйлчилгээ амжилттай нэмэгдлээ');
       }
 
+      await queryClient.invalidateQueries({ queryKey: ['services'] });
       onSuccess();
       onOpenChange(false);
     } catch (error: any) {
@@ -335,7 +341,7 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
           </div>
 
           {/* Category Section */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="category">Category Label (EN)</Label>
               <Input id="category" {...register('category')} placeholder="Core Banking System" />
@@ -347,7 +353,7 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
           </div>
 
           {/* Product Title Section */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="name">Product Title (EN) *</Label>
               <Input id="name" {...register('name')} placeholder="MeCore" />
@@ -360,7 +366,7 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
           </div>
 
           {/* Description Section */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="description">Description (EN)</Label>
               <Textarea id="description" {...register('description')} placeholder="Product description..." rows={3} />
@@ -375,7 +381,7 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
           <div className="space-y-3">
             <Label>Usage Metrics (Хэрэглээний үзүүлэлтүүд)</Label>
             <p className="text-xs text-muted-foreground">Олон үзүүлэлт нэмэх боломжтой. Дэлгэрэнгүй хуудас дээр тус тусдаа харуулна.</p>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label className="text-xs text-muted-foreground">English (EN)</Label>
                 <div className="flex gap-2">
@@ -387,14 +393,11 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
                   />
                   <Button type="button" variant="outline" onClick={addUsageMetric}><Plus className="w-4 h-4" /></Button>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {usageMetrics.map((metric, index) => (
-                    <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-accent/20 text-sm font-medium border border-accent/30">
-                      {metric}
-                      <button type="button" onClick={() => removeUsageMetric(index)} className="hover:text-destructive"><X className="w-3 h-3" /></button>
-                    </span>
-                  ))}
-                </div>
+                <EditableSortableList items={usageMetrics} onChange={setUsageMetrics} label="Usage Metric (EN)"
+                  render={(item, index, update) => <>
+                    <Input aria-label={`Usage Metric (EN) ${index + 1}`} value={item} onChange={e => update(e.target.value)} className="min-w-0" />
+                    <Button type="button" variant="ghost" size="icon" aria-label={`Usage Metric (EN) ${index + 1}: устгах`} title="Устгах" onClick={() => setUsageMetrics(usageMetrics.filter((_, i) => i !== index))}><X className="text-destructive" /></Button>
+                  </>} />
               </div>
               <div className="space-y-2">
                 <Label className="text-xs text-muted-foreground">Монгол (MN)</Label>
@@ -407,14 +410,11 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
                   />
                   <Button type="button" variant="outline" onClick={addUsageMetricMn}><Plus className="w-4 h-4" /></Button>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {usageMetricsMn.map((metric, index) => (
-                    <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-accent/20 text-sm font-medium border border-accent/30">
-                      {metric}
-                      <button type="button" onClick={() => removeUsageMetricMn(index)} className="hover:text-destructive"><X className="w-3 h-3" /></button>
-                    </span>
-                  ))}
-                </div>
+                <EditableSortableList items={usageMetricsMn} onChange={setUsageMetricsMn} label="Хэрэглээний үзүүлэлт (MN)"
+                  render={(item, index, update) => <>
+                    <Input aria-label={`Хэрэглээний үзүүлэлт (MN) ${index + 1}`} value={item} onChange={e => update(e.target.value)} className="min-w-0" />
+                    <Button type="button" variant="ghost" size="icon" aria-label={`Хэрэглээний үзүүлэлт (MN) ${index + 1}: устгах`} title="Устгах" onClick={() => setUsageMetricsMn(usageMetricsMn.filter((_, i) => i !== index))}><X className="text-destructive" /></Button>
+                  </>} />
               </div>
             </div>
             <input type="hidden" {...register('usage_metric')} />
@@ -424,7 +424,7 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
           {/* Feature Badges Section - Bilingual */}
           <div className="space-y-3">
             <Label>Feature Badges (Онцлогууд)</Label>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label className="text-xs text-muted-foreground">English (EN)</Label>
                 <div className="flex gap-2">
@@ -436,14 +436,11 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
                   />
                   <Button type="button" variant="outline" onClick={addFeature}><Plus className="w-4 h-4" /></Button>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {features.map((feature, index) => (
-                    <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary/10 text-sm font-medium">
-                      {feature}
-                      <button type="button" onClick={() => removeFeature(index)} className="hover:text-destructive"><X className="w-3 h-3" /></button>
-                    </span>
-                  ))}
-                </div>
+                <EditableSortableList items={features} onChange={setFeatures} label="Feature (EN)"
+                  render={(item, index, update) => <>
+                    <Input aria-label={`Feature (EN) ${index + 1}`} value={item} onChange={e => update(e.target.value)} className="min-w-0" />
+                    <Button type="button" variant="ghost" size="icon" aria-label={`Feature (EN) ${index + 1}: устгах`} title="Устгах" onClick={() => setFeatures(features.filter((_, i) => i !== index))}><X className="text-destructive" /></Button>
+                  </>} />
               </div>
               <div className="space-y-2">
                 <Label className="text-xs text-muted-foreground">Монгол (MN)</Label>
@@ -456,14 +453,11 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
                   />
                   <Button type="button" variant="outline" onClick={addFeatureMn}><Plus className="w-4 h-4" /></Button>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {featuresMn.map((feature, index) => (
-                    <span key={index} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary/10 text-sm font-medium">
-                      {feature}
-                      <button type="button" onClick={() => removeFeatureMn(index)} className="hover:text-destructive"><X className="w-3 h-3" /></button>
-                    </span>
-                  ))}
-                </div>
+                <EditableSortableList items={featuresMn} onChange={setFeaturesMn} label="Онцлог (MN)"
+                  render={(item, index, update) => <>
+                    <Input aria-label={`Онцлог (MN) ${index + 1}`} value={item} onChange={e => update(e.target.value)} className="min-w-0" />
+                    <Button type="button" variant="ghost" size="icon" aria-label={`Онцлог (MN) ${index + 1}: устгах`} title="Устгах" onClick={() => setFeaturesMn(featuresMn.filter((_, i) => i !== index))}><X className="text-destructive" /></Button>
+                  </>} />
               </div>
             </div>
           </div>
@@ -472,7 +466,7 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
           <div className="space-y-3">
             <Label>Давуу талууд (Benefits)</Label>
             <p className="text-xs text-muted-foreground">Дэлгэрэнгүй хуудасны "Яагаад..." хэсэгт харуулагдана</p>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label className="text-xs text-muted-foreground">English (EN)</Label>
                 <Input 
@@ -490,19 +484,14 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
                   <Plus className="w-4 h-4 mr-2" />
                   Add benefit (EN)
                 </Button>
-                <div className="space-y-2 mt-2">
-                  {benefits.map((benefit, index) => (
-                    <div key={index} className="flex items-start gap-2 p-3 rounded-lg bg-muted/50 border border-border/50">
-                      <div className="flex-1">
-                        <p className="font-medium text-sm">{benefit.title}</p>
-                        {benefit.description && <p className="text-xs text-muted-foreground mt-1">{benefit.description}</p>}
-                      </div>
-                      <button type="button" onClick={() => removeBenefit(index)} className="text-muted-foreground hover:text-destructive">
-                        <X className="w-4 h-4" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
+                <EditableSortableList items={benefits} onChange={setBenefits} label="Benefit (EN)"
+                  render={(item, index, update) => <>
+                    <div className="flex-1 min-w-0 space-y-2">
+                    <Input aria-label={`Benefit (EN) ${index + 1}: нэр`} value={item.title} onChange={e => update({ ...item, title: e.target.value })} />
+                    <Textarea aria-label={`Benefit (EN) ${index + 1}: тайлбар`} value={item.description || ''} onChange={e => update({ ...item, description: e.target.value })} rows={2} />
+                  </div>
+                    <Button type="button" variant="ghost" size="icon" aria-label={`Benefit (EN) ${index + 1}: устгах`} title="Устгах" onClick={() => setBenefits(benefits.filter((_, i) => i !== index))}><X className="text-destructive" /></Button>
+                  </>} />
               </div>
               <div className="space-y-2">
                 <Label className="text-xs text-muted-foreground">Монгол (MN)</Label>
@@ -521,25 +510,20 @@ export const ServiceForm = ({ open, onOpenChange, editData, onSuccess }: Service
                   <Plus className="w-4 h-4 mr-2" />
                   Давуу тал нэмэх (MN)
                 </Button>
-                <div className="space-y-2 mt-2">
-                  {benefitsMn.map((benefit, index) => (
-                    <div key={index} className="flex items-start gap-2 p-3 rounded-lg bg-muted/50 border border-border/50">
-                      <div className="flex-1">
-                        <p className="font-medium text-sm">{benefit.title}</p>
-                        {benefit.description && <p className="text-xs text-muted-foreground mt-1">{benefit.description}</p>}
-                      </div>
-                      <button type="button" onClick={() => removeBenefitMn(index)} className="text-muted-foreground hover:text-destructive">
-                        <X className="w-4 h-4" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
+                <EditableSortableList items={benefitsMn} onChange={setBenefitsMn} label="Давуу тал (MN)"
+                  render={(item, index, update) => <>
+                    <div className="flex-1 min-w-0 space-y-2">
+                    <Input aria-label={`Давуу тал (MN) ${index + 1}: нэр`} value={item.title} onChange={e => update({ ...item, title: e.target.value })} />
+                    <Textarea aria-label={`Давуу тал (MN) ${index + 1}: тайлбар`} value={item.description || ''} onChange={e => update({ ...item, description: e.target.value })} rows={2} />
+                  </div>
+                    <Button type="button" variant="ghost" size="icon" aria-label={`Давуу тал (MN) ${index + 1}: устгах`} title="Устгах" onClick={() => setBenefitsMn(benefitsMn.filter((_, i) => i !== index))}><X className="text-destructive" /></Button>
+                  </>} />
               </div>
             </div>
           </div>
 
           {/* Display Order and Icon Name */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="icon">Icon нэр (Lucide)</Label>
               <Input id="icon" {...register('icon')} placeholder="Package" />

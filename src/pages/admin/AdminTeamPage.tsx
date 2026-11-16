@@ -1,3 +1,5 @@
+import { SortableContainer, SortableRow } from '@/components/admin/SortableControls';
+import { useAdminOrdering } from '@/hooks/useAdminOrdering';
 import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -61,6 +63,8 @@ const AdminTeamPage = () => {
     loadMembers();
   }, []);
 
+  const { saveOrder, savingOrder } = useAdminOrdering('team_members', setMembers, loadMembers);
+
   const handleDelete = async () => {
     if (!deleteId) return;
     
@@ -112,9 +116,11 @@ const AdminTeamPage = () => {
             Гишүүн бүртгээгүй байна
           </div>
         ) : (
+          <SortableContainer items={members} getId={item => item.id} onChange={saveOrder} disabled={savingOrder}>
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-14">Эрэмбэ</TableHead>
                 <TableHead>Нэр</TableHead>
                 <TableHead>Албан тушаал</TableHead>
                 <TableHead>Имэйл</TableHead>
@@ -125,7 +131,7 @@ const AdminTeamPage = () => {
             </TableHeader>
             <TableBody>
               {members.map((member) => (
-                <TableRow key={member.id}>
+                <SortableRow key={member.id} id={member.id} disabled={savingOrder}>
                   <TableCell className="font-medium">
                     <div>{member.name_mn || member.name}</div>
                     <div className="text-xs text-muted-foreground">{member.name}</div>
@@ -140,7 +146,7 @@ const AdminTeamPage = () => {
                   <TableCell>{member.display_order}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button variant="ghost" size="sm" onClick={() => openEdit(member)}>
+                      <Button variant="ghost" size="sm" aria-label="Засах" title="Засах" onClick={() => openEdit(member)}>
                         <Edit className="w-4 h-4" />
                       </Button>
                       <Button 
@@ -153,10 +159,11 @@ const AdminTeamPage = () => {
                       </Button>
                     </div>
                   </TableCell>
-                </TableRow>
+                </SortableRow>
               ))}
             </TableBody>
           </Table>
+          </SortableContainer>
         )}
       </div>
 
