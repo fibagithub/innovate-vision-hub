@@ -1,0 +1,56 @@
+{
+  "site": "https://fiba.mn",
+  "routes": {
+    "/": {
+      "title": {
+        "mn": "Фиба ХХК — Банк санхүүгийн технологийн шийдэл",
+        "en": "FIBA LLC — Financial technology solutions"
+      },
+      "description": {
+        "mn": "Банк санхүүгийн программ хангамж, төлбөр тооцооны систем, мэдээллийн сангийн шийдлүүд. MeCore, MeLP, MeAPP, SmartWare. 2021 оноос.",
+        "en": "Banking software, payment systems and database solutions: MeCore, MeLP, MeAPP, SmartWare. Since 2021."
+      },
+      "priority": "1.0"
+    },
+    "/about": {
+      "title": { "mn": "Бидний тухай | Фиба ХХК", "en": "About us | FIBA LLC" },
+      "description": {
+        "mn": "Фиба ХХК нь 2021 оноос банк, санхүүгийн байгууллагуудад суурь систем, зээлийн систем, төлбөр тооцооны шийдэл нийлүүлж буй технологийн компани.",
+        "en": "FIBA LLC has delivered core banking, lending and payment solutions to Mongolian financial institutions since 2021."
+      },
+      "priority": "0.8"
+    },
+    "/services": {
+      "title": { "mn": "Бүтээгдэхүүн, үйлчилгээ | Фиба ХХК", "en": "Products & services | FIBA LLC" },
+      "description": {
+        "mn": "MeCore суурь систем, MeLP зээлийн систем, MeAPP мобайл апп, SmartWare POS терминал — санхүүгийн байгууллагуудад зориулсан бүтээгдэхүүнүүд.",
+        "en": "MeCore core system, MeLP lending system, MeAPP mobile app and SmartWare POS terminals for financial institutions."
+      },
+      "priority": "0.9"
+    },
+    "/team": {
+      "title": { "mn": "Манай хамт олон | Фиба ХХК", "en": "Our team | FIBA LLC" },
+      "description": {
+        "mn": "Банк санхүүгийн программ хангамжийн туршлагатай Фиба ХХК-ийн хамт олон.",
+        "en": "Meet the FIBA LLC team behind our banking and payment software."
+      },
+      "priority": "0.6"
+    },
+    "/partners": {
+      "title": { "mn": "Холбогдсон системүүд | Фиба ХХК", "en": "Integrations | FIBA LLC" },
+      "description": {
+        "mn": "MeCore болон MeLP-ийн банк, төлбөр тооцоо, зээлийн мэдээлэл, төрийн системүүдтэй хийсэн интеграцууд.",
+        "en": "MeCore and MeLP integrations with banks, payment networks, credit bureaus and government systems."
+      },
+      "priority": "0.7"
+    },
+    "/contact": {
+      "title": { "mn": "Холбоо барих | Фиба ХХК", "en": "Contact | FIBA LLC" },
+      "description": {
+        "mn": "Фиба ХХК-тай холбогдох: contact@fiba.mn, +976-7509-2211.",
+        "en": "Contact FIBA LLC: contact@fiba.mn, +976-7509-2211."
+      },
+      "priority": "0.6"
+    }
+  }
+}

@@ -24,20 +24,42 @@
       content="Банк санхүүгийн програм хангамж, төлбөр тооцооны систем, мэдээллийн сан зохион байгуулах чиглэлээр 2021 оноос үйл ажиллагаа явуулж байна."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://fiba.mn" />
+    <meta property="og:site_name" content="Фиба ХХК — FIBA LLC" />
+    <meta property="og:locale" content="mn_MN" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:url" content="https://fiba.mn/" />
     <meta property="og:image" content="https://fiba.mn/images/og-image.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://fiba.mn/images/og-image.png" />
     <meta name="twitter:title" content="Фиба ХХК - FIBA LLC" />
     <meta name="twitter:description" content="Банк санхүүгийн программ хангамж, төлбөр тооцооны систем, мэдээллийн сангийн шийдлүүд. 2021 оноос." />
 
     <script type="application/ld+json">
       {
-        "@context": "http://schema.org",
-        "@type": "Organization",
-        "name": "FIBA LLC",
-        "url": "https://fiba.mn",
-        "description": "Банк санхүүгийн програм хангамж, төлбөр тооцооны систем"
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://fiba.mn/#organization",
+            "name": "FIBA LLC",
+            "alternateName": "Фиба ХХК",
+            "url": "https://fiba.mn/",
+            "logo": "https://fiba.mn/favicon.png",
+            "email": "contact@fiba.mn",
+            "telephone": "+976-7509-2211",
+            "foundingDate": "2021",
+            "description": "Банк санхүүгийн программ хангамж, төлбөр тооцооны систем, мэдээллийн сангийн шийдлүүд"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://fiba.mn/#website",
+            "url": "https://fiba.mn/",
+            "name": "Фиба ХХК",
+            "inLanguage": ["mn", "en"],
+            "publisher": { "@id": "https://fiba.mn/#organization" }
+          }
+        ]
       }
     </script>
   </head>
