@@ -6,7 +6,8 @@ import {
   Users, 
   Building2, 
   Menu,
-  LogOut
+  LogOut,
+  Info
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -27,6 +28,7 @@ const AdminLayout = () => {
     { label: t('admin.services'), href: '/admin/services', icon: Package },
     { label: t('admin.team'), href: '/admin/team', icon: Users },
     { label: t('admin.partners'), href: '/admin/partners', icon: Building2 },
+    { label: 'Бидний тухай', href: '/admin/about', icon: Info },
   ];
 
   const handleSignOut = async () => {

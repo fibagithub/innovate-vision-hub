@@ -1,3 +1,4 @@
+import { supabase } from "@/integrations/supabase/client";
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 type Language = "mn" | "en";
@@ -9,7 +10,7 @@ interface Translations {
   };
 }
 
-const translations: Translations = {
+export const translations: Translations = {
   // Navigation
   "nav.home": { mn: "Нүүр", en: "Home" },
   "nav.about": { mn: "Бидний тухай", en: "About Us" },
@@ -514,7 +515,11 @@ interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string) => string;
+  refreshOverrides: () => Promise<void>;
 }
+
+export const ABOUT_CONTENT_KEY = "about";
+type Overrides = Record<string, { mn?: string; en?: string }>;
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
@@ -533,7 +538,24 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = language;
   }, [language]);
 
+  const [overrides, setOverrides] = useState<Overrides>({});
+
+  const refreshOverrides = async () => {
+    const { data } = await supabase
+      .from("site_content")
+      .select("metadata")
+      .eq("section_key", ABOUT_CONTENT_KEY)
+      .maybeSingle();
+    setOverrides(((data?.metadata as Overrides) ?? {}) || {});
+  };
+
+  useEffect(() => {
+    refreshOverrides();
+  }, []);
+
   const t = (key: string): string => {
+    const custom = overrides[key]?.[language];
+    if (custom && custom.trim()) return custom;
     const translation = translations[key];
     if (!translation) {
       console.warn(`Translation missing for key: ${key}`);
@@ -542,7 +564,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     return translation[language];
   };
 
-  return <LanguageContext.Provider value={{ language, setLanguage, t }}>{children}</LanguageContext.Provider>;
+  return <LanguageContext.Provider value={{ language, setLanguage, t, refreshOverrides }}>{children}</LanguageContext.Provider>;
 }
 
 export function useLanguage() {
