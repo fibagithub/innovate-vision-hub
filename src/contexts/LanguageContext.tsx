@@ -401,8 +401,8 @@ export const translations: Translations = {
   // Partners Page
   "partnersPage.heroTitle": { mn: "Салбарын тэргүүлэгчдийн итгэлийг хүлээсэн", en: "Trusted by Industry Leaders" },
   "partnersPage.heroDesc": {
-    mn: "Монголын банк, санхүүгийн байгууллагуудын 33+ харилцагчдад технологийн шийдэл, үйлчилгээг амжилттай хүргэж байна.",
-    en: "Successfully delivering technology solutions and services to 33+ clients in Mongolian banks and financial institutions.",
+    mn: "Монголын банк, санхүүгийн байгууллагуудын {clients}+ харилцагчдад технологийн шийдэл, үйлчилгээг амжилттай хүргэж байна.",
+    en: "Successfully delivering technology solutions and services to {clients}+ clients in Mongolian banks and financial institutions.",
   },
   "partnersPage.ourPartners": { mn: "Манай түншүүд", en: "Our Partners" },
   "partnersPage.totalClients": { mn: "Нийт харилцагч байгууллага", en: "Total Partner Organizations" },

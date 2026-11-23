@@ -142,7 +142,7 @@ const PartnersPage = () => {
               className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-in"
               style={{ animationDelay: "0.2s" }}
             >
-              {t("partnersPage.heroDesc")}
+              {t("partnersPage.heroDesc").replace("{clients}", String(totalCount))}
             </p>
           </div>
         </div>
